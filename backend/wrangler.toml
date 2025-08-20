@@ -1,0 +1,34 @@
+# Cloudflare Workers 구성 파일
+name = "converter-api"
+main = "src/index.js"
+compatibility_date = "2024-08-21"
+
+# R2 스토리지 바인딩
+[[r2_buckets]]
+binding = "STORAGE"
+bucket_name = "converter-files"
+
+# 환경 변수
+[vars]
+MAX_FILE_SIZE = "104857600"  # 100MB
+FILE_RETENTION_HOURS = "24"
+ALLOWED_ORIGINS = "https://converter.hqmx.net,http://localhost:3000"
+
+# 개발 환경 설정
+[env.development]
+name = "converter-api-dev"
+vars = { MAX_FILE_SIZE = "104857600", FILE_RETENTION_HOURS = "1", ALLOWED_ORIGINS = "*" }
+
+# 프로덕션 환경 설정  
+[env.production]
+name = "converter-api-prod"
+vars = { MAX_FILE_SIZE = "104857600", FILE_RETENTION_HOURS = "24", ALLOWED_ORIGINS = "https://converter.hqmx.net" }
+
+# Durable Objects (진행률 추적용)
+[[durable_objects.bindings]]
+name = "PROGRESS_TRACKER"
+class_name = "ProgressTracker"
+
+[[migrations]]
+tag = "v1"
+new_classes = ["ProgressTracker"]

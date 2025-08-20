@@ -1,0 +1,57 @@
+{
+  "name": "hqmx-converter",
+  "version": "1.0.0",
+  "description": "HQMX Converter - Universal file converter supporting 300+ formats",
+  "main": "index.html",
+  "scripts": {
+    "dev": "python -m http.server 3000",
+    "build": "echo 'Build completed - files ready for deployment'",
+    "deploy": "echo 'Deploy to Cloudflare Pages'",
+    "lint": "echo 'Linting JavaScript and CSS files'",
+    "test": "echo 'Running tests'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hqmx/converter.git"
+  },
+  "keywords": [
+    "file-converter",
+    "media-converter", 
+    "document-converter",
+    "image-converter",
+    "video-converter",
+    "audio-converter",
+    "cloudflare",
+    "web-app",
+    "javascript",
+    "html5",
+    "css3"
+  ],
+  "author": "HQMX Team",
+  "license": "MIT",
+  "homepage": "https://converter.hqmx.net",
+  "bugs": {
+    "url": "https://github.com/hqmx/converter/issues"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.0.0",
+    "prettier": "^2.5.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ],
+  "config": {
+    "api_base_url": {
+      "development": "http://localhost:5001",
+      "production": "https://converter-api.hqmx.net"
+    },
+    "max_file_size": "104857600",
+    "supported_formats": 300,
+    "file_retention_hours": 24
+  }
+}

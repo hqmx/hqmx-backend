@@ -1,0 +1,137 @@
+{
+  "tagline": "Universal File Converter",
+  "uploadSectionTitle": "Convert any file to any format",
+  "uploadMainText": "Drop files here or click to upload",
+  "uploadSubText": "Support for 300+ file formats • Max file size: 100MB",
+  "selectFiles": "Select Files",
+  "termsNotice": "By using our service you accept our Terms of Service and Privacy Policy.",
+  
+  "yourFiles": "Your Files",
+  "clearAll": "Clear All",
+  "convertAll": "Convert All",
+  
+  "conversionSettings": "Conversion Settings",
+  "convertTo": "Convert to:",
+  "advancedSettings": "Advanced Settings",
+  "advancedOptions": "Advanced Options",
+  "startConversion": "Start Conversion",
+  
+  "popular": "Popular",
+  "video": "Video",
+  "audio": "Audio", 
+  "image": "Image",
+  "document": "Document",
+  "archive": "Archive",
+  
+  "featureUniversalTitle": "Universal Converter",
+  "featureUniversalDesc": "Convert between 300+ file formats including video, audio, images, documents, and archives.",
+  "featureSpeedTitle": "Lightning Fast",
+  "featureSpeedDesc": "Cloud-based processing ensures quick conversions without using your device resources.",
+  "featureSecurityTitle": "Secure & Private",
+  "featureSecurityDesc": "Files are automatically deleted after 24 hours. Your privacy is guaranteed.",
+  
+  "supportedFormatsTitle": "Supported File Formats",
+  "videoFormats": "Video",
+  "audioFormats": "Audio",
+  "imageFormats": "Image",
+  "documentFormats": "Document",
+  
+  "usageGuideTitle": "How to Use",
+  "usageGuideDesc": "Follow these simple steps to convert your files quickly and easily.",
+  "step1Title": "Upload Files",
+  "step1Desc": "Drag and drop your files into the upload area or click to select files from your device.",
+  "step2Title": "Choose Format",
+  "step2Desc": "Select the desired output format from our extensive list of supported formats.",
+  "step3Title": "Download",
+  "step3Desc": "Wait for the conversion to complete and download your converted files.",
+  
+  "footer": "© 2024 HQMX Converter. All Rights Reserved.",
+  
+  "fileSize": {
+    "zero": "0 Bytes",
+    "bytes": "Bytes",
+    "kb": "KB", 
+    "mb": "MB",
+    "gb": "GB",
+    "tb": "TB"
+  },
+  
+  "status": {
+    "ready": "Ready",
+    "uploading": "Uploading...",
+    "processing": "Processing...",
+    "converting": "Converting...",
+    "completed": "Completed",
+    "error": "Error"
+  },
+  
+  "messages": {
+    "confirmClearAll": "Are you sure you want to remove all files?",
+    "fileTooLarge": "File \"{fileName}\" exceeds 100MB limit",
+    "fileAlreadyAdded": "File \"{fileName}\" already added",
+    "noFilesReady": "No files ready for conversion",
+    "fileRemoved": "Removed \"{fileName}\"",
+    "selectOutputFormat": "Please select an output format",
+    "conversionSuccess": "\"{fileName}\" converted successfully!",
+    "conversionError": "Error converting \"{fileName}\": {error}",
+    "connectionLost": "Connection lost for \"{fileName}\"",
+    "processingError": "Error processing \"{fileName}\": {error}"
+  },
+  
+  "formats": {
+    "video": {
+      "mp4": "MP4 - Most compatible video format",
+      "avi": "AVI - Windows video format",
+      "mov": "MOV - QuickTime video format",
+      "mkv": "MKV - Matroska video format",
+      "webm": "WebM - Web video format",
+      "flv": "FLV - Flash video format"
+    },
+    "audio": {
+      "mp3": "MP3 - Most popular audio format",
+      "wav": "WAV - Uncompressed audio format", 
+      "flac": "FLAC - Lossless audio format",
+      "aac": "AAC - Advanced audio codec",
+      "ogg": "OGG - Open source audio format",
+      "m4a": "M4A - Apple audio format"
+    },
+    "image": {
+      "jpg": "JPG - Most common image format",
+      "png": "PNG - Lossless image format",
+      "gif": "GIF - Animated image format",
+      "webp": "WebP - Modern web image format",
+      "svg": "SVG - Vector image format",
+      "bmp": "BMP - Bitmap image format"
+    },
+    "document": {
+      "pdf": "PDF - Portable document format",
+      "docx": "DOCX - Microsoft Word document",
+      "pptx": "PPTX - Microsoft PowerPoint presentation", 
+      "xlsx": "XLSX - Microsoft Excel spreadsheet",
+      "txt": "TXT - Plain text document",
+      "rtf": "RTF - Rich text format"
+    }
+  },
+  
+  "settings": {
+    "quality": "Quality",
+    "resolution": "Resolution", 
+    "codec": "Codec",
+    "bitrate": "Bitrate (kbps)",
+    "sampleRate": "Sample Rate",
+    "channels": "Channels",
+    "dpi": "DPI",
+    "pageRange": "Page Range",
+    "resize": "Resize",
+    
+    "values": {
+      "high": "High",
+      "medium": "Medium",
+      "low": "Low",
+      "original": "Original",
+      "mono": "Mono",
+      "stereo": "Stereo",
+      "none": "None"
+    }
+  }
+}

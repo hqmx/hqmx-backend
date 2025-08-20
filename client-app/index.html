@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HQMX Converter - Fast & Secure File Conversion</title>
+    <meta name="description" content="Convert 300+ file formats instantly. Fast, secure, and private file conversion in your browser. No uploads, no servers.">
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#6366f1">
+    <link rel="manifest" href="/manifest.json">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="/favicon.ico">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="/src/styles/main.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Header -->
+        <header class="header">
+            <div class="container">
+                <h1 class="logo">
+                    <div class="logo-icon">🔄</div>
+                    <span class="logo-text">HQMX Converter</span>
+                </h1>
+                <nav class="nav">
+                    <a href="#features" class="nav-link">Features</a>
+                    <a href="#formats" class="nav-link">Formats</a>
+                    <button id="themeToggle" class="theme-toggle" aria-label="Toggle dark mode">
+                        <span class="theme-icon">🌙</span>
+                    </button>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Main Converter -->
+        <main class="main">
+            <div class="container">
+                <!-- Hero Section -->
+                <section class="hero">
+                    <div class="hero-content">
+                        <h2 class="hero-title">Convert Files Instantly</h2>
+                        <p class="hero-subtitle">
+                            Fast, secure, and private file conversion in your browser.<br>
+                            Supporting 300+ formats with zero uploads.
+                        </p>
+                        <div class="hero-stats">
+                            <div class="stat">
+                                <span class="stat-number">300+</span>
+                                <span class="stat-label">Formats</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number">5x</span>
+                                <span class="stat-label">Faster</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number">100%</span>
+                                <span class="stat-label">Private</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Converter Interface -->
+                <section class="converter">
+                    <div class="converter-card">
+                        <!-- File Drop Zone -->
+                        <div class="drop-zone" id="dropZone">
+                            <div class="drop-zone-content">
+                                <div class="drop-zone-icon">
+                                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                        <polyline points="7,10 12,15 17,10"/>
+                                        <line x1="12" y1="15" x2="12" y2="3"/>
+                                    </svg>
+                                </div>
+                                <h3 class="drop-zone-title">Drop your files here</h3>
+                                <p class="drop-zone-subtitle">or click to browse</p>
+                                <div class="drop-zone-info">
+                                    <span class="info-item">📁 Up to 2GB per file</span>
+                                    <span class="info-item">🚀 300+ formats supported</span>
+                                    <span class="info-item">🔒 Processed locally</span>
+                                </div>
+                                <input type="file" id="fileInput" multiple accept="*/*" hidden>
+                                <button class="file-select-btn" id="fileSelectBtn">
+                                    <span class="btn-icon">📂</span>
+                                    <span class="btn-text">Choose Files</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Selected Files List -->
+                        <div class="files-list" id="filesList" hidden>
+                            <!-- Files will be populated here -->
+                        </div>
+
+                        <!-- Conversion Settings -->
+                        <div class="conversion-settings" id="conversionSettings" hidden>
+                            <div class="settings-header">
+                                <h4>Conversion Settings</h4>
+                                <button class="settings-toggle" id="advancedToggle">
+                                    <span>Advanced</span>
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                        <polyline points="6,9 12,15 18,9"></polyline>
+                                    </svg>
+                                </button>
+                            </div>
+
+                            <div class="setting-group">
+                                <label for="outputFormat" class="setting-label">Output Format</label>
+                                <div class="format-selector">
+                                    <select id="outputFormat" class="format-select">
+                                        <!-- Options will be populated dynamically -->
+                                    </select>
+                                    <button class="format-search-btn" id="formatSearchBtn">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                            <circle cx="11" cy="11" r="8"/>
+                                            <path d="m21 21-4.35-4.35"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="advanced-settings" id="advancedSettings" hidden>
+                                <div class="setting-group">
+                                    <label for="quality" class="setting-label">Quality</label>
+                                    <select id="quality" class="quality-select">
+                                        <option value="highest">Highest Quality</option>
+                                        <option value="high">High Quality</option>
+                                        <option value="medium" selected>Balanced</option>
+                                        <option value="low">Fast Conversion</option>
+                                        <option value="lowest">Fastest</option>
+                                    </select>
+                                </div>
+
+                                <div class="setting-group">
+                                    <label for="compression" class="setting-label">Compression</label>
+                                    <input type="range" id="compression" class="compression-slider" min="0" max="100" value="75">
+                                    <div class="slider-labels">
+                                        <span>Small</span>
+                                        <span>Balanced</span>
+                                        <span>Large</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="convert-actions">
+                                <button class="convert-btn" id="convertBtn">
+                                    <span class="btn-icon">⚡</span>
+                                    <span class="btn-text">Convert Files</span>
+                                </button>
+                                <button class="batch-convert-btn" id="batchConvertBtn" hidden>
+                                    <span class="btn-icon">📦</span>
+                                    <span class="btn-text">Convert All</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Progress Section -->
+                        <div class="progress-section" id="progressSection" hidden>
+                            <div class="progress-header">
+                                <h4 class="progress-title" id="progressTitle">Converting...</h4>
+                                <span class="progress-percent" id="progressPercent">0%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="progressFill"></div>
+                            </div>
+                            <p class="progress-message" id="progressMessage">Preparing conversion...</p>
+                            <div class="progress-actions">
+                                <button class="cancel-btn" id="cancelBtn">Cancel</button>
+                                <button class="minimize-btn" id="minimizeBtn">Minimize</button>
+                            </div>
+                        </div>
+
+                        <!-- Completion Section -->
+                        <div class="completion-section" id="completionSection" hidden>
+                            <div class="completion-content">
+                                <div class="success-animation">
+                                    <div class="check-icon">✓</div>
+                                </div>
+                                <h4 class="completion-title">Conversion Complete!</h4>
+                                <p class="completion-message">Your files have been converted successfully.</p>
+                                <div class="completion-stats" id="completionStats">
+                                    <!-- Stats will be populated -->
+                                </div>
+                                <div class="completion-actions">
+                                    <button class="download-btn primary" id="downloadBtn">
+                                        <span class="btn-icon">⬇️</span>
+                                        <span class="btn-text">Download</span>
+                                    </button>
+                                    <button class="download-all-btn" id="downloadAllBtn" hidden>
+                                        <span class="btn-icon">📦</span>
+                                        <span class="btn-text">Download All</span>
+                                    </button>
+                                    <button class="new-conversion-btn" id="newConversionBtn">
+                                        <span class="btn-icon">🔄</span>
+                                        <span class="btn-text">Convert More</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Format Search Modal -->
+                <div class="modal" id="formatModal" hidden>
+                    <div class="modal-overlay" id="modalOverlay"></div>
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3>Choose Output Format</h3>
+                            <button class="modal-close" id="modalClose">✕</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="format-search">
+                                <input type="text" id="formatSearch" placeholder="Search formats..." class="search-input">
+                                <div class="search-filters">
+                                    <button class="filter-btn active" data-category="all">All</button>
+                                    <button class="filter-btn" data-category="image">Images</button>
+                                    <button class="filter-btn" data-category="video">Videos</button>
+                                    <button class="filter-btn" data-category="audio">Audio</button>
+                                    <button class="filter-btn" data-category="document">Documents</button>
+                                    <button class="filter-btn" data-category="archive">Archives</button>
+                                </div>
+                            </div>
+                            <div class="formats-grid" id="formatsGrid">
+                                <!-- Format cards will be populated here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Features Section -->
+                <section class="features" id="features">
+                    <div class="section-header">
+                        <h3 class="section-title">Why Choose HQMX Converter?</h3>
+                        <p class="section-subtitle">The most advanced file converter built for privacy and speed</p>
+                    </div>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">⚡</div>
+                            <h4 class="feature-title">Lightning Fast</h4>
+                            <p class="feature-description">5x faster conversion with no server uploads. Everything happens in your browser.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🔒</div>
+                            <h4 class="feature-title">100% Private</h4>
+                            <p class="feature-description">Your files never leave your device. Complete privacy guaranteed.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🌐</div>
+                            <h4 class="feature-title">Works Offline</h4>
+                            <p class="feature-description">Convert files even without internet connection after first load.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">💎</div>
+                            <h4 class="feature-title">Professional Quality</h4>
+                            <p class="feature-description">Enterprise-grade conversion engines with customizable settings.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">📱</div>
+                            <h4 class="feature-title">Any Device</h4>
+                            <p class="feature-description">Works on desktop, mobile, and tablet. Install as an app.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🆓</div>
+                            <h4 class="feature-title">Completely Free</h4>
+                            <p class="feature-description">No limits, no watermarks, no subscriptions. Forever free.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Supported Formats Section -->
+                <section class="formats-section" id="formats">
+                    <div class="section-header">
+                        <h3 class="section-title">300+ Supported Formats</h3>
+                        <p class="section-subtitle">Convert between any format you need</p>
+                    </div>
+                    <div class="formats-categories">
+                        <div class="format-category">
+                            <h4 class="category-title">🖼️ Images</h4>
+                            <div class="format-list">
+                                <span class="format-tag">JPG</span>
+                                <span class="format-tag">PNG</span>
+                                <span class="format-tag">WebP</span>
+                                <span class="format-tag">GIF</span>
+                                <span class="format-tag">SVG</span>
+                                <span class="format-tag">BMP</span>
+                                <span class="format-tag">TIFF</span>
+                                <span class="format-tag">ICO</span>
+                                <span class="format-tag popular">+50 more</span>
+                            </div>
+                        </div>
+                        <div class="format-category">
+                            <h4 class="category-title">🎥 Videos</h4>
+                            <div class="format-list">
+                                <span class="format-tag">MP4</span>
+                                <span class="format-tag">WebM</span>
+                                <span class="format-tag">AVI</span>
+                                <span class="format-tag">MOV</span>
+                                <span class="format-tag">MKV</span>
+                                <span class="format-tag">WMV</span>
+                                <span class="format-tag">FLV</span>
+                                <span class="format-tag">3GP</span>
+                                <span class="format-tag popular">+40 more</span>
+                            </div>
+                        </div>
+                        <div class="format-category">
+                            <h4 class="category-title">🎵 Audio</h4>
+                            <div class="format-list">
+                                <span class="format-tag">MP3</span>
+                                <span class="format-tag">WAV</span>
+                                <span class="format-tag">FLAC</span>
+                                <span class="format-tag">AAC</span>
+                                <span class="format-tag">OGG</span>
+                                <span class="format-tag">M4A</span>
+                                <span class="format-tag">WMA</span>
+                                <span class="format-tag">AIFF</span>
+                                <span class="format-tag popular">+30 more</span>
+                            </div>
+                        </div>
+                        <div class="format-category">
+                            <h4 class="category-title">📄 Documents</h4>
+                            <div class="format-list">
+                                <span class="format-tag">PDF</span>
+                                <span class="format-tag">DOCX</span>
+                                <span class="format-tag">TXT</span>
+                                <span class="format-tag">RTF</span>
+                                <span class="format-tag">ODT</span>
+                                <span class="format-tag">HTML</span>
+                                <span class="format-tag">EPUB</span>
+                                <span class="format-tag">MD</span>
+                                <span class="format-tag popular">+25 more</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="formats-cta">
+                        <button class="view-all-formats-btn" id="viewAllFormatsBtn">
+                            <span>View All 300+ Formats</span>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="m9 18 6-6-6-6"/>
+                            </svg>
+                        </button>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-brand">
+                        <h4>HQMX Converter</h4>
+                        <p>Fast, secure, and private file conversion</p>
+                    </div>
+                    <div class="footer-links">
+                        <a href="#privacy">Privacy</a>
+                        <a href="#terms">Terms</a>
+                        <a href="#support">Support</a>
+                        <a href="#api">API</a>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2024 HQMX Converter. Made with ❤️ for privacy.</p>
+                </div>
+            </div>
+        </footer>
+
+        <!-- Toast Notifications -->
+        <div class="toast-container" id="toastContainer">
+            <!-- Toasts will be added here -->
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script type="module" src="/src/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,137 @@
+{
+  "tagline": "범용 파일 변환기",
+  "uploadSectionTitle": "모든 파일을 원하는 형식으로 변환하세요",
+  "uploadMainText": "파일을 여기에 드래그하거나 클릭하여 업로드",
+  "uploadSubText": "300개 이상 파일 형식 지원 • 최대 파일 크기: 100MB",
+  "selectFiles": "파일 선택",
+  "termsNotice": "서비스 이용시 이용약관 및 개인정보처리방침에 동의하게 됩니다.",
+  
+  "yourFiles": "업로드된 파일",
+  "clearAll": "모두 지우기",
+  "convertAll": "모두 변환",
+  
+  "conversionSettings": "변환 설정",
+  "convertTo": "변환할 형식:",
+  "advancedSettings": "고급 설정",
+  "advancedOptions": "고급 옵션",
+  "startConversion": "변환 시작",
+  
+  "popular": "인기",
+  "video": "동영상",
+  "audio": "오디오", 
+  "image": "이미지",
+  "document": "문서",
+  "archive": "압축파일",
+  
+  "featureUniversalTitle": "범용 변환기",
+  "featureUniversalDesc": "동영상, 오디오, 이미지, 문서, 압축파일 등 300개 이상의 파일 형식 간 변환이 가능합니다.",
+  "featureSpeedTitle": "초고속 변환",
+  "featureSpeedDesc": "클라우드 기반 처리로 기기 리소스를 사용하지 않고 빠른 변환을 제공합니다.",
+  "featureSecurityTitle": "안전하고 비공개",
+  "featureSecurityDesc": "파일은 24시간 후 자동으로 삭제됩니다. 개인정보 보호가 보장됩니다.",
+  
+  "supportedFormatsTitle": "지원하는 파일 형식",
+  "videoFormats": "동영상",
+  "audioFormats": "오디오",
+  "imageFormats": "이미지",
+  "documentFormats": "문서",
+  
+  "usageGuideTitle": "사용 방법",
+  "usageGuideDesc": "다음 간단한 단계에 따라 파일을 빠르고 쉽게 변환하세요.",
+  "step1Title": "파일 업로드",
+  "step1Desc": "업로드 영역에 파일을 드래그하거나 클릭하여 기기에서 파일을 선택하세요.",
+  "step2Title": "형식 선택",
+  "step2Desc": "지원하는 다양한 형식 목록에서 원하는 출력 형식을 선택하세요.",
+  "step3Title": "다운로드",
+  "step3Desc": "변환이 완료될 때까지 기다린 후 변환된 파일을 다운로드하세요.",
+  
+  "footer": "© 2024 HQMX Converter. All Rights Reserved.",
+  
+  "fileSize": {
+    "zero": "0 바이트",
+    "bytes": "바이트",
+    "kb": "KB", 
+    "mb": "MB",
+    "gb": "GB",
+    "tb": "TB"
+  },
+  
+  "status": {
+    "ready": "준비됨",
+    "uploading": "업로드 중...",
+    "processing": "처리 중...",
+    "converting": "변환 중...",
+    "completed": "완료됨",
+    "error": "오류"
+  },
+  
+  "messages": {
+    "confirmClearAll": "모든 파일을 제거하시겠습니까?",
+    "fileTooLarge": "파일 \"{fileName}\"이(가) 100MB 제한을 초과합니다",
+    "fileAlreadyAdded": "파일 \"{fileName}\"이(가) 이미 추가되었습니다",
+    "noFilesReady": "변환할 파일이 없습니다",
+    "fileRemoved": "\"{fileName}\"을(를) 제거했습니다",
+    "selectOutputFormat": "출력 형식을 선택해주세요",
+    "conversionSuccess": "\"{fileName}\" 변환이 성공적으로 완료되었습니다!",
+    "conversionError": "\"{fileName}\" 변환 중 오류: {error}",
+    "connectionLost": "\"{fileName}\" 연결이 끊어졌습니다",
+    "processingError": "\"{fileName}\" 처리 중 오류: {error}"
+  },
+  
+  "formats": {
+    "video": {
+      "mp4": "MP4 - 가장 호환성이 좋은 동영상 형식",
+      "avi": "AVI - Windows 동영상 형식",
+      "mov": "MOV - QuickTime 동영상 형식",
+      "mkv": "MKV - Matroska 동영상 형식",
+      "webm": "WebM - 웹 동영상 형식",
+      "flv": "FLV - Flash 동영상 형식"
+    },
+    "audio": {
+      "mp3": "MP3 - 가장 인기있는 오디오 형식",
+      "wav": "WAV - 무압축 오디오 형식", 
+      "flac": "FLAC - 무손실 오디오 형식",
+      "aac": "AAC - 고급 오디오 코덱",
+      "ogg": "OGG - 오픈소스 오디오 형식",
+      "m4a": "M4A - Apple 오디오 형식"
+    },
+    "image": {
+      "jpg": "JPG - 가장 일반적인 이미지 형식",
+      "png": "PNG - 무손실 이미지 형식",
+      "gif": "GIF - 애니메이션 이미지 형식",
+      "webp": "WebP - 현대적인 웹 이미지 형식",
+      "svg": "SVG - 벡터 이미지 형식",
+      "bmp": "BMP - 비트맵 이미지 형식"
+    },
+    "document": {
+      "pdf": "PDF - 휴대용 문서 형식",
+      "docx": "DOCX - Microsoft Word 문서",
+      "pptx": "PPTX - Microsoft PowerPoint 프레젠테이션", 
+      "xlsx": "XLSX - Microsoft Excel 스프레드시트",
+      "txt": "TXT - 순수 텍스트 문서",
+      "rtf": "RTF - 서식있는 텍스트 형식"
+    }
+  },
+  
+  "settings": {
+    "quality": "품질",
+    "resolution": "해상도", 
+    "codec": "코덱",
+    "bitrate": "비트레이트 (kbps)",
+    "sampleRate": "샘플 레이트",
+    "channels": "채널",
+    "dpi": "DPI",
+    "pageRange": "페이지 범위",
+    "resize": "크기 조정",
+    
+    "values": {
+      "high": "높음",
+      "medium": "보통",
+      "low": "낮음",
+      "original": "원본",
+      "mono": "모노",
+      "stereo": "스테레오",
+      "none": "없음"
+    }
+  }
+}

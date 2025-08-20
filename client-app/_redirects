@@ -1,0 +1,12 @@
+# Cloudflare Pages 리디렉션 설정
+
+# SPA 라우팅 (모든 경로를 index.html로)
+/*    /index.html   200
+
+# 보안 리디렉션
+/admin/*  https://example.com/404  301
+/.env     https://example.com/404  301
+/.git/*   https://example.com/404  301
+
+# 레거시 URL 처리 (필요시 추가)
+# /old-path  /new-path  301
