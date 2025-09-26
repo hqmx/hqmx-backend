@@ -912,50 +912,6 @@ body[data-theme="dark"] .format-badge.document {
     color: #FCD34D;
 }
 
-/* Category More Button */
-.category-more-btn {
-    position: absolute;
-    bottom: -5px;
-    right: 0;
-    background: rgba(37, 99, 235, 0.1);
-    border: none;
-    color: var(--primary-color);
-    font-size: 0.8rem;
-    font-weight: 600;
-    cursor: pointer;
-    padding: 0.25rem 0.5rem;
-    transition: all 0.3s ease;
-    opacity: 1 !important;
-    display: flex !important;
-    visibility: visible !important;
-    align-items: center;
-    gap: 0.25rem;
-    border-radius: 4px;
-    z-index: 10;
-}
-
-.category-more-btn:hover {
-    opacity: 1;
-    background-color: rgba(37, 99, 235, 0.1);
-    transform: translateY(-1px);
-}
-
-.category-more-btn.expanded {
-    color: var(--error-color);
-}
-
-.category-more-btn.expanded:hover {
-    background-color: rgba(239, 68, 68, 0.1);
-}
-
-.category-more-btn i {
-    font-size: 0.7rem;
-    transition: transform 0.3s ease;
-}
-
-.category-more-btn.expanded i {
-    transform: rotate(180deg);
-}
 
 /* Extended Format Badges */
 .format-badges-extended {
@@ -1007,7 +963,7 @@ body[data-theme="dark"] .format-badge.document {
     box-shadow: 0 8px 25px rgba(37, 99, 235, 0.15);
 }
 
-/* Mobile Responsive Fixes for +more functionality */
+/* Mobile Responsive Fixes */
 @media (max-width: 768px) {
     .format-badges,
     .format-badges-extended {
@@ -1024,10 +980,7 @@ body[data-theme="dark"] .format-badge.document {
         padding: 1rem;
     }
 
-    .category-more-btn {
-        font-size: 0.75rem;
-        padding: 0.2rem 0.4rem;
-    }
+
 }
 
 @media (max-width: 480px) {
@@ -1051,15 +1004,7 @@ body[data-theme="dark"] .format-badge.document {
         gap: 1rem;
     }
 
-    .category-more-btn {
-        font-size: 0.7rem;
-        padding: 0.15rem 0.3rem;
-        bottom: -3px;
-    }
 
-    .category-more-btn i {
-        font-size: 0.6rem;
-    }
 }
 
 /* Usage Guide Section */

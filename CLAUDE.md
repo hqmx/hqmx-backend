@@ -22,13 +22,26 @@ HQMX Converter는 100% 클라이언트 사이드에서 작동하는 파일 변�
 
 ### 메인 프론트엔드 (frontend 디렉토리) ✅ 사용
 ```bash
+# 개발 서버 실행 (두 가지 방법)
 cd frontend
 python3 -m http.server 3000  # http://localhost:3000에서 개발 서버 시작
+
+# 또는 프로젝트 루트에서
+npm run dev                   # package.json 스크립트 사용
 ```
 - **특징**: 순수 HTML/JS/CSS, 의존성 없음, 바로 실행 가능
 - **변환 엔진**: `CLIENT_SIDE_MODE = true` - 브라우저에서 직접 변환
 - **다국어**: i18n.js로 다국어 지원
 - **완성된 UI**: 드래그&드롭, 진행률, 테마 등 모든 기능 구현
+
+### 프로젝트 레벨 명령어 (package.json)
+```bash
+npm run dev          # 프론트엔드 개발 서버 시작
+npm run build        # 빌드 완료 메시지 출력
+npm run deploy       # Cloudflare Pages 배포
+npm run lint         # JavaScript/CSS 린팅
+npm run test         # 테스트 실행
+```
 
 ### 백엔드 개발 (backend 디렉토리) - 선택적/미사용
 ```bash
@@ -133,6 +146,115 @@ wrangler tail        # 실시간 로그 확인
 - Edge 90+
 - **요구사항**: WebAssembly, SharedArrayBuffer 지원
 
+## Git 및 버전 관리
+
+### Git 기본 정보
+- **저장소**: https://github.com/hqmx/convertor-backend
+- **메인 브랜치**: main
+- **커밋 메시지**: 한글로 작성
+- **현재 상태**: Modified files: `frontend/index.html`, `frontend/script.js`, `frontend/style.css`
+
+### Git 워크플로우
+```bash
+# 현재 상태 확인
+git status
+git branch
+
+# 변경사항 확인
+git diff
+
+# 스테이징 및 커밋
+git add .
+git commit -m "변경사항 설명"
+
+# 푸시
+git push origin main
+
+# 풀 (최신 코드 받기)
+git pull origin main
+
+# 원격 저장소 확인
+git remote -v
+# origin  https://github.com/hqmx/convertor-backend.git (fetch)
+# origin  https://github.com/hqmx/convertor-backend.git (push)
+```
+
+### 브랜치 전략
+```bash
+# 새 기능 브랜치 생성
+git checkout -b feature/새기능명
+git checkout -b hotfix/버그수정명
+
+# 브랜치 병합
+git checkout main
+git merge feature/새기능명
+
+# 브랜치 삭제
+git branch -d feature/새기능명
+```
+
+### Git 설정 (최초 설정시)
+```bash
+# 사용자 정보 설정
+git config --global user.name "Your Name"
+git config --global user.email "your.email@example.com"
+
+# 한글 파일명 지원
+git config --global core.quotepath false
+```
+
+## 서버 관리
+
+### EC2 서버 연결
+- **도메인**: https://converter.hqmx.net
+- **EC2 IP**: 23.22.45.186
+- **PEM 파일**: `/Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem`
+
+#### SSH 연결
+```bash
+# SSH 연결
+ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@23.22.45.186
+
+# 또는 ec2-user (AMI에 따라)
+ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ec2-user@23.22.45.186
+
+# PEM 파일 권한 설정 (필요시)
+chmod 400 /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem
+```
+
+#### SCP 파일 전송
+```bash
+# 로컬 -> 서버 파일 전송
+scp -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem -r frontend/ ubuntu@23.22.45.186:~/
+
+# 서버 -> 로컬 파일 다운로드
+scp -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@23.22.45.186:~/backup.tar.gz ./
+```
+
+#### 서버에서 Git 동기화
+```bash
+# 서버에서 최신 코드 받기 (GitHub에서)
+ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@23.22.45.186 'cd ~/converter.hqmx && git pull origin main'
+
+# 서버에서 Git 상태 확인
+ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@23.22.45.186 'cd ~/converter.hqmx && git status'
+
+# 서버에서 원격 저장소 확인
+ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@23.22.45.186 'cd ~/converter.hqmx && git remote -v'
+```
+
+#### 서버 상태 확인
+```bash
+# 웹 서버 상태 확인
+curl -I https://converter.hqmx.net
+
+# 서버 포트 확인
+ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@23.22.45.186 'sudo netstat -tlnp'
+
+# 디스크 사용량 확인
+ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@23.22.45.186 'df -h'
+```
+
 ## 배포
 
 ### 프론트엔드 배포
@@ -151,6 +273,9 @@ wrangler pages deploy frontend --project-name hqmx-converter
 
 # 또는 프로젝트 루트에서 배포 스크립트 사용
 ./deploy.sh
+
+# EC2 서버 직접 배포
+scp -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem -r frontend/ ubuntu@23.22.45.186:~/www/
 
 # 백엔드 배포 (선택적)
 cd backend
@@ -214,6 +339,8 @@ npm run deploy
 - `CLIENT_SIDE_MODE = true` 설정 유지 (frontend/script.js:18)
 - 새로운 변환 형식 추가 시 `FORMATS` 객체 업데이트 필수
 - 브라우저 호환성: SharedArrayBuffer 지원 필요 (Chrome 90+, Firefox 88+)
+- **CSS 캐시 파일**: `style-v*.css` 파일들은 캐시 무효화를 위한 버전 파일 (정리 필요시 주의)
+- **Service Worker**: `sw.js`로 PWA 지원 및 오프라인 기능 제공
 
 ### 현재 상태
 - ✅ **프론트엔드**: 완전 작동, 클라이언트 사이드 변환 구현 완료

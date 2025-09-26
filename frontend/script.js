@@ -808,45 +808,5 @@
         updatePageLanguage(savedLang);
     }
 
-    // Category expansion functionality
-    function toggleCategoryFormats(category) {
-        const extendedSection = document.querySelector(`.${category}-extended`);
-        const moreBtn = document.querySelector(`[data-category="${category}"]`);
-        const formatGroup = extendedSection?.closest('.format-group');
-
-        if (extendedSection && moreBtn && formatGroup) {
-            const isExpanded = formatGroup.classList.contains('expanded');
-
-            if (isExpanded) {
-                // 접기
-                formatGroup.classList.remove('expanded');
-                extendedSection.style.maxHeight = '0';
-                extendedSection.style.opacity = '0';
-                setTimeout(() => {
-                    extendedSection.style.display = 'none';
-                }, 300);
-                moreBtn.innerHTML = '<i class="fas fa-plus"></i> more';
-                moreBtn.classList.remove('expanded');
-            } else {
-                // 펼치기
-                formatGroup.classList.add('expanded');
-                extendedSection.style.display = 'grid';
-                extendedSection.style.opacity = '0';
-
-                // 다음 프레임에서 높이 계산 (레이아웃 완료 후)
-                requestAnimationFrame(() => {
-                    const scrollHeight = extendedSection.scrollHeight;
-                    extendedSection.style.maxHeight = scrollHeight + 20 + 'px'; // 여유 공간 추가
-                    extendedSection.style.opacity = '1';
-                });
-
-                moreBtn.innerHTML = '<i class="fas fa-minus"></i> less';
-                moreBtn.classList.add('expanded');
-            }
-        }
-    }
-
-    // 전역 함수로 등록하여 즉시 사용 가능하게 함
-    window.toggleCategoryFormats = toggleCategoryFormats;
 
 })(); // 즉시 실행 함수 호출
