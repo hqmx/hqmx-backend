@@ -1,0 +1,7 @@
+# SPA 리디렉트 (React Router 등을 위한 설정)
+/* /index.html 200
+
+# 보안을 위한 리디렉트
+/admin/* https://example.com/ 301
+/.env* https://example.com/ 301
+/.git* https://example.com/ 301
