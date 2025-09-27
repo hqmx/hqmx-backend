@@ -31,6 +31,7 @@
   "featureSecurityDesc": "파일은 24시간 후 자동으로 삭제됩니다. 개인정보 보호가 보장됩니다.",
   
   "supportedFormatsTitle": "지원하는 파일 형식",
+  "supportedFormatsSubtitle": "지원하는 파일 형식 +300개 이상",
   "videoFormats": "동영상",
   "audioFormats": "오디오",
   "imageFormats": "이미지",
