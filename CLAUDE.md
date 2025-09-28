@@ -18,6 +18,16 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 HQMX Converter는 100% 클라이언트 사이드에서 작동하는 파일 변환 웹 애플리케이션입니다.
 서버로 파일을 업로드하지 않고 브라우저에서 직접 FFmpeg.wasm을 사용하여 변환합니다.
 
+## 웹사이트 주소
+https://converter.hqmx.net
+
+## ip
+23.22.45.186
+
+[text](hqmx-ec2.pem)
+
+
+
 ## 명령어
 
 ### 메인 프론트엔드 (frontend 디렉토리) ✅ 사용
@@ -149,10 +159,10 @@ wrangler tail        # 실시간 로그 확인
 ## Git 및 버전 관리
 
 ### Git 기본 정보
-- **저장소**: https://github.com/hqmx/convertor-backend
+- **저장소**: https://github.com/hqmx/converter.git (실제), https://github.com/hqmx/convertor-backend (legacy)
 - **메인 브랜치**: main
 - **커밋 메시지**: 한글로 작성
-- **현재 상태**: Modified files: `frontend/index.html`, `frontend/script.js`, `frontend/style.css`
+- **현재 상태**: Modified files in git status로 확인
 
 ### Git 워크플로우
 ```bash
@@ -175,8 +185,8 @@ git pull origin main
 
 # 원격 저장소 확인
 git remote -v
-# origin  https://github.com/hqmx/convertor-backend.git (fetch)
-# origin  https://github.com/hqmx/convertor-backend.git (push)
+# origin  https://github.com/hqmx/converter-backend.git (fetch)
+# origin  https://github.com/hqmx/converter-backend.git (push)
 ```
 
 ### 브랜치 전략
@@ -348,6 +358,12 @@ npm run deploy
 - ✅ **FFmpeg.wasm**: 비디오/오디오 변환 작동
 - ✅ **이미지 변환**: 브라우저 네이티브 API 사용
 - ⚠️ **문서 변환**: 제한적 지원
+
+### 미래 계획 (universal.md 참조)
+- **Next.js 전환**: 현재 HTML/JS/CSS 구조에서 Next.js 14 App Router로 이전 계획
+- **동적 SEO 라우팅**: /jpg-to-pdf 같은 SEO 최적화 URL 구조
+- **유니버설 변환기**: 하나의 통합 엔진으로 모든 형식 지원
+- **우선순위 형식**: PDF↔Word, YouTube→MP3, JPG↔PDF 등 검색량 기준 구현
 
 ## 문제 해결
 

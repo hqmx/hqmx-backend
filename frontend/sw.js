@@ -48,7 +48,11 @@ self.addEventListener('activate', (event) => {
 
 // Fetch 이벤트 (네트워크 우선, 캐시 폴백)
 self.addEventListener('fetch', (event) => {
-  // CDN 리소스 (Google Fonts, jsDelivr 등)는 캐시하지 않음
+  // HTTP/HTTPS 요청만 처리하고 CDN 리소스와 확장 프로그램 요청은 캐시하지 않음
+  if (!event.request.url.startsWith('http://') && !event.request.url.startsWith('https://')) {
+    return;
+  }
+
   if (event.request.url.includes('googleapis.com') ||
       event.request.url.includes('cdnjs.cloudflare.com') ||
       event.request.url.includes('jsdelivr.net')) {

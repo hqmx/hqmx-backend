@@ -9,9 +9,10 @@
   "yourFiles": "Your Files",
   "clearAll": "Clear All",
   "convertAll": "Convert All",
-  
+
   "conversionSettings": "Conversion Settings",
-  "convertTo": "Convert to:",
+  "filesToConvert": "Files To Convert",
+  "convertTo": "Convert to",
   "advancedSettings": "Advanced Settings",
   "advancedOptions": "Advanced Options",
   "startConversion": "Start Conversion",

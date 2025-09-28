@@ -6,7 +6,14 @@
     <title>HQMX Converter - Universal File Converter</title>
     <meta name="description" content="Convert any file format to any other format. Support for video, audio, image, document, and archive conversions with high quality results.">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style-v1758901017.css?cache=refresh7">
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Dropbox API -->
+    <!-- <script src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="YOUR_DROPBOX_APP_KEY"></script> -->
+
+    <!-- Google Drive API -->
+    <!-- <script src="https://apis.google.com/js/api.js"></script>
+    <script src="https://accounts.google.com/gsi/client"></script> -->
     <link rel="icon" type="image/png" href="assets/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
     <link rel="shortcut icon" href="assets/favicon.ico" />
@@ -15,19 +22,78 @@
 </head>
 <body>
     <div class="container">
-        <header class="header">
-            <div class="logo">
-                <div class="converter-text"><span class="converter-c">C</span><span class="converter-rest">onverter</span></div>
+        <!-- Navigation Header -->
+        <nav class="top-nav">
+            <div class="nav-left">
+                <div class="converter-logo">
+                    <span class="converter-text"><span class="converter-c">C</span><span class="converter-rest">onverter</span></span>
+                </div>
             </div>
-            <div class="hqmx-brand">
-                <h1>HQM<span class="logo-x">X</span></h1>
-            </div>
-            <p class="tagline" data-i18n-key="tagline">Universal File Converter</p>
-        </header>
 
-        <main class="main-content">
-            <!-- Controls Section -->
-            <div class="header-controls">
+            <div class="nav-center">
+                <!-- 햄버거 메뉴 버튼 (모바일용) -->
+                <button class="hamburger-menu" id="hamburgerMenu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+
+                <div class="nav-menu">
+                    <a href="#" class="nav-link active" data-section="convert">Convert</a>
+                    <a href="#" class="nav-link" data-section="information">Information</a>
+                    <a href="#" class="nav-link" data-section="contact">Contact</a>
+                </div>
+
+                <!-- 모바일 메뉴 오버레이 -->
+                <div class="mobile-menu-overlay" id="mobileMenuOverlay">
+                    <div class="mobile-menu-box">
+                        <a href="#" class="mobile-nav-link active" data-section="convert">Convert</a>
+                        <a href="#" class="mobile-nav-link" data-section="information">Information</a>
+                        <a href="#" class="mobile-nav-link" data-section="contact">Contact</a>
+
+                        <div class="mobile-menu-controls">
+                            <div class="mobile-control-item menu-divider">
+                                <button id="mobileThemeToggleBtn" class="mobile-theme-toggle-btn">
+                                    <i class="fas fa-sun"></i>
+                                    <i class="fas fa-moon"></i>
+                                </button>
+                                <button id="mobileLanguageSelectorBtn" class="mobile-language-selector-btn">
+                                    <i class="fas fa-globe"></i>
+                                    <span id="mobileCurrentLanguage">EN</span>
+                                    <i class="fas fa-chevron-down"></i>
+                                </button>
+                            </div>
+                            <div class="mobile-control-item">
+                                <div id="mobileLanguageOptions" class="mobile-language-options">
+                                    <a href="#" data-lang="en">English</a>
+                                    <a href="#" data-lang="de">Deutsch</a>
+                                    <a href="#" data-lang="es">Español</a>
+                                    <a href="#" data-lang="fr">Français</a>
+                                    <a href="#" data-lang="hi">हिन्दी / Hindī</a>
+                                    <a href="#" data-lang="id">Bahasa Indonesia</a>
+                                    <a href="#" data-lang="it">Italiano</a>
+                                    <a href="#" data-lang="ko">한국어</a>
+                                    <a href="#" data-lang="ja">日本語</a>
+                                    <a href="#" data-lang="my">Myanmar (မြန်မာ)</a>
+                                    <a href="#" data-lang="ms">Malay</a>
+                                    <a href="#" data-lang="fil">Filipino</a>
+                                    <a href="#" data-lang="pt">Português</a>
+                                    <a href="#" data-lang="ru">Русский</a>
+                                    <a href="#" data-lang="th">ไทย</a>
+                                    <a href="#" data-lang="tr">Türkçe</a>
+                                    <a href="#" data-lang="vi">Tiếng Việt</a>
+                                    <a href="#" data-lang="zh-CN">简体中文</a>
+                                    <a href="#" data-lang="zh-TW">繁體中文</a>
+                                    <a href="#" data-lang="ar">عربي</a>
+                                    <a href="#" data-lang="bn">বাঙালি</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="nav-right">
                 <button id="themeToggleBtn" class="theme-toggle-btn">
                     <i class="fas fa-sun"></i>
                     <i class="fas fa-moon"></i>
@@ -63,6 +129,13 @@
                     </div>
                 </div>
             </div>
+        </nav>
+
+        <header class="header">
+            <p class="tagline" data-i18n-key="tagline">Universal File Converter</p>
+        </header>
+
+        <main class="main-content">
 
             <!-- File Upload Section -->
             <section class="upload-section">
@@ -77,10 +150,20 @@
                             <p class="sub-text" data-i18n-key="uploadSubText">Support for 300+ file formats • Max file size: 100MB</p>
                         </div>
                         <input type="file" id="fileInput" multiple accept="*" style="display: none;">
-                        <button class="upload-btn" id="uploadBtn">
-                            <i class="fas fa-plus"></i>
-                            <span data-i18n-key="selectFiles">Select Files</span>
-                        </button>
+                        <div class="upload-buttons">
+                            <button class="upload-btn" id="uploadBtn">
+                                <i class="fas fa-plus"></i>
+                                <span data-i18n-key="selectFiles">Select Files</span>
+                            </button>
+                            <button class="cloud-btn dropbox-btn" id="dropboxBtn">
+                                <i class="fab fa-dropbox"></i>
+                                <span>Dropbox</span>
+                            </button>
+                            <button class="cloud-btn gdrive-btn" id="gdriveBtn">
+                                <i class="fab fa-google-drive"></i>
+                                <span>Google Drive</span>
+                            </button>
+                        </div>
                     </div>
                     <p class="terms-notice" id="terms-notice" data-i18n-key="termsNotice">
                         By using our service you accept our 
@@ -117,7 +200,7 @@
                     </div>
                     <div class="modal-body">
                         <div class="file-info">
-                            <div class="file-preview">
+                            <div class="file-preview" id="singleFilePreview">
                                 <i id="fileIcon" class="fas fa-file"></i>
                                 <div class="file-details">
                                     <p id="fileName" class="file-name">filename.ext</p>
@@ -127,13 +210,9 @@
                         </div>
                         
                         <div class="format-selection">
-                            <h4 data-i18n-key="convertTo">Convert to:</h4>
+                            <h4 data-i18n-key="convertTo">Convert to</h4>
                             <div class="format-categories">
-                                <button class="format-category active" data-category="popular">
-                                    <i class="fas fa-star"></i>
-                                    <span data-i18n-key="popular">Popular</span>
-                                </button>
-                                <button class="format-category" data-category="video">
+                                <button class="format-category active" data-category="video">
                                     <i class="fas fa-video"></i>
                                     <span data-i18n-key="video">Video</span>
                                 </button>
@@ -236,6 +315,9 @@
                             <span class="format-badge video">MTS</span>
                             <span class="format-badge video">DIVX</span>
                         </div>
+                        <button class="expand-formats-btn" data-category="video">
+                            <i class="fas fa-plus"></i>
+                        </button>
                     </div>
                     <div class="format-group">
                         <h4><i class="fas fa-music"></i> <span data-i18n-key="audioFormats">Audio</span></h4>
@@ -263,6 +345,9 @@
                             <span class="format-badge audio">GSM</span>
                             <span class="format-badge audio">APE</span>
                         </div>
+                        <button class="expand-formats-btn" data-category="audio">
+                            <i class="fas fa-plus"></i>
+                        </button>
                     </div>
                     <div class="format-group">
                         <h4><i class="fas fa-image"></i> <span data-i18n-key="imageFormats">Image</span></h4>
@@ -290,6 +375,9 @@
                             <span class="format-badge image">SRW</span>
                             <span class="format-badge image">RAF</span>
                         </div>
+                        <button class="expand-formats-btn" data-category="image">
+                            <i class="fas fa-plus"></i>
+                        </button>
                     </div>
                     <div class="format-group">
                         <h4><i class="fas fa-file-alt"></i> <span data-i18n-key="documentFormats">Document</span></h4>
@@ -317,6 +405,9 @@
                             <span class="format-badge document">AZW</span>
                             <span class="format-badge document">FB2</span>
                         </div>
+                        <button class="expand-formats-btn" data-category="document">
+                            <i class="fas fa-plus"></i>
+                        </button>
                     </div>
                 </div>
             </section>
@@ -353,7 +444,7 @@
                             <h4 data-i18n-key="step3Title">Download</h4>
                         </div>
                         <div class="step-image-container">
-                            <img src="data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 150'%3e%3cdefs%3e%3cstyle%3e.bg%7bfill:%23f9fafb;%7d.progress%7bfill:%23e5e7eb;%7d.progress-fill%7bfill:%2310b981;%7d.download%7bfill:%2310b981;%7d.text%7bfont-family:sans-serif;font-size:12px;fill:%23374151;text-anchor:middle;%7d%3c/style%3e%3c/defs%3e%3crect class='bg' width='200' height='150' /%3e%3crect class='progress' x='40' y='60' width='120' height='8' rx='4'/%3e%3crect class='progress-fill' x='40' y='60' width='96' height='8' rx='4'/%3e%3ctext class='text' x='100' y='55'%3e80%25 Complete%3c/text%3e%3crect class='download' x='80' y='85' width='40' height='25' rx='6'/%3e%3cpath fill='%23fff' d='M100 95 l-5 5 h3 v5 h4 v-5 h3 z'/%3e%3ctext class='text' x='100' y='125'%3eDownload Ready%3c/text%3e%3c/svg%3e" alt="Step 3 Illustration">
+                            <img src="data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 150'%3e%3cdefs%3e%3cstyle%3e.bg%7bfill:%23f9fafb;%7d.progress%7bfill:%23e5e7eb;%7d.progress-fill%7bfill:%232563EB;%7d.download%7bfill:%232563EB;%7d.text%7bfont-family:sans-serif;font-size:12px;fill:%23374151;text-anchor:middle;%7d%3c/style%3e%3c/defs%3e%3crect class='bg' width='200' height='150' /%3e%3crect class='progress' x='40' y='60' width='120' height='8' rx='4'/%3e%3crect class='progress-fill' x='40' y='60' width='96' height='8' rx='4'/%3e%3ctext class='text' x='100' y='55'%3e80%25 Complete%3c/text%3e%3crect class='download' x='80' y='85' width='40' height='25' rx='6'/%3e%3cpath fill='%23fff' d='M100 95 l-5 5 h3 v5 h4 v-5 h3 z'/%3e%3ctext class='text' x='100' y='125'%3eDownload Ready%3c/text%3e%3c/svg%3e" alt="Step 3 Illustration">
                         </div>
                         <p data-i18n-key="step3Desc">Wait for the conversion to complete and download your converted files.</p>
                     </div>
@@ -362,12 +453,24 @@
         </main>
         
         <footer>
-            <div class="social-links">
-                <a href="https://twitter.com/8hqmx" target="_blank" aria-label="Follow us on Twitter">
-                    <span class="x-logo" title="X (Twitter)"></span>
-                </a>
+            <div class="footer-content">
+                <div class="footer-left">
+                    <div class="hqmx-brand">
+                        <h1>HQM<span class="logo-x">X</span></h1>
+                    </div>
+                </div>
+
+                <div class="footer-right">
+                    <div class="social-links">
+                        <a href="https://twitter.com/8hqmx" target="_blank" aria-label="Follow us on Twitter">
+                            <span class="x-logo" title="X (Twitter)"></span>
+                        </a>
+                    </div>
+                </div>
             </div>
-            <p data-i18n-key="footer">&copy; 2024 HQMX Converter. All Rights Reserved.</p>
+            <div class="footer-bottom">
+                <p data-i18n-key="footer">&copy; 2024 HQMX Converter. All Rights Reserved. | <a href="mailto:support@hqmx.net" class="footer-email">support@hqmx.net</a></p>
+            </div>
         </footer>
     </div>
     <script src="i18n.js"></script>

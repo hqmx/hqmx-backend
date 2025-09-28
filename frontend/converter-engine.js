@@ -135,24 +135,93 @@ class ConverterEngine {
                     
                     canvas.width = width;
                     canvas.height = height;
-                    
+
+                    // PNG → JPEG 변환시 투명도 처리
+                    const mimeType = this.getImageMimeType(outputFormat);
+                    if (mimeType === 'image/jpeg') {
+                        // JPEG는 투명도를 지원하지 않으므로 흰색 배경 추가
+                        ctx.fillStyle = '#FFFFFF';
+                        ctx.fillRect(0, 0, width, height);
+                    }
+
                     // 이미지 그리기
                     ctx.drawImage(img, 0, 0, width, height);
                     
                     onProgress?.(60, '이미지 변환 중...');
                     
-                    // 품질 설정
-                    const quality = options.quality ? options.quality / 100 : 0.92;
-                    
-                    // Blob으로 변환
-                    canvas.toBlob(blob => {
-                        if (blob) {
-                            onProgress?.(100, '변환 완료!');
-                            resolve(blob);
-                        } else {
-                            reject(new Error('이미지 변환 실패'));
+                    // 품질 설정 - 형식별로 최적화
+                    let quality;
+
+                    // 품질 설정 - 원본 품질 우선
+                    if (mimeType === 'image/jpeg' || mimeType === 'image/webp') {
+                        // 기본값: 원본 품질 유지 (95%)
+                        quality = options.quality ? options.quality / 100 : 0.95;
+                        // JPEG quality는 0.0~1.0 범위, 1.0은 피하고 최대 0.98 사용
+                        if (quality >= 1.0) quality = 0.98;
+                    } else {
+                        // PNG, GIF 등은 무손실 압축 (quality 사용하지 않음)
+                        quality = undefined;
+                    }
+
+                    // 압축 옵션이 명시적으로 설정된 경우에만 압축 적용
+                    if (options.compression && options.compression !== 'none') {
+                        const compressionQuality = {
+                            'low': 0.90,    // 압축 낮음 = 품질 90%
+                            'medium': 0.80, // 압축 중간 = 품질 80%
+                            'high': 0.65    // 압축 높음 = 품질 65%
+                        };
+
+                        if (mimeType === 'image/jpeg' || mimeType === 'image/webp') {
+                            quality = compressionQuality[options.compression] || quality;
                         }
-                    }, this.getImageMimeType(outputFormat), quality);
+                    }
+
+                    // Blob으로 변환
+                    console.log(`변환 설정 - mimeType: ${mimeType}, quality: ${quality}`);
+
+                    try {
+                        // toBlob 대신 toDataURL 사용 (더 높은 호환성)
+                        let dataURL;
+                        if (quality !== undefined && (mimeType === 'image/jpeg' || mimeType === 'image/webp')) {
+                            dataURL = canvas.toDataURL(mimeType, quality);
+                        } else {
+                            dataURL = canvas.toDataURL(mimeType);
+                        }
+
+                        if (!dataURL || dataURL === 'data:,') {
+                            throw new Error('Canvas toDataURL 실패');
+                        }
+
+                        // DataURL을 Blob으로 변환
+                        const response = await fetch(dataURL);
+                        const blob = await response.blob();
+
+                        // 파일 크기 체크
+                        const fileSizeKB = blob.size / 1024;
+                        console.log(`변환된 파일 크기: ${fileSizeKB.toFixed(2)}KB`);
+
+                        onProgress?.(100, '변환 완료!');
+                        resolve(blob);
+
+                    } catch (dataURLError) {
+                        console.error('toDataURL 방식 실패:', dataURLError);
+
+                        // Fallback: toBlob 시도
+                        const toBlobArgs = [mimeType];
+                        if (quality !== undefined) {
+                            toBlobArgs.push(quality);
+                        }
+
+                        canvas.toBlob(blob => {
+                            if (blob) {
+                                console.log('toBlob fallback 성공');
+                                onProgress?.(100, '변환 완료!');
+                                resolve(blob);
+                            } else {
+                                reject(new Error(`이미지 변환 실패 - 지원되지 않는 형식: ${mimeType}`));
+                            }
+                        }, ...toBlobArgs);
+                    }
                     
                 } catch (error) {
                     reject(error);

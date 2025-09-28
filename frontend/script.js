@@ -10,7 +10,8 @@
         files: [],
         currentFileIndex: -1,
         conversions: new Map(),
-        eventSources: new Map()
+        eventSources: new Map(),
+        batchFiles: null
     };
 
     // --- CONFIGURATION ---
@@ -24,7 +25,6 @@
 
     // Supported file formats by category
     const FORMATS = {
-        popular: ['mp4', 'mp3', 'pdf', 'jpg', 'png', 'docx', 'zip'],
         video: ['mp4', 'avi', 'mov', 'mkv', 'webm', 'flv', 'wmv', '3gp', 'm4v', 'mpg', 'mpeg', 'ogv'],
         audio: ['mp3', 'wav', 'flac', 'aac', 'ogg', 'm4a', 'wma', 'aiff', 'au', 'ra', 'amr', 'ac3'],
         image: ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg', 'bmp', 'tiff', 'tga', 'ico', 'psd', 'raw'],
@@ -32,27 +32,28 @@
         archive: ['zip', 'rar', '7z', 'tar', 'gz', 'bz2', 'xz', 'tar.gz', 'tar.bz2', 'tar.xz']
     };
 
-    // Advanced settings by format type
+    // Advanced settings by format type - 원본 품질 기준 설정
     const ADVANCED_SETTINGS = {
         video: {
-            quality: { label: 'Quality', type: 'select', options: ['high', 'medium', 'low'], default: 'high' },
+            quality: { label: 'Quality', type: 'select', options: ['original', 'high', 'medium', 'low'], default: 'original' },
             resolution: { label: 'Resolution', type: 'select', options: ['original', '1080p', '720p', '480p', '360p'], default: 'original' },
-            codec: { label: 'Codec', type: 'select', options: ['h264', 'h265', 'vp9', 'av1'], default: 'h264' },
-            bitrate: { label: 'Bitrate (kbps)', type: 'number', min: 100, max: 50000, default: 2000 }
+            codec: { label: 'Codec', type: 'select', options: ['original', 'h264', 'h265', 'vp9', 'av1'], default: 'original' },
+            bitrate: { label: 'Bitrate (%)', type: 'number', min: 50, max: 200, default: 100 }
         },
         audio: {
-            quality: { label: 'Quality', type: 'select', options: ['high', 'medium', 'low'], default: 'high' },
-            bitrate: { label: 'Bitrate (kbps)', type: 'number', min: 32, max: 320, default: 192 },
-            sampleRate: { label: 'Sample Rate', type: 'select', options: ['44100', '48000', '96000'], default: '44100' },
-            channels: { label: 'Channels', type: 'select', options: ['mono', 'stereo'], default: 'stereo' }
+            quality: { label: 'Quality', type: 'select', options: ['original', 'high', 'medium', 'low'], default: 'original' },
+            bitrate: { label: 'Bitrate (%)', type: 'number', min: 50, max: 200, default: 100 },
+            sampleRate: { label: 'Sample Rate', type: 'select', options: ['original', '44100', '48000', '96000'], default: 'original' },
+            channels: { label: 'Channels', type: 'select', options: ['original', 'mono', 'stereo'], default: 'original' }
         },
         image: {
-            quality: { label: 'Quality (%)', type: 'number', min: 1, max: 100, default: 85 },
-            resize: { label: 'Resize', type: 'select', options: ['none', '50%', '75%', '125%', '150%'], default: 'none' },
-            dpi: { label: 'DPI', type: 'number', min: 72, max: 300, default: 72 }
+            quality: { label: 'Quality (%)', type: 'number', min: 1, max: 100, default: 100 },
+            resize: { label: 'Resize', type: 'select', options: ['original', '50%', '75%', '125%', '150%'], default: 'original' },
+            compression: { label: 'Compression', type: 'select', options: ['none', 'low', 'medium', 'high'], default: 'none' },
+            dpi: { label: 'DPI', type: 'select', options: ['original', '72', '150', '300'], default: 'original' }
         },
         document: {
-            quality: { label: 'Quality', type: 'select', options: ['high', 'medium', 'low'], default: 'high' },
+            quality: { label: 'Quality', type: 'select', options: ['original', 'high', 'medium', 'low'], default: 'original' },
             pageRange: { label: 'Page Range', type: 'text', placeholder: 'e.g., 1-5, 7, 9-12' }
         }
     };
@@ -90,7 +91,56 @@
     dom.themeToggleBtn.addEventListener('click', handleThemeToggle);
     dom.languageSelectorBtn.addEventListener('click', toggleLanguageOptions);
     dom.languageOptions.addEventListener('click', handleLanguageChange);
-    
+
+    // 햄버거 메뉴 이벤트 리스너
+    const hamburgerMenu = document.getElementById('hamburgerMenu');
+    const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+    if (hamburgerMenu && mobileMenuOverlay) {
+        hamburgerMenu.addEventListener('click', toggleMobileMenu);
+        mobileMenuOverlay.addEventListener('click', (e) => {
+            if (e.target === mobileMenuOverlay) {
+                closeMobileMenu();
+            }
+        });
+
+        // 모바일 메뉴 링크 클릭 시 메뉴 닫기
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const section = link.getAttribute('data-section');
+                // 기존 네비게이션 로직 사용
+                document.querySelectorAll('.nav-link, .mobile-nav-link').forEach(l => l.classList.remove('active'));
+                document.querySelectorAll(`[data-section="${section}"]`).forEach(l => l.classList.add('active'));
+                closeMobileMenu();
+            });
+        });
+
+        // 모바일 토글 버튼 이벤트 리스너
+        const mobileThemeToggleBtn = document.getElementById('mobileThemeToggleBtn');
+        const mobileLanguageSelectorBtn = document.getElementById('mobileLanguageSelectorBtn');
+        const mobileLanguageOptions = document.getElementById('mobileLanguageOptions');
+
+        if (mobileThemeToggleBtn) {
+            mobileThemeToggleBtn.addEventListener('click', handleThemeToggle);
+        }
+
+        if (mobileLanguageSelectorBtn && mobileLanguageOptions) {
+            mobileLanguageSelectorBtn.addEventListener('click', () => {
+                mobileLanguageOptions.classList.toggle('show');
+            });
+
+            mobileLanguageOptions.addEventListener('click', (e) => {
+                if (e.target.dataset.lang) {
+                    const lang = e.target.dataset.lang;
+                    // 기존 언어 변경 로직 사용
+                    setLanguage(lang);
+                    document.getElementById('mobileCurrentLanguage').textContent = e.target.textContent;
+                    mobileLanguageOptions.classList.remove('show');
+                }
+            });
+        }
+    }
+
     // File upload listeners
     dom.uploadZone.addEventListener('click', (e) => {
         // uploadBtn이 클릭된 경우가 아닐 때만 실행
@@ -110,7 +160,37 @@
     // File list actions
     dom.clearAllBtn.addEventListener('click', clearAllFiles);
     dom.convertAllBtn.addEventListener('click', convertAllFiles);
-    
+
+    // 확장 버튼 이벤트 리스너
+    document.querySelectorAll('.expand-formats-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const category = btn.getAttribute('data-category');
+            const extendedFormats = document.querySelector(`.format-badges-extended.${category}-extended`);
+
+            if (extendedFormats) {
+                const isExpanded = extendedFormats.style.display !== 'none';
+
+                if (isExpanded) {
+                    // 숨기기
+                    extendedFormats.style.display = 'none';
+                    btn.classList.remove('expanded');
+                } else {
+                    // 보이기
+                    extendedFormats.style.display = 'flex';
+                    btn.classList.add('expanded');
+
+                    // 부드러운 스크롤 애니메이션
+                    setTimeout(() => {
+                        extendedFormats.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'nearest'
+                        });
+                    }, 100);
+                }
+            }
+        });
+    });
+
     // Modal listeners
     dom.modalCloseBtn.addEventListener('click', closeModal);
     dom.conversionModal.addEventListener('click', (e) => {
@@ -137,6 +217,55 @@
         const newTheme = document.body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
         document.body.setAttribute('data-theme', newTheme);
         localStorage.setItem('theme', newTheme);
+    }
+
+    // 햄버거 메뉴 토글 함수들
+    function toggleMobileMenu() {
+        const hamburgerMenu = document.getElementById('hamburgerMenu');
+        const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+
+        hamburgerMenu.classList.toggle('active');
+        mobileMenuOverlay.classList.toggle('show');
+
+        // 모바일 메뉴가 열릴 때 토글 버튼들 강제 표시
+        if (mobileMenuOverlay.classList.contains('show')) {
+            const mobileControls = document.querySelector('.mobile-menu-controls');
+            const mobileControlItems = document.querySelectorAll('.mobile-control-item');
+            const mobileThemeBtn = document.getElementById('mobileThemeToggleBtn');
+            const mobileLangBtn = document.getElementById('mobileLanguageSelectorBtn');
+
+            if (mobileControls) {
+                mobileControls.style.display = 'block';
+                mobileControls.style.visibility = 'visible';
+                mobileControls.style.opacity = '1';
+            }
+
+            mobileControlItems.forEach(item => {
+                item.style.display = 'flex';
+                item.style.visibility = 'visible';
+                item.style.opacity = '1';
+            });
+
+            if (mobileThemeBtn) {
+                mobileThemeBtn.style.display = 'flex';
+                mobileThemeBtn.style.visibility = 'visible';
+                mobileThemeBtn.style.opacity = '1';
+            }
+
+            if (mobileLangBtn) {
+                mobileLangBtn.style.display = 'flex';
+                mobileLangBtn.style.visibility = 'visible';
+                mobileLangBtn.style.opacity = '1';
+            }
+        }
+    }
+
+    function closeMobileMenu() {
+        const hamburgerMenu = document.getElementById('hamburgerMenu');
+        const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+
+        hamburgerMenu.classList.remove('active');
+        mobileMenuOverlay.classList.remove('show');
     }
 
     function toggleLanguageOptions() {
@@ -202,13 +331,19 @@
             }
 
             // Add file to state
+            const extension = getFileExtension(file.name);
+            const category = detectFileCategory(extension);
+            const recommendedFormats = getRecommendedFormats(extension, category);
+
             const fileObj = {
                 id: generateId(),
                 file: file,
                 name: file.name,
                 size: file.size,
                 type: file.type,
-                extension: getFileExtension(file.name),
+                extension: extension,
+                category: category,
+                recommendedFormats: recommendedFormats,
                 status: 'ready',
                 progress: 0,
                 outputFormat: null,
@@ -255,7 +390,7 @@
                 ` : ''}
                 <button class="convert-btn ${fileObj.status === 'completed' ? 'reconvert' : ''}" onclick="openConversionModal('${fileObj.id}')" ${fileObj.status === 'converting' || fileObj.status === 'uploading' ? 'disabled' : ''}>
                     <i class="fas fa-magic"></i>
-                    <span>${fileObj.status === 'completed' ? 'Convert Again' : 'Convert'}</span>
+                    <span>Convert</span>
                 </button>
                 <button class="remove-btn" onclick="removeFile('${fileObj.id}')">
                     <i class="fas fa-trash"></i>
@@ -290,19 +425,12 @@
             return;
         }
 
-        // For batch conversion, we'll open modal for the first file
-        // and use default popular formats for others
-        readyFiles.forEach((fileObj, index) => {
-            if (index === 0) {
-                openConversionModal(fileObj.id);
-            } else {
-                // Auto-assign popular format based on file type
-                const suggestedFormat = getSuggestedFormat(fileObj.extension);
-                fileObj.outputFormat = suggestedFormat;
-                // Start conversion with default settings
-                setTimeout(() => startFileConversion(fileObj), index * 1000);
-            }
-        });
+        // Open conversion modal for multiple files
+        if (readyFiles.length === 1) {
+            openConversionModal(readyFiles[0].id);
+        } else {
+            openBatchConversionModal(readyFiles);
+        }
     }
 
     function findFileById(fileId) {
@@ -338,15 +466,46 @@
         if (!fileObj) return;
 
         state.currentFileIndex = state.files.indexOf(fileObj);
-        
+
+        // Show single file preview, hide multiple files preview
+        const singleFilePreview = document.getElementById('singleFilePreview');
+        const multipleFilesPreview = document.getElementById('multipleFilesPreview');
+
+        if (singleFilePreview) {
+            singleFilePreview.style.display = 'flex';
+        }
+        if (multipleFilesPreview) {
+            multipleFilesPreview.style.display = 'none';
+        }
+
         // Update modal with file info
         dom.fileIcon.className = `${getFileIcon(fileObj.extension)}`;
         dom.fileName.textContent = fileObj.name;
         dom.fileSize.textContent = formatFileSize(fileObj.size);
 
-        // Set initial category based on file type
-        const initialCategory = getCategoryFromExtension(fileObj.extension);
-        handleCategorySelect(initialCategory);
+        // Set initial category based on file type (더 정확한 감지 사용)
+        const initialCategory = fileObj.category || detectFileCategory(fileObj.extension);
+        handleCategorySelect(initialCategory, fileObj.recommendedFormats);
+
+        // Show modal
+        dom.conversionModal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    }
+
+    function openBatchConversionModal(files) {
+        // Hide single file preview since we're in batch mode
+        const singleFilePreview = document.getElementById('singleFilePreview');
+        if (singleFilePreview) {
+            singleFilePreview.style.display = 'none';
+        }
+
+        // Set initial category based on first file's type
+        const firstFileCategory = files.length > 0 ? detectFileCategory(files[0].extension) : 'document';
+        handleCategorySelect(firstFileCategory);
+
+        // Store files for batch conversion
+        state.batchFiles = files;
+        state.currentFileIndex = -1; // Indicate batch mode
 
         // Show modal
         dom.conversionModal.style.display = 'flex';
@@ -357,31 +516,37 @@
         dom.conversionModal.style.display = 'none';
         document.body.style.overflow = 'auto';
         state.currentFileIndex = -1;
+        state.batchFiles = null;
     }
 
-    function handleCategorySelect(category) {
+    function handleCategorySelect(category, recommendedFormats = []) {
         // Update active category
         dom.formatCategories.forEach(cat => {
             cat.classList.toggle('active', cat.dataset.category === category);
         });
 
-        // Populate format options
+        // Populate format options - 단순한 그리드 형태로
         const formats = FORMATS[category] || [];
         dom.formatOptions.innerHTML = '';
 
+        const formatGrid = document.createElement('div');
+        formatGrid.className = 'format-grid';
+
         formats.forEach(format => {
             const option = document.createElement('div');
-            option.className = 'format-option';
+            option.className = `format-badge ${category}`; // 카테고리별 색상 적용
             option.textContent = format.toUpperCase();
             option.dataset.format = format;
             option.addEventListener('click', () => selectFormat(format, category));
-            dom.formatOptions.appendChild(option);
+            formatGrid.appendChild(option);
         });
+
+        dom.formatOptions.appendChild(formatGrid);
     }
 
     function selectFormat(format, category) {
         // Update visual selection
-        dom.formatOptions.querySelectorAll('.format-option').forEach(opt => {
+        dom.formatOptions.querySelectorAll('.format-badge').forEach(opt => {
             opt.classList.toggle('selected', opt.dataset.format === format);
         });
 
@@ -439,6 +604,11 @@
     }
 
     function startConversion() {
+        // Check if this is batch mode
+        if (state.currentFileIndex < 0 && state.batchFiles) {
+            return startBatchConversion();
+        }
+
         if (state.currentFileIndex < 0) return;
 
         const fileObj = state.files[state.currentFileIndex];
@@ -456,6 +626,56 @@
 
         closeModal();
         startFileConversion(fileObj);
+    }
+
+    function startBatchConversion() {
+        const selectedFormat = document.querySelector('.format-badge.selected');
+        if (!selectedFormat) {
+            showToast('Please select an output format', 'error');
+            return;
+        }
+
+        // Check if batch files exist
+        if (!state.batchFiles || !Array.isArray(state.batchFiles) || state.batchFiles.length === 0) {
+            showToast('No files available for batch conversion', 'error');
+            return;
+        }
+
+        const outputFormat = selectedFormat.dataset.format;
+
+        // Collect advanced settings
+        const settings = {};
+        const settingsElements = dom.settingsGrid.querySelectorAll('input, select');
+        settingsElements.forEach(element => {
+            const key = element.id.replace('setting-', '');
+            settings[key] = element.value;
+        });
+
+        // Apply format and settings to all batch files
+        state.batchFiles.forEach(file => {
+            file.outputFormat = outputFormat;
+            file.settings = { ...settings };
+        });
+
+        closeModal();
+
+        // Start conversion for all files sequentially
+        startBatchFileConversions(state.batchFiles);
+    }
+
+    async function startBatchFileConversions(files) {
+        if (!files || !Array.isArray(files) || files.length === 0) {
+            showToast('No files to convert', 'error');
+            return;
+        }
+
+        showToast(`Starting conversion of ${files.length} files`, 'info');
+
+        for (const file of files) {
+            await startFileConversion(file);
+            // Add small delay between conversions
+            await new Promise(resolve => setTimeout(resolve, 500));
+        }
     }
 
     async function startFileConversion(fileObj) {
@@ -520,6 +740,12 @@
             fileObj.status = 'completed';
             fileObj.progress = 100;
             updateFileItem(fileObj);
+
+            // 자동 다운로드 (선택사항)
+            showToast(`변환 완료! "${fileName}" 다운로드 버튼을 클릭하세요.`, 'success');
+
+            // 선택사항: 자동 다운로드
+            // setTimeout(() => downloadConvertedFile(fileObj), 500);
 
         } catch (error) {
             throw error;
@@ -664,11 +890,10 @@
 
             // 버튼 텍스트 동적 변경
             const buttonText = convertBtn.querySelector('span');
+            buttonText.textContent = 'Convert';
             if (fileObj.status === 'completed') {
-                buttonText.textContent = 'Convert Again';
                 convertBtn.classList.add('reconvert');
             } else {
-                buttonText.textContent = 'Convert';
                 convertBtn.classList.remove('reconvert');
             }
         }
@@ -716,7 +941,81 @@
                 return category;
             }
         }
-        return 'popular';
+        return 'document';
+    }
+
+    // 파일 카테고리 감지 (더 정확한 버전)
+    function detectFileCategory(extension) {
+        const categories = {
+            image: ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg', 'bmp', 'tiff', 'ico', 'heic', 'raw', 'psd'],
+            video: ['mp4', 'avi', 'mov', 'mkv', 'webm', 'flv', 'wmv', '3gp', 'ogv'],
+            audio: ['mp3', 'wav', 'flac', 'aac', 'ogg', 'm4a', 'wma', 'opus'],
+            document: ['pdf', 'doc', 'docx', 'txt', 'rtf', 'odt', 'pages', 'tex'],
+            archive: ['zip', 'rar', '7z', 'tar', 'gz', 'bz2', 'xz']
+        };
+
+        for (const [category, formats] of Object.entries(categories)) {
+            if (formats.includes(extension.toLowerCase())) {
+                return category;
+            }
+        }
+        return 'document'; // 기본값
+    }
+
+    // 추천 변환 형식 생성
+    function getRecommendedFormats(extension, category) {
+        const recommendations = {
+            image: {
+                png: ['jpg', 'webp', 'pdf', 'svg'],
+                jpg: ['png', 'webp', 'pdf', 'gif'],
+                jpeg: ['png', 'webp', 'pdf', 'gif'],
+                gif: ['mp4', 'webp', 'png', 'jpg'],
+                webp: ['jpg', 'png', 'gif'],
+                svg: ['png', 'jpg', 'pdf'],
+                bmp: ['jpg', 'png', 'webp'],
+                tiff: ['jpg', 'png', 'pdf'],
+                heic: ['jpg', 'png', 'webp'],
+                psd: ['png', 'jpg', 'pdf'],
+                raw: ['jpg', 'png', 'tiff']
+            },
+            video: {
+                mp4: ['avi', 'mov', 'webm', 'gif'],
+                avi: ['mp4', 'mov', 'webm'],
+                mov: ['mp4', 'avi', 'webm'],
+                mkv: ['mp4', 'avi', 'webm'],
+                webm: ['mp4', 'avi', 'gif'],
+                flv: ['mp4', 'avi', 'webm']
+            },
+            audio: {
+                mp3: ['wav', 'flac', 'aac', 'ogg'],
+                wav: ['mp3', 'flac', 'aac'],
+                flac: ['mp3', 'wav', 'aac'],
+                aac: ['mp3', 'wav', 'ogg'],
+                ogg: ['mp3', 'wav', 'aac'],
+                m4a: ['mp3', 'wav', 'aac']
+            },
+            document: {
+                pdf: ['word', 'txt', 'jpg', 'png'],
+                doc: ['pdf', 'docx', 'txt'],
+                docx: ['pdf', 'doc', 'txt'],
+                txt: ['pdf', 'doc', 'docx']
+            }
+        };
+
+        const categoryRecs = recommendations[category];
+        if (categoryRecs && categoryRecs[extension.toLowerCase()]) {
+            return categoryRecs[extension.toLowerCase()];
+        }
+
+        // 기본 추천
+        const defaultRecs = {
+            image: ['jpg', 'png', 'webp', 'pdf'],
+            video: ['mp4', 'webm', 'gif'],
+            audio: ['mp3', 'wav', 'aac'],
+            document: ['pdf', 'docx', 'txt']
+        };
+
+        return defaultRecs[category] || ['pdf', 'jpg', 'txt'];
     }
 
     function getSuggestedFormat(extension) {
@@ -807,6 +1106,174 @@
     if (savedLang !== 'en') {
         updatePageLanguage(savedLang);
     }
+
+    // ===== CLOUD STORAGE INTEGRATION =====
+
+    // Dropbox integration
+    function initializeDropbox() {
+        const dropboxBtn = document.getElementById('dropboxBtn');
+        if (dropboxBtn) {
+            dropboxBtn.addEventListener('click', () => {
+                if (typeof Dropbox !== 'undefined') {
+                    Dropbox.choose({
+                        success: function(files) {
+                            files.forEach(file => {
+                                // Convert Dropbox file to File object
+                                fetch(file.link)
+                                    .then(response => response.blob())
+                                    .then(blob => {
+                                        const fileObj = new File([blob], file.name, { type: blob.type });
+                                        processFiles([fileObj]);
+                                        showToast(`${file.name} loaded from Dropbox`, 'success');
+                                    })
+                                    .catch(error => {
+                                        console.error('Error loading from Dropbox:', error);
+                                        showToast('Failed to load file from Dropbox', 'error');
+                                    });
+                            });
+                        },
+                        cancel: function() {
+                            console.log('Dropbox selection cancelled');
+                        },
+                        linkType: "direct",
+                        multiselect: true,
+                        extensions: Object.values(FORMATS).flat()
+                    });
+                } else {
+                    showToast('Dropbox API is not configured. Please add your Dropbox app key.', 'info');
+                }
+            });
+        }
+    }
+
+    // Google Drive integration
+    function initializeGoogleDrive() {
+        const CLIENT_ID = 'YOUR_GOOGLE_CLIENT_ID';
+        const API_KEY = 'YOUR_GOOGLE_API_KEY';
+
+        // Skip initialization if API keys are not configured
+        if (CLIENT_ID === 'YOUR_GOOGLE_CLIENT_ID' || API_KEY === 'YOUR_GOOGLE_API_KEY') {
+            const gdriveBtn = document.getElementById('gdriveBtn');
+            if (gdriveBtn) {
+                gdriveBtn.disabled = true;
+                gdriveBtn.title = 'Google Drive API not configured';
+                gdriveBtn.addEventListener('click', () => {
+                    showToast('Google Drive API is not configured. Please add your API keys.', 'info');
+                });
+            }
+            return;
+        }
+
+        const DISCOVERY_DOC = 'https://www.googleapis.com/discovery/v1/apis/drive/v3/rest';
+        const SCOPES = 'https://www.googleapis.com/auth/drive.readonly';
+
+        let tokenClient;
+        let gapiInited = false;
+        let gisInited = false;
+
+        function gapiLoaded() {
+            gapi.load('client', async () => {
+                await gapi.client.init({
+                    apiKey: API_KEY,
+                    discoveryDocs: [DISCOVERY_DOC],
+                });
+                gapiInited = true;
+                maybeEnableButtons();
+            });
+        }
+
+        function gisLoaded() {
+            tokenClient = google.accounts.oauth2.initTokenClient({
+                client_id: CLIENT_ID,
+                scope: SCOPES,
+                callback: '', // defined later
+            });
+            gisInited = true;
+            maybeEnableButtons();
+        }
+
+        function maybeEnableButtons() {
+            if (gapiInited && gisInited) {
+                const gdriveBtn = document.getElementById('gdriveBtn');
+                if (gdriveBtn) {
+                    gdriveBtn.disabled = false;
+                }
+            }
+        }
+
+        async function handleGoogleDriveAuth() {
+            tokenClient.callback = async (resp) => {
+                if (resp.error !== undefined) {
+                    throw (resp);
+                }
+                await showGoogleDrivePicker();
+            };
+
+            if (gapi.client.getToken() === null) {
+                tokenClient.requestAccessToken({prompt: 'consent'});
+            } else {
+                tokenClient.requestAccessToken({prompt: ''});
+            }
+        }
+
+        async function showGoogleDrivePicker() {
+            try {
+                const response = await gapi.client.drive.files.list({
+                    pageSize: 10,
+                    fields: 'nextPageToken, files(id, name, mimeType, size)',
+                });
+
+                const files = response.result.files;
+                if (files && files.length > 0) {
+                    // Simple file selection (in a real implementation, you'd show a proper picker)
+                    const selectedFile = files[0]; // For demo, just pick the first file
+                    await downloadFromGoogleDrive(selectedFile.id, selectedFile.name);
+                } else {
+                    showToast('No files found in Google Drive', 'info');
+                }
+            } catch (error) {
+                console.error('Error listing Google Drive files:', error);
+                showToast('Failed to access Google Drive', 'error');
+            }
+        }
+
+        async function downloadFromGoogleDrive(fileId, fileName) {
+            try {
+                const response = await gapi.client.drive.files.get({
+                    fileId: fileId,
+                    alt: 'media'
+                });
+
+                // Convert response to blob and create File object
+                const blob = new Blob([response.body]);
+                const fileObj = new File([blob], fileName, { type: blob.type });
+                processFiles([fileObj]);
+                showToast(`${fileName} loaded from Google Drive`, 'success');
+            } catch (error) {
+                console.error('Error downloading from Google Drive:', error);
+                showToast('Failed to download file from Google Drive', 'error');
+            }
+        }
+
+        // Initialize Google Drive
+        const gdriveBtn = document.getElementById('gdriveBtn');
+        if (gdriveBtn) {
+            gdriveBtn.disabled = true; // Initially disabled until APIs are loaded
+            gdriveBtn.addEventListener('click', handleGoogleDriveAuth);
+        }
+
+        // Load Google APIs
+        if (typeof gapi !== 'undefined') {
+            gapiLoaded();
+        }
+        if (typeof google !== 'undefined') {
+            gisLoaded();
+        }
+    }
+
+    // Initialize cloud storage integrations
+    initializeDropbox();
+    initializeGoogleDrive();
 
 
 })(); // 즉시 실행 함수 호출
