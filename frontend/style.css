@@ -87,8 +87,8 @@ body[data-theme="dark"] {
     align-items: center;
     padding: 1rem 0;
     background: transparent;
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(50px);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -116,8 +116,8 @@ body[data-theme="dark"] {
 
 body[data-theme="dark"] .top-nav {
     background: transparent;
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(50px);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     border-bottom: none;
 }
 
@@ -2277,25 +2277,29 @@ body[data-theme="dark"] input {
 }
 
 .mobile-menu-box {
-    position: absolute;
-    top: -20rem;
-    right: 1.5rem;
-    transform: translateX(20px);
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(40px);
-    -webkit-backdrop-filter: blur(40px);
+    position: fixed;
+    top: 5rem;
+    right: -300px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.4);
     border-radius: 20px;
     padding: 2rem;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    z-index: 1001;
+    transition: right 0.3s ease;
 }
 
 body[data-theme="dark"] .mobile-menu-box {
-    background: rgba(0, 0, 0, 0.7);
-    border: 1px solid rgba(55, 65, 81, 0.4);
+    background: rgba(17, 24, 39, 0.3);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(55, 65, 81, 0.5);
 }
 
 .mobile-menu-overlay.show .mobile-menu-box {
-    transform: translateX(0);
+    right: 1.5rem;
 }
 
 
