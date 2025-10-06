@@ -1433,25 +1433,34 @@ body[data-theme="dark"] .feature-item {
     .format-group .format-grid,
     .format-options {
         grid-template-columns: repeat(5, 1fr) !important;
-        gap: 0.2rem !important;
+        gap: 0.7rem !important;
         display: grid !important;
         width: fit-content !important;
         margin: 0 auto !important;
-        padding: 0 !important;
+        padding: 0 1.5rem !important;
         justify-content: center !important;
+        box-sizing: border-box !important;
     }
 
     /* 웹에서 확장자 뱃지를 카테고리 버튼과 동일한 크기로 설정 */
     .conversion-modal .format-badge,
     #formatOptions .format-badge,
     .format-options .format-badge {
-        padding: 0.6rem 0.8rem !important;
-        font-size: 0.85rem !important;
-        min-height: 42px !important;
-        font-weight: 500 !important;
-        min-width: 75px !important;
-        border-radius: 8px !important;
+        padding: 0.7rem 1rem !important;
+        font-size: 0.9rem !important;
+        min-height: 44px !important;
+        font-weight: 600 !important;
+        min-width: 85px !important;
+        border-radius: 10px !important;
         border: 2px solid var(--border-color) !important;
+        transition: all 0.2s ease !important;
+    }
+
+    .conversion-modal .format-badge:hover,
+    #formatOptions .format-badge:hover,
+    .format-options .format-badge:hover {
+        transform: translateY(-2px) !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
     }
 }
 
@@ -1493,8 +1502,10 @@ body[data-theme="dark"] .feature-item {
     .format-group .format-grid,
     .format-options {
         grid-template-columns: repeat(3, 1fr) !important;
-        gap: 0.15rem !important;
+        gap: 0.7rem !important;
         display: grid !important;
+        padding: 0 1rem !important;
+        box-sizing: border-box !important;
     }
 
     /* 개별 format-badge들도 명확히 설정 - 모바일에서도 카테고리 버튼과 비슷한 크기 */
@@ -1503,17 +1514,24 @@ body[data-theme="dark"] .feature-item {
     .format-options .format-badge {
         width: 100% !important;
         min-width: 0 !important;
-        flex: 1 1 0% !important;
+        flex: none !important;
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
         box-sizing: border-box !important;
-        padding: 0.5rem 0.3rem !important;
-        font-size: 0.75rem !important;
-        min-height: 40px !important;
-        font-weight: 500 !important;
-        border-radius: 8px !important;
+        padding: 0.6rem 0.5rem !important;
+        font-size: 0.85rem !important;
+        min-height: 44px !important;
+        font-weight: 600 !important;
+        border-radius: 10px !important;
         border: 2px solid var(--border-color) !important;
+        transition: all 0.2s ease !important;
+    }
+
+    .conversion-modal .format-badge:active,
+    #formatOptions .format-badge:active,
+    .format-options .format-badge:active {
+        transform: scale(0.95) !important;
     }
 }
 
