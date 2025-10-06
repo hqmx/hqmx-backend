@@ -1502,9 +1502,9 @@ body[data-theme="dark"] .feature-item {
     .format-group .format-grid,
     .format-options {
         grid-template-columns: repeat(3, 1fr) !important;
-        gap: 0.7rem !important;
+        gap: 0.5rem !important;
         display: grid !important;
-        padding: 0 1rem !important;
+        padding: 0 0.5rem !important;
         box-sizing: border-box !important;
     }
 
@@ -1519,13 +1519,16 @@ body[data-theme="dark"] .feature-item {
         align-items: center !important;
         justify-content: center !important;
         box-sizing: border-box !important;
-        padding: 0.6rem 0.5rem !important;
-        font-size: 0.85rem !important;
+        padding: 0.7rem 0.9rem !important;
+        font-size: 0.8rem !important;
         min-height: 44px !important;
         font-weight: 600 !important;
         border-radius: 10px !important;
         border: 2px solid var(--border-color) !important;
         transition: all 0.2s ease !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
     }
 
     .conversion-modal .format-badge:active,
