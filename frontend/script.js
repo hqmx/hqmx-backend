@@ -1251,17 +1251,18 @@
 
     // Google Drive integration
     function initializeGoogleDrive() {
-        const CLIENT_ID = 'YOUR_GOOGLE_CLIENT_ID';
-        const API_KEY = 'YOUR_GOOGLE_API_KEY';
+        // Get API keys from localStorage or use defaults
+        const CLIENT_ID = localStorage.getItem('googleDriveClientId') || 'YOUR_GOOGLE_CLIENT_ID';
+        const API_KEY = localStorage.getItem('googleDriveApiKey') || 'YOUR_GOOGLE_API_KEY';
 
         // Skip initialization if API keys are not configured
         if (CLIENT_ID === 'YOUR_GOOGLE_CLIENT_ID' || API_KEY === 'YOUR_GOOGLE_API_KEY') {
             const gdriveBtn = document.getElementById('gdriveBtn');
             if (gdriveBtn) {
-                gdriveBtn.disabled = true;
-                gdriveBtn.title = 'Google Drive API not configured';
+                gdriveBtn.disabled = false;
+                gdriveBtn.title = 'Click to configure Google Drive API';
                 gdriveBtn.addEventListener('click', () => {
-                    showToast('Google Drive API is not configured. Please add your API keys.', 'info');
+                    showGoogleDriveSetupModal();
                 });
             }
             return;
@@ -1373,6 +1374,108 @@
             gisLoaded();
         }
     }
+
+    // Google Drive API Setup Modal
+    function showGoogleDriveSetupModal() {
+        const modalHTML = `
+            <div class="modal-overlay" id="apiSetupModal">
+                <div class="modal-content" style="max-width: 600px;">
+                    <div class="modal-header">
+                        <h2>Google Drive API 설정</h2>
+                        <button class="modal-close" onclick="document.getElementById('apiSetupModal').remove()">×</button>
+                    </div>
+                    <div class="modal-body">
+                        <p style="margin-bottom: 1.5rem; color: #666;">
+                            Google Drive에서 파일을 가져오려면 API 키가 필요합니다.
+                        </p>
+
+                        <div style="margin-bottom: 1rem;">
+                            <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">
+                                Google API Key
+                            </label>
+                            <input type="text" id="googleApiKeyInput"
+                                   placeholder="AIzaSyBkXXXXXXXXXXXXXXXXXXXXXXXX"
+                                   style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 8px; font-size: 0.9rem;"
+                                   value="${localStorage.getItem('googleDriveApiKey') || ''}">
+                        </div>
+
+                        <div style="margin-bottom: 1.5rem;">
+                            <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">
+                                Google Client ID
+                            </label>
+                            <input type="text" id="googleClientIdInput"
+                                   placeholder="1084326875199-xxxxx.apps.googleusercontent.com"
+                                   style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 8px; font-size: 0.9rem;"
+                                   value="${localStorage.getItem('googleDriveClientId') || ''}">
+                        </div>
+
+                        <details style="margin-bottom: 1.5rem; padding: 1rem; background: #f8f9fa; border-radius: 8px;">
+                            <summary style="cursor: pointer; font-weight: 500; margin-bottom: 1rem;">
+                                📖 API 키 발급 방법
+                            </summary>
+                            <ol style="margin-left: 1.5rem; line-height: 1.8;">
+                                <li><a href="https://console.cloud.google.com/" target="_blank" style="color: #2563EB;">Google Cloud Console</a> 접속</li>
+                                <li>프로젝트 생성 또는 선택</li>
+                                <li>"APIs & Services → Library" 이동</li>
+                                <li>"Google Drive API" 및 "Google Picker API" 활성화</li>
+                                <li>"Credentials" 탭에서:
+                                    <ul style="margin-left: 1rem; margin-top: 0.5rem;">
+                                        <li>"API key" 생성 (첫 번째 입력란)</li>
+                                        <li>"OAuth client ID" 생성 (두 번째 입력란)</li>
+                                    </ul>
+                                </li>
+                                <li>Authorized JavaScript origins에 <code>https://converter.hqmx.net</code> 추가</li>
+                            </ol>
+                        </details>
+
+                        <div style="display: flex; gap: 1rem; justify-content: flex-end;">
+                            <button onclick="document.getElementById('apiSetupModal').remove()"
+                                    style="padding: 0.75rem 1.5rem; border: 1px solid #ddd; background: white; border-radius: 8px; cursor: pointer;">
+                                취소
+                            </button>
+                            <button onclick="saveGoogleDriveApiKeys()"
+                                    style="padding: 0.75rem 1.5rem; background: linear-gradient(45deg, #2563EB, #3b82f6); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 500;">
+                                저장 및 활성화
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        document.body.insertAdjacentHTML('beforeend', modalHTML);
+
+        // Close on overlay click
+        document.getElementById('apiSetupModal').addEventListener('click', (e) => {
+            if (e.target.id === 'apiSetupModal') {
+                e.target.remove();
+            }
+        });
+    }
+
+    // Save Google Drive API Keys
+    window.saveGoogleDriveApiKeys = function() {
+        const apiKey = document.getElementById('googleApiKeyInput').value.trim();
+        const clientId = document.getElementById('googleClientIdInput').value.trim();
+
+        if (!apiKey || !clientId) {
+            showToast('API Key와 Client ID를 모두 입력해주세요.', 'error');
+            return;
+        }
+
+        localStorage.setItem('googleDriveApiKey', apiKey);
+        localStorage.setItem('googleDriveClientId', clientId);
+
+        document.getElementById('apiSetupModal').remove();
+        showToast('Google Drive API가 설정되었습니다. 페이지를 새로고침해주세요.', 'success');
+
+        setTimeout(() => {
+            location.reload();
+        }, 2000);
+    };
+
+    // Dropbox is always available (using Chooser API which doesn't need app key for basic usage)
+    // But we can add a settings option if needed
 
     // Initialize cloud storage integrations
     initializeDropbox();
