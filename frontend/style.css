@@ -2491,16 +2491,26 @@ body[data-theme="dark"] .mobile-menu-box {
         margin: 0 auto;
         max-width: 100vw;
         overflow-x: hidden;
-        background-image: url('assets/mbg.webp');
-        background-attachment: fixed;
+        background-image: none !important;
+        background-attachment: unset;
+    }
+
+    /* 모바일에서 배경 이미지를 position: fixed로 고정 */
+    body::before {
+        background-image:
+            linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)),
+            url('assets/mbg.webp');
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
+        width: 100vw;
+        height: 100vh;
     }
 
-    body[data-theme="dark"] {
-        background-image: url('assets/dkmbg.webp');
-        background-attachment: fixed;
+    body[data-theme="dark"]::before {
+        background-image:
+            linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+            url('assets/dkmbg.webp');
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
