@@ -2274,8 +2274,8 @@ body[data-theme="dark"] input {
 
 .mobile-menu-box {
     position: absolute;
-    top: 3.5rem;
-    right: 0.5rem;
+    top: 0rem;
+    right: 1rem;
     transform: translateX(20px);
     background: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(40px);
