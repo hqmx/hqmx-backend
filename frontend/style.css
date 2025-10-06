@@ -2274,7 +2274,7 @@ body[data-theme="dark"] input {
 
 .mobile-menu-box {
     position: absolute;
-    top: -5rem;
+    top: -30rem;
     right: 1.5rem;
     transform: translateX(20px);
     background: rgba(255, 255, 255, 0.7);
