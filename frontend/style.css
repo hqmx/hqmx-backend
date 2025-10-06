@@ -37,7 +37,7 @@ body[data-theme="dark"] {
 
 body {
     font-family: 'Inter', sans-serif;
-    background-image: url('assets/bg.png');
+    background-image: url('assets/bg.webp');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -69,7 +69,7 @@ body[data-theme="dark"]::before {
 
 /* 다크 모드 전용 배경 이미지 */
 body[data-theme="dark"] {
-    background-image: url('assets/bgdk.png');
+    background-image: url('assets/bgdk.webp');
 }
 
 .container {
@@ -2491,7 +2491,11 @@ body[data-theme="dark"] .mobile-menu-box {
         margin: 0 auto;
         max-width: 100vw;
         overflow-x: hidden;
-        background-image: url('assets/mbg.png');
+        background-image: url('assets/mbg.webp');
+    }
+
+    body[data-theme="dark"] {
+        background-image: url('assets/dkmbg.webp');
     }
 
     .container {
