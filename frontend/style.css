@@ -348,6 +348,7 @@ body[data-theme="dark"] .theme-toggle-btn .fa-moon {
 @media (max-width: 480px) {
     .tagline {
         letter-spacing: 6px;
+        margin-top: 0.75rem;
     }
 }
 
