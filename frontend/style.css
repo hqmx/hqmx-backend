@@ -2492,10 +2492,18 @@ body[data-theme="dark"] .mobile-menu-box {
         max-width: 100vw;
         overflow-x: hidden;
         background-image: url('assets/mbg.webp');
+        background-attachment: fixed;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
     }
 
     body[data-theme="dark"] {
         background-image: url('assets/dkmbg.webp');
+        background-attachment: fixed;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
     }
 
     .container {
