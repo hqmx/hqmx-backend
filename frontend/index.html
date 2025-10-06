@@ -149,12 +149,12 @@
                             <p class="main-text" data-i18n-key="uploadMainText">Drop files here or click to upload</p>
                             <p class="sub-text" data-i18n-key="uploadSubText">Support for 300+ file formats • Max file size: 100MB</p>
                         </div>
-                        <input type="file" id="fileInput" multiple accept="*" style="display: none;">
                         <div class="upload-buttons">
-                            <button class="upload-btn" id="uploadBtn">
-                                <i class="fas fa-plus"></i>
-                                <span data-i18n-key="selectFiles">Select Files</span>
-                            </button>
+                            <div class="upload-btn" id="uploadBtn" style="cursor: pointer; display: inline-flex; align-items: center; gap: 0.5rem; position: relative;">
+                                <input type="file" id="fileInput" multiple accept="*" style="position: absolute; inset: 0; opacity: 0; cursor: pointer; z-index: 1;">
+                                <i class="fas fa-plus" style="pointer-events: none; z-index: 0;"></i>
+                                <span data-i18n-key="selectFiles" style="pointer-events: none; z-index: 0;">Select Files</span>
+                            </div>
                             <button class="cloud-btn dropbox-btn" id="dropboxBtn">
                                 <i class="fab fa-dropbox"></i>
                                 <span>Dropbox</span>
@@ -424,7 +424,17 @@
                             <h4 data-i18n-key="step1Title">Upload Files</h4>
                         </div>
                         <div class="step-image-container">
-                            <img src="data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 150'%3e%3cdefs%3e%3cstyle%3e.bg%7bfill:%23f9fafb;%7d.upload-area%7bfill:%23fff;stroke:%23e5e7eb;stroke-width:2;stroke-dasharray:8,4;%7d.icon%7bfill:%233b82f6;%7d.text%7bfont-family:sans-serif;font-size:12px;fill:%236b7280;text-anchor:middle;%7d%3c/style%3e%3c/defs%3e%3crect class='bg' width='200' height='150' /%3e%3crect class='upload-area' x='30' y='40' width='140' height='70' rx='8'/%3e%3cpath class='icon' d='M100 60 l-15 15 h10 v15 h10 v-15 h10 z'/%3e%3ctext class='text' x='100' y='100'%3eDrop files here%3c/text%3e%3c/svg%3e" alt="Step 1 Illustration">
+                            <div class="step-illustration step-upload">
+                                <div class="upload-area">
+                                    <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                                    <div class="file-icons">
+                                        <i class="fas fa-file-image file-icon"></i>
+                                        <i class="fas fa-file-video file-icon"></i>
+                                        <i class="fas fa-file-audio file-icon"></i>
+                                    </div>
+                                    <p class="upload-text">Drag & Drop Files</p>
+                                </div>
+                            </div>
                         </div>
                         <p data-i18n-key="step1Desc">Drag and drop your files into the upload area or click to select files from your device.</p>
                     </div>
@@ -434,7 +444,19 @@
                             <h4 data-i18n-key="step2Title">Choose Format</h4>
                         </div>
                         <div class="step-image-container">
-                            <img src="data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 150'%3e%3cdefs%3e%3cstyle%3e.bg%7bfill:%23f9fafb;%7d.modal%7bfill:%23fff;stroke:%23e5e7eb;stroke-width:2;%7d.button%7bfill:%233b82f6;%7d.text%7bfont-family:sans-serif;font-size:10px;fill:%23374151;text-anchor:middle;%7d.label%7bfont-family:sans-serif;font-size:8px;fill:%23fff;text-anchor:middle;%7d%3c/style%3e%3c/defs%3e%3crect class='bg' width='200' height='150' /%3e%3crect class='modal' x='20' y='20' width='160' height='110' rx='8'/%3e%3crect class='button' x='30' y='35' width='30' height='20' rx='4'/%3e%3ctext class='label' x='45' y='47'%3eMP4%3c/text%3e%3crect class='button' x='70' y='35' width='30' height='20' rx='4'/%3e%3ctext class='label' x='85' y='47'%3eAVI%3c/text%3e%3crect class='button' x='110' y='35' width='30' height='20' rx='4'/%3e%3ctext class='label' x='125' y='47'%3eMOV%3c/text%3e%3ctext class='text' x='100' y='75'%3eSelect output format%3c/text%3e%3c/svg%3e" alt="Step 2 Illustration">
+                            <div class="step-illustration step-format">
+                                <div class="format-modal">
+                                    <div class="format-buttons">
+                                        <button class="format-btn active">MP4</button>
+                                        <button class="format-btn">AVI</button>
+                                        <button class="format-btn">MOV</button>
+                                        <button class="format-btn">WEBM</button>
+                                        <button class="format-btn">FLV</button>
+                                        <button class="format-btn">WMV</button>
+                                    </div>
+                                    <p class="format-text">Choose Format</p>
+                                </div>
+                            </div>
                         </div>
                         <p data-i18n-key="step2Desc">Select the desired output format from our extensive list of supported formats.</p>
                     </div>
@@ -444,7 +466,19 @@
                             <h4 data-i18n-key="step3Title">Download</h4>
                         </div>
                         <div class="step-image-container">
-                            <img src="data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 150'%3e%3cdefs%3e%3cstyle%3e.bg%7bfill:%23f9fafb;%7d.progress%7bfill:%23e5e7eb;%7d.progress-fill%7bfill:%232563EB;%7d.download%7bfill:%232563EB;%7d.text%7bfont-family:sans-serif;font-size:12px;fill:%23374151;text-anchor:middle;%7d%3c/style%3e%3c/defs%3e%3crect class='bg' width='200' height='150' /%3e%3crect class='progress' x='40' y='60' width='120' height='8' rx='4'/%3e%3crect class='progress-fill' x='40' y='60' width='96' height='8' rx='4'/%3e%3ctext class='text' x='100' y='55'%3e80%25 Complete%3c/text%3e%3crect class='download' x='80' y='85' width='40' height='25' rx='6'/%3e%3cpath fill='%23fff' d='M100 95 l-5 5 h3 v5 h4 v-5 h3 z'/%3e%3ctext class='text' x='100' y='125'%3eDownload Ready%3c/text%3e%3c/svg%3e" alt="Step 3 Illustration">
+                            <div class="step-illustration step-download">
+                                <div class="progress-container">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill"></div>
+                                    </div>
+                                    <p class="progress-text">Converting... 80%</p>
+                                </div>
+                                <button class="download-btn">
+                                    <i class="fas fa-download"></i>
+                                    Download
+                                </button>
+                                <p class="download-text">Download Ready!</p>
+                            </div>
                         </div>
                         <p data-i18n-key="step3Desc">Wait for the conversion to complete and download your converted files.</p>
                     </div>

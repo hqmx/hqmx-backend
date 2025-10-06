@@ -19,9 +19,9 @@
     const CLIENT_SIDE_MODE = true;
     
     // API endpoints for converter service
-    // Local development: http://localhost:5001
+    // Local development: http://localhost:8787
     // Cloudflare deployment: https://converter-workers.your-subdomain.workers.dev
-    const API_BASE_URL = 'http://localhost:5001';
+    const API_BASE_URL = 'http://localhost:8787';
 
     // Supported file formats by category
     const FORMATS = {
@@ -141,25 +141,46 @@
         }
     }
 
-    // File upload listeners
-    dom.uploadZone.addEventListener('click', (e) => {
-        // uploadBtn이 클릭된 경우가 아닐 때만 실행
-        if (!e.target.closest('#uploadBtn')) {
+    // File upload listeners - 모바일에서는 버튼만, 데스크톱에서는 전체 영역 클릭 가능
+    function triggerFileInput(e) {
+        // 버튼 클릭은 별도 이벤트 리스너에서 처리하므로 여기서는 제외
+        if (e.target.closest('#uploadBtn')) {
+            return;
+        }
+
+        // 모바일 디바이스 체크
+        const isMobile = window.innerWidth <= 768 || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+        if (!isMobile) {
+            // 데스크톱에서만 업로드 영역 클릭으로 파일 입력창 열기
+            e.preventDefault();
+            e.stopPropagation();
             dom.fileInput.click();
         }
-    });
+        // 모바일에서는 아무것도 하지 않음 (드래그앤드롭만 허용)
+    }
+
+    dom.uploadZone.addEventListener('click', triggerFileInput);
+    dom.uploadZone.addEventListener('touchend', triggerFileInput);
     dom.uploadZone.addEventListener('dragover', handleDragOver);
     dom.uploadZone.addEventListener('dragleave', handleDragLeave);
     dom.uploadZone.addEventListener('drop', handleFileDrop);
     dom.fileInput.addEventListener('change', handleFileSelect);
-    dom.uploadBtn.addEventListener('click', (e) => {
-        e.stopPropagation(); // uploadZone의 click 이벤트 방지
-        dom.fileInput.click();
-    });
+
+    // Select Files 버튼은 이제 HTML에서 직접 처리됨 (input이 버튼 위에 투명하게 올려짐)
+    // JavaScript 이벤트 리스너 불필요
     
     // File list actions
     dom.clearAllBtn.addEventListener('click', clearAllFiles);
-    dom.convertAllBtn.addEventListener('click', convertAllFiles);
+    if (dom.convertAllBtn) {
+        console.log('Convert All 버튼 이벤트 리스너 연결됨');
+        dom.convertAllBtn.addEventListener('click', (e) => {
+            console.log('Convert All 버튼 클릭됨!', e);
+            convertAllFiles();
+        });
+    } else {
+        console.error('Convert All 버튼을 찾을 수 없음');
+    }
 
     // 확장 버튼 이벤트 리스너
     document.querySelectorAll('.expand-formats-btn').forEach(btn => {
@@ -419,17 +440,25 @@
     }
 
     function convertAllFiles() {
-        const readyFiles = state.files.filter(f => f.status === 'ready');
-        if (readyFiles.length === 0) {
-            showToast('No files ready for conversion', 'warning');
+        console.log('convertAllFiles 호출됨');
+        console.log('전체 파일 목록:', state.files.map(f => ({ name: f.name, status: f.status })));
+
+        // 변환 중이 아닌 모든 파일을 변환 대상으로 포함 (ready, completed, error 상태)
+        const availableFiles = state.files.filter(f => f.status !== 'converting');
+        console.log('변환 가능한 파일:', availableFiles.length, availableFiles.map(f => f.name));
+
+        if (availableFiles.length === 0) {
+            showToast('변환할 수 있는 파일이 없습니다', 'warning');
             return;
         }
 
         // Open conversion modal for multiple files
-        if (readyFiles.length === 1) {
-            openConversionModal(readyFiles[0].id);
+        if (availableFiles.length === 1) {
+            console.log('단일 파일 모드로 변환 모달 열기');
+            openConversionModal(availableFiles[0].id);
         } else {
-            openBatchConversionModal(readyFiles);
+            console.log('배치 모드로 변환 모달 열기');
+            openBatchConversionModal(availableFiles);
         }
     }
 
@@ -493,6 +522,8 @@
     }
 
     function openBatchConversionModal(files) {
+        console.log('openBatchConversionModal 호출됨, 파일 수:', files.length);
+
         // Hide single file preview since we're in batch mode
         const singleFilePreview = document.getElementById('singleFilePreview');
         if (singleFilePreview) {
@@ -501,11 +532,13 @@
 
         // Set initial category based on first file's type
         const firstFileCategory = files.length > 0 ? detectFileCategory(files[0].extension) : 'document';
+        console.log('첫 번째 파일 카테고리:', firstFileCategory);
         handleCategorySelect(firstFileCategory);
 
         // Store files for batch conversion
         state.batchFiles = files;
         state.currentFileIndex = -1; // Indicate batch mode
+        console.log('state.batchFiles 설정됨:', state.batchFiles.length);
 
         // Show modal
         dom.conversionModal.style.display = 'flex';
@@ -604,14 +637,23 @@
     }
 
     function startConversion() {
+        console.log('startConversion 호출됨');
+        console.log('state.currentFileIndex:', state.currentFileIndex);
+        console.log('state.batchFiles:', state.batchFiles);
+
         // Check if this is batch mode
         if (state.currentFileIndex < 0 && state.batchFiles) {
+            console.log('배치 모드로 변환 시작');
             return startBatchConversion();
         }
 
-        if (state.currentFileIndex < 0) return;
+        if (state.currentFileIndex < 0) {
+            console.log('currentFileIndex가 -1이므로 리턴');
+            return;
+        }
 
         const fileObj = state.files[state.currentFileIndex];
+        console.log('단일 파일 변환:', fileObj?.name);
         if (!fileObj.outputFormat) {
             showToast('Please select an output format', 'error');
             return;
@@ -629,19 +671,26 @@
     }
 
     function startBatchConversion() {
+        console.log('startBatchConversion 호출됨');
         const selectedFormat = document.querySelector('.format-badge.selected');
+        console.log('선택된 형식:', selectedFormat?.dataset?.format);
+
         if (!selectedFormat) {
+            console.log('선택된 형식이 없음');
             showToast('Please select an output format', 'error');
             return;
         }
 
         // Check if batch files exist
+        console.log('state.batchFiles 확인:', state.batchFiles);
         if (!state.batchFiles || !Array.isArray(state.batchFiles) || state.batchFiles.length === 0) {
+            console.log('배치 파일이 없음');
             showToast('No files available for batch conversion', 'error');
             return;
         }
 
         const outputFormat = selectedFormat.dataset.format;
+        console.log('변환할 형식:', outputFormat);
 
         // Collect advanced settings
         const settings = {};
@@ -657,10 +706,14 @@
             file.settings = { ...settings };
         });
 
+        // Store batch files before closing modal
+        const batchFilesToConvert = [...state.batchFiles];
+        console.log('배치 변환 시작 전 파일 수:', batchFilesToConvert.length);
+
         closeModal();
 
         // Start conversion for all files sequentially
-        startBatchFileConversions(state.batchFiles);
+        startBatchFileConversions(batchFilesToConvert);
     }
 
     async function startBatchFileConversions(files) {
@@ -671,11 +724,56 @@
 
         showToast(`Starting conversion of ${files.length} files`, 'info');
 
+        let completedCount = 0;
+        let failedCount = 0;
+
         for (const file of files) {
-            await startFileConversion(file);
-            // Add small delay between conversions
-            await new Promise(resolve => setTimeout(resolve, 500));
+            try {
+                await startFileConversion(file);
+                completedCount++;
+                // Add small delay between conversions
+                await new Promise(resolve => setTimeout(resolve, 500));
+            } catch (error) {
+                console.error(`Failed to convert ${file.name}:`, error);
+                failedCount++;
+            }
         }
+
+        // 배치 변환 완료 후 모든 파일 다운로드
+        const convertedFiles = files.filter(file => file.status === 'completed');
+
+        if (convertedFiles.length > 0) {
+            showToast(`배치 변환 완료! ${completedCount}개 파일 다운로드 시작... (실패: ${failedCount}개)`, 'success');
+
+            // 모든 완료된 파일을 순차적으로 다운로드
+            for (let i = 0; i < convertedFiles.length; i++) {
+                const file = convertedFiles[i];
+                setTimeout(() => {
+                    downloadConvertedFile(file);
+                }, i * 800); // 800ms 간격으로 다운로드
+            }
+        } else {
+            showToast(`배치 변환 실패: ${failedCount}개 파일 모두 실패`, 'error');
+        }
+    }
+
+    // 백엔드가 필요한 파일 형식들 정의
+    const SERVER_SIDE_FORMATS = {
+        input: ['psd', 'ai', 'sketch', 'fig', 'raw', 'cr2', 'nef', 'arw', 'dng'],
+        output: ['psd', 'ai', 'indd', 'eps'],
+        document: ['pdf', 'doc', 'docx', 'ppt', 'pptx', 'xls', 'xlsx']
+    };
+
+    // 파일이 서버 사이드 변환이 필요한지 확인
+    function needsServerSideConversion(fileObj) {
+        const inputExt = fileObj.extension.toLowerCase();
+        const outputExt = fileObj.outputFormat.toLowerCase();
+
+        // 입력 파일이 복잡한 형식이거나 출력 형식이 복잡한 경우
+        return SERVER_SIDE_FORMATS.input.includes(inputExt) ||
+               SERVER_SIDE_FORMATS.output.includes(outputExt) ||
+               (SERVER_SIDE_FORMATS.document.includes(inputExt) &&
+                SERVER_SIDE_FORMATS.document.includes(outputExt));
     }
 
     async function startFileConversion(fileObj) {
@@ -684,11 +782,12 @@
         updateFileItem(fileObj);
 
         try {
-            if (CLIENT_SIDE_MODE) {
-                // 클라이언트 사이드 변환 (브라우저에서 직접 처리)
+            // 하이브리드 모드: 파일 형식에 따라 클라이언트/서버 결정
+            if (CLIENT_SIDE_MODE && !needsServerSideConversion(fileObj)) {
+                console.log(`클라이언트 사이드 변환: ${fileObj.name} → ${fileObj.outputFormat}`);
                 await clientSideConversion(fileObj);
             } else {
-                // 서버 사이드 변환 (백엔드 API 사용)
+                console.log(`서버 사이드 변환: ${fileObj.name} → ${fileObj.outputFormat}`);
                 await serverSideConversion(fileObj);
             }
         } catch (error) {
@@ -741,11 +840,15 @@
             fileObj.progress = 100;
             updateFileItem(fileObj);
 
-            // 자동 다운로드 (선택사항)
-            showToast(`변환 완료! "${fileName}" 다운로드 버튼을 클릭하세요.`, 'success');
-
-            // 선택사항: 자동 다운로드
-            // setTimeout(() => downloadConvertedFile(fileObj), 500);
+            // 단일 파일 변환 완료
+            if (state.batchFiles && state.batchFiles.length > 1) {
+                // 배치 모드에서는 개별 다운로드 안함
+                showToast(`변환 완료! "${fileName}"`, 'success');
+            } else {
+                // 단일 파일 모드에서는 자동 다운로드
+                showToast(`변환 완료! "${fileName}" 자동 다운로드 시작...`, 'success');
+                setTimeout(() => downloadConvertedFile(fileObj), 500);
+            }
 
         } catch (error) {
             throw error;

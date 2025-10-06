@@ -346,11 +346,66 @@ npm run deploy
 - 일부 문서 형식(PDF, DOCX 등)은 제한적 지원
 
 ### 개발 시 주의사항
-- `CLIENT_SIDE_MODE = true` 설정 유지 (frontend/script.js:18)
+- `CLIENT_SIDE_MODE = true` 설정 유지 (frontend/script.js:19)
 - 새로운 변환 형식 추가 시 `FORMATS` 객체 업데이트 필수
-- 브라우저 호환성: SharedArrayBuffer 지원 필요 (Chrome 90+, Firefox 88+)
+- 브라우저 호환성: WebAssembly, SharedArrayBuffer 지원 필요 (Chrome 90+, Firefox 88+)
 - **CSS 캐시 파일**: `style-v*.css` 파일들은 캐시 무효화를 위한 버전 파일 (정리 필요시 주의)
 - **Service Worker**: `sw.js`로 PWA 지원 및 오프라인 기능 제공
+
+## 핵심 아키텍처 패턴
+
+### 상태 관리 시스템 (`frontend/script.js`)
+- **중앙화된 상태**: `state` 객체로 모든 파일, 변환 상태 관리
+- **Map 기반 추적**: `conversions`, `eventSources`로 비동기 작업 추적
+- **배치 처리 지원**: `batchFiles`로 다중 파일 처리
+
+### 변환 엔진 아키텍처 (`frontend/converter-engine.js`)
+- **ConverterEngine 클래스**: FFmpeg.wasm과 Canvas API 통합 관리
+- **지연 로딩**: FFmpeg 라이브러리를 필요시에만 동적 로드
+- **진행률 파싱**: FFmpeg 출력을 실시간 진행률로 변환
+- **메모리 관리**: 변환 완료 후 WASM 파일시스템 자동 정리
+
+### 다국어 시스템 (`frontend/i18n.js`)
+- **I18n 클래스**: 번역 로딩 및 동적 적용
+- **RTL 지원**: 아랍어, 히브리어 등 우측-좌측 언어 지원
+- **브라우저 언어 감지**: 자동 언어 감지 및 localStorage 저장
+- **동적 번역**: `data-i18n-key` 속성 기반 실시간 번역 적용
+
+## 중요한 기술적 제약사항
+
+### 브라우저 환경 요구사항
+- **CORS 헤더**: FFmpeg.wasm SharedArrayBuffer 사용을 위한 필수 헤더
+  ```
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Embedder-Policy: require-corp
+  ```
+- **메모리 제한**: 브라우저당 ~2GB 메모리 제한 (대용량 파일 처리 시 주의)
+- **WASM 초기화**: 첫 변환시 FFmpeg 라이브러리 로딩으로 인한 지연 (정상적인 동작)
+
+### 파일 처리 패턴
+- **클라이언트 사이드 전용**: 파일이 서버로 전송되지 않음 (프라이버시 보장)
+- **Blob URL 기반**: 변환된 파일을 브라우저 메모리에서 직접 다운로드
+- **배치 변환**: 여러 파일을 순차적으로 처리 (메모리 효율성)
+
+## 디버깅 및 개발 팁
+
+### 브라우저 개발자 도구 활용
+```javascript
+// 현재 상태 확인 (콘솔에서)
+console.log('Current state:', window.converterState);
+
+// FFmpeg 로딩 상태 확인
+console.log('FFmpeg loaded:', window.converterEngine?.ffmpegLoaded);
+
+// 변환 진행률 모니터링
+console.log('Active conversions:', window.converterState?.conversions);
+```
+
+### 테스트 파일 권장사항
+- **초기 테스트**: 1-5MB 크기의 작은 파일 사용
+- **형식 테스트**: 각 카테고리별 대표 형식으로 테스트
+- **진행률 테스트**: 비디오 변환으로 진행률 표시 확인
+- **에러 처리**: 지원하지 않는 형식으로 에러 핸들링 테스트
 
 ### 현재 상태
 - ✅ **프론트엔드**: 완전 작동, 클라이언트 사이드 변환 구현 완료

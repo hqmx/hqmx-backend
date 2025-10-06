@@ -113,28 +113,61 @@ class ConverterEngine {
     async convertImage(file, outputFormat, options = {}, onProgress) {
         return new Promise((resolve, reject) => {
             onProgress?.(10, '이미지 로딩 중...');
-            
+
             const img = new Image();
             const canvas = document.createElement('canvas');
             const ctx = canvas.getContext('2d');
-            
-            img.onload = () => {
+
+            img.onload = async () => {
                 try {
                     onProgress?.(30, '이미지 처리 중...');
                     
                     // 캔버스 크기 설정
-                    let width = img.width;
-                    let height = img.height;
-                    
-                    // 리사이즈 옵션 처리
-                    if (options.resize && options.resize !== 'none') {
-                        const scale = parseFloat(options.resize.replace('%', '')) / 100;
-                        width = Math.round(width * scale);
-                        height = Math.round(height * scale);
+                    let width = img.naturalWidth || img.width;
+                    let height = img.naturalHeight || img.height;
+
+                    console.log(`원본 이미지 크기: ${width} x ${height}`);
+                    console.log(`이미지 로드 상태 - complete: ${img.complete}, src: ${img.src.substring(0, 50)}...`);
+
+                    // 크기 유효성 검사 및 정수 변환
+                    width = parseInt(width) || 0;
+                    height = parseInt(height) || 0;
+
+                    console.log(`정수 변환 후 크기: ${width} x ${height}`);
+
+                    if (width === 0 || height === 0) {
+                        throw new Error(`이미지 크기가 0입니다: ${width} x ${height}`);
                     }
-                    
+
+                    // 리사이즈 옵션 처리
+                    if (options.resize && options.resize !== 'none' && options.resize !== 'original') {
+                        const scaleStr = options.resize.replace('%', '');
+                        const scale = parseFloat(scaleStr) / 100;
+                        console.log(`리사이즈 스케일: ${scaleStr}% -> ${scale}`);
+
+                        if (!isNaN(scale) && scale > 0) {
+                            width = Math.round(width * scale);
+                            height = Math.round(height * scale);
+                            console.log(`리사이즈 후 크기: ${width} x ${height}`);
+                        } else {
+                            console.log('리사이즈 스케일이 유효하지 않음, 원본 크기 유지');
+                        }
+                    }
+
+                    // Canvas 크기를 명시적으로 설정
                     canvas.width = width;
                     canvas.height = height;
+
+                    console.log(`Canvas 크기 설정 시도: width=${width}, height=${height}`);
+                    console.log(`Canvas 실제 크기: ${canvas.width} x ${canvas.height}`);
+
+                    // Canvas 크기가 0인 경우 강제로 재설정
+                    if (canvas.width === 0 || canvas.height === 0) {
+                        console.log('Canvas 크기가 0이므로 강제 재설정 시도');
+                        canvas.setAttribute('width', width);
+                        canvas.setAttribute('height', height);
+                        console.log(`강제 재설정 후: ${canvas.width} x ${canvas.height}`);
+                    }
 
                     // PNG → JPEG 변환시 투명도 처리
                     const mimeType = this.getImageMimeType(outputFormat);
@@ -179,48 +212,83 @@ class ConverterEngine {
                     // Blob으로 변환
                     console.log(`변환 설정 - mimeType: ${mimeType}, quality: ${quality}`);
 
+                    // 더 안전한 변환 방식
                     try {
-                        // toBlob 대신 toDataURL 사용 (더 높은 호환성)
+                        console.log('Canvas 변환 시작...');
+
+                        // 1단계: toDataURL 시도
                         let dataURL;
-                        if (quality !== undefined && (mimeType === 'image/jpeg' || mimeType === 'image/webp')) {
-                            dataURL = canvas.toDataURL(mimeType, quality);
+
+                        if (mimeType === 'image/jpeg') {
+                            // JPEG는 quality 0.1~0.9 범위로 제한
+                            const safeQuality = Math.min(Math.max(quality || 0.8, 0.1), 0.9);
+                            console.log(`JPEG 변환 시도 - quality: ${safeQuality}`);
+                            dataURL = canvas.toDataURL('image/jpeg', safeQuality);
+                            console.log(`JPEG 변환 완료 - DataURL 앞 50자: ${dataURL.substring(0, 50)}`);
                         } else {
+                            console.log(`${mimeType} 변환 시도`);
                             dataURL = canvas.toDataURL(mimeType);
+                            console.log(`${mimeType} 변환 완료 - DataURL 앞 50자: ${dataURL.substring(0, 50)}`);
                         }
 
-                        if (!dataURL || dataURL === 'data:,') {
-                            throw new Error('Canvas toDataURL 실패');
+                        console.log(`DataURL 생성 결과 - 길이: ${dataURL ? dataURL.length : 'null'}, 유효성: ${dataURL && dataURL !== 'data:,' && dataURL.length >= 100}`);
+
+                        if (!dataURL || dataURL === 'data:,' || dataURL.length < 100) {
+                            console.error('DataURL 검증 실패:', {
+                                exists: !!dataURL,
+                                notEmpty: dataURL !== 'data:,',
+                                hasLength: dataURL && dataURL.length >= 100,
+                                actualLength: dataURL ? dataURL.length : 0
+                            });
+                            throw new Error('DataURL 생성 실패');
                         }
 
-                        // DataURL을 Blob으로 변환
-                        const response = await fetch(dataURL);
-                        const blob = await response.blob();
+                        console.log('DataURL 생성 성공, 길이:', dataURL.length);
 
-                        // 파일 크기 체크
-                        const fileSizeKB = blob.size / 1024;
-                        console.log(`변환된 파일 크기: ${fileSizeKB.toFixed(2)}KB`);
+                        // 2단계: DataURL을 Blob으로 변환 (fetch 방식)
+                        try {
+                            const response = await fetch(dataURL);
+                            const blob = await response.blob();
 
-                        onProgress?.(100, '변환 완료!');
-                        resolve(blob);
-
-                    } catch (dataURLError) {
-                        console.error('toDataURL 방식 실패:', dataURLError);
-
-                        // Fallback: toBlob 시도
-                        const toBlobArgs = [mimeType];
-                        if (quality !== undefined) {
-                            toBlobArgs.push(quality);
-                        }
-
-                        canvas.toBlob(blob => {
-                            if (blob) {
-                                console.log('toBlob fallback 성공');
-                                onProgress?.(100, '변환 완료!');
-                                resolve(blob);
-                            } else {
-                                reject(new Error(`이미지 변환 실패 - 지원되지 않는 형식: ${mimeType}`));
+                            if (!blob || blob.size === 0) {
+                                throw new Error('Blob 크기가 0');
                             }
-                        }, ...toBlobArgs);
+
+                            const fileSizeKB = blob.size / 1024;
+                            console.log(`변환 성공! 파일 크기: ${fileSizeKB.toFixed(2)}KB`);
+
+                            onProgress?.(100, '변환 완료!');
+                            resolve(blob);
+                            return;
+
+                        } catch (fetchError) {
+                            console.log('fetch 방식 실패, 수동 변환 시도:', fetchError);
+
+                            // 3단계: 수동으로 DataURL을 Blob으로 변환
+                            const base64Data = dataURL.split(',')[1];
+                            const binaryString = atob(base64Data);
+                            const bytes = new Uint8Array(binaryString.length);
+
+                            for (let i = 0; i < binaryString.length; i++) {
+                                bytes[i] = binaryString.charCodeAt(i);
+                            }
+
+                            const blob = new Blob([bytes], { type: mimeType });
+
+                            if (blob.size === 0) {
+                                throw new Error('수동 Blob 생성 실패');
+                            }
+
+                            const fileSizeKB = blob.size / 1024;
+                            console.log(`수동 변환 성공! 파일 크기: ${fileSizeKB.toFixed(2)}KB`);
+
+                            onProgress?.(100, '변환 완료!');
+                            resolve(blob);
+                        }
+
+                    } catch (error) {
+                        console.error('모든 변환 방식 실패:', error);
+                        reject(new Error(`이미지 변환 실패: ${error.message}`));
                     }
                     
                 } catch (error) {
