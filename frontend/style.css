@@ -2274,22 +2274,24 @@ body[data-theme="dark"] input {
 
 .mobile-menu-box {
     position: absolute;
-    bottom: 2rem;
-    left: 50%;
-    transform: translateX(-50%) translateY(100px);
-    background: rgba(255, 255, 255, 0.6);
-    backdrop-filter: blur(20px);
+    top: 4.5rem;
+    right: 1rem;
+    transform: translateX(20px);
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
     border-radius: 20px;
     padding: 2rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
 body[data-theme="dark"] .mobile-menu-box {
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(0, 0, 0, 0.7);
     border: 1px solid rgba(55, 65, 81, 0.4);
 }
 
 .mobile-menu-overlay.show .mobile-menu-box {
-    transform: translateX(-50%) translateY(0);
+    transform: translateX(0);
 }
 
 
