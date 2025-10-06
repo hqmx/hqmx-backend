@@ -191,7 +191,7 @@ body[data-theme="dark"] .top-nav {
     letter-spacing: 1px;
     line-height: 1;
     display: flex;
-    align-items: baseline;
+    align-items: center; /* C의 중간에 나머지 글자 정렬 */
 }
 
 .converter-logo .converter-c {
@@ -205,6 +205,10 @@ body[data-theme="dark"] .top-nav {
 .converter-logo .converter-rest {
     color: var(--text-color);
     font-weight: 800;
+    font-size: 0.72em; /* 대문자를 소문자 크기로 */
+    text-transform: uppercase;
+    position: relative;
+    top: 0.08em; /* 아주 살짝 아래로 */
 }
 
 /* Header */
