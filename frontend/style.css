@@ -1508,22 +1508,22 @@ body[data-theme="dark"] .feature-item {
         box-sizing: border-box !important;
     }
 
-    /* 개별 format-badge들도 명확히 설정 - 모바일에서도 카테고리 버튼과 비슷한 크기 */
+    /* 개별 format-badge들도 명확히 설정 - 모바일에서도 카테고리 버튼과 동일한 크기 */
     .conversion-modal .format-badge,
     #formatOptions .format-badge,
     .format-options .format-badge {
         width: 100% !important;
-        min-width: 0 !important;
-        flex: none !important;
+        min-width: 85px !important;
+        flex: 1 1 0% !important;
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
         box-sizing: border-box !important;
-        padding: 0.7rem 0.9rem !important;
-        font-size: 0.8rem !important;
-        min-height: 44px !important;
-        font-weight: 600 !important;
-        border-radius: 10px !important;
+        padding: 0.75rem 1rem !important;
+        font-size: 0.9rem !important;
+        min-height: 48px !important;
+        font-weight: 500 !important;
+        border-radius: 8px !important;
         border: 2px solid var(--border-color) !important;
         transition: all 0.2s ease !important;
         white-space: nowrap !important;
