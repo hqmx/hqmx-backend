@@ -276,16 +276,44 @@ ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@23.22.45.1
   Cross-Origin-Embedder-Policy: require-corp
   ```
 
-### 배포 명령
+### ⚠️ EC2 서버 배포 - 중요 경로 정보
+
+**nginx 설정:**
+- **nginx root 경로**: `/var/www/html/`
+- **절대 복사하지 말 것**: `~/frontend/` (nginx가 보지 않는 위치)
+
+**올바른 배포 절차:**
+```bash
+# 1. 로컬에서 /tmp로 복사
+scp -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem \
+  frontend/style.css frontend/index.html ubuntu@23.22.45.186:/tmp/
+
+# 2. 서버에서 nginx root로 이동 및 권한 설정
+ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@23.22.45.186 \
+  'sudo cp /tmp/style.css /tmp/index.html /var/www/html/ && \
+   sudo chown www-data:www-data /var/www/html/style.css /var/www/html/index.html && \
+   sudo chmod 755 /var/www/html/style.css /var/www/html/index.html'
+
+# 3. nginx reload
+ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@23.22.45.186 \
+  'sudo nginx -t && sudo systemctl reload nginx'
+```
+
+**배포 스크립트 사용 (권장):**
+```bash
+./deploy-to-ec2.sh
+```
+
+**nginx 설정 확인:**
+```bash
+ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@23.22.45.186 \
+  'sudo nginx -T 2>/dev/null | grep "root\|server_name"'
+```
+
+### 기타 배포 명령
 ```bash
 # 프론트엔드 배포 (Cloudflare Pages)
 wrangler pages deploy frontend --project-name hqmx-converter
-
-# 또는 프로젝트 루트에서 배포 스크립트 사용
-./deploy.sh
-
-# EC2 서버 직접 배포
-scp -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem -r frontend/ ubuntu@23.22.45.186:~/www/
 
 # 백엔드 배포 (선택적)
 cd backend
