@@ -1,0 +1,143 @@
+{
+  "tagline": "Universal File Converter",
+  "uploadSectionTitle": "轉換任何檔案格式",
+  "uploadMainText": "拖曳檔案到這裡或點擊上傳",
+  "uploadSubText": "支援300+檔案格式 • 最大檔案大小: 100MB",
+  "selectFiles": "選擇檔案",
+  "termsNotice": "By using our service you accept our Terms of Service and Privacy Policy.",
+
+  "yourFiles": "您的檔案",
+  "clearAll": "清空全部",
+  "convertAll": "全部轉換",
+
+  "conversionSettings": "轉換設定",
+  "filesToConvert": "待轉換檔案",
+  "convertTo": "轉換為",
+  "advancedSettings": "進階設定",
+  "advancedOptions": "進階選項",
+  "startConversion": "開始轉換",
+
+  "popular": "熱門",
+  "video": "影片",
+  "audio": "音訊",
+  "image": "圖片",
+  "document": "文件",
+  "archive": "壓縮檔",
+
+  "featureUniversalTitle": "萬能轉換器",
+  "featureUniversalDesc": "支援影片、音訊、圖片、文件、壓縮檔等300+種檔案格式互轉。",
+  "featureSpeedTitle": "極速轉換",
+  "featureSpeedDesc": "雲端處理，快速轉換，不佔用裝置資源。",
+  "featureSecurityTitle": "安全私密",
+  "featureSecurityDesc": "檔案24小時後自動刪除，隱私有保障。",
+
+  "supportedFormatsTitle": "支援的檔案格式",
+  "supportedFormatsSubtitle": "Supported File Formats +300 more",
+  "videoFormats": "影片",
+  "audioFormats": "音訊",
+  "imageFormats": "圖片",
+  "documentFormats": "文件",
+
+  "usageGuideTitle": "使用教學",
+  "usageGuideDesc": "按照以下簡單步驟快速轉換檔案。",
+  "step1Title": "上傳檔案",
+  "step1Desc": "將檔案拖到上傳區域或點擊選擇裝置中的檔案。",
+  "step2Title": "選擇格式",
+  "step2Desc": "從豐富的格式列表中選擇想要的輸出格式。",
+  "step3Title": "下載",
+  "step3Desc": "等待轉換完成後下載轉換好的檔案。",
+
+  "illustrationUploadText": "拖曳檔案到這裡",
+  "illustrationFormatText": "選擇格式",
+  "illustrationDownloadText": "準備下載！",
+
+  "footer": "© 2024 HQMX Converter. All Rights Reserved.",
+
+  "fileSize": {
+    "zero": "0位元組",
+    "bytes": "位元組",
+    "kb": "KB",
+    "mb": "MB",
+    "gb": "GB",
+    "tb": "TB"
+  },
+
+  "status": {
+    "ready": "就緒",
+    "uploading": "上傳中...",
+    "processing": "處理中...",
+    "converting": "轉換中...",
+    "completed": "已完成",
+    "error": "錯誤"
+  },
+
+  "messages": {
+    "confirmClearAll": "確定要刪除所有檔案嗎？",
+    "fileTooLarge": "檔案 \"{fileName}\" 超過100MB限制",
+    "fileAlreadyAdded": "檔案 \"{fileName}\" 已新增",
+    "noFilesReady": "沒有待轉換檔案",
+    "fileRemoved": "已刪除 \"{fileName}\"",
+    "selectOutputFormat": "請選擇輸出格式",
+    "conversionSuccess": "\"{fileName}\" 轉換成功！",
+    "conversionError": "\"{fileName}\" 轉換錯誤: {error}",
+    "connectionLost": "\"{fileName}\" 連線中斷",
+    "processingError": "\"{fileName}\" 處理錯誤: {error}"
+  },
+
+  "formats": {
+    "video": {
+      "mp4": "MP4 - 相容性最好的影片格式",
+      "avi": "AVI - Windows影片格式",
+      "mov": "MOV - QuickTime影片格式",
+      "mkv": "MKV - Matroska影片格式",
+      "webm": "WebM - 網頁影片格式",
+      "flv": "FLV - Flash影片格式"
+    },
+    "audio": {
+      "mp3": "MP3 - 最流行的音訊格式",
+      "wav": "WAV - 無損音訊格式",
+      "flac": "FLAC - 無損音訊格式",
+      "aac": "AAC - 進階音訊編碼",
+      "ogg": "OGG - 開源音訊格式",
+      "m4a": "M4A - Apple音訊格式"
+    },
+    "image": {
+      "jpg": "JPG - 最常見的圖片格式",
+      "png": "PNG - 無損圖片格式",
+      "gif": "GIF - 動圖格式",
+      "webp": "WebP - 現代網頁圖片格式",
+      "svg": "SVG - 向量圖格式",
+      "bmp": "BMP - 點陣圖格式"
+    },
+    "document": {
+      "pdf": "PDF - 可攜式文件格式",
+      "docx": "DOCX - Microsoft Word文件",
+      "pptx": "PPTX - Microsoft PowerPoint簡報",
+      "xlsx": "XLSX - Microsoft Excel試算表",
+      "txt": "TXT - 純文字文件",
+      "rtf": "RTF - 富文字格式"
+    }
+  },
+
+  "settings": {
+    "quality": "品質",
+    "resolution": "解析度",
+    "codec": "編碼器",
+    "bitrate": "位元率 (kbps)",
+    "sampleRate": "取樣率",
+    "channels": "聲道",
+    "dpi": "DPI",
+    "pageRange": "頁面範圍",
+    "resize": "調整大小",
+
+    "values": {
+      "high": "高",
+      "medium": "中",
+      "low": "低",
+      "original": "原始",
+      "mono": "單聲道",
+      "stereo": "立體聲",
+      "none": "無"
+    }
+  }
+}

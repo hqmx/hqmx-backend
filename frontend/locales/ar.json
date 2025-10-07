@@ -1,0 +1,143 @@
+{
+  "tagline": "Universal File Converter",
+  "uploadSectionTitle": "حول أي ملف إلى أي صيغة",
+  "uploadMainText": "اسحب الملفات هنا أو اضغط للرفع",
+  "uploadSubText": "يدعم أكثر من 300 صيغة • الحد الأقصى: 100 ميجابايت",
+  "selectFiles": "اختر الملفات",
+  "termsNotice": "By using our service you accept our Terms of Service and Privacy Policy.",
+
+  "yourFiles": "ملفاتك",
+  "clearAll": "مسح الكل",
+  "convertAll": "تحويل الكل",
+
+  "conversionSettings": "إعدادات التحويل",
+  "filesToConvert": "الملفات المراد تحويلها",
+  "convertTo": "التحويل إلى",
+  "advancedSettings": "إعدادات متقدمة",
+  "advancedOptions": "خيارات متقدمة",
+  "startConversion": "ابدأ التحويل",
+
+  "popular": "الأكثر استخداماً",
+  "video": "فيديو",
+  "audio": "صوت",
+  "image": "صورة",
+  "document": "مستند",
+  "archive": "أرشيف",
+
+  "featureUniversalTitle": "محول شامل",
+  "featureUniversalDesc": "حوّل بين أكثر من 300 صيغة ملف بما في ذلك الفيديو والصوت والصور والمستندات والأرشيف.",
+  "featureSpeedTitle": "سريع جداً",
+  "featureSpeedDesc": "المعالجة السحابية تضمن تحويل سريع دون استخدام موارد جهازك.",
+  "featureSecurityTitle": "آمن وخاص",
+  "featureSecurityDesc": "يتم حذف الملفات تلقائياً بعد 24 ساعة. خصوصيتك مضمونة.",
+
+  "supportedFormatsTitle": "صيغ الملفات المدعومة",
+  "supportedFormatsSubtitle": "Supported File Formats +300 more",
+  "videoFormats": "فيديو",
+  "audioFormats": "صوت",
+  "imageFormats": "صورة",
+  "documentFormats": "مستند",
+
+  "usageGuideTitle": "كيفية الاستخدام",
+  "usageGuideDesc": "اتبع هذه الخطوات البسيطة لتحويل ملفاتك بسرعة وسهولة.",
+  "step1Title": "ارفع الملف",
+  "step1Desc": "اسحب وأفلت الملفات في منطقة الرفع أو اضغط لاختيار الملفات من جهازك.",
+  "step2Title": "اختر الصيغة",
+  "step2Desc": "اختر صيغة الإخراج المطلوبة من قائمة الصيغ المدعومة لدينا.",
+  "step3Title": "حمّل",
+  "step3Desc": "انتظر حتى يكتمل التحويل وقم بتحميل ملفاتك المحولة.",
+
+  "illustrationUploadText": "اسحب الملفات هنا",
+  "illustrationFormatText": "اختر الصيغة",
+  "illustrationDownloadText": "جاهز للتحميل!",
+
+  "footer": "© 2024 HQMX Converter. All Rights Reserved.",
+
+  "fileSize": {
+    "zero": "0 بايت",
+    "bytes": "بايت",
+    "kb": "كيلوبايت",
+    "mb": "ميجابايت",
+    "gb": "جيجابايت",
+    "tb": "تيرابايت"
+  },
+
+  "status": {
+    "ready": "جاهز",
+    "uploading": "جاري الرفع...",
+    "processing": "جاري المعالجة...",
+    "converting": "جاري التحويل...",
+    "completed": "اكتمل",
+    "error": "خطأ"
+  },
+
+  "messages": {
+    "confirmClearAll": "هل أنت متأكد من إزالة جميع الملفات؟",
+    "fileTooLarge": "الملف \"{fileName}\" يتجاوز حد 100 ميجابايت",
+    "fileAlreadyAdded": "تم إضافة الملف \"{fileName}\" بالفعل",
+    "noFilesReady": "لا توجد ملفات جاهزة للتحويل",
+    "fileRemoved": "تم إزالة \"{fileName}\"",
+    "selectOutputFormat": "الرجاء اختيار صيغة الإخراج",
+    "conversionSuccess": "تم تحويل \"{fileName}\" بنجاح!",
+    "conversionError": "خطأ في تحويل \"{fileName}\": {error}",
+    "connectionLost": "فُقد الاتصال بـ \"{fileName}\"",
+    "processingError": "خطأ في معالجة \"{fileName}\": {error}"
+  },
+
+  "formats": {
+    "video": {
+      "mp4": "MP4 - صيغة الفيديو الأكثر توافقاً",
+      "avi": "AVI - صيغة فيديو Windows",
+      "mov": "MOV - صيغة فيديو QuickTime",
+      "mkv": "MKV - صيغة فيديو Matroska",
+      "webm": "WebM - صيغة فيديو ويب",
+      "flv": "FLV - صيغة فيديو Flash"
+    },
+    "audio": {
+      "mp3": "MP3 - صيغة الصوت الأكثر شيوعاً",
+      "wav": "WAV - صيغة صوت غير مضغوطة",
+      "flac": "FLAC - صيغة صوت بدون فقدان",
+      "aac": "AAC - برنامج ترميز صوت متقدم",
+      "ogg": "OGG - صيغة صوت مفتوحة المصدر",
+      "m4a": "M4A - صيغة صوت Apple"
+    },
+    "image": {
+      "jpg": "JPG - صيغة الصورة الأكثر شيوعاً",
+      "png": "PNG - صيغة صورة بدون فقدان",
+      "gif": "GIF - صيغة صورة متحركة",
+      "webp": "WebP - صيغة صورة ويب حديثة",
+      "svg": "SVG - صيغة صورة متجهة",
+      "bmp": "BMP - صيغة صورة نقطية"
+    },
+    "document": {
+      "pdf": "PDF - صيغة مستند محمول",
+      "docx": "DOCX - مستند Microsoft Word",
+      "pptx": "PPTX - عرض تقديمي Microsoft PowerPoint",
+      "xlsx": "XLSX - جدول بيانات Microsoft Excel",
+      "txt": "TXT - مستند نص عادي",
+      "rtf": "RTF - صيغة نص منسق"
+    }
+  },
+
+  "settings": {
+    "quality": "الجودة",
+    "resolution": "الدقة",
+    "codec": "الترميز",
+    "bitrate": "معدل البت (kbps)",
+    "sampleRate": "معدل العينة",
+    "channels": "القنوات",
+    "dpi": "DPI",
+    "pageRange": "نطاق الصفحة",
+    "resize": "تغيير الحجم",
+
+    "values": {
+      "high": "عالية",
+      "medium": "متوسطة",
+      "low": "منخفضة",
+      "original": "الأصلية",
+      "mono": "أحادي",
+      "stereo": "ستيريو",
+      "none": "لا شيء"
+    }
+  }
+}

@@ -124,13 +124,23 @@ function initializeApp() {
                 mobileLanguageOptions.classList.toggle('show');
             });
 
-            mobileLanguageOptions.addEventListener('click', (e) => {
+            mobileLanguageOptions.addEventListener('click', async (e) => {
                 if (e.target.dataset.lang) {
+                    e.preventDefault(); // Prevent default <a> tag behavior
                     const lang = e.target.dataset.lang;
-                    // 기존 언어 변경 로직 사용
-                    setLanguage(lang);
-                    document.getElementById('mobileCurrentLanguage').textContent = e.target.textContent;
+
+                    // Close mobile language selector
                     mobileLanguageOptions.classList.remove('show');
+
+                    // Update URL with new language (this will navigate)
+                    i18n.updateURLWithLanguage(lang);
+
+                    // If updateURLWithLanguage didn't navigate (stayed on same page),
+                    // change language without reload
+                    if (window.location.pathname === window.location.pathname) {
+                        await i18n.changeLanguage(lang);
+                        document.getElementById('mobileCurrentLanguage').textContent = e.target.textContent;
+                    }
                 }
             });
         }
@@ -365,6 +375,14 @@ function initializeApp() {
                 outputFormat: null,
                 settings: {}
             };
+
+            // URL 라우터 프리셋 변환 설정 자동 적용
+            const presetFrom = sessionStorage.getItem('preset_from_format');
+            const presetTo = sessionStorage.getItem('preset_to_format');
+            if (presetFrom && presetTo && extension.toUpperCase() === presetFrom) {
+                fileObj.outputFormat = presetTo;
+                console.log(`URLRouter: Auto-set output format to ${presetTo} for ${file.name}`);
+            }
 
             state.files.push(fileObj);
         });

@@ -46,7 +46,11 @@
   "step2Desc": "Select the desired output format from our extensive list of supported formats.",
   "step3Title": "Download",
   "step3Desc": "Wait for the conversion to complete and download your converted files.",
-  
+
+  "illustrationUploadText": "Drag & Drop Files",
+  "illustrationFormatText": "Choose Format",
+  "illustrationDownloadText": "Download Ready!",
+
   "footer": "© 2024 HQMX Converter. All Rights Reserved.",
   
   "fileSize": {

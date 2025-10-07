@@ -1,0 +1,143 @@
+{
+  "tagline": "Universal File Converter",
+  "uploadSectionTitle": "যেকোনো ফাইল যেকোনো ফরম্যাটে রূপান্তর করুন",
+  "uploadMainText": "ফাইল এখানে ড্র্যাগ করুন বা আপলোড করতে ক্লিক করুন",
+  "uploadSubText": "300+ ফাইল ফরম্যাট সাপোর্ট • সর্বোচ্চ সাইজ: 100MB",
+  "selectFiles": "ফাইল বেছে নিন",
+  "termsNotice": "By using our service you accept our Terms of Service and Privacy Policy.",
+
+  "yourFiles": "আপনার ফাইলগুলো",
+  "clearAll": "সব মুছুন",
+  "convertAll": "সব কনভার্ট করুন",
+
+  "conversionSettings": "কনভার্শন সেটিংস",
+  "filesToConvert": "যে ফাইলগুলো কনভার্ট করবেন",
+  "convertTo": "এতে রূপান্তর করুন",
+  "advancedSettings": "অ্যাডভান্সড সেটিংস",
+  "advancedOptions": "অ্যাডভান্সড অপশন",
+  "startConversion": "কনভার্শন শুরু করুন",
+
+  "popular": "জনপ্রিয়",
+  "video": "ভিডিও",
+  "audio": "অডিও",
+  "image": "ছবি",
+  "document": "ডকুমেন্ট",
+  "archive": "আর্কাইভ",
+
+  "featureUniversalTitle": "ইউনিভার্সাল কনভার্টার",
+  "featureUniversalDesc": "ভিডিও, অডিও, ছবি, ডকুমেন্ট এবং আর্কাইভ সহ 300+ ফাইল ফরম্যাটের মধ্যে রূপান্তর করুন।",
+  "featureSpeedTitle": "অত্যন্ত দ্রুত",
+  "featureSpeedDesc": "ক্লাউড প্রসেসিং দ্রুত কনভার্শন নিশ্চিত করে আপনার ডিভাইসের রিসোর্স ব্যবহার না করে।",
+  "featureSecurityTitle": "নিরাপদ এবং প্রাইভেট",
+  "featureSecurityDesc": "24 ঘণ্টা পরে ফাইল অটোমেটিক ডিলিট হয়। আপনার প্রাইভেসি নিশ্চিত।",
+
+  "supportedFormatsTitle": "সমর্থিত ফাইল ফরম্যাট",
+  "supportedFormatsSubtitle": "Supported File Formats +300 more",
+  "videoFormats": "ভিডিও",
+  "audioFormats": "অডিও",
+  "imageFormats": "ছবি",
+  "documentFormats": "ডকুমেন্ট",
+
+  "usageGuideTitle": "কীভাবে ব্যবহার করবেন",
+  "usageGuideDesc": "দ্রুত এবং সহজে আপনার ফাইল কনভার্ট করতে এই সহজ ধাপগুলো অনুসরণ করুন।",
+  "step1Title": "ফাইল আপলোড করুন",
+  "step1Desc": "আপলোড এরিয়ায় ফাইল ড্র্যাগ এবং ড্রপ করুন বা আপনার ডিভাইস থেকে বেছে নিতে ক্লিক করুন।",
+  "step2Title": "ফরম্যাট বেছে নিন",
+  "step2Desc": "আমাদের সাপোর্টেড ফরম্যাট লিস্ট থেকে আপনার পছন্দের আউটপুট ফরম্যাট বেছে নিন।",
+  "step3Title": "ডাউনলোড করুন",
+  "step3Desc": "কনভার্শন সম্পন্ন হওয়ার জন্য অপেক্ষা করুন এবং আপনার কনভার্ট করা ফাইল ডাউনলোড করুন।",
+
+  "illustrationUploadText": "ফাইল এখানে ড্র্যাগ করুন",
+  "illustrationFormatText": "ফরম্যাট বেছে নিন",
+  "illustrationDownloadText": "ডাউনলোড রেডি!",
+
+  "footer": "© 2024 HQMX Converter. All Rights Reserved.",
+
+  "fileSize": {
+    "zero": "0 বাইট",
+    "bytes": "বাইট",
+    "kb": "KB",
+    "mb": "MB",
+    "gb": "GB",
+    "tb": "TB"
+  },
+
+  "status": {
+    "ready": "প্রস্তুত",
+    "uploading": "আপলোড হচ্ছে...",
+    "processing": "প্রসেস হচ্ছে...",
+    "converting": "কনভার্ট হচ্ছে...",
+    "completed": "সম্পন্ন হয়েছে",
+    "error": "এরর"
+  },
+
+  "messages": {
+    "confirmClearAll": "আপনি কি সত্যিই সব ফাইল মুছতে চান?",
+    "fileTooLarge": "ফাইল \"{fileName}\" 100MB লিমিট অতিক্রম করেছে",
+    "fileAlreadyAdded": "ফাইল \"{fileName}\" আগে থেকেই যোগ করা আছে",
+    "noFilesReady": "কনভার্ট করার জন্য কোনো ফাইল প্রস্তুত নেই",
+    "fileRemoved": "\"{fileName}\" মুছে ফেলা হয়েছে",
+    "selectOutputFormat": "দয়া করে একটি আউটপুট ফরম্যাট বেছে নিন",
+    "conversionSuccess": "\"{fileName}\" সফলভাবে কনভার্ট হয়েছে!",
+    "conversionError": "\"{fileName}\" কনভার্ট করতে এরর: {error}",
+    "connectionLost": "\"{fileName}\" এর জন্য কানেকশন হারিয়ে গেছে",
+    "processingError": "\"{fileName}\" প্রসেস করতে এরর: {error}"
+  },
+
+  "formats": {
+    "video": {
+      "mp4": "MP4 - সবচেয়ে কম্প্যাটিবল ভিডিও ফরম্যাট",
+      "avi": "AVI - Windows ভিডিও ফরম্যাট",
+      "mov": "MOV - QuickTime ভিডিও ফরম্যাট",
+      "mkv": "MKV - Matroska ভিডিও ফরম্যাট",
+      "webm": "WebM - ওয়েব ভিডিও ফরম্যাট",
+      "flv": "FLV - Flash ভিডিও ফরম্যাট"
+    },
+    "audio": {
+      "mp3": "MP3 - সবচেয়ে জনপ্রিয় অডিও ফরম্যাট",
+      "wav": "WAV - আনকম্প্রেসড অডিও ফরম্যাট",
+      "flac": "FLAC - লসলেস অডিও ফরম্যাট",
+      "aac": "AAC - অ্যাডভান্সড অডিও কোডেক",
+      "ogg": "OGG - ওপেন সোর্স অডিও ফরম্যাট",
+      "m4a": "M4A - Apple অডিও ফরম্যাট"
+    },
+    "image": {
+      "jpg": "JPG - সবচেয়ে সাধারণ ছবির ফরম্যাট",
+      "png": "PNG - লসলেস ছবির ফরম্যাট",
+      "gif": "GIF - অ্যানিমেটেড ছবির ফরম্যাট",
+      "webp": "WebP - আধুনিক ওয়েব ইমেজ ফরম্যাট",
+      "svg": "SVG - ভেক্টর ইমেজ ফরম্যাট",
+      "bmp": "BMP - বিটম্যাপ ইমেজ ফরম্যাট"
+    },
+    "document": {
+      "pdf": "PDF - পোর্টেবল ডকুমেন্ট ফরম্যাট",
+      "docx": "DOCX - Microsoft Word ডকুমেন্ট",
+      "pptx": "PPTX - Microsoft PowerPoint প্রেজেন্টেশন",
+      "xlsx": "XLSX - Microsoft Excel স্প্রেডশিট",
+      "txt": "TXT - প্লেইন টেক্সট ডকুমেন্ট",
+      "rtf": "RTF - রিচ টেক্সট ফরম্যাট"
+    }
+  },
+
+  "settings": {
+    "quality": "কোয়ালিটি",
+    "resolution": "রেজোলিউশন",
+    "codec": "কোডেক",
+    "bitrate": "বিটরেট (kbps)",
+    "sampleRate": "স্যাম্পল রেট",
+    "channels": "চ্যানেল",
+    "dpi": "DPI",
+    "pageRange": "পেজ রেঞ্জ",
+    "resize": "রিসাইজ",
+
+    "values": {
+      "high": "উচ্চ",
+      "medium": "মাঝারি",
+      "low": "নিম্ন",
+      "original": "অরিজিনাল",
+      "mono": "মনো",
+      "stereo": "স্টেরিও",
+      "none": "কোনোটি নয়"
+    }
+  }
+}

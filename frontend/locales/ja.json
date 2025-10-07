@@ -1,0 +1,143 @@
+{
+  "tagline": "Universal File Converter",
+  "uploadSectionTitle": "あらゆるファイルをあらゆる形式に変換",
+  "uploadMainText": "ファイルをドロップまたはクリックしてアップロード",
+  "uploadSubText": "300以上のファイル形式対応 • 最大ファイルサイズ: 100MB",
+  "selectFiles": "ファイルを選択",
+  "termsNotice": "By using our service you accept our Terms of Service and Privacy Policy.",
+
+  "yourFiles": "ファイル一覧",
+  "clearAll": "すべてクリア",
+  "convertAll": "すべて変換",
+
+  "conversionSettings": "変換設定",
+  "filesToConvert": "変換するファイル",
+  "convertTo": "変換先",
+  "advancedSettings": "詳細設定",
+  "advancedOptions": "詳細オプション",
+  "startConversion": "変換開始",
+
+  "popular": "人気",
+  "video": "動画",
+  "audio": "音声",
+  "image": "画像",
+  "document": "ドキュメント",
+  "archive": "アーカイブ",
+
+  "featureUniversalTitle": "ユニバーサルコンバーター",
+  "featureUniversalDesc": "動画、音声、画像、ドキュメント、アーカイブなど300以上のファイル形式間で変換可能。",
+  "featureSpeedTitle": "高速変換",
+  "featureSpeedDesc": "クラウドベースの処理により、デバイスのリソースを使わず高速変換を実現。",
+  "featureSecurityTitle": "安全・プライベート",
+  "featureSecurityDesc": "ファイルは24時間後に自動削除されます。プライバシーは完全保護。",
+
+  "supportedFormatsTitle": "対応ファイル形式",
+  "supportedFormatsSubtitle": "Supported File Formats +300 more",
+  "videoFormats": "動画",
+  "audioFormats": "音声",
+  "imageFormats": "画像",
+  "documentFormats": "ドキュメント",
+
+  "usageGuideTitle": "使い方",
+  "usageGuideDesc": "以下の簡単なステップでファイルを素早く変換できます。",
+  "step1Title": "ファイルアップロード",
+  "step1Desc": "アップロードエリアにファイルをドラッグ＆ドロップするか、クリックしてデバイスからファイルを選択してください。",
+  "step2Title": "形式を選択",
+  "step2Desc": "豊富な対応形式リストから希望の出力形式を選択してください。",
+  "step3Title": "ダウンロード",
+  "step3Desc": "変換が完了するまで待機し、変換されたファイルをダウンロードしてください。",
+
+  "illustrationUploadText": "ファイルをドロップ",
+  "illustrationFormatText": "形式を選択",
+  "illustrationDownloadText": "ダウンロード準備完了！",
+
+  "footer": "© 2024 HQMX Converter. All Rights Reserved.",
+
+  "fileSize": {
+    "zero": "0バイト",
+    "bytes": "バイト",
+    "kb": "KB",
+    "mb": "MB",
+    "gb": "GB",
+    "tb": "TB"
+  },
+
+  "status": {
+    "ready": "準備完了",
+    "uploading": "アップロード中...",
+    "processing": "処理中...",
+    "converting": "変換中...",
+    "completed": "完了",
+    "error": "エラー"
+  },
+
+  "messages": {
+    "confirmClearAll": "すべてのファイルを削除しますか？",
+    "fileTooLarge": "ファイル \"{fileName}\" は100MBの制限を超えています",
+    "fileAlreadyAdded": "ファイル \"{fileName}\" は既に追加されています",
+    "noFilesReady": "変換可能なファイルがありません",
+    "fileRemoved": "\"{fileName}\" を削除しました",
+    "selectOutputFormat": "出力形式を選択してください",
+    "conversionSuccess": "\"{fileName}\" の変換が完了しました！",
+    "conversionError": "\"{fileName}\" の変換エラー: {error}",
+    "connectionLost": "\"{fileName}\" の接続が切れました",
+    "processingError": "\"{fileName}\" の処理エラー: {error}"
+  },
+
+  "formats": {
+    "video": {
+      "mp4": "MP4 - 最も互換性の高い動画形式",
+      "avi": "AVI - Windows動画形式",
+      "mov": "MOV - QuickTime動画形式",
+      "mkv": "MKV - Matroska動画形式",
+      "webm": "WebM - Web動画形式",
+      "flv": "FLV - Flash動画形式"
+    },
+    "audio": {
+      "mp3": "MP3 - 最も人気のある音声形式",
+      "wav": "WAV - 非圧縮音声形式",
+      "flac": "FLAC - ロスレス音声形式",
+      "aac": "AAC - Advanced Audio Codec",
+      "ogg": "OGG - オープンソース音声形式",
+      "m4a": "M4A - Apple音声形式"
+    },
+    "image": {
+      "jpg": "JPG - 最も一般的な画像形式",
+      "png": "PNG - ロスレス画像形式",
+      "gif": "GIF - アニメーション画像形式",
+      "webp": "WebP - モダンなWeb画像形式",
+      "svg": "SVG - ベクター画像形式",
+      "bmp": "BMP - ビットマップ画像形式"
+    },
+    "document": {
+      "pdf": "PDF - Portable Document Format",
+      "docx": "DOCX - Microsoft Word文書",
+      "pptx": "PPTX - Microsoft PowerPointプレゼンテーション",
+      "xlsx": "XLSX - Microsoft Excelスプレッドシート",
+      "txt": "TXT - テキストドキュメント",
+      "rtf": "RTF - リッチテキスト形式"
+    }
+  },
+
+  "settings": {
+    "quality": "品質",
+    "resolution": "解像度",
+    "codec": "コーデック",
+    "bitrate": "ビットレート (kbps)",
+    "sampleRate": "サンプルレート",
+    "channels": "チャンネル",
+    "dpi": "DPI",
+    "pageRange": "ページ範囲",
+    "resize": "リサイズ",
+
+    "values": {
+      "high": "高",
+      "medium": "中",
+      "low": "低",
+      "original": "オリジナル",
+      "mono": "モノラル",
+      "stereo": "ステレオ",
+      "none": "なし"
+    }
+  }
+}

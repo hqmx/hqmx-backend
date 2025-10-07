@@ -1,0 +1,143 @@
+{
+  "tagline": "Universal File Converter",
+  "uploadSectionTitle": "Converti qualsiasi file in qualsiasi formato",
+  "uploadMainText": "Trascina i file qui o clicca per caricare",
+  "uploadSubText": "Supporto per oltre 300 formati • Dimensione massima: 100MB",
+  "selectFiles": "Seleziona file",
+  "termsNotice": "By using our service you accept our Terms of Service and Privacy Policy.",
+
+  "yourFiles": "I tuoi file",
+  "clearAll": "Cancella tutto",
+  "convertAll": "Converti tutto",
+
+  "conversionSettings": "Impostazioni di conversione",
+  "filesToConvert": "File da convertire",
+  "convertTo": "Converti in",
+  "advancedSettings": "Impostazioni avanzate",
+  "advancedOptions": "Opzioni avanzate",
+  "startConversion": "Avvia conversione",
+
+  "popular": "Popolare",
+  "video": "Video",
+  "audio": "Audio",
+  "image": "Immagine",
+  "document": "Documento",
+  "archive": "Archivio",
+
+  "featureUniversalTitle": "Convertitore universale",
+  "featureUniversalDesc": "Converti tra oltre 300 formati di file inclusi video, audio, immagini, documenti e archivi.",
+  "featureSpeedTitle": "Velocissimo",
+  "featureSpeedDesc": "L'elaborazione cloud garantisce conversioni rapide senza utilizzare le risorse del tuo dispositivo.",
+  "featureSecurityTitle": "Sicuro e privato",
+  "featureSecurityDesc": "I file vengono eliminati automaticamente dopo 24 ore. La tua privacy è garantita.",
+
+  "supportedFormatsTitle": "Formati supportati",
+  "supportedFormatsSubtitle": "Supported File Formats +300 more",
+  "videoFormats": "Video",
+  "audioFormats": "Audio",
+  "imageFormats": "Immagine",
+  "documentFormats": "Documento",
+
+  "usageGuideTitle": "Come usarlo",
+  "usageGuideDesc": "Segui questi semplici passaggi per convertire i tuoi file in modo rapido e facile.",
+  "step1Title": "Carica file",
+  "step1Desc": "Trascina e rilascia i tuoi file nell'area di caricamento o clicca per selezionare file dal tuo dispositivo.",
+  "step2Title": "Scegli formato",
+  "step2Desc": "Seleziona il formato di output desiderato dalla nostra vasta lista di formati supportati.",
+  "step3Title": "Scarica",
+  "step3Desc": "Attendi il completamento della conversione e scarica i tuoi file convertiti.",
+
+  "illustrationUploadText": "Trascina file qui",
+  "illustrationFormatText": "Scegli formato",
+  "illustrationDownloadText": "Pronto per il download!",
+
+  "footer": "© 2024 HQMX Converter. All Rights Reserved.",
+
+  "fileSize": {
+    "zero": "0 Byte",
+    "bytes": "Byte",
+    "kb": "KB",
+    "mb": "MB",
+    "gb": "GB",
+    "tb": "TB"
+  },
+
+  "status": {
+    "ready": "Pronto",
+    "uploading": "Caricamento...",
+    "processing": "Elaborazione...",
+    "converting": "Conversione...",
+    "completed": "Completato",
+    "error": "Errore"
+  },
+
+  "messages": {
+    "confirmClearAll": "Sei sicuro di voler rimuovere tutti i file?",
+    "fileTooLarge": "Il file \"{fileName}\" supera il limite di 100MB",
+    "fileAlreadyAdded": "Il file \"{fileName}\" è già stato aggiunto",
+    "noFilesReady": "Nessun file pronto per la conversione",
+    "fileRemoved": "\"{fileName}\" rimosso",
+    "selectOutputFormat": "Seleziona un formato di output",
+    "conversionSuccess": "\"{fileName}\" convertito con successo!",
+    "conversionError": "Errore durante la conversione di \"{fileName}\": {error}",
+    "connectionLost": "Connessione persa per \"{fileName}\"",
+    "processingError": "Errore durante l'elaborazione di \"{fileName}\": {error}"
+  },
+
+  "formats": {
+    "video": {
+      "mp4": "MP4 - Formato video più compatibile",
+      "avi": "AVI - Formato video Windows",
+      "mov": "MOV - Formato video QuickTime",
+      "mkv": "MKV - Formato video Matroska",
+      "webm": "WebM - Formato video web",
+      "flv": "FLV - Formato video Flash"
+    },
+    "audio": {
+      "mp3": "MP3 - Formato audio più popolare",
+      "wav": "WAV - Formato audio non compresso",
+      "flac": "FLAC - Formato audio senza perdita",
+      "aac": "AAC - Codec audio avanzato",
+      "ogg": "OGG - Formato audio open source",
+      "m4a": "M4A - Formato audio Apple"
+    },
+    "image": {
+      "jpg": "JPG - Formato immagine più comune",
+      "png": "PNG - Formato immagine senza perdita",
+      "gif": "GIF - Formato immagine animata",
+      "webp": "WebP - Formato immagine web moderno",
+      "svg": "SVG - Formato immagine vettoriale",
+      "bmp": "BMP - Formato immagine bitmap"
+    },
+    "document": {
+      "pdf": "PDF - Formato documento portabile",
+      "docx": "DOCX - Documento Microsoft Word",
+      "pptx": "PPTX - Presentazione Microsoft PowerPoint",
+      "xlsx": "XLSX - Foglio di calcolo Microsoft Excel",
+      "txt": "TXT - Documento di testo semplice",
+      "rtf": "RTF - Formato testo formattato"
+    }
+  },
+
+  "settings": {
+    "quality": "Qualità",
+    "resolution": "Risoluzione",
+    "codec": "Codec",
+    "bitrate": "Bitrate (kbps)",
+    "sampleRate": "Frequenza di campionamento",
+    "channels": "Canali",
+    "dpi": "DPI",
+    "pageRange": "Intervallo di pagine",
+    "resize": "Ridimensiona",
+
+    "values": {
+      "high": "Alta",
+      "medium": "Media",
+      "low": "Bassa",
+      "original": "Originale",
+      "mono": "Mono",
+      "stereo": "Stereo",
+      "none": "Nessuno"
+    }
+  }
+}

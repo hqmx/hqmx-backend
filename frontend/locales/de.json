@@ -1,0 +1,143 @@
+{
+  "tagline": "Universal File Converter",
+  "uploadSectionTitle": "Jede Datei in jedes Format konvertieren",
+  "uploadMainText": "Dateien hier ablegen oder klicken zum Hochladen",
+  "uploadSubText": "Unterstützt 300+ Dateiformate • Max. Dateigröße: 100MB",
+  "selectFiles": "Dateien auswählen",
+  "termsNotice": "By using our service you accept our Terms of Service and Privacy Policy.",
+
+  "yourFiles": "Ihre Dateien",
+  "clearAll": "Alle entfernen",
+  "convertAll": "Alle konvertieren",
+
+  "conversionSettings": "Konvertierungseinstellungen",
+  "filesToConvert": "Zu konvertierende Dateien",
+  "convertTo": "Konvertieren nach",
+  "advancedSettings": "Erweiterte Einstellungen",
+  "advancedOptions": "Erweiterte Optionen",
+  "startConversion": "Konvertierung starten",
+
+  "popular": "Beliebt",
+  "video": "Video",
+  "audio": "Audio",
+  "image": "Bild",
+  "document": "Dokument",
+  "archive": "Archiv",
+
+  "featureUniversalTitle": "Universal-Konverter",
+  "featureUniversalDesc": "Konvertieren Sie zwischen 300+ Dateiformaten inklusive Video, Audio, Bilder, Dokumente und Archive.",
+  "featureSpeedTitle": "Blitzschnell",
+  "featureSpeedDesc": "Cloud-basierte Verarbeitung ermöglicht schnelle Konvertierung ohne lokale Ressourcen zu nutzen.",
+  "featureSecurityTitle": "Sicher & Privat",
+  "featureSecurityDesc": "Dateien werden nach 24 Stunden automatisch gelöscht. Ihre Privatsphäre ist garantiert.",
+
+  "supportedFormatsTitle": "Unterstützte Dateiformate",
+  "supportedFormatsSubtitle": "Supported File Formats +300 more",
+  "videoFormats": "Video",
+  "audioFormats": "Audio",
+  "imageFormats": "Bild",
+  "documentFormats": "Dokument",
+
+  "usageGuideTitle": "Anleitung",
+  "usageGuideDesc": "Folgen Sie diesen einfachen Schritten, um Ihre Dateien schnell und einfach zu konvertieren.",
+  "step1Title": "Dateien hochladen",
+  "step1Desc": "Ziehen Sie Dateien in den Upload-Bereich oder klicken Sie, um Dateien von Ihrem Gerät auszuwählen.",
+  "step2Title": "Format wählen",
+  "step2Desc": "Wählen Sie das gewünschte Ausgabeformat aus unserer umfangreichen Liste unterstützter Formate.",
+  "step3Title": "Herunterladen",
+  "step3Desc": "Warten Sie, bis die Konvertierung abgeschlossen ist, und laden Sie Ihre konvertierten Dateien herunter.",
+
+  "illustrationUploadText": "Dateien hier ablegen",
+  "illustrationFormatText": "Format wählen",
+  "illustrationDownloadText": "Download bereit!",
+
+  "footer": "© 2024 HQMX Converter. All Rights Reserved.",
+
+  "fileSize": {
+    "zero": "0 Bytes",
+    "bytes": "Bytes",
+    "kb": "KB",
+    "mb": "MB",
+    "gb": "GB",
+    "tb": "TB"
+  },
+
+  "status": {
+    "ready": "Bereit",
+    "uploading": "Hochladen...",
+    "processing": "Verarbeiten...",
+    "converting": "Konvertieren...",
+    "completed": "Abgeschlossen",
+    "error": "Fehler"
+  },
+
+  "messages": {
+    "confirmClearAll": "Möchten Sie wirklich alle Dateien entfernen?",
+    "fileTooLarge": "Datei \"{fileName}\" überschreitet das 100MB-Limit",
+    "fileAlreadyAdded": "Datei \"{fileName}\" wurde bereits hinzugefügt",
+    "noFilesReady": "Keine Dateien zur Konvertierung bereit",
+    "fileRemoved": "\"{fileName}\" entfernt",
+    "selectOutputFormat": "Bitte wählen Sie ein Ausgabeformat",
+    "conversionSuccess": "\"{fileName}\" erfolgreich konvertiert!",
+    "conversionError": "Fehler beim Konvertieren von \"{fileName}\": {error}",
+    "connectionLost": "Verbindung zu \"{fileName}\" verloren",
+    "processingError": "Fehler beim Verarbeiten von \"{fileName}\": {error}"
+  },
+
+  "formats": {
+    "video": {
+      "mp4": "MP4 - Kompatibelste Videoformat",
+      "avi": "AVI - Windows Videoformat",
+      "mov": "MOV - QuickTime Videoformat",
+      "mkv": "MKV - Matroska Videoformat",
+      "webm": "WebM - Web Videoformat",
+      "flv": "FLV - Flash Videoformat"
+    },
+    "audio": {
+      "mp3": "MP3 - Beliebtestes Audioformat",
+      "wav": "WAV - Unkomprimiertes Audioformat",
+      "flac": "FLAC - Verlustfreies Audioformat",
+      "aac": "AAC - Advanced Audio Codec",
+      "ogg": "OGG - Open-Source Audioformat",
+      "m4a": "M4A - Apple Audioformat"
+    },
+    "image": {
+      "jpg": "JPG - Häufigstes Bildformat",
+      "png": "PNG - Verlustfreies Bildformat",
+      "gif": "GIF - Animiertes Bildformat",
+      "webp": "WebP - Modernes Web-Bildformat",
+      "svg": "SVG - Vektor-Bildformat",
+      "bmp": "BMP - Bitmap-Bildformat"
+    },
+    "document": {
+      "pdf": "PDF - Portable Document Format",
+      "docx": "DOCX - Microsoft Word Dokument",
+      "pptx": "PPTX - Microsoft PowerPoint Präsentation",
+      "xlsx": "XLSX - Microsoft Excel Tabelle",
+      "txt": "TXT - Textdokument",
+      "rtf": "RTF - Rich Text Format"
+    }
+  },
+
+  "settings": {
+    "quality": "Qualität",
+    "resolution": "Auflösung",
+    "codec": "Codec",
+    "bitrate": "Bitrate (kbps)",
+    "sampleRate": "Abtastrate",
+    "channels": "Kanäle",
+    "dpi": "DPI",
+    "pageRange": "Seitenbereich",
+    "resize": "Größe ändern",
+
+    "values": {
+      "high": "Hoch",
+      "medium": "Mittel",
+      "low": "Niedrig",
+      "original": "Original",
+      "mono": "Mono",
+      "stereo": "Stereo",
+      "none": "Keine"
+    }
+  }
+}

@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# Build output
+dist/
+
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Temporary files
+*.tar.gz
+*.zip
+filetofile*
+
+# Playwright screenshots
+.playwright-mcp/
+
+# Unused directories
+scripts/
+template/
+
+# Old planning docs
+file-to-file*.md

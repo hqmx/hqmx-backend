@@ -1,0 +1,143 @@
+{
+  "tagline": "Universal File Converter",
+  "uploadSectionTitle": "I-convert ang kahit anong file sa kahit anong format",
+  "uploadMainText": "I-drag ang files dito o mag-click para mag-upload",
+  "uploadSubText": "Sumusuporta ng 300+ file formats • Max file size: 100MB",
+  "selectFiles": "Pumili ng File",
+  "termsNotice": "By using our service you accept our Terms of Service and Privacy Policy.",
+
+  "yourFiles": "Iyong mga File",
+  "clearAll": "Alisin Lahat",
+  "convertAll": "I-convert Lahat",
+
+  "conversionSettings": "Conversion Settings",
+  "filesToConvert": "Mga File na I-convert",
+  "convertTo": "I-convert sa",
+  "advancedSettings": "Advanced Settings",
+  "advancedOptions": "Advanced Options",
+  "startConversion": "Simulan ang Conversion",
+
+  "popular": "Popular",
+  "video": "Video",
+  "audio": "Audio",
+  "image": "Larawan",
+  "document": "Dokumento",
+  "archive": "Archive",
+
+  "featureUniversalTitle": "Universal Converter",
+  "featureUniversalDesc": "Mag-convert sa pagitan ng 300+ file formats kasama ang video, audio, larawan, dokumento, at archive.",
+  "featureSpeedTitle": "Sobrang Bilis",
+  "featureSpeedDesc": "Cloud processing para sa mabilis na conversion nang hindi gumagamit ng resources ng iyong device.",
+  "featureSecurityTitle": "Secure at Private",
+  "featureSecurityDesc": "Automatic na tinatanggal ang files pagkatapos ng 24 oras. Garantisado ang iyong privacy.",
+
+  "supportedFormatsTitle": "Supported File Formats",
+  "supportedFormatsSubtitle": "Supported File Formats +300 more",
+  "videoFormats": "Video",
+  "audioFormats": "Audio",
+  "imageFormats": "Larawan",
+  "documentFormats": "Dokumento",
+
+  "usageGuideTitle": "Paano Gamitin",
+  "usageGuideDesc": "Sundin ang mga simpleng hakbang na ito para mabilis na ma-convert ang iyong files.",
+  "step1Title": "Mag-upload ng File",
+  "step1Desc": "I-drag and drop ang files sa upload area o mag-click para pumili mula sa iyong device.",
+  "step2Title": "Pumili ng Format",
+  "step2Desc": "Pumili ng gusto mong output format mula sa aming listahan ng supported formats.",
+  "step3Title": "Mag-download",
+  "step3Desc": "Hintayin ang conversion na matapos at i-download ang iyong mga na-convert na files.",
+
+  "illustrationUploadText": "I-drag ang files dito",
+  "illustrationFormatText": "Pumili ng format",
+  "illustrationDownloadText": "Ready na i-download!",
+
+  "footer": "© 2024 HQMX Converter. All Rights Reserved.",
+
+  "fileSize": {
+    "zero": "0 Byte",
+    "bytes": "Byte",
+    "kb": "KB",
+    "mb": "MB",
+    "gb": "GB",
+    "tb": "TB"
+  },
+
+  "status": {
+    "ready": "Handa na",
+    "uploading": "Nag-uupload...",
+    "processing": "Pinoproseso...",
+    "converting": "Kino-convert...",
+    "completed": "Tapos na",
+    "error": "Error"
+  },
+
+  "messages": {
+    "confirmClearAll": "Sigurado ka bang gusto mong alisin ang lahat ng files?",
+    "fileTooLarge": "Ang file na \"{fileName}\" ay lumampas sa 100MB limit",
+    "fileAlreadyAdded": "Ang file na \"{fileName}\" ay naidagdag na",
+    "noFilesReady": "Walang files na ready para sa conversion",
+    "fileRemoved": "Tinanggal na ang \"{fileName}\"",
+    "selectOutputFormat": "Pumili ng output format",
+    "conversionSuccess": "Matagumpay na na-convert ang \"{fileName}\"!",
+    "conversionError": "Error sa pag-convert ng \"{fileName}\": {error}",
+    "connectionLost": "Nawalan ng connection para sa \"{fileName}\"",
+    "processingError": "Error sa pagproseso ng \"{fileName}\": {error}"
+  },
+
+  "formats": {
+    "video": {
+      "mp4": "MP4 - Pinaka-compatible na video format",
+      "avi": "AVI - Windows video format",
+      "mov": "MOV - QuickTime video format",
+      "mkv": "MKV - Matroska video format",
+      "webm": "WebM - Web video format",
+      "flv": "FLV - Flash video format"
+    },
+    "audio": {
+      "mp3": "MP3 - Pinaka-popular na audio format",
+      "wav": "WAV - Uncompressed audio format",
+      "flac": "FLAC - Lossless audio format",
+      "aac": "AAC - Advanced audio codec",
+      "ogg": "OGG - Open source audio format",
+      "m4a": "M4A - Apple audio format"
+    },
+    "image": {
+      "jpg": "JPG - Pinaka-common na larawan format",
+      "png": "PNG - Lossless na larawan format",
+      "gif": "GIF - Animated na larawan format",
+      "webp": "WebP - Modern web image format",
+      "svg": "SVG - Vector image format",
+      "bmp": "BMP - Bitmap image format"
+    },
+    "document": {
+      "pdf": "PDF - Portable document format",
+      "docx": "DOCX - Microsoft Word dokumento",
+      "pptx": "PPTX - Microsoft PowerPoint presentation",
+      "xlsx": "XLSX - Microsoft Excel spreadsheet",
+      "txt": "TXT - Plain text dokumento",
+      "rtf": "RTF - Rich text format"
+    }
+  },
+
+  "settings": {
+    "quality": "Quality",
+    "resolution": "Resolution",
+    "codec": "Codec",
+    "bitrate": "Bitrate (kbps)",
+    "sampleRate": "Sample rate",
+    "channels": "Channels",
+    "dpi": "DPI",
+    "pageRange": "Page range",
+    "resize": "Baguhin ang laki",
+
+    "values": {
+      "high": "Mataas",
+      "medium": "Katamtaman",
+      "low": "Mababa",
+      "original": "Original",
+      "mono": "Mono",
+      "stereo": "Stereo",
+      "none": "Wala"
+    }
+  }
+}

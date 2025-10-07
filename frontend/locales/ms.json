@@ -1,0 +1,143 @@
+{
+  "tagline": "Universal File Converter",
+  "uploadSectionTitle": "Tukar apa-apa fail ke format apa sahaja",
+  "uploadMainText": "Seret fail ke sini atau klik untuk muat naik",
+  "uploadSubText": "Sokong 300+ format fail • Saiz maksimum: 100MB",
+  "selectFiles": "Pilih Fail",
+  "termsNotice": "By using our service you accept our Terms of Service and Privacy Policy.",
+
+  "yourFiles": "Fail Anda",
+  "clearAll": "Kosongkan Semua",
+  "convertAll": "Tukar Semua",
+
+  "conversionSettings": "Tetapan Penukaran",
+  "filesToConvert": "Fail untuk Ditukar",
+  "convertTo": "Tukar kepada",
+  "advancedSettings": "Tetapan Lanjutan",
+  "advancedOptions": "Pilihan Lanjutan",
+  "startConversion": "Mula Tukar",
+
+  "popular": "Popular",
+  "video": "Video",
+  "audio": "Audio",
+  "image": "Gambar",
+  "document": "Dokumen",
+  "archive": "Arkib",
+
+  "featureUniversalTitle": "Penukar Universal",
+  "featureUniversalDesc": "Tukar antara 300+ format fail termasuk video, audio, gambar, dokumen, dan arkib.",
+  "featureSpeedTitle": "Sangat Pantas",
+  "featureSpeedDesc": "Pemprosesan cloud memastikan penukaran pantas tanpa menggunakan resource peranti anda.",
+  "featureSecurityTitle": "Selamat & Peribadi",
+  "featureSecurityDesc": "Fail dipadam secara automatik selepas 24 jam. Privasi anda dijamin.",
+
+  "supportedFormatsTitle": "Format Fail yang Disokong",
+  "supportedFormatsSubtitle": "Supported File Formats +300 more",
+  "videoFormats": "Video",
+  "audioFormats": "Audio",
+  "imageFormats": "Gambar",
+  "documentFormats": "Dokumen",
+
+  "usageGuideTitle": "Cara Guna",
+  "usageGuideDesc": "Ikuti langkah mudah ini untuk tukar fail anda dengan cepat.",
+  "step1Title": "Muat Naik Fail",
+  "step1Desc": "Seret dan lepaskan fail ke kawasan muat naik atau klik untuk pilih dari peranti anda.",
+  "step2Title": "Pilih Format",
+  "step2Desc": "Pilih format output yang anda mahu dari senarai format yang kami sokong.",
+  "step3Title": "Muat Turun",
+  "step3Desc": "Tunggu penukaran selesai dan muat turun fail yang telah ditukar.",
+
+  "illustrationUploadText": "Seret fail ke sini",
+  "illustrationFormatText": "Pilih format",
+  "illustrationDownloadText": "Sedia untuk muat turun!",
+
+  "footer": "© 2024 HQMX Converter. All Rights Reserved.",
+
+  "fileSize": {
+    "zero": "0 Bait",
+    "bytes": "Bait",
+    "kb": "KB",
+    "mb": "MB",
+    "gb": "GB",
+    "tb": "TB"
+  },
+
+  "status": {
+    "ready": "Sedia",
+    "uploading": "Memuat naik...",
+    "processing": "Memproses...",
+    "converting": "Menukar...",
+    "completed": "Selesai",
+    "error": "Ralat"
+  },
+
+  "messages": {
+    "confirmClearAll": "Adakah anda pasti mahu buang semua fail?",
+    "fileTooLarge": "Fail \"{fileName}\" melebihi had 100MB",
+    "fileAlreadyAdded": "Fail \"{fileName}\" sudah ditambah",
+    "noFilesReady": "Tiada fail sedia untuk ditukar",
+    "fileRemoved": "\"{fileName}\" telah dibuang",
+    "selectOutputFormat": "Sila pilih format output",
+    "conversionSuccess": "\"{fileName}\" berjaya ditukar!",
+    "conversionError": "Ralat menukar \"{fileName}\": {error}",
+    "connectionLost": "Sambungan terputus untuk \"{fileName}\"",
+    "processingError": "Ralat memproses \"{fileName}\": {error}"
+  },
+
+  "formats": {
+    "video": {
+      "mp4": "MP4 - Format video paling serasi",
+      "avi": "AVI - Format video Windows",
+      "mov": "MOV - Format video QuickTime",
+      "mkv": "MKV - Format video Matroska",
+      "webm": "WebM - Format video web",
+      "flv": "FLV - Format video Flash"
+    },
+    "audio": {
+      "mp3": "MP3 - Format audio paling popular",
+      "wav": "WAV - Format audio tidak dimampatkan",
+      "flac": "FLAC - Format audio lossless",
+      "aac": "AAC - Codec audio lanjutan",
+      "ogg": "OGG - Format audio sumber terbuka",
+      "m4a": "M4A - Format audio Apple"
+    },
+    "image": {
+      "jpg": "JPG - Format gambar paling biasa",
+      "png": "PNG - Format gambar lossless",
+      "gif": "GIF - Format gambar animasi",
+      "webp": "WebP - Format gambar web moden",
+      "svg": "SVG - Format gambar vektor",
+      "bmp": "BMP - Format gambar bitmap"
+    },
+    "document": {
+      "pdf": "PDF - Format dokumen mudah alih",
+      "docx": "DOCX - Dokumen Microsoft Word",
+      "pptx": "PPTX - Persembahan Microsoft PowerPoint",
+      "xlsx": "XLSX - Spreadsheet Microsoft Excel",
+      "txt": "TXT - Dokumen teks biasa",
+      "rtf": "RTF - Format teks kaya"
+    }
+  },
+
+  "settings": {
+    "quality": "Kualiti",
+    "resolution": "Resolusi",
+    "codec": "Codec",
+    "bitrate": "Bitrate (kbps)",
+    "sampleRate": "Sample rate",
+    "channels": "Channel",
+    "dpi": "DPI",
+    "pageRange": "Julat halaman",
+    "resize": "Ubah saiz",
+
+    "values": {
+      "high": "Tinggi",
+      "medium": "Sederhana",
+      "low": "Rendah",
+      "original": "Asal",
+      "mono": "Mono",
+      "stereo": "Stereo",
+      "none": "Tiada"
+    }
+  }
+}

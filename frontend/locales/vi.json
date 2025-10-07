@@ -1,0 +1,143 @@
+{
+  "tagline": "Universal File Converter",
+  "uploadSectionTitle": "Chuyển đổi mọi định dạng file",
+  "uploadMainText": "Kéo thả file vào đây hoặc nhấp để tải lên",
+  "uploadSubText": "Hỗ trợ 300+ định dạng file • Dung lượng tối đa: 100MB",
+  "selectFiles": "Chọn File",
+  "termsNotice": "By using our service you accept our Terms of Service and Privacy Policy.",
+
+  "yourFiles": "File của bạn",
+  "clearAll": "Xóa tất cả",
+  "convertAll": "Chuyển đổi tất cả",
+
+  "conversionSettings": "Cài đặt chuyển đổi",
+  "filesToConvert": "File cần chuyển đổi",
+  "convertTo": "Chuyển đổi sang",
+  "advancedSettings": "Cài đặt nâng cao",
+  "advancedOptions": "Tùy chọn nâng cao",
+  "startConversion": "Bắt đầu chuyển đổi",
+
+  "popular": "Phổ biến",
+  "video": "Video",
+  "audio": "Audio",
+  "image": "Hình ảnh",
+  "document": "Tài liệu",
+  "archive": "Nén",
+
+  "featureUniversalTitle": "Chuyển đổi đa năng",
+  "featureUniversalDesc": "Chuyển đổi giữa 300+ định dạng file bao gồm video, audio, hình ảnh, tài liệu và file nén.",
+  "featureSpeedTitle": "Siêu nhanh",
+  "featureSpeedDesc": "Xử lý trên cloud đảm bảo chuyển đổi nhanh chóng mà không dùng tài nguyên thiết bị của bạn.",
+  "featureSecurityTitle": "An toàn & Riêng tư",
+  "featureSecurityDesc": "File tự động xóa sau 24 giờ. Quyền riêng tư của bạn được đảm bảo.",
+
+  "supportedFormatsTitle": "Định dạng file hỗ trợ",
+  "supportedFormatsSubtitle": "Supported File Formats +300 more",
+  "videoFormats": "Video",
+  "audioFormats": "Audio",
+  "imageFormats": "Hình ảnh",
+  "documentFormats": "Tài liệu",
+
+  "usageGuideTitle": "Cách sử dụng",
+  "usageGuideDesc": "Làm theo các bước đơn giản sau để chuyển đổi file nhanh chóng và dễ dàng.",
+  "step1Title": "Tải file lên",
+  "step1Desc": "Kéo thả file vào khu vực tải lên hoặc nhấp để chọn file từ thiết bị của bạn.",
+  "step2Title": "Chọn định dạng",
+  "step2Desc": "Chọn định dạng đầu ra mong muốn từ danh sách phong phú các định dạng được hỗ trợ.",
+  "step3Title": "Tải xuống",
+  "step3Desc": "Đợi quá trình chuyển đổi hoàn tất và tải xuống file đã chuyển đổi của bạn.",
+
+  "illustrationUploadText": "Kéo thả file vào đây",
+  "illustrationFormatText": "Chọn định dạng",
+  "illustrationDownloadText": "Sẵn sàng tải xuống!",
+
+  "footer": "© 2024 HQMX Converter. All Rights Reserved.",
+
+  "fileSize": {
+    "zero": "0 Byte",
+    "bytes": "Byte",
+    "kb": "KB",
+    "mb": "MB",
+    "gb": "GB",
+    "tb": "TB"
+  },
+
+  "status": {
+    "ready": "Sẵn sàng",
+    "uploading": "Đang tải lên...",
+    "processing": "Đang xử lý...",
+    "converting": "Đang chuyển đổi...",
+    "completed": "Hoàn thành",
+    "error": "Lỗi"
+  },
+
+  "messages": {
+    "confirmClearAll": "Bạn có chắc muốn xóa tất cả file?",
+    "fileTooLarge": "File \"{fileName}\" vượt quá giới hạn 100MB",
+    "fileAlreadyAdded": "File \"{fileName}\" đã được thêm",
+    "noFilesReady": "Không có file nào sẵn sàng để chuyển đổi",
+    "fileRemoved": "Đã xóa \"{fileName}\"",
+    "selectOutputFormat": "Vui lòng chọn định dạng đầu ra",
+    "conversionSuccess": "\"{fileName}\" đã chuyển đổi thành công!",
+    "conversionError": "Lỗi khi chuyển đổi \"{fileName}\": {error}",
+    "connectionLost": "Mất kết nối với \"{fileName}\"",
+    "processingError": "Lỗi khi xử lý \"{fileName}\": {error}"
+  },
+
+  "formats": {
+    "video": {
+      "mp4": "MP4 - Định dạng video tương thích nhất",
+      "avi": "AVI - Định dạng video Windows",
+      "mov": "MOV - Định dạng video QuickTime",
+      "mkv": "MKV - Định dạng video Matroska",
+      "webm": "WebM - Định dạng video web",
+      "flv": "FLV - Định dạng video Flash"
+    },
+    "audio": {
+      "mp3": "MP3 - Định dạng audio phổ biến nhất",
+      "wav": "WAV - Định dạng audio không nén",
+      "flac": "FLAC - Định dạng audio lossless",
+      "aac": "AAC - Codec audio nâng cao",
+      "ogg": "OGG - Định dạng audio mã nguồn mở",
+      "m4a": "M4A - Định dạng audio Apple"
+    },
+    "image": {
+      "jpg": "JPG - Định dạng hình ảnh phổ biến nhất",
+      "png": "PNG - Định dạng hình ảnh lossless",
+      "gif": "GIF - Định dạng hình ảnh động",
+      "webp": "WebP - Định dạng hình ảnh web hiện đại",
+      "svg": "SVG - Định dạng hình ảnh vector",
+      "bmp": "BMP - Định dạng hình ảnh bitmap"
+    },
+    "document": {
+      "pdf": "PDF - Định dạng tài liệu di động",
+      "docx": "DOCX - Tài liệu Microsoft Word",
+      "pptx": "PPTX - Bài thuyết trình Microsoft PowerPoint",
+      "xlsx": "XLSX - Bảng tính Microsoft Excel",
+      "txt": "TXT - Tài liệu văn bản thô",
+      "rtf": "RTF - Định dạng văn bản phong phú"
+    }
+  },
+
+  "settings": {
+    "quality": "Chất lượng",
+    "resolution": "Độ phân giải",
+    "codec": "Codec",
+    "bitrate": "Bitrate (kbps)",
+    "sampleRate": "Tần số lấy mẫu",
+    "channels": "Kênh",
+    "dpi": "DPI",
+    "pageRange": "Phạm vi trang",
+    "resize": "Thay đổi kích thước",
+
+    "values": {
+      "high": "Cao",
+      "medium": "Trung bình",
+      "low": "Thấp",
+      "original": "Gốc",
+      "mono": "Mono",
+      "stereo": "Stereo",
+      "none": "Không"
+    }
+  }
+}

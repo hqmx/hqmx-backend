@@ -1,0 +1,143 @@
+{
+  "tagline": "Universal File Converter",
+  "uploadSectionTitle": "Her dosyayı her formata dönüştür",
+  "uploadMainText": "Dosyaları buraya sürükleyin veya yüklemek için tıklayın",
+  "uploadSubText": "300+ dosya formatı desteği • Maksimum dosya boyutu: 100MB",
+  "selectFiles": "Dosya Seç",
+  "termsNotice": "By using our service you accept our Terms of Service and Privacy Policy.",
+
+  "yourFiles": "Dosyalarınız",
+  "clearAll": "Hepsini Temizle",
+  "convertAll": "Hepsini Dönüştür",
+
+  "conversionSettings": "Dönüştürme Ayarları",
+  "filesToConvert": "Dönüştürülecek Dosyalar",
+  "convertTo": "Dönüştür",
+  "advancedSettings": "Gelişmiş Ayarlar",
+  "advancedOptions": "Gelişmiş Seçenekler",
+  "startConversion": "Dönüştürmeyi Başlat",
+
+  "popular": "Popüler",
+  "video": "Video",
+  "audio": "Ses",
+  "image": "Görsel",
+  "document": "Belge",
+  "archive": "Arşiv",
+
+  "featureUniversalTitle": "Evrensel Dönüştürücü",
+  "featureUniversalDesc": "Video, ses, görsel, belge ve arşiv dahil 300+ dosya formatı arasında dönüştürme yapın.",
+  "featureSpeedTitle": "Yıldırım Hızında",
+  "featureSpeedDesc": "Bulut tabanlı işleme, cihazınızın kaynaklarını kullanmadan hızlı dönüşüm sağlar.",
+  "featureSecurityTitle": "Güvenli ve Özel",
+  "featureSecurityDesc": "Dosyalar 24 saat sonra otomatik olarak silinir. Gizliliğiniz garanti altında.",
+
+  "supportedFormatsTitle": "Desteklenen Dosya Formatları",
+  "supportedFormatsSubtitle": "Supported File Formats +300 more",
+  "videoFormats": "Video",
+  "audioFormats": "Ses",
+  "imageFormats": "Görsel",
+  "documentFormats": "Belge",
+
+  "usageGuideTitle": "Nasıl Kullanılır",
+  "usageGuideDesc": "Dosyalarınızı hızlı ve kolay bir şekilde dönüştürmek için bu basit adımları izleyin.",
+  "step1Title": "Dosya Yükle",
+  "step1Desc": "Dosyalarınızı yükleme alanına sürükleyip bırakın veya cihazınızdan dosya seçmek için tıklayın.",
+  "step2Title": "Format Seç",
+  "step2Desc": "Geniş desteklenen format listemizden istediğiniz çıktı formatını seçin.",
+  "step3Title": "İndir",
+  "step3Desc": "Dönüştürmenin tamamlanmasını bekleyin ve dönüştürülen dosyalarınızı indirin.",
+
+  "illustrationUploadText": "Dosyaları buraya sürükleyin",
+  "illustrationFormatText": "Format seç",
+  "illustrationDownloadText": "İndirmeye hazır!",
+
+  "footer": "© 2024 HQMX Converter. All Rights Reserved.",
+
+  "fileSize": {
+    "zero": "0 Bayt",
+    "bytes": "Bayt",
+    "kb": "KB",
+    "mb": "MB",
+    "gb": "GB",
+    "tb": "TB"
+  },
+
+  "status": {
+    "ready": "Hazır",
+    "uploading": "Yükleniyor...",
+    "processing": "İşleniyor...",
+    "converting": "Dönüştürülüyor...",
+    "completed": "Tamamlandı",
+    "error": "Hata"
+  },
+
+  "messages": {
+    "confirmClearAll": "Tüm dosyaları kaldırmak istediğinizden emin misiniz?",
+    "fileTooLarge": "\"{fileName}\" dosyası 100MB sınırını aşıyor",
+    "fileAlreadyAdded": "\"{fileName}\" dosyası zaten eklendi",
+    "noFilesReady": "Dönüştürülecek dosya yok",
+    "fileRemoved": "\"{fileName}\" kaldırıldı",
+    "selectOutputFormat": "Lütfen bir çıktı formatı seçin",
+    "conversionSuccess": "\"{fileName}\" başarıyla dönüştürüldü!",
+    "conversionError": "\"{fileName}\" dönüştürülürken hata: {error}",
+    "connectionLost": "\"{fileName}\" için bağlantı kesildi",
+    "processingError": "\"{fileName}\" işlenirken hata: {error}"
+  },
+
+  "formats": {
+    "video": {
+      "mp4": "MP4 - En uyumlu video formatı",
+      "avi": "AVI - Windows video formatı",
+      "mov": "MOV - QuickTime video formatı",
+      "mkv": "MKV - Matroska video formatı",
+      "webm": "WebM - Web video formatı",
+      "flv": "FLV - Flash video formatı"
+    },
+    "audio": {
+      "mp3": "MP3 - En popüler ses formatı",
+      "wav": "WAV - Sıkıştırılmamış ses formatı",
+      "flac": "FLAC - Kayıpsız ses formatı",
+      "aac": "AAC - Gelişmiş ses codec'i",
+      "ogg": "OGG - Açık kaynak ses formatı",
+      "m4a": "M4A - Apple ses formatı"
+    },
+    "image": {
+      "jpg": "JPG - En yaygın görsel formatı",
+      "png": "PNG - Kayıpsız görsel formatı",
+      "gif": "GIF - Animasyonlu görsel formatı",
+      "webp": "WebP - Modern web görsel formatı",
+      "svg": "SVG - Vektör görsel formatı",
+      "bmp": "BMP - Bitmap görsel formatı"
+    },
+    "document": {
+      "pdf": "PDF - Taşınabilir belge formatı",
+      "docx": "DOCX - Microsoft Word belgesi",
+      "pptx": "PPTX - Microsoft PowerPoint sunumu",
+      "xlsx": "XLSX - Microsoft Excel elektronik tablosu",
+      "txt": "TXT - Düz metin belgesi",
+      "rtf": "RTF - Zengin metin formatı"
+    }
+  },
+
+  "settings": {
+    "quality": "Kalite",
+    "resolution": "Çözünürlük",
+    "codec": "Codec",
+    "bitrate": "Bit hızı (kbps)",
+    "sampleRate": "Örnekleme hızı",
+    "channels": "Kanallar",
+    "dpi": "DPI",
+    "pageRange": "Sayfa aralığı",
+    "resize": "Yeniden boyutlandır",
+
+    "values": {
+      "high": "Yüksek",
+      "medium": "Orta",
+      "low": "Düşük",
+      "original": "Orijinal",
+      "mono": "Mono",
+      "stereo": "Stereo",
+      "none": "Yok"
+    }
+  }
+}

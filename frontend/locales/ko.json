@@ -46,7 +46,11 @@
   "step2Desc": "지원하는 다양한 형식 목록에서 원하는 출력 형식을 선택하세요.",
   "step3Title": "다운로드",
   "step3Desc": "변환이 완료될 때까지 기다린 후 변환된 파일을 다운로드하세요.",
-  
+
+  "illustrationUploadText": "파일 끌어다 놓기",
+  "illustrationFormatText": "형식 선택",
+  "illustrationDownloadText": "다운로드 준비 완료!",
+
   "footer": "© 2024 HQMX Converter. All Rights Reserved.",
   
   "fileSize": {

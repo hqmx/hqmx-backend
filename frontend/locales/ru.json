@@ -1,0 +1,143 @@
+{
+  "tagline": "Universal File Converter",
+  "uploadSectionTitle": "Конвертируйте любой файл в любой формат",
+  "uploadMainText": "Перетащите файлы сюда или нажмите для загрузки",
+  "uploadSubText": "Поддержка 300+ форматов • Макс. размер: 100MB",
+  "selectFiles": "Выбрать файлы",
+  "termsNotice": "By using our service you accept our Terms of Service and Privacy Policy.",
+
+  "yourFiles": "Ваши файлы",
+  "clearAll": "Очистить всё",
+  "convertAll": "Конвертировать всё",
+
+  "conversionSettings": "Настройки конвертации",
+  "filesToConvert": "Файлы для конвертации",
+  "convertTo": "Конвертировать в",
+  "advancedSettings": "Расширенные настройки",
+  "advancedOptions": "Доп. опции",
+  "startConversion": "Начать конвертацию",
+
+  "popular": "Популярное",
+  "video": "Видео",
+  "audio": "Аудио",
+  "image": "Изображение",
+  "document": "Документ",
+  "archive": "Архив",
+
+  "featureUniversalTitle": "Универсальный конвертер",
+  "featureUniversalDesc": "Конвертируйте между 300+ форматами файлов, включая видео, аудио, изображения, документы и архивы.",
+  "featureSpeedTitle": "Быстро",
+  "featureSpeedDesc": "Облачная обработка обеспечивает быструю конвертацию без использования ресурсов вашего устройства.",
+  "featureSecurityTitle": "Безопасно и конфиденциально",
+  "featureSecurityDesc": "Файлы автоматически удаляются через 24 часа. Ваша конфиденциальность гарантирована.",
+
+  "supportedFormatsTitle": "Поддерживаемые форматы",
+  "supportedFormatsSubtitle": "Supported File Formats +300 more",
+  "videoFormats": "Видео",
+  "audioFormats": "Аудио",
+  "imageFormats": "Изображение",
+  "documentFormats": "Документ",
+
+  "usageGuideTitle": "Как использовать",
+  "usageGuideDesc": "Следуйте этим простым шагам для быстрой и легкой конвертации файлов.",
+  "step1Title": "Загрузите файлы",
+  "step1Desc": "Перетащите файлы в область загрузки или нажмите, чтобы выбрать файлы с вашего устройства.",
+  "step2Title": "Выберите формат",
+  "step2Desc": "Выберите желаемый формат вывода из нашего обширного списка поддерживаемых форматов.",
+  "step3Title": "Скачайте",
+  "step3Desc": "Дождитесь завершения конвертации и скачайте ваши конвертированные файлы.",
+
+  "illustrationUploadText": "Перетащите файлы",
+  "illustrationFormatText": "Выберите формат",
+  "illustrationDownloadText": "Готово к скачиванию!",
+
+  "footer": "© 2024 HQMX Converter. All Rights Reserved.",
+
+  "fileSize": {
+    "zero": "0 байт",
+    "bytes": "байт",
+    "kb": "КБ",
+    "mb": "МБ",
+    "gb": "ГБ",
+    "tb": "ТБ"
+  },
+
+  "status": {
+    "ready": "Готово",
+    "uploading": "Загрузка...",
+    "processing": "Обработка...",
+    "converting": "Конвертация...",
+    "completed": "Завершено",
+    "error": "Ошибка"
+  },
+
+  "messages": {
+    "confirmClearAll": "Вы уверены, что хотите удалить все файлы?",
+    "fileTooLarge": "Файл \"{fileName}\" превышает лимит в 100MB",
+    "fileAlreadyAdded": "Файл \"{fileName}\" уже добавлен",
+    "noFilesReady": "Нет файлов для конвертации",
+    "fileRemoved": "\"{fileName}\" удален",
+    "selectOutputFormat": "Пожалуйста, выберите формат вывода",
+    "conversionSuccess": "\"{fileName}\" успешно конвертирован!",
+    "conversionError": "Ошибка конвертации \"{fileName}\": {error}",
+    "connectionLost": "Соединение потеряно для \"{fileName}\"",
+    "processingError": "Ошибка обработки \"{fileName}\": {error}"
+  },
+
+  "formats": {
+    "video": {
+      "mp4": "MP4 - Самый совместимый видеоформат",
+      "avi": "AVI - Видеоформат Windows",
+      "mov": "MOV - Видеоформат QuickTime",
+      "mkv": "MKV - Видеоформат Matroska",
+      "webm": "WebM - Веб-видеоформат",
+      "flv": "FLV - Видеоформат Flash"
+    },
+    "audio": {
+      "mp3": "MP3 - Самый популярный аудиоформат",
+      "wav": "WAV - Несжатый аудиоформат",
+      "flac": "FLAC - Аудиоформат без потерь",
+      "aac": "AAC - Продвинутый аудиокодек",
+      "ogg": "OGG - Аудиоформат с открытым кодом",
+      "m4a": "M4A - Аудиоформат Apple"
+    },
+    "image": {
+      "jpg": "JPG - Самый распространенный формат изображений",
+      "png": "PNG - Формат изображений без потерь",
+      "gif": "GIF - Формат анимированных изображений",
+      "webp": "WebP - Современный веб-формат изображений",
+      "svg": "SVG - Векторный формат изображений",
+      "bmp": "BMP - Растровый формат изображений"
+    },
+    "document": {
+      "pdf": "PDF - Портативный формат документов",
+      "docx": "DOCX - Документ Microsoft Word",
+      "pptx": "PPTX - Презентация Microsoft PowerPoint",
+      "xlsx": "XLSX - Таблица Microsoft Excel",
+      "txt": "TXT - Текстовый документ",
+      "rtf": "RTF - Форматированный текст"
+    }
+  },
+
+  "settings": {
+    "quality": "Качество",
+    "resolution": "Разрешение",
+    "codec": "Кодек",
+    "bitrate": "Битрейт (кбит/с)",
+    "sampleRate": "Частота дискретизации",
+    "channels": "Каналы",
+    "dpi": "Точек на дюйм",
+    "pageRange": "Диапазон страниц",
+    "resize": "Изменить размер",
+
+    "values": {
+      "high": "Высокое",
+      "medium": "Среднее",
+      "low": "Низкое",
+      "original": "Оригинал",
+      "mono": "Моно",
+      "stereo": "Стерео",
+      "none": "Нет"
+    }
+  }
+}

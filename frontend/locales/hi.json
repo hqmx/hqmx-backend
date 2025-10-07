@@ -1,0 +1,143 @@
+{
+  "tagline": "Universal File Converter",
+  "uploadSectionTitle": "किसी भी फ़ाइल को किसी भी फॉर्मेट में बदलें",
+  "uploadMainText": "फ़ाइलें यहाँ ड्रैग करें या अपलोड के लिए क्लिक करें",
+  "uploadSubText": "300+ फ़ाइल फॉर्मेट सपोर्ट • अधिकतम साइज़: 100MB",
+  "selectFiles": "फ़ाइल चुनें",
+  "termsNotice": "By using our service you accept our Terms of Service and Privacy Policy.",
+
+  "yourFiles": "आपकी फ़ाइलें",
+  "clearAll": "सभी हटाएं",
+  "convertAll": "सभी कन्वर्ट करें",
+
+  "conversionSettings": "कन्वर्जन सेटिंग्स",
+  "filesToConvert": "कन्वर्ट करने वाली फ़ाइलें",
+  "convertTo": "इसमें बदलें",
+  "advancedSettings": "एडवांस सेटिंग्स",
+  "advancedOptions": "एडवांस ऑप्शन",
+  "startConversion": "कन्वर्जन शुरू करें",
+
+  "popular": "पॉपुलर",
+  "video": "वीडियो",
+  "audio": "ऑडियो",
+  "image": "इमेज",
+  "document": "डॉक्युमेंट",
+  "archive": "आर्काइव",
+
+  "featureUniversalTitle": "यूनिवर्सल कन्वर्टर",
+  "featureUniversalDesc": "वीडियो, ऑडियो, इमेज, डॉक्युमेंट और आर्काइव समेत 300+ फ़ाइल फॉर्मेट के बीच कन्वर्ट करें।",
+  "featureSpeedTitle": "बेहद तेज़",
+  "featureSpeedDesc": "क्लाउड प्रोसेसिंग से तेज़ कन्वर्जन, आपके डिवाइस की रिसोर्स का इस्तेमाल नहीं।",
+  "featureSecurityTitle": "सुरक्षित और प्राइवेट",
+  "featureSecurityDesc": "24 घंटे बाद फ़ाइलें ऑटोमैटिक डिलीट। आपकी प्राइवेसी गारंटीड।",
+
+  "supportedFormatsTitle": "सपोर्टेड फ़ाइल फॉर्मेट",
+  "supportedFormatsSubtitle": "Supported File Formats +300 more",
+  "videoFormats": "वीडियो",
+  "audioFormats": "ऑडियो",
+  "imageFormats": "इमेज",
+  "documentFormats": "डॉक्युमेंट",
+
+  "usageGuideTitle": "कैसे इस्तेमाल करें",
+  "usageGuideDesc": "अपनी फ़ाइलों को तेज़ी से कन्वर्ट करने के लिए ये आसान स्टेप्स फॉलो करें।",
+  "step1Title": "फ़ाइल अपलोड करें",
+  "step1Desc": "अपलोड एरिया में फ़ाइलें ड्रैग एंड ड्रॉप करें या अपने डिवाइस से चुनने के लिए क्लिक करें।",
+  "step2Title": "फॉर्मेट चुनें",
+  "step2Desc": "हमारे सपोर्टेड फॉर्मेट की लिस्ट से अपना आउटपुट फॉर्मेट चुनें।",
+  "step3Title": "डाउनलोड करें",
+  "step3Desc": "कन्वर्जन पूरा होने का इंतज़ार करें और अपनी कन्वर्टेड फ़ाइलें डाउनलोड करें।",
+
+  "illustrationUploadText": "फ़ाइलें यहाँ ड्रैग करें",
+  "illustrationFormatText": "फॉर्मेट चुनें",
+  "illustrationDownloadText": "डाउनलोड रेडी!",
+
+  "footer": "© 2024 HQMX Converter. All Rights Reserved.",
+
+  "fileSize": {
+    "zero": "0 बाइट",
+    "bytes": "बाइट",
+    "kb": "KB",
+    "mb": "MB",
+    "gb": "GB",
+    "tb": "TB"
+  },
+
+  "status": {
+    "ready": "तैयार",
+    "uploading": "अपलोड हो रहा है...",
+    "processing": "प्रोसेस हो रहा है...",
+    "converting": "कन्वर्ट हो रहा है...",
+    "completed": "पूरा हुआ",
+    "error": "एरर"
+  },
+
+  "messages": {
+    "confirmClearAll": "क्या आप सभी फ़ाइलें हटाना चाहते हैं?",
+    "fileTooLarge": "फ़ाइल \"{fileName}\" 100MB की लिमिट से ज़्यादा है",
+    "fileAlreadyAdded": "फ़ाइल \"{fileName}\" पहले से ऐड है",
+    "noFilesReady": "कन्वर्जन के लिए कोई फ़ाइल तैयार नहीं",
+    "fileRemoved": "\"{fileName}\" हटा दी गई",
+    "selectOutputFormat": "कृपया एक आउटपुट फॉर्मेट चुनें",
+    "conversionSuccess": "\"{fileName}\" सफलतापूर्वक कन्वर्ट हुई!",
+    "conversionError": "\"{fileName}\" कन्वर्ट करने में एरर: {error}",
+    "connectionLost": "\"{fileName}\" के लिए कनेक्शन खो गया",
+    "processingError": "\"{fileName}\" प्रोसेस करने में एरर: {error}"
+  },
+
+  "formats": {
+    "video": {
+      "mp4": "MP4 - सबसे कॉम्पैटिबल वीडियो फॉर्मेट",
+      "avi": "AVI - Windows वीडियो फॉर्मेट",
+      "mov": "MOV - QuickTime वीडियो फॉर्मेट",
+      "mkv": "MKV - Matroska वीडियो फॉर्मेट",
+      "webm": "WebM - वेब वीडियो फॉर्मेट",
+      "flv": "FLV - Flash वीडियो फॉर्मेट"
+    },
+    "audio": {
+      "mp3": "MP3 - सबसे पॉपुलर ऑडियो फॉर्मेट",
+      "wav": "WAV - अनकंप्रेस्ड ऑडियो फॉर्मेट",
+      "flac": "FLAC - लॉसलेस ऑडियो फॉर्मेट",
+      "aac": "AAC - एडवांस ऑडियो कोडेक",
+      "ogg": "OGG - ओपन सोर्स ऑडियो फॉर्मेट",
+      "m4a": "M4A - Apple ऑडियो फॉर्मेट"
+    },
+    "image": {
+      "jpg": "JPG - सबसे कॉमन इमेज फॉर्मेट",
+      "png": "PNG - लॉसलेस इमेज फॉर्मेट",
+      "gif": "GIF - एनिमेटेड इमेज फॉर्मेट",
+      "webp": "WebP - मॉडर्न वेब इमेज फॉर्मेट",
+      "svg": "SVG - वेक्टर इमेज फॉर्मेट",
+      "bmp": "BMP - बिटमैप इमेज फॉर्मेट"
+    },
+    "document": {
+      "pdf": "PDF - पोर्टेबल डॉक्युमेंट फॉर्मेट",
+      "docx": "DOCX - Microsoft Word डॉक्युमेंट",
+      "pptx": "PPTX - Microsoft PowerPoint प्रेज़ेंटेशन",
+      "xlsx": "XLSX - Microsoft Excel स्प्रेडशीट",
+      "txt": "TXT - प्लेन टेक्स्ट डॉक्युमेंट",
+      "rtf": "RTF - रिच टेक्स्ट फॉर्मेट"
+    }
+  },
+
+  "settings": {
+    "quality": "क्वालिटी",
+    "resolution": "रेज़ोल्यूशन",
+    "codec": "कोडेक",
+    "bitrate": "बिटरेट (kbps)",
+    "sampleRate": "सैंपल रेट",
+    "channels": "चैनल",
+    "dpi": "DPI",
+    "pageRange": "पेज रेंज",
+    "resize": "रीसाइज़",
+
+    "values": {
+      "high": "हाई",
+      "medium": "मीडियम",
+      "low": "लो",
+      "original": "ओरिजनल",
+      "mono": "मोनो",
+      "stereo": "स्टीरियो",
+      "none": "कोई नहीं"
+    }
+  }
+}

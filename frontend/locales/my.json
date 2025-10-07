@@ -1,0 +1,143 @@
+{
+  "tagline": "Universal File Converter",
+  "uploadSectionTitle": "မည်သည့်ဖိုင်ကိုမဆို မည်သည့် format သို့မဆို ပြောင်းလဲပါ",
+  "uploadMainText": "ဖိုင်များကို ဤနေရာသို့ ဆွဲထည့်ပါ သို့မဟုတ် upload လုပ်ရန် နှိပ်ပါ",
+  "uploadSubText": "300+ ဖိုင် format များ အထောက်အပံ့ပေး • အများဆုံးအရွယ်အစား: 100MB",
+  "selectFiles": "ဖိုင်ရွေးပါ",
+  "termsNotice": "By using our service you accept our Terms of Service and Privacy Policy.",
+
+  "yourFiles": "သင့်ဖိုင်များ",
+  "clearAll": "အားလုံးဖျက်ပါ",
+  "convertAll": "အားလုံး ပြောင်းပါ",
+
+  "conversionSettings": "ပြောင်းလဲခြင်း ဆက်တင်များ",
+  "filesToConvert": "ပြောင်းမည့်ဖိုင်များ",
+  "convertTo": "သို့ ပြောင်းမည်",
+  "advancedSettings": "အဆင့်မြင့် ဆက်တင်များ",
+  "advancedOptions": "အဆင့်မြင့် ရွေးချယ်မှုများ",
+  "startConversion": "ပြောင်းလဲခြင်း စတင်ပါ",
+
+  "popular": "လူကြိုက်များသော",
+  "video": "ဗီဒီယို",
+  "audio": "အသံ",
+  "image": "ပုံ",
+  "document": "စာရွက်စာတမ်း",
+  "archive": "မော်ကွန်း",
+
+  "featureUniversalTitle": "Universal Converter",
+  "featureUniversalDesc": "ဗီဒီယို၊ အသံ၊ ပုံ၊ စာရွက်စာတမ်း နှင့် မော်ကွန်း အပါအဝင် 300+ ဖိုင် format များအကြား ပြောင်းလဲပါ။",
+  "featureSpeedTitle": "မြန်ဆန်စွာ",
+  "featureSpeedDesc": "Cloud processing ဖြင့် လျင်မြန်စွာ ပြောင်းလဲပေးပြီး သင့်ကိရိယာ၏ resource များကို အသုံးမပြုပါ။",
+  "featureSecurityTitle": "လုံခြုံပြီး သီးသန့်",
+  "featureSecurityDesc": "24 နာရီ အကြာတွင် ဖိုင်များ အလိုအလျောက် ဖျက်ပစ်သည်။ သင့်ကိုယ်ရေးကိုယ်တာ အာမခံချက်ပေးသည်။",
+
+  "supportedFormatsTitle": "အထောက်အပံ့ပေးသော ဖိုင် Format များ",
+  "supportedFormatsSubtitle": "Supported File Formats +300 more",
+  "videoFormats": "ဗီဒီယို",
+  "audioFormats": "အသံ",
+  "imageFormats": "ပုံ",
+  "documentFormats": "စာရွက်စာတမ်း",
+
+  "usageGuideTitle": "အသုံးပြုနည်း",
+  "usageGuideDesc": "သင့်ဖိုင်များကို လျင်မြန်စွာ ပြောင်းလဲရန် ဤလွယ်ကူသော အဆင့်များကို လိုက်နာပါ။",
+  "step1Title": "ဖိုင် upload လုပ်ပါ",
+  "step1Desc": "upload နေရာသို့ ဖိုင်များကို ဆွဲထည့်ပါ သို့မဟုတ် သင့်ကိရိယာမှ ဖိုင်ရွေးရန် နှိပ်ပါ။",
+  "step2Title": "Format ရွေးပါ",
+  "step2Desc": "ကျွန်ုပ်တို့၏ အထောက်အပံ့ပေးသော format စာရင်းမှ သင်လိုချင်သော output format ကို ရွေးပါ။",
+  "step3Title": "Download လုပ်ပါ",
+  "step3Desc": "ပြောင်းလဲခြင်း ပြီးမြောက်ရန် စောင့်ပြီး သင့် ပြောင်းလဲပြီးသော ဖိုင်များကို download လုပ်ပါ။",
+
+  "illustrationUploadText": "ဖိုင်များကို ဤနေရာသို့ ဆွဲထည့်ပါ",
+  "illustrationFormatText": "Format ရွေးပါ",
+  "illustrationDownloadText": "Download အသင့်ဖြစ်ပါပြီ!",
+
+  "footer": "© 2024 HQMX Converter. All Rights Reserved.",
+
+  "fileSize": {
+    "zero": "0 Byte",
+    "bytes": "Byte",
+    "kb": "KB",
+    "mb": "MB",
+    "gb": "GB",
+    "tb": "TB"
+  },
+
+  "status": {
+    "ready": "အသင့်ဖြစ်ပြီ",
+    "uploading": "Upload လုပ်နေသည်...",
+    "processing": "လုပ်ဆောင်နေသည်...",
+    "converting": "ပြောင်းလဲနေသည်...",
+    "completed": "ပြီးမြောက်ပြီ",
+    "error": "အမှား"
+  },
+
+  "messages": {
+    "confirmClearAll": "ဖိုင်အားလုံးကို ဖျက်ရန် သေချာပါသလား?",
+    "fileTooLarge": "ဖိုင် \"{fileName}\" သည် 100MB ကန့်သတ်ချက်ထက် ကျော်လွန်သည်",
+    "fileAlreadyAdded": "ဖိုင် \"{fileName}\" ကို ထည့်ပြီးပါပြီ",
+    "noFilesReady": "ပြောင်းလဲရန် အသင့်ရှိသော ဖိုင်များ မရှိပါ",
+    "fileRemoved": "\"{fileName}\" ကို ဖျက်ပြီးပါပြီ",
+    "selectOutputFormat": "ကျေးဇူးပြု၍ output format တစ်ခု ရွေးပါ",
+    "conversionSuccess": "\"{fileName}\" ကို အောင်မြင်စွာ ပြောင်းလဲပြီးပါပြီ!",
+    "conversionError": "\"{fileName}\" ပြောင်းလဲရာတွင် အမှား: {error}",
+    "connectionLost": "\"{fileName}\" အတွက် ချိတ်ဆက်မှု ပျောက်ဆုံးသွားသည်",
+    "processingError": "\"{fileName}\" လုပ်ဆောင်ရာတွင် အမှား: {error}"
+  },
+
+  "formats": {
+    "video": {
+      "mp4": "MP4 - အများဆုံး တွဲဖက်အသုံးပြုနိုင်သော ဗီဒီယို format",
+      "avi": "AVI - Windows ဗီဒီယို format",
+      "mov": "MOV - QuickTime ဗီဒီယို format",
+      "mkv": "MKV - Matroska ဗီဒီယို format",
+      "webm": "WebM - Web ဗီဒီယို format",
+      "flv": "FLV - Flash ဗီဒီယို format"
+    },
+    "audio": {
+      "mp3": "MP3 - အလွန်ရေပန်းစားသော အသံ format",
+      "wav": "WAV - Uncompressed အသံ format",
+      "flac": "FLAC - Lossless အသံ format",
+      "aac": "AAC - Advanced audio codec",
+      "ogg": "OGG - Open source အသံ format",
+      "m4a": "M4A - Apple အသံ format"
+    },
+    "image": {
+      "jpg": "JPG - အသုံးအများဆုံး ပုံ format",
+      "png": "PNG - Lossless ပုံ format",
+      "gif": "GIF - Animated ပုံ format",
+      "webp": "WebP - ခေတ်သစ် web ပုံ format",
+      "svg": "SVG - Vector ပုံ format",
+      "bmp": "BMP - Bitmap ပုံ format"
+    },
+    "document": {
+      "pdf": "PDF - Portable document format",
+      "docx": "DOCX - Microsoft Word စာရွက်စာတမ်း",
+      "pptx": "PPTX - Microsoft PowerPoint တင်ပြချက်",
+      "xlsx": "XLSX - Microsoft Excel spreadsheet",
+      "txt": "TXT - Plain text စာရွက်စာတမ်း",
+      "rtf": "RTF - Rich text format"
+    }
+  },
+
+  "settings": {
+    "quality": "အရည်အသွေး",
+    "resolution": "ကြည်လင်ပြတ်သားမှု",
+    "codec": "Codec",
+    "bitrate": "Bitrate (kbps)",
+    "sampleRate": "Sample rate",
+    "channels": "Channel များ",
+    "dpi": "DPI",
+    "pageRange": "စာမျက်နှာ အပိုင်းအခြား",
+    "resize": "အရွယ်အစား ပြောင်းပါ",
+
+    "values": {
+      "high": "မြင့်",
+      "medium": "အလယ်အလတ်",
+      "low": "နိမ့်",
+      "original": "မူရင်း",
+      "mono": "Mono",
+      "stereo": "Stereo",
+      "none": "မရှိ"
+    }
+  }
+}

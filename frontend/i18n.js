@@ -8,16 +8,67 @@ class I18n {
     }
 
     async init() {
+        // URL 파라미터의 언어가 최우선 (다국어 SEO URL 지원)
+        const urlLang = this.getLanguageFromURL();
+
         // Get saved language or detect from browser
-        this.currentLang = localStorage.getItem('language') || this.detectLanguage();
-        
+        this.currentLang = urlLang || localStorage.getItem('language') || this.detectLanguage();
+
         // Load translations
         await this.loadTranslations(this.currentLang);
-        
+
         // Apply translations
         this.applyTranslations();
         this.updateDirection();
         this.updateLanguageSelector();
+    }
+
+    getLanguageFromURL() {
+        // 1. URL 쿼리 파라미터에서 언어 코드 추출 (nginx rewrite 결과)
+        const params = new URLSearchParams(window.location.search);
+        if (params.has('lang')) {
+            return params.get('lang');
+        }
+
+        // 2. URL pathname에서 직접 파싱 (/{언어코드}/... 형식)
+        const pathname = window.location.pathname;
+
+        // /{언어코드}/{from}-to-{to} 형식
+        const pathMatch = pathname.match(/^\/([^\/]+)\/([a-z0-9]+)-to-([a-z0-9]+)\/?$/i);
+        if (pathMatch) {
+            const langCode = pathMatch[1];
+            // 단축 코드 변환 (kr → ko, cn → zh-CN, tw → zh-TW)
+            const langMapping = {
+                'kr': 'ko',
+                'cn': 'zh-CN',
+                'tw': 'zh-TW'
+            };
+            return langMapping[langCode] || langCode;
+        }
+
+        // /{언어코드} 형식 (홈페이지)
+        const langMatch = pathname.match(/^\/([^\/]+)\/?$/);
+        if (langMatch && langMatch[1] !== 'index.html') {
+            const langCode = langMatch[1];
+            const langMapping = {
+                'kr': 'ko',
+                'cn': 'zh-CN',
+                'tw': 'zh-TW'
+            };
+            const normalizedLang = langMapping[langCode] || langCode;
+
+            // 지원되는 언어인지 확인
+            const supportedLangs = [
+                'en', 'de', 'es', 'fr', 'hi', 'id', 'it', 'ko', 'ja',
+                'my', 'ms', 'fil', 'pt', 'ru', 'th', 'tr', 'vi',
+                'zh-CN', 'zh-TW', 'ar', 'bn'
+            ];
+            if (supportedLangs.includes(normalizedLang)) {
+                return normalizedLang;
+            }
+        }
+
+        return null;
     }
 
     detectLanguage() {
@@ -36,7 +87,7 @@ class I18n {
 
     async loadTranslations(lang) {
         try {
-            const response = await fetch(`locales/${lang}.json`);
+            const response = await fetch(`/locales/${lang}.json`);
             if (response.ok) {
                 this.translations = await response.json();
             } else {
@@ -224,6 +275,56 @@ class I18n {
     isRTL() {
         return this.rtlLanguages.includes(this.currentLang);
     }
+
+    // Update URL with new language code
+    updateURLWithLanguage(newLang) {
+        const pathname = window.location.pathname;
+        const languageMapping = {
+            'ko': 'kr',
+            'zh-CN': 'cn',
+            'zh-TW': 'tw'
+        };
+
+        // Convert to short code for URL
+        const urlLang = languageMapping[newLang] || newLang;
+
+        // Supported language codes (including short codes)
+        const allLangCodes = [
+            'en', 'de', 'es', 'fr', 'hi', 'id', 'it', 'ko', 'kr', 'ja',
+            'my', 'ms', 'fil', 'pt', 'ru', 'th', 'tr', 'vi',
+            'zh-CN', 'zh-TW', 'cn', 'tw', 'ar', 'bn'
+        ];
+
+        // Pattern 1: /{lang}/{from}-to-{to}
+        const conversionMatch = pathname.match(/^\/([^\/]+)\/([a-z0-9]+)-to-([a-z0-9]+)\/?$/i);
+        if (conversionMatch && allLangCodes.includes(conversionMatch[1])) {
+            window.location.href = `/${urlLang}/${conversionMatch[2]}-to-${conversionMatch[3]}`;
+            return;
+        }
+
+        // Pattern 2: /{from}-to-{to} (no language)
+        const conversionOnlyMatch = pathname.match(/^\/([a-z0-9]+)-to-([a-z0-9]+)\/?$/i);
+        if (conversionOnlyMatch) {
+            window.location.href = `/${urlLang}/${conversionOnlyMatch[1]}-to-${conversionOnlyMatch[2]}`;
+            return;
+        }
+
+        // Pattern 3: /{lang} (homepage with language)
+        const langOnlyMatch = pathname.match(/^\/([^\/]+)\/?$/);
+        if (langOnlyMatch && langOnlyMatch[1] !== 'index.html' && allLangCodes.includes(langOnlyMatch[1])) {
+            window.location.href = `/${urlLang}`;
+            return;
+        }
+
+        // Pattern 4: / (root homepage)
+        if (pathname === '/' || pathname === '/index.html') {
+            window.location.href = `/${urlLang}`;
+            return;
+        }
+
+        // Default: stay on current page, just change language
+        // (for other pages that don't follow the pattern)
+    }
 }
 
 // Initialize i18n when DOM is loaded
@@ -231,18 +332,28 @@ let i18n;
 
 document.addEventListener('DOMContentLoaded', async () => {
     i18n = new I18n();
-    
+
     // Set up language change handlers
     const languageOptions = document.getElementById('language-options');
     if (languageOptions) {
         languageOptions.addEventListener('click', async (e) => {
             if (e.target.dataset.lang) {
-                await i18n.changeLanguage(e.target.dataset.lang);
-                
+                e.preventDefault(); // Prevent default <a> tag behavior
+                const newLang = e.target.dataset.lang;
+
                 // Close language selector
                 const languageSwitcher = e.target.closest('.language-switcher');
                 if (languageSwitcher) {
                     languageSwitcher.classList.remove('open');
+                }
+
+                // Update URL with new language (this will navigate)
+                i18n.updateURLWithLanguage(newLang);
+
+                // If updateURLWithLanguage didn't navigate (stayed on same page),
+                // change language without reload
+                if (window.location.pathname === window.location.pathname) {
+                    await i18n.changeLanguage(newLang);
                 }
             }
         });

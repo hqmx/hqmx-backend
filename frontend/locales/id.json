@@ -1,0 +1,143 @@
+{
+  "tagline": "Universal File Converter",
+  "uploadSectionTitle": "Konversi file apapun ke format apapun",
+  "uploadMainText": "Seret file ke sini atau klik untuk upload",
+  "uploadSubText": "Mendukung 300+ format file • Ukuran maksimal: 100MB",
+  "selectFiles": "Pilih File",
+  "termsNotice": "By using our service you accept our Terms of Service and Privacy Policy.",
+
+  "yourFiles": "File Anda",
+  "clearAll": "Hapus Semua",
+  "convertAll": "Konversi Semua",
+
+  "conversionSettings": "Pengaturan Konversi",
+  "filesToConvert": "File untuk Dikonversi",
+  "convertTo": "Konversi ke",
+  "advancedSettings": "Pengaturan Lanjutan",
+  "advancedOptions": "Opsi Lanjutan",
+  "startConversion": "Mulai Konversi",
+
+  "popular": "Populer",
+  "video": "Video",
+  "audio": "Audio",
+  "image": "Gambar",
+  "document": "Dokumen",
+  "archive": "Arsip",
+
+  "featureUniversalTitle": "Konverter Universal",
+  "featureUniversalDesc": "Konversi antara 300+ format file termasuk video, audio, gambar, dokumen, dan arsip.",
+  "featureSpeedTitle": "Super Cepat",
+  "featureSpeedDesc": "Pemrosesan berbasis cloud memastikan konversi cepat tanpa menggunakan resource perangkat Anda.",
+  "featureSecurityTitle": "Aman & Privat",
+  "featureSecurityDesc": "File otomatis dihapus setelah 24 jam. Privasi Anda terjamin.",
+
+  "supportedFormatsTitle": "Format File yang Didukung",
+  "supportedFormatsSubtitle": "Supported File Formats +300 more",
+  "videoFormats": "Video",
+  "audioFormats": "Audio",
+  "imageFormats": "Gambar",
+  "documentFormats": "Dokumen",
+
+  "usageGuideTitle": "Cara Menggunakan",
+  "usageGuideDesc": "Ikuti langkah-langkah sederhana ini untuk mengkonversi file dengan cepat dan mudah.",
+  "step1Title": "Upload File",
+  "step1Desc": "Seret dan lepas file ke area upload atau klik untuk memilih file dari perangkat Anda.",
+  "step2Title": "Pilih Format",
+  "step2Desc": "Pilih format output yang diinginkan dari daftar lengkap format yang kami dukung.",
+  "step3Title": "Download",
+  "step3Desc": "Tunggu hingga konversi selesai dan download file hasil konversi Anda.",
+
+  "illustrationUploadText": "Seret file ke sini",
+  "illustrationFormatText": "Pilih format",
+  "illustrationDownloadText": "Siap didownload!",
+
+  "footer": "© 2024 HQMX Converter. All Rights Reserved.",
+
+  "fileSize": {
+    "zero": "0 Byte",
+    "bytes": "Byte",
+    "kb": "KB",
+    "mb": "MB",
+    "gb": "GB",
+    "tb": "TB"
+  },
+
+  "status": {
+    "ready": "Siap",
+    "uploading": "Mengupload...",
+    "processing": "Memproses...",
+    "converting": "Mengkonversi...",
+    "completed": "Selesai",
+    "error": "Error"
+  },
+
+  "messages": {
+    "confirmClearAll": "Yakin ingin menghapus semua file?",
+    "fileTooLarge": "File \"{fileName}\" melebihi batas 100MB",
+    "fileAlreadyAdded": "File \"{fileName}\" sudah ditambahkan",
+    "noFilesReady": "Tidak ada file siap untuk dikonversi",
+    "fileRemoved": "\"{fileName}\" dihapus",
+    "selectOutputFormat": "Silakan pilih format output",
+    "conversionSuccess": "\"{fileName}\" berhasil dikonversi!",
+    "conversionError": "Error saat mengkonversi \"{fileName}\": {error}",
+    "connectionLost": "Koneksi terputus untuk \"{fileName}\"",
+    "processingError": "Error saat memproses \"{fileName}\": {error}"
+  },
+
+  "formats": {
+    "video": {
+      "mp4": "MP4 - Format video paling kompatibel",
+      "avi": "AVI - Format video Windows",
+      "mov": "MOV - Format video QuickTime",
+      "mkv": "MKV - Format video Matroska",
+      "webm": "WebM - Format video web",
+      "flv": "FLV - Format video Flash"
+    },
+    "audio": {
+      "mp3": "MP3 - Format audio paling populer",
+      "wav": "WAV - Format audio tidak terkompresi",
+      "flac": "FLAC - Format audio lossless",
+      "aac": "AAC - Codec audio lanjutan",
+      "ogg": "OGG - Format audio open source",
+      "m4a": "M4A - Format audio Apple"
+    },
+    "image": {
+      "jpg": "JPG - Format gambar paling umum",
+      "png": "PNG - Format gambar lossless",
+      "gif": "GIF - Format gambar animasi",
+      "webp": "WebP - Format gambar web modern",
+      "svg": "SVG - Format gambar vektor",
+      "bmp": "BMP - Format gambar bitmap"
+    },
+    "document": {
+      "pdf": "PDF - Format dokumen portabel",
+      "docx": "DOCX - Dokumen Microsoft Word",
+      "pptx": "PPTX - Presentasi Microsoft PowerPoint",
+      "xlsx": "XLSX - Spreadsheet Microsoft Excel",
+      "txt": "TXT - Dokumen teks biasa",
+      "rtf": "RTF - Format teks kaya"
+    }
+  },
+
+  "settings": {
+    "quality": "Kualitas",
+    "resolution": "Resolusi",
+    "codec": "Codec",
+    "bitrate": "Bitrate (kbps)",
+    "sampleRate": "Sample Rate",
+    "channels": "Channel",
+    "dpi": "DPI",
+    "pageRange": "Rentang Halaman",
+    "resize": "Ubah Ukuran",
+
+    "values": {
+      "high": "Tinggi",
+      "medium": "Sedang",
+      "low": "Rendah",
+      "original": "Original",
+      "mono": "Mono",
+      "stereo": "Stereo",
+      "none": "Tidak Ada"
+    }
+  }
+}
