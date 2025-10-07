@@ -1,10 +1,5 @@
-// 즉시 실행 함수로 변경하여 DOMContentLoaded 문제 해결
-(function initializeApp() {
-    // DOM이 준비되지 않았다면 기다림
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initializeApp);
-        return;
-    }
+// DOM이 완전히 로드된 후 한 번만 초기화
+function initializeApp() {
     // --- STATE MANAGEMENT ---
     let state = {
         files: [],
@@ -1481,5 +1476,27 @@
     initializeDropbox();
     initializeGoogleDrive();
 
+    // 스크롤 시 헤더 blur 효과
+    const topNav = document.querySelector('.top-nav');
 
-})(); // 즉시 실행 함수 호출
+    function handleScroll() {
+        if (window.scrollY > 0) {
+            topNav.classList.add('scrolled');
+        } else {
+            topNav.classList.remove('scrolled');
+        }
+    }
+
+    // 초기 상태 확인
+    handleScroll();
+
+    // 스크롤 이벤트 리스너 추가
+    window.addEventListener('scroll', handleScroll, { passive: true });
+}
+
+// DOM이 완전히 로드된 후 한 번만 초기화 실행
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeApp);
+} else {
+    initializeApp();
+}

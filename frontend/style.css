@@ -87,13 +87,20 @@ body[data-theme="dark"] {
     align-items: center;
     padding: 1rem 0;
     background: transparent;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(0px);
+    -webkit-backdrop-filter: blur(0px);
     position: sticky;
     top: 0;
     z-index: 1000;
     margin: -2rem -2rem 2rem -2rem;
     border-bottom: none;
+    transition: backdrop-filter 0.3s ease;
+}
+
+/* 스크롤 시 blur 효과 적용 (데스크톱) */
+.top-nav.scrolled {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
 }
 
 .top-nav > * {
@@ -116,9 +123,14 @@ body[data-theme="dark"] {
 
 body[data-theme="dark"] .top-nav {
     background: transparent;
+    backdrop-filter: blur(0px);
+    -webkit-backdrop-filter: blur(0px);
+    border-bottom: none;
+}
+
+body[data-theme="dark"] .top-nav.scrolled {
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
-    border-bottom: none;
 }
 
 .nav-left {
@@ -2637,6 +2649,12 @@ body[data-theme="dark"] .mobile-menu-box {
         left: 0;
         right: 0;
         z-index: 100;
+        backdrop-filter: blur(0px);
+        -webkit-backdrop-filter: blur(0px);
+    }
+
+    /* 모바일 스크롤 시 blur 효과 */
+    .top-nav.scrolled {
         backdrop-filter: blur(1px);
         -webkit-backdrop-filter: blur(1px);
     }
