@@ -2371,8 +2371,8 @@ body[data-theme="dark"] input {
     top: 5rem;
     right: -300px;
     background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    backdrop-filter: blur(8px) saturate(180%);
+    -webkit-backdrop-filter: blur(8px) saturate(180%);
     border: 1px solid rgba(255, 255, 255, 0.4);
     border-radius: 20px;
     padding: 2rem;
@@ -2383,8 +2383,8 @@ body[data-theme="dark"] input {
 
 body[data-theme="dark"] .mobile-menu-box {
     background: rgba(17, 24, 39, 0.3);
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    backdrop-filter: blur(8px) saturate(180%);
+    -webkit-backdrop-filter: blur(8px) saturate(180%);
     border: 1px solid rgba(55, 65, 81, 0.5);
 }
 
