@@ -1735,37 +1735,37 @@ body[data-theme="dark"] .feature-item {
 }
 
 .supported-format-badge.video {
-    background-color: rgba(59, 130, 246, 0.075);
+    background-color: rgba(59, 130, 246, 0.15);
     color: #3B82F6;
 }
 
 .supported-format-badge.audio {
-    background-color: rgba(236, 72, 153, 0.075);
+    background-color: rgba(236, 72, 153, 0.15);
     color: #EC4899;
 }
 
 .supported-format-badge.image {
-    background-color: rgba(16, 185, 129, 0.075);
+    background-color: rgba(16, 185, 129, 0.15);
     color: #10B981;
 }
 
 .supported-format-badge.document {
-    background-color: rgba(245, 158, 11, 0.075);
+    background-color: rgba(245, 158, 11, 0.15);
     color: #F59E0B;
 }
 
 .supported-format-badge.social {
-    background-color: rgba(99, 102, 241, 0.075);
+    background-color: rgba(99, 102, 241, 0.15);
     color: #6366F1;
 }
 
 .supported-format-badge.data {
-    background-color: rgba(234, 179, 8, 0.075);
+    background-color: rgba(234, 179, 8, 0.15);
     color: #EAB308;
 }
 
 .supported-format-badge.archive {
-    background-color: rgba(168, 85, 247, 0.075);
+    background-color: rgba(168, 85, 247, 0.15);
     color: #A855F7;
 }
 
@@ -2336,6 +2336,23 @@ body[data-theme="dark"] .footer-bottom {
 }
 
 .footer-email:hover {
+    color: var(--secondary-color);
+}
+
+.footer-terms {
+    margin-bottom: 1rem !important;
+    font-size: 0.85rem;
+    opacity: 0.9;
+}
+
+.footer-terms a {
+    color: var(--primary-color);
+    text-decoration: underline;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.footer-terms a:hover {
     color: var(--secondary-color);
 }
 
