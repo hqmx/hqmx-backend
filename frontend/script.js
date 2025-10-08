@@ -24,7 +24,8 @@ function initializeApp() {
         audio: ['mp3', 'wav', 'flac', 'aac', 'ogg', 'm4a', 'wma', 'aiff', 'au', 'ra', 'amr', 'ac3'],
         image: ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg', 'bmp', 'tiff', 'tga', 'ico', 'psd', 'raw'],
         document: ['pdf', 'doc', 'docx', 'ppt', 'pptx', 'xls', 'xlsx', 'txt', 'rtf', 'odt', 'ods', 'odp'],
-        archive: ['zip', 'rar', '7z', 'tar', 'gz', 'bz2', 'xz', 'tar.gz', 'tar.bz2', 'tar.xz']
+        archive: ['zip', 'rar', '7z', 'tar', 'gz', 'bz2', 'xz', 'tar.gz', 'tar.bz2', 'tar.xz'],
+        social: ['youtube', 'facebook', 'instagram', 'tiktok', 'twitter', 'vimeo', 'twitch', 'dailymotion', 'reddit', 'soundcloud', 'spotify', 'linkedin']
     };
 
     // Advanced settings by format type - 원본 품질 기준 설정
@@ -50,6 +51,12 @@ function initializeApp() {
         document: {
             quality: { label: 'Quality', type: 'select', options: ['original', 'high', 'medium', 'low'], default: 'original' },
             pageRange: { label: 'Page Range', type: 'text', placeholder: 'e.g., 1-5, 7, 9-12' }
+        },
+        social: {
+            quality: { label: 'Quality', type: 'select', options: ['best', 'high', 'medium', 'low'], default: 'best' },
+            format: { label: 'Format', type: 'select', options: ['mp4', 'mp3', 'webm', 'm4a'], default: 'mp4' },
+            resolution: { label: 'Resolution', type: 'select', options: ['best', '1080p', '720p', '480p', '360p'], default: 'best' },
+            subtitles: { label: 'Include Subtitles', type: 'select', options: ['no', 'yes'], default: 'no' }
         }
     };
 
@@ -172,9 +179,26 @@ function initializeApp() {
     dom.uploadZone.addEventListener('drop', handleFileDrop);
     dom.fileInput.addEventListener('change', handleFileSelect);
 
-    // Select Files 버튼은 이제 HTML에서 직접 처리됨 (input이 버튼 위에 투명하게 올려짐)
-    // JavaScript 이벤트 리스너 불필요
-    
+    // Upload button toggle functionality
+    dom.uploadBtn.addEventListener('click', (e) => {
+        // collapsed 상태에서 클릭하면 패널 확장만 하고 파일 선택 방지
+        if (dom.uploadZone.classList.contains('collapsed')) {
+            e.preventDefault();
+            e.stopPropagation();
+            dom.uploadZone.classList.remove('collapsed');
+            // fileInput도 클릭 방지
+            dom.fileInput.onclick = (event) => {
+                event.preventDefault();
+                event.stopPropagation();
+            };
+            // 다음 클릭에서는 정상 작동하도록 복구
+            setTimeout(() => {
+                dom.fileInput.onclick = null;
+            }, 100);
+        }
+        // expanded 상태에서는 정상적으로 파일 선택
+    });
+
     // File list actions
     dom.clearAllBtn.addEventListener('click', clearAllFiles);
     if (dom.convertAllBtn) {
@@ -191,18 +215,19 @@ function initializeApp() {
     document.querySelectorAll('.expand-formats-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
             const category = btn.getAttribute('data-category');
+            const formatGroup = btn.closest('.format-group');
             const extendedFormats = document.querySelector(`.format-badges-extended.${category}-extended`);
 
-            if (extendedFormats) {
-                const isExpanded = extendedFormats.style.display !== 'none';
+            if (extendedFormats && formatGroup) {
+                const isExpanded = formatGroup.classList.contains('expanded');
 
                 if (isExpanded) {
                     // 숨기기
-                    extendedFormats.style.display = 'none';
+                    formatGroup.classList.remove('expanded');
                     btn.classList.remove('expanded');
                 } else {
                     // 보이기
-                    extendedFormats.style.display = 'flex';
+                    formatGroup.classList.add('expanded');
                     btn.classList.add('expanded');
 
                     // 부드러운 스크롤 애니메이션
@@ -437,6 +462,8 @@ function initializeApp() {
 
     function showFileListSection() {
         dom.fileListSection.style.display = 'block';
+        // 파일이 추가되면 업로드 패널 축소
+        dom.uploadZone.classList.add('collapsed');
     }
 
     function clearAllFiles() {
@@ -445,10 +472,12 @@ function initializeApp() {
             state.eventSources.forEach(source => source.close());
             state.eventSources.clear();
             state.conversions.clear();
-            
+
             state.files = [];
             updateFileList();
             dom.fileListSection.style.display = 'none';
+            // 파일이 모두 제거되면 업로드 패널 확장
+            dom.uploadZone.classList.remove('collapsed');
         }
     }
 
@@ -498,6 +527,8 @@ function initializeApp() {
         // Hide file list section if no files
         if (state.files.length === 0) {
             dom.fileListSection.style.display = 'none';
+            // 파일이 모두 제거되면 업로드 패널 확장
+            dom.uploadZone.classList.remove('collapsed');
         }
 
         showToast(`Removed "${fileObj.name}"`, 'success');
@@ -580,7 +611,7 @@ function initializeApp() {
 
         formats.forEach(format => {
             const option = document.createElement('div');
-            option.className = `format-badge ${category}`; // 카테고리별 색상 적용
+            option.className = `conversion-format-badge ${category}`; // 카테고리별 색상 적용
             option.textContent = format.toUpperCase();
             option.dataset.format = format;
             option.addEventListener('click', () => selectFormat(format, category));
@@ -592,7 +623,7 @@ function initializeApp() {
 
     function selectFormat(format, category) {
         // Update visual selection
-        dom.formatOptions.querySelectorAll('.format-badge').forEach(opt => {
+        dom.formatOptions.querySelectorAll('.conversion-format-badge').forEach(opt => {
             opt.classList.toggle('selected', opt.dataset.format === format);
         });
 
@@ -685,7 +716,7 @@ function initializeApp() {
 
     function startBatchConversion() {
         console.log('startBatchConversion 호출됨');
-        const selectedFormat = document.querySelector('.format-badge.selected');
+        const selectedFormat = document.querySelector('.conversion-format-badge.selected');
         console.log('선택된 형식:', selectedFormat?.dataset?.format);
 
         if (!selectedFormat) {

@@ -1130,14 +1130,16 @@ class ConverterEngine {
      */
     getFileType(extension) {
         const types = {
-            video: ['mp4', 'avi', 'mov', 'mkv', 'webm', 'flv', 'wmv', '3gp', 'm4v', 'mpg', 'mpeg', 'ogv'],
-            audio: ['mp3', 'wav', 'flac', 'aac', 'ogg', 'm4a', 'wma', 'aiff', 'au', 'ra', 'amr', 'ac3'],
-            image: ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg', 'bmp', 'tiff', 'tga', 'ico', 'psd'],
-            document: ['pdf', 'doc', 'docx', 'ppt', 'pptx', 'xls', 'xlsx', 'txt', 'rtf', 'odt']
+            video: ['mp4', 'avi', 'mov', 'mkv', 'webm', 'flv', 'wmv', '3gp', 'm4v', 'mpg', 'mpeg', 'ogv', 'xvid', 'asf', 'rm', 'vob', 'divx', 'h264', 'm2ts'],
+            audio: ['mp3', 'wav', 'flac', 'aac', 'ogg', 'm4a', 'wma', 'aiff', 'au', 'ra', 'amr', 'ac3', 'mp2', 'caf', 'opus', 'dts'],
+            image: ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg', 'bmp', 'tiff', 'tga', 'ico', 'psd', 'heic', 'avif'],
+            document: ['pdf', 'doc', 'docx', 'ppt', 'pptx', 'txt', 'rtf', 'odt', 'epub', 'mobi', 'azw', 'azw3', 'fb2'],
+            data: ['xls', 'xlsx', 'csv', 'json', 'xml', 'ods', 'numbers', 'tsv', 'sql'],
+            archive: ['zip', 'rar', '7z', 'tar', 'gz', 'tgz', 'bz2', 'xz']
         };
 
         for (const [type, extensions] of Object.entries(types)) {
-            if (extensions.includes(extension)) {
+            if (extensions.includes(extension.toLowerCase())) {
                 return type;
             }
         }

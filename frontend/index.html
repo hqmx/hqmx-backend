@@ -6,7 +6,7 @@
     <title>HQMX Converter - Universal File Converter</title>
     <meta name="description" content="Convert any file format to any other format. Support for video, audio, image, document, and archive conversions with high quality results.">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="/style.css?v=20251007cn">
+    <link rel="stylesheet" href="/style.css?v=20251008p">
 
     <!-- Dropbox API -->
     <script src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="lsjgf5qy4g59sqz"></script>
@@ -232,6 +232,10 @@
                                     <i class="fas fa-file-archive"></i>
                                     <span data-i18n-key="archive">Archive</span>
                                 </button>
+                                <button class="format-category" data-category="social">
+                                    <i class="fas fa-share-alt"></i>
+                                    <span data-i18n-key="social">Social</span>
+                                </button>
                             </div>
                             
                             <div class="format-options" id="formatOptions">
@@ -292,28 +296,25 @@
                     <div class="format-group">
                         <h4><i class="fas fa-video"></i> <span data-i18n-key="videoFormats">Video</span></h4>
                         <div class="format-badges">
-                            <span class="format-badge video">MP4</span>
-                            <span class="format-badge video">AVI</span>
-                            <span class="format-badge video">MOV</span>
-                            <span class="format-badge video">MKV</span>
-                            <span class="format-badge video">WebM</span>
-                            <span class="format-badge video">FLV</span>
-                            <span class="format-badge video">WMV</span>
-                            <span class="format-badge video">3GP</span>
+                            <span class="supported-format-badge video">MP4</span>
+                            <span class="supported-format-badge video">MOV</span>
+                            <span class="supported-format-badge video">AVI</span>
+                            <span class="supported-format-badge video">MKV</span>
+                            <span class="supported-format-badge video">WebM</span>
+                            <span class="supported-format-badge video">3GP</span>
+                            <span class="supported-format-badge video">FLV</span>
+                            <span class="supported-format-badge video">WMV</span>
                         </div>
                         <div class="format-badges-extended video-extended" style="display: none;">
-                            <span class="format-badge video">M4V</span>
-                            <span class="format-badge video">MPG</span>
-                            <span class="format-badge video">MPEG</span>
-                            <span class="format-badge video">OGV</span>
-                            <span class="format-badge video">ASF</span>
-                            <span class="format-badge video">RM</span>
-                            <span class="format-badge video">RMVB</span>
-                            <span class="format-badge video">VOB</span>
-                            <span class="format-badge video">TS</span>
-                            <span class="format-badge video">M2TS</span>
-                            <span class="format-badge video">MTS</span>
-                            <span class="format-badge video">DIVX</span>
+                            <span class="supported-format-badge video">M4V</span>
+                            <span class="supported-format-badge video">VOB</span>
+                            <span class="supported-format-badge video">ASF</span>
+                            <span class="supported-format-badge video">MPEG</span>
+                            <span class="supported-format-badge video">RM</span>
+                            <span class="supported-format-badge video">DIVX</span>
+                            <span class="supported-format-badge video">XVID</span>
+                            <span class="supported-format-badge video">H264</span>
+                            <span class="supported-format-badge video">M2TS</span>
                         </div>
                         <button class="expand-formats-btn" data-category="video">
                             <i class="fas fa-plus"></i>
@@ -322,28 +323,23 @@
                     <div class="format-group">
                         <h4><i class="fas fa-music"></i> <span data-i18n-key="audioFormats">Audio</span></h4>
                         <div class="format-badges">
-                            <span class="format-badge audio">MP3</span>
-                            <span class="format-badge audio">WAV</span>
-                            <span class="format-badge audio">FLAC</span>
-                            <span class="format-badge audio">AAC</span>
-                            <span class="format-badge audio">OGG</span>
-                            <span class="format-badge audio">M4A</span>
-                            <span class="format-badge audio">WMA</span>
-                            <span class="format-badge audio">AIFF</span>
+                            <span class="supported-format-badge audio">MP3</span>
+                            <span class="supported-format-badge audio">WAV</span>
+                            <span class="supported-format-badge audio">FLAC</span>
+                            <span class="supported-format-badge audio">M4A</span>
+                            <span class="supported-format-badge audio">AAC</span>
+                            <span class="supported-format-badge audio">OGG</span>
+                            <span class="supported-format-badge audio">WMA</span>
+                            <span class="supported-format-badge audio">AIFF</span>
                         </div>
                         <div class="format-badges-extended audio-extended" style="display: none;">
-                            <span class="format-badge audio">AU</span>
-                            <span class="format-badge audio">RA</span>
-                            <span class="format-badge audio">AMR</span>
-                            <span class="format-badge audio">AC3</span>
-                            <span class="format-badge audio">EAC3</span>
-                            <span class="format-badge audio">DTS</span>
-                            <span class="format-badge audio">OPUS</span>
-                            <span class="format-badge audio">VORBIS</span>
-                            <span class="format-badge audio">PCM</span>
-                            <span class="format-badge audio">ADPCM</span>
-                            <span class="format-badge audio">GSM</span>
-                            <span class="format-badge audio">APE</span>
+                            <span class="supported-format-badge audio">AC3</span>
+                            <span class="supported-format-badge audio">OPUS</span>
+                            <span class="supported-format-badge audio">AMR</span>
+                            <span class="supported-format-badge audio">AU</span>
+                            <span class="supported-format-badge audio">DTS</span>
+                            <span class="supported-format-badge audio">MP2</span>
+                            <span class="supported-format-badge audio">CAF</span>
                         </div>
                         <button class="expand-formats-btn" data-category="audio">
                             <i class="fas fa-plus"></i>
@@ -352,28 +348,17 @@
                     <div class="format-group">
                         <h4><i class="fas fa-image"></i> <span data-i18n-key="imageFormats">Image</span></h4>
                         <div class="format-badges">
-                            <span class="format-badge image">JPG</span>
-                            <span class="format-badge image">PNG</span>
-                            <span class="format-badge image">GIF</span>
-                            <span class="format-badge image">WebP</span>
-                            <span class="format-badge image">SVG</span>
-                            <span class="format-badge image">BMP</span>
-                            <span class="format-badge image">TIFF</span>
-                            <span class="format-badge image">ICO</span>
+                            <span class="supported-format-badge image">JPG</span>
+                            <span class="supported-format-badge image">PNG</span>
+                            <span class="supported-format-badge image">WebP</span>
+                            <span class="supported-format-badge image">HEIC</span>
+                            <span class="supported-format-badge image">AVIF</span>
+                            <span class="supported-format-badge image">SVG</span>
+                            <span class="supported-format-badge image">GIF</span>
+                            <span class="supported-format-badge image">TIFF</span>
                         </div>
                         <div class="format-badges-extended image-extended" style="display: none;">
-                            <span class="format-badge image">TGA</span>
-                            <span class="format-badge image">PSD</span>
-                            <span class="format-badge image">RAW</span>
-                            <span class="format-badge image">CR2</span>
-                            <span class="format-badge image">NEF</span>
-                            <span class="format-badge image">ARW</span>
-                            <span class="format-badge image">DNG</span>
-                            <span class="format-badge image">ORF</span>
-                            <span class="format-badge image">RW2</span>
-                            <span class="format-badge image">PEF</span>
-                            <span class="format-badge image">SRW</span>
-                            <span class="format-badge image">RAF</span>
+                            <span class="supported-format-badge image">BMP</span>
                         </div>
                         <button class="expand-formats-btn" data-category="image">
                             <i class="fas fa-plus"></i>
@@ -382,30 +367,80 @@
                     <div class="format-group">
                         <h4><i class="fas fa-file-alt"></i> <span data-i18n-key="documentFormats">Document</span></h4>
                         <div class="format-badges">
-                            <span class="format-badge document">PDF</span>
-                            <span class="format-badge document">DOC</span>
-                            <span class="format-badge document">DOCX</span>
-                            <span class="format-badge document">PPT</span>
-                            <span class="format-badge document">PPTX</span>
-                            <span class="format-badge document">XLS</span>
-                            <span class="format-badge document">XLSX</span>
-                            <span class="format-badge document">TXT</span>
+                            <span class="supported-format-badge document">PDF</span>
+                            <span class="supported-format-badge document">DOCX</span>
+                            <span class="supported-format-badge document">PPTX</span>
+                            <span class="supported-format-badge document">EPUB</span>
+                            <span class="supported-format-badge document">MOBI</span>
+                            <span class="supported-format-badge document">TXT</span>
+                            <span class="supported-format-badge document">RTF</span>
+                            <span class="supported-format-badge document">ODT</span>
                         </div>
                         <div class="format-badges-extended document-extended" style="display: none;">
-                            <span class="format-badge document">RTF</span>
-                            <span class="format-badge document">ODT</span>
-                            <span class="format-badge document">ODS</span>
-                            <span class="format-badge document">ODP</span>
-                            <span class="format-badge document">ODG</span>
-                            <span class="format-badge document">PAGES</span>
-                            <span class="format-badge document">NUMBERS</span>
-                            <span class="format-badge document">KEY</span>
-                            <span class="format-badge document">EPUB</span>
-                            <span class="format-badge document">MOBI</span>
-                            <span class="format-badge document">AZW</span>
-                            <span class="format-badge document">FB2</span>
+                            <span class="supported-format-badge document">AZW</span>
+                            <span class="supported-format-badge document">AZW3</span>
+                            <span class="supported-format-badge document">FB2</span>
                         </div>
                         <button class="expand-formats-btn" data-category="document">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                    <div class="format-group">
+                        <h4><i class="fas fa-table"></i> <span>Data</span></h4>
+                        <div class="format-badges">
+                            <span class="supported-format-badge data">XLSX</span>
+                            <span class="supported-format-badge data">CSV</span>
+                            <span class="supported-format-badge data">JSON</span>
+                            <span class="supported-format-badge data">XML</span>
+                            <span class="supported-format-badge data">XLS</span>
+                            <span class="supported-format-badge data">TSV</span>
+                            <span class="supported-format-badge data">ODS</span>
+                            <span class="supported-format-badge data">SQL</span>
+                        </div>
+                        <div class="format-badges-extended data-extended" style="display: none;">
+                            <span class="supported-format-badge data">Numbers</span>
+                        </div>
+                        <button class="expand-formats-btn" data-category="data">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                    <div class="format-group">
+                        <h4><i class="fas fa-file-archive"></i> <span>Archive</span></h4>
+                        <div class="format-badges">
+                            <span class="supported-format-badge archive">ZIP</span>
+                            <span class="supported-format-badge archive">RAR</span>
+                            <span class="supported-format-badge archive">7Z</span>
+                            <span class="supported-format-badge archive">TAR</span>
+                            <span class="supported-format-badge archive">TAR.GZ</span>
+                            <span class="supported-format-badge archive">GZ</span>
+                            <span class="supported-format-badge archive">BZ2</span>
+                            <span class="supported-format-badge archive">XZ</span>
+                        </div>
+                        <div class="format-badges-extended archive-extended" style="display: none;">
+                        </div>
+                        <button class="expand-formats-btn" data-category="archive">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                    <div class="format-group">
+                        <h4><i class="fas fa-share-alt"></i> <span>Social Media</span></h4>
+                        <div class="format-badges">
+                            <span class="supported-format-badge social">YouTube</span>
+                            <span class="supported-format-badge social">TikTok</span>
+                            <span class="supported-format-badge social">Instagram</span>
+                            <span class="supported-format-badge social">Facebook</span>
+                            <span class="supported-format-badge social">Twitter</span>
+                            <span class="supported-format-badge social">Twitch</span>
+                            <span class="supported-format-badge social">Reddit</span>
+                            <span class="supported-format-badge social">SoundCloud</span>
+                        </div>
+                        <div class="format-badges-extended social-extended" style="display: none;">
+                            <span class="supported-format-badge social">Vimeo</span>
+                            <span class="supported-format-badge social">Dailymotion</span>
+                            <span class="supported-format-badge social">LinkedIn</span>
+                            <span class="supported-format-badge social">Pinterest</span>
+                        </div>
+                        <button class="expand-formats-btn" data-category="social">
                             <i class="fas fa-plus"></i>
                         </button>
                     </div>
@@ -507,10 +542,10 @@
             </div>
         </footer>
     </div>
-    <script src="/i18n.js?v=20251009b"></script>
-    <script src="/url-router.js?v=20251009b"></script>
-    <script src="/converter-engine.js?v=20251009"></script>
-    <script src="/script.js?v=20251009b"></script>
+    <script src="/i18n.js?v=20251008"></script>
+    <script src="/url-router.js?v=20251008"></script>
+    <script src="/converter-engine.js?v=20251008"></script>
+    <script src="/script.js?v=20251008f"></script>
 
     <!-- Service Worker 등록 -->
     <script>

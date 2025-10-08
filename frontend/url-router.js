@@ -136,13 +136,16 @@ class URLRouter {
      * 변환 힌트 표시
      */
     showConversionHint(from, to) {
-        const uploadSection = document.querySelector('.upload-section h4');
-        if (uploadSection && window.i18n) {
-            const hint = document.createElement('div');
-            hint.className = 'conversion-hint';
-            hint.style.cssText = 'font-size: 14px; color: #666; margin-top: 8px; font-weight: normal;';
-            hint.textContent = `${this.normalizeFormat(from)} → ${this.normalizeFormat(to)}`;
-            uploadSection.appendChild(hint);
+        // header의 tagline 바로 아래에 변환 형식 표시
+        const tagline = document.querySelector('.header .tagline');
+        if (tagline) {
+            const conversionText = document.createElement('p');
+            conversionText.className = 'conversion-format-text';
+            conversionText.style.cssText = 'font-size: 18px; margin-top: 8px; margin-bottom: 0; font-weight: 500; color: var(--text-primary);';
+            conversionText.textContent = `${this.normalizeFormat(from)} to ${this.normalizeFormat(to)}`;
+
+            // tagline 다음에 삽입
+            tagline.parentNode.insertBefore(conversionText, tagline.nextSibling);
         }
     }
 
