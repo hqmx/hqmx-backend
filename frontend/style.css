@@ -2222,20 +2222,19 @@ body[data-theme="dark"] .step-format .format-modal {
 }
 
 .terms-notice a {
-    color: #2563EB !important;
-    text-decoration: underline !important;
-    cursor: pointer !important;
-    transition: color 0.3s ease;
-    font-weight: 500;
+    color: inherit;
+    text-decoration: underline;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
 }
 
 .terms-notice a:hover {
-    color: #1d4ed8 !important;
-    text-decoration: underline !important;
+    opacity: 0.7;
+    text-decoration: underline;
 }
 
 .terms-notice a:visited {
-    color: #2563EB !important;
+    color: inherit;
 }
 
 /* 확장 버튼 스타일 */
