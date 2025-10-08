@@ -2339,23 +2339,6 @@ body[data-theme="dark"] .footer-bottom {
     color: var(--secondary-color);
 }
 
-.footer-terms {
-    margin-bottom: 1rem !important;
-    font-size: 0.85rem;
-    opacity: 0.9;
-}
-
-.footer-terms a {
-    color: var(--primary-color);
-    text-decoration: underline;
-    font-weight: 500;
-    transition: color 0.3s ease;
-}
-
-.footer-terms a:hover {
-    color: var(--secondary-color);
-}
-
 .social-links img {
     width: 24px;
     height: 24px;
