@@ -223,6 +223,41 @@ body[data-theme="dark"] .top-nav.scrolled {
     top: 0.08em; /* 아주 살짝 아래로 */
 }
 
+/* DOWNLOADER Logo */
+.downloader-logo {
+    display: flex;
+    align-items: center;
+}
+
+.downloader-logo .downloader-text {
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+}
+
+.downloader-logo .downloader-d {
+    background: linear-gradient(45deg, #8249fe, #5374f4, #2ab2f3);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 800;
+    line-height: 1;
+    font-size: 0.95em;
+}
+
+.downloader-logo .downloader-rest {
+    color: var(--text-color);
+    font-weight: 800;
+    font-size: 0.72em;
+    text-transform: uppercase;
+    line-height: 1;
+    position: relative;
+    top: 0.05em;
+}
+
 /* Header */
 .header {
     text-align: center;
@@ -2271,24 +2306,32 @@ body[data-theme="dark"] .step-format .format-modal {
     transform: rotate(45deg) translateY(-2px);
 }
 
-/* Footer */
-footer {
+/* Sitemap */
+.sitemap {
     margin-top: 60px;
     color: var(--light-text-color);
     padding: 3rem 0 2rem 0;
     border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
     opacity: 1;
 }
 
-.footer-content {
+.sitemap-content {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2rem;
+    flex-direction: column;
+    gap: 3rem;
     padding: 0 2rem;
+    align-items: center;
 }
 
-.footer-left .hqmx-brand h1 {
+.sitemap-top {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.sitemap-top .hqmx-brand h1 {
     font-size: 1.8rem;
     font-weight: 700;
     letter-spacing: 1px;
@@ -2297,79 +2340,111 @@ footer {
     opacity: 1;
 }
 
-
-.footer-right .social-links {
-    margin: 0;
+.sitemap-top .hqmx-brand .logo-x {
+    background: linear-gradient(45deg, #8249fe, #5374f4, #2ab2f3);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
-.social-links a {
-    display: inline-block;
+.sitemap-tagline {
+    font-size: 0.8rem;
     color: var(--light-text-color);
-    margin: 0 0.5rem;
-    transition: transform 0.3s;
+    letter-spacing: 12px;
+    margin: 0;
+    margin-top: 1rem;
 }
 
-.social-links a:hover {
-    transform: scale(1.1);
+.sitemap-bottom {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 600px;
 }
 
-.footer-bottom {
+.sitemap-side {
+    flex-shrink: 0;
+}
+
+.sitemap-side .converter-logo .converter-text,
+.sitemap-side .downloader-logo .downloader-text {
+    font-size: 1.5rem;
+}
+
+.sitemap-side .downloader-logo .downloader-d {
+    font-size: 0.95em;
+}
+
+/* Sitemap Logo Links */
+.hqmx-brand-link,
+.logo-link {
+    text-decoration: none;
+    color: inherit;
+    display: inline-block;
+    transition: all 0.3s ease;
+}
+
+.hqmx-brand-link:hover,
+.logo-link:hover {
+    transform: translateY(-3px);
+    opacity: 0.8;
+}
+
+.hqmx-brand-link:active,
+.logo-link:active {
+    transform: translateY(-1px);
+}
+
+/* Footer */
+footer {
     text-align: center;
-    padding: 1.5rem 0 0 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    margin: 0 2rem;
+    padding: 2rem 0;
+    color: var(--light-text-color);
 }
 
-body[data-theme="dark"] .footer-bottom {
-    border-top: 1px solid rgba(55, 65, 81, 0.8);
-}
-
-.footer-bottom p {
+footer p {
     margin: 0;
     font-size: 0.85rem;
     opacity: 0.9;
 }
 
-.footer-email {
-    color: var(--primary-color);
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.3s ease;
+/* Sitemap & Footer Mobile Responsive */
+@media (max-width: 768px) {
+    .sitemap-content {
+        gap: 1.5rem;
+        padding: 0 1rem;
+    }
+
+    .sitemap-tagline {
+        letter-spacing: 4px;
+        margin: 0.5rem 0;
+    }
+
+    .sitemap-bottom {
+        max-width: 100%;
+        padding: 0 1rem;
+    }
+
+    .sitemap-side .converter-logo .converter-text,
+    .sitemap-side .downloader-logo .downloader-text {
+        font-size: 1.3rem;
+    }
 }
 
-.footer-email:hover {
-    color: var(--secondary-color);
+@media (max-width: 480px) {
+    .sitemap-tagline {
+        letter-spacing: 6px;
+    }
+
+    .sitemap-bottom {
+        padding: 0;
+    }
+
+    .sitemap-side .converter-logo .converter-text,
+    .sitemap-side .downloader-logo .downloader-text {
+        font-size: 1.1rem;
+    }
 }
-
-.social-links img {
-    width: 24px;
-    height: 24px;
-    vertical-align: middle;
-}
-
-.x-logo {
-    display: inline-block;
-    width: 24px;
-    height: 24px;
-    background-image: url('assets/x-logo-black.svg');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    transition: all 0.3s ease;
-}
-
-body[data-theme="dark"] .x-logo {
-    background-image: url('assets/x-logo-white.svg');
-}
-
-/* X 로고는 이미 별도 SVG 파일로 처리되므로 invert 제외 */
-body[data-theme="dark"] .social-links img:not(.x-logo-img) {
-    filter: invert(1);
-}
-
-/* X 로고는 다크모드에서 자동으로 흰색 SVG를 사용하므로 invert 불필요 */
-
-/* Dark Mode Input Box Overrides - 위에서 이미 처리됨 */
 
 body[data-theme="dark"] select,
 body[data-theme="dark"] input {

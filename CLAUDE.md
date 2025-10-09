@@ -48,21 +48,24 @@ npm run dev                   # package.json 스크립트 사용
 ```bash
 npm run dev          # 프론트엔드 개발 서버 시작
 npm run build        # 빌드 완료 메시지 출력
-npm run deploy       # Cloudflare Pages 배포
 npm run lint         # JavaScript/CSS 린팅
 npm run test         # 테스트 실행
 ```
 
-### 백엔드 개발 (backend 디렉토리) - 선택적/미사용
+### 백엔드 개발 (backend 디렉토리) - EC2 기반
 ```bash
 cd backend
 npm install          # 의존성 설치 (최초 1회)
-npm run dev          # Cloudflare Workers 개발 서버 (http://localhost:8787)
-npm run deploy       # 프로덕션 배포
+npm run dev          # 로컬 개발 서버 (http://localhost:3001)
 npm run test         # Jest 테스트 실행
 npm run lint         # ESLint 검사
-npm run format       # Prettier 코드 포맷팅
-wrangler tail        # 실시간 로그 확인
+
+# EC2 서버에서 실행
+ssh -i /path/to/hqmx-ec2.pem ubuntu@23.22.45.186
+cd ~/converter.hqmx/backend
+pm2 start src/index.js --name converter-api  # API 서버 시작
+pm2 logs converter-api                        # 로그 확인
+pm2 restart converter-api                     # 재시작
 ```
 
 ### 번역 관리
@@ -87,11 +90,12 @@ wrangler tail        # 실시간 로그 확인
   - 드래그&드롭 업로드
   - 300+ 파일 형식 지원
 
-### 백엔드 (`/backend`) - 선택적 ⚠️
-- **플랫폼**: Cloudflare Workers (Hono 프레임워크)
-- **상태**: API 구조만 구현, 실제 변환 엔진 미구현
-- **기능**: R2 스토리지, Durable Objects, Rate Limiting
-- **용도**: 서버 사이드 변환이 필요한 경우 사용 가능 (현재 미사용)
+### 백엔드 (EC2 기반) - 대용량 파일용 ⚠️
+- **플랫폼**: AWS EC2 (t3.small spot instance)
+- **웹 서버**: nginx (정적 파일 서빙)
+- **변환 API**: Node.js/Python FFmpeg
+- **용도**: 100-200MB 대용량 파일 서버 변환 (전체 트래픽의 5%)
+- **상태**: 개발 중 (클라이언트 사이드 우선 정책)
 
 ## 주요 기능
 
@@ -115,6 +119,152 @@ wrangler tail        # 실시간 로그 확인
 - **명령어 생성**: 비디오/오디오 옵션
 - **메모리 관리**: 파일시스템 정리
 - **이미지 처리**: 브라우저 네이티브 Canvas API 사용
+
+## 대용량 파일 처리 전략 (EC2 기반)
+
+### 하이브리드 아키텍처
+- **0-100MB (90% 트래픽)**: 클라이언트 사이드 (FFmpeg.wasm)
+  - 비용: 무료
+  - 속도: 사용자 CPU 의존
+  - 프라이버시: 완벽 보장
+
+- **100MB-2.5GB (10% 트래픽)**: EC2 서버 변환
+  - 비용: 발생 (적정 수준)
+  - 속도: 빠름 (서버 CPU)
+  - 처리: FFmpeg 서버 (스트리밍 방식)
+  - 메모리: 해상도 의존 (파일 크기 무관)
+  - 변환 시간: 100MB(~1분), 1GB(~5분), 2.5GB(~10분)
+
+- **2.5GB+**: 파일 분할 권장 또는 처리 거부
+  - 이유: 변환 시간 과다 (10분+ 소요)
+  - 대안: 사용자에게 파일 분할 안내
+
+**📌 EC2는 request body 크기 제한이 없음** (Cloudflare Workers와 차이점)
+
+### EC2 서버 구성
+- **인스턴스**: t3.small spot (2 vCPU, 2GB RAM)
+- **스토리지**: EBS gp3 20GB (임시 파일만, 1시간 보관)
+- **처리 능력**: 동시 변환 1-2개, 일일 300-500회
+- **자동 정리**: 1시간마다 임시 파일 삭제
+
+### Cloudflare 역할 명확화
+- **DNS 관리만**: 도메인 구입처 (converter.hqmx.net)
+- **CDN 캐싱**: 정적 파일만 (HTML, CSS, JS, 이미지)
+- **변환 파일**: 관여하지 않음 (EC2 → 사용자 직접 다운로드)
+- **Workers/Pages**: 사용하지 않음
+- **R2 스토리지**: 현재 사용하지 않음 (소규모 트래픽에서 비용 이점 없음)
+
+### 클라이언트 사이드 극대화 전략
+1. **FFmpeg.wasm 최적화**
+   - 멀티스레드 활성화
+   - 빠른 프리셋 사용 (ultrafast)
+   - 100MB까지 클라이언트 처리 목표
+
+2. **사용자 유도**
+   - "브라우저 변환이 더 빠르고 무료입니다" 메시지 표시
+   - 50MB+ 파일: "서버 변환은 대기시간이 있을 수 있습니다" 경고
+   - 프로그레스바로 클라이언트 변환 체감 속도 개선
+
+3. **제한 설정**
+   - 서버 변환: 2.5GB 하드 제한 (nginx, multer)
+   - 2.5GB+: "파일이 너무 큽니다. 파일을 분할해주세요" 안내
+   - 500MB+: "변환에 5-10분이 소요될 수 있습니다" 경고
+
+### 파일 크기별 처리 흐름
+```
+사용자 파일 업로드
+├─ 0-50MB → 클라이언트 (자동) → 무료, 빠름
+├─ 50-100MB → 클라이언트 (권장) → 무료, 보통
+├─ 100-500MB → EC2 서버 → 비용 발생, 빠름
+├─ 500MB-2.5GB → EC2 서버 → 비용 발생, 느림 (5-10분)
+└─ 2.5GB+ → 거부 또는 분할 권장
+```
+
+## 비용 분석 및 최적화 (월 10,000회 변환 기준)
+
+### 월간 운영 비용 상세
+| 항목 | 규격 | 가격 | 비용 |
+|------|------|------|------|
+| EC2 Compute | t3.small spot (70% 할인) | $0.0062/시간 | $4.55 |
+| EBS 스토리지 | gp3 20GB | $0.08/GB | $1.60 |
+| AWS 데이터 전송 | 75GB egress (5% 서버 처리) | $0.09/GB | $6.75 |
+| **총 월 비용** | | | **$12.90** |
+
+### 비용 절감 전략
+
+#### 1. 클라이언트 사이드 비율 극대화 (95% 목표)
+- **현재**: 85% 클라이언트, 15% 서버
+- **목표**: 95% 클라이언트, 5% 서버
+- **방법**:
+  - FFmpeg.wasm 성능 최적화 (멀티스레드, 빠른 프리셋)
+  - 사용자에게 브라우저 변환 적극 권장
+  - 서버 변환 대기시간 명시적 안내
+  - 프로그레스바 UX 개선으로 체감 속도 향상
+
+#### 2. EC2 Spot Instance 활용 (70% 비용 절감)
+- **On-Demand**: $15.18/월
+- **Spot**: $4.55/월 (70% 할인)
+- **리스크 완화**:
+  - 짧은 변환 작업만 처리 (<10분)
+  - 자동 재시도 로직 구현
+  - Spot 중단 시 On-Demand로 자동 전환
+
+#### 3. 파일 크기 제한 (200MB)
+- t3.small (2GB RAM)로 안정적 처리 가능 범위
+- 메모리 부족(OOM) 방지
+- FFmpeg 메모리 사용량: ~1.5GB (200MB 파일 기준)
+- 안전 마진 확보
+
+#### 4. EBS 최적화 (gp3 사용)
+- gp2 대비 20% 저렴 ($0.10 → $0.08/GB)
+- 성능도 더 우수 (3000 IOPS 기본 제공)
+- 1시간 자동 정리로 스토리지 최소화
+
+### Cloudflare R2를 사용하지 않는 이유
+
+#### 초기 예상
+- **장점**: Egress 무료 (R2 → 사용자 다운로드 무료)
+- **기대**: 데이터 전송 비용 절감
+
+#### 실제 분석 (심층 조사 결과)
+- **EC2 → R2 업로드**: AWS egress 비용 발생 ($16.87/월)
+- **R2 스토리지**: $2.81/월
+- **R2 총 비용**: $19.68/월
+- **EC2 직접 다운로드**: $16.87/월
+
+#### 결론
+- **R2 사용 시**: $19.68/월
+- **직접 다운로드**: $16.87/월
+- **차이**: R2가 오히려 $2.81 더 비쌈
+- **소규모 트래픽에서는 R2 이점 없음**
+- **대규모 트래픽 (월 50,000회+)에서만 R2 고려**
+
+### 비용 비교표
+
+| 전략 | EC2 | EBS | Egress | R2 | 총 비용 |
+|------|-----|-----|--------|-----|---------|
+| **EC2 On-Demand** | $15.18 | $1.60 | $16.87 | - | $33.65 |
+| **EC2 Spot + 직접** | $4.55 | $1.60 | $16.87 | - | $23.02 |
+| **EC2 Spot + R2** | $4.55 | $1.60 | $10.00 | $9.68 | $25.83 |
+| **최적 (Spot + 95% 클라이언트)** | $4.55 | $1.60 | $6.75 | - | **$12.90** ⭐️ |
+
+### 확장성 계획
+
+#### 트래픽 증가 시 대응
+- **월 10,000회 → 50,000회**:
+  - t3.small → t3.medium
+  - 추가 비용: ~$15/월
+
+- **월 50,000회 → 100,000회**:
+  - Auto Scaling Group
+  - R2 도입 고려
+  - 추가 비용: ~$50/월
+
+#### 비용 최적화 우선순위
+1. **클라이언트 비율 증가** (가장 효과적)
+2. **Spot Instance 활용** (70% 절감)
+3. **파일 크기 제한** (메모리 절약)
+4. **자동 정리** (스토리지 절약)
 
 #### 형식 지원 시스템 (`frontend/script.js`)
 - **FORMATS**: 카테고리별 형식 정의
@@ -267,14 +417,15 @@ ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@23.22.45.1
 
 ## 배포
 
-### 프론트엔드 배포
-- **플랫폼**: Cloudflare Pages, Netlify, Vercel 등
-- **정적 호스팅**: 서버 사이드 처리 불필요
-- **CORS 헤더**: SharedArrayBuffer 사용을 위해 필요
+### 프론트엔드 배포 (EC2 nginx)
+- **플랫폼**: AWS EC2 + nginx (정적 파일 서빙)
+- **웹서버 설정**: `/etc/nginx/sites-available/default`
+- **CORS 헤더**: SharedArrayBuffer 사용을 위해 nginx 설정 필요
+  ```nginx
+  add_header Cross-Origin-Opener-Policy "same-origin";
+  add_header Cross-Origin-Embedder-Policy "require-corp";
   ```
-  Cross-Origin-Opener-Policy: same-origin
-  Cross-Origin-Embedder-Policy: require-corp
-  ```
+- **SSL/TLS**: Let's Encrypt certbot 사용 (HTTPS 필수)
 
 ### ⚠️ EC2 서버 배포 - 중요 경로 정보
 
@@ -310,14 +461,19 @@ ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@23.22.45.1
   'sudo nginx -T 2>/dev/null | grep "root\|server_name"'
 ```
 
-### 기타 배포 명령
+### 백엔드 API 배포 (100-200MB 대용량 파일용)
 ```bash
-# 프론트엔드 배포 (Cloudflare Pages)
-wrangler pages deploy frontend --project-name hqmx-converter
+# 백엔드 API 서버 시작/재시작
+ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@23.22.45.186 \
+  'cd ~/converter.hqmx/backend && npm install && pm2 restart converter-api'
 
-# 백엔드 배포 (선택적)
-cd backend
-npm run deploy
+# 또는 처음 시작
+ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@23.22.45.186 \
+  'cd ~/converter.hqmx/backend && npm install && pm2 start src/index.js --name converter-api'
+
+# 백엔드 로그 확인
+ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@23.22.45.186 \
+  'pm2 logs converter-api'
 ```
 
 ## 개발 가이드
@@ -464,3 +620,284 @@ console.log('Active conversions:', window.converterState?.conversions);
 - 파일 크기 확인 (작은 파일로 테스트)
 - 브라우저 탭 새로고침 (메모리 정리)
 - 다른 탭 닫기 (메모리 확보)
+
+## SEO 최적화 개별 변환 페이지 시스템
+
+### 개요
+- **목적**: `/jpg-to-png`, `/png-to-jpg` 등 100+ 개별 SEO 페이지 자동 생성 및 관리
+- **방식**: 템플릿 기반 빌드 스크립트로 일괄 생성
+- **장점**: `index.html` 수정 → 템플릿 업데이트 → 스크립트 실행 → 모든 페이지 자동 업데이트
+
+### 파일 구조
+```
+frontend/
+├── _templates/
+│   └── conversion-page.html      # 마스터 템플릿 (플레이스홀더 포함)
+├── _scripts/
+│   ├── generate-pages.js         # Node.js 빌드 스크립트
+│   ├── conversions.json          # 변환 조합 목록 (10개 → 100개 확장 예정)
+│   └── format-metadata.json      # 형식별 상세 정보 (extensions, mimeType 등)
+└── (생성된 HTML 파일들)
+    ├── jpg-to-png.html
+    ├── png-to-jpg.html
+    ├── webp-to-jpg.html
+    └── ... (총 10개, 확장 가능)
+```
+
+### 플레이스홀더 규칙
+템플릿에서 사용되는 플레이스홀더와 치환 예시:
+- `{{FROM_UPPER}}` → JPG
+- `{{TO_UPPER}}` → PNG
+- `{{FROM_LOWER}}` → jpg
+- `{{TO_LOWER}}` → png
+- `{{FROM_EXT}}` → .jpg
+- `{{TO_EXT}}` → .png
+- `{{FROM_CATEGORY}}` → image
+- `{{TO_CATEGORY}}` → image
+- `{{RELATED_CONVERSIONS}}` → 동적 생성 HTML (역방향 변환 + 같은 카테고리 인기 변환 2개)
+
+### 템플릿 적용 위치
+1. **SEO 메타 태그**: title, description, Open Graph, Twitter Card
+2. **변환 설정**: `window.CONVERSION_CONFIG` 객체
+3. **헤더 tagline**: "JPG to PNG Converter"
+4. **Upload Section**: h4 제목, conversion-indicator 뱃지, upload-text, file accept 속성
+5. **Features Section**: 설명 텍스트
+6. **Related Conversions Section**: 동적 생성되는 관련 변환 링크
+
+### 사용 방법
+
+#### 1. 페이지 생성 (초기 또는 변환 조합 추가 후)
+```bash
+cd frontend/_scripts
+node generate-pages.js
+
+# 출력 예시:
+# 🚀 SEO 페이지 생성 시작...
+#
+# ✓ jpg-to-png.html
+# ✓ png-to-jpg.html
+# ✓ webp-to-jpg.html
+# ... (총 10개)
+#
+# 📊 완료: 10개 성공, 0개 실패
+# 🎉 총 10개의 SEO 페이지가 생성되었습니다!
+```
+
+#### 2. index.html 구조 변경 시 모든 페이지 업데이트
+```bash
+# 1. index.html 수정 (네비게이션, 푸터, 스타일 등)
+# 2. _templates/conversion-page.html에 동일한 변경사항 반영
+# 3. 빌드 스크립트 재실행
+cd frontend/_scripts
+node generate-pages.js
+
+# → 모든 SEO 페이지가 최신 구조로 일괄 업데이트됨
+```
+
+#### 3. 새로운 변환 조합 추가
+```bash
+# _scripts/conversions.json 편집:
+# {
+#   "from": "svg",
+#   "to": "png",
+#   "fromCategory": "image",
+#   "toCategory": "image",
+#   "priority": 7
+# }
+
+# _scripts/format-metadata.json에 형식 메타데이터 추가 (형식이 처음 등장하는 경우):
+# "svg": {
+#   "name": "SVG",
+#   "fullName": "Scalable Vector Graphics",
+#   "category": "image",
+#   "extensions": [".svg"],
+#   "mimeType": "image/svg+xml",
+#   "description": "Vector graphics format"
+# }
+
+# 빌드 스크립트 실행
+node generate-pages.js
+```
+
+#### 4. 서버 배포
+```bash
+# 로컬에서 페이지 생성 후 서버로 전송
+cd frontend/_scripts
+node generate-pages.js
+
+# EC2 서버로 배포
+scp -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem \
+  /Users/wonjunjang/Documents/converter.hqmx/frontend/*.html \
+  ubuntu@23.22.45.186:/tmp/
+
+ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@23.22.45.186 \
+  'sudo cp /tmp/*.html /var/www/html/ && \
+   sudo chown www-data:www-data /var/www/html/*.html && \
+   sudo chmod 755 /var/www/html/*.html && \
+   sudo nginx -t && sudo systemctl reload nginx'
+```
+
+### 주의사항
+- **✅ 절대 생성된 HTML 파일 직접 수정 금지**: `jpg-to-png.html` 등 생성된 파일은 절대 직접 수정하지 말 것
+- **✅ 템플릿만 수정**: `_templates/conversion-page.html`만 수정하고 빌드 스크립트 재실행
+- **✅ 설정 파일 검증**: `conversions.json`과 `format-metadata.json` 문법 오류 확인 (JSON Lint 사용 권장)
+- **✅ Git 관리**:
+  - **커밋 대상**: `_templates/`, `_scripts/` 폴더와 설정 파일
+  - **제외 대상**: 생성된 HTML 파일들은 `.gitignore`에 추가 (배포 전 빌드로 생성)
+- **✅ 배포 전 빌드 필수**: 배포 전 반드시 `node generate-pages.js` 실행하여 최신 상태 유지
+
+### 현재 지원되는 변환 조합 (10개)
+1. JPG → PNG (이미지, 우선순위: 10)
+2. PNG → JPG (이미지, 우선순위: 10)
+3. WebP → JPG (이미지, 우선순위: 9)
+4. PNG → WebP (이미지, 우선순위: 8)
+5. HEIC → JPG (이미지, 우선순위: 9)
+6. JPG → PDF (이미지→문서, 우선순위: 8)
+7. MP4 → AVI (비디오, 우선순위: 7)
+8. AVI → MP4 (비디오, 우선순위: 7)
+9. MP3 → WAV (오디오, 우선순위: 6)
+10. WAV → MP3 (오디오, 우선순위: 6)
+
+### 향후 확장 계획
+- 100+ 변환 조합으로 확대
+- 인기 검색어 기반 우선순위 조정
+- 카테고리별 자동 Related Conversions 개선
+- OG 이미지 자동 생성 (`og-{{FROM}}-to-{{TO}}.jpg`)
+
+---
+
+## 백엔드 변환 엔진 구현 (2025-10-09)
+
+### 개요
+99개 변환 타입을 지원하기 위한 백엔드 실제 변환 엔진 구현.
+Cloudflare Workers 제약사항(30초 CPU, 128MB 메모리)을 고려한 하이브리드 전략.
+
+### 백엔드 폴더 크기
+- **전체 크기**: 236MB
+- **node_modules**: 235MB (정상 범위)
+- **주요 패키지**: @cloudflare (94MB), typescript (23MB), @img (18MB)
+
+### 구현된 변환 엔진
+
+#### 1. DocumentConverter (이미지 ↔ PDF)
+**파일 위치**: `backend/src/utils/converters/document-converter.js`
+
+**지원 변환**:
+- JPG/PNG → PDF (검색량: 7.4M+)
+- PDF → JPG/PNG (검색량: 4.9M+)
+
+**기술 스택**:
+- `pdf-lib` v1.17.1: PDF 생성 및 조작 (Pure JavaScript, Workers 호환)
+- `pdfjs-dist` v4.0.379: PDF 렌더링 (⚠️ Workers 호환성 확인 필요)
+
+**주요 메서드**:
+```javascript
+imageToPDF(imageData)    // 이미지를 PDF로 변환
+pdfToImage(pdfData)      // PDF를 이미지로 변환 (첫 페이지)
+```
+
+**설정 옵션**:
+- `quality`: 이미지 품질 (0.1-1.0)
+- `scale`: PDF 렌더링 스케일 (0.5-4.0)
+
+#### 2. 의존성 추가 (package.json)
+```json
+{
+  "dependencies": {
+    "pdf-lib": "^1.17.1",       // PDF 생성/조작
+    "@squoosh/lib": "^0.5.3",   // 이미지 변환 (⚠️ Node 버전 경고)
+    "pdfjs-dist": "^4.0.379"    // PDF 렌더링
+  }
+}
+```
+
+**설치 명령**:
+```bash
+cd backend
+npm install
+```
+
+#### 3. ConverterFactory 통합
+**파일**: `backend/src/utils/converter-factory.js`
+
+**추가된 크로스 카테고리 변환**:
+```javascript
+// 이미지 → PDF
+if (inputInfo.category === 'image' && outputInfo.category === 'document') {
+  return new DocumentConverter(inputInfo.extension, outputInfo.extension, settings);
+}
+
+// PDF → 이미지
+if (inputInfo.category === 'document' && outputInfo.category === 'image') {
+  return new DocumentConverter(inputInfo.extension, outputInfo.extension, settings);
+}
+```
+
+### 99개 변환 구현 전략
+
+#### Tier 1: 즉시 구현 가능 (WASM/Pure JS) - 22개
+| 변환 타입 | 검색량 | 상태 | 라이브러리 |
+|----------|--------|------|-----------|
+| **JPG/PNG → PDF** | 7.4M | ✅ 완료 | pdf-lib |
+| **PDF → JPG** | 4.9M | ⚠️ 테스트 필요 | pdfjs-dist |
+| **WEBP ↔ PNG/JPG** | 3.8M | 🔜 계획 | @squoosh/lib |
+| **HEIC → JPG** | 0.5M | 🔜 계획 | heic-decode |
+| **AVIF → JPG** | 0.7M | 🔜 계획 | @squoosh/lib |
+
+#### Tier 2: 외부 API 연동 필요 - 8개
+| 변환 타입 | 검색량 | 방법 | 예상 비용 |
+|----------|--------|------|----------|
+| **PDF → Word** | 7.9M | CloudConvert API | $0.01/변환 |
+| **PDF → Excel** | 2-3M | CloudConvert API | $0.01/변환 |
+| **Word/Excel → PDF** | 11M+ | Pandoc API | $0.005/변환 |
+| **YouTube → MP3/MP4** | 8M+ | yt-dlp API | Free |
+
+#### Tier 3: 클라이언트 사이드 우선 - 69개
+비디오/오디오 변환은 대부분 클라이언트 사이드(FFmpeg.wasm)로 처리.
+서버는 작은 파일(<10MB)만 fallback으로 지원.
+
+### Cloudflare Workers 제약사항 및 대응
+
+**제약사항**:
+- CPU Time: 30초 (Paid tier)
+- Memory: 128MB
+- 실행 시간: HTTP 30초 응답 제한
+
+**대응 전략**:
+1. **작은 파일만 서버 처리**: 이미지 <10MB, 비디오 <5MB
+2. **Pure JavaScript/WASM 라이브러리**: Node.js native 모듈 사용 불가
+3. **외부 API 연동**: 무거운 변환은 CloudConvert, Pandoc API 활용
+4. **클라이언트 우선**: 큰 파일은 프론트엔드 FFmpeg.wasm으로 유도
+
+### 테스트 및 배포
+
+#### 로컬 테스트
+```bash
+cd backend
+npm run dev  # wrangler dev (http://localhost:8787)
+
+# 테스트 예시 (curl)
+curl -X POST http://localhost:8787/convert \
+  -F "file=@test.jpg" \
+  -F "outputFormat=pdf" \
+  -F "settings={\"quality\":0.9}"
+```
+
+#### 프로덕션 배포
+```bash
+cd backend
+npm run deploy  # Cloudflare Workers 배포
+```
+
+### 다음 단계
+
+**Phase 2 구현 계획**:
+1. ✅ ImageConverter WASM 업그레이드 (WEBP, HEIC 지원)
+2. ✅ 외부 API 클라이언트 구현 (CloudConvert, yt-dlp)
+3. ✅ VideoConverter/AudioConverter FFmpeg.wasm 통합
+4. ✅ 전체 99개 변환 테스트 및 검증
+
+**주의사항**:
+- ⚠️ `pdfjs-dist`는 Cloudflare Workers에서 호환성 문제 가능 → 테스트 필수
+- ⚠️ `@squoosh/lib`는 Node 버전 경고 있음 → 런타임 테스트 필요
+- ✅ `pdf-lib`는 Pure JS로 Workers 완전 호환

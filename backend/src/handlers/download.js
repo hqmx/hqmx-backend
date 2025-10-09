@@ -1,215 +1,92 @@
-import { downloadFile } from '../utils/storage.js';
-import { generateOutputFilename } from '../utils/helpers.js';
+/**
+ * Download Handler - 변환된 파일 다운로드
+ *
+ * 완료된 변환 결과 파일을 다운로드
+ */
+
+import path from 'path';
+import fs from 'fs/promises';
+import * as fsSync from 'fs';
+import conversionQueue from '../queue/conversion-queue.js';
+
+const OUTPUT_DIR = process.env.OUTPUT_DIR || '/tmp/converter/outputs';
 
 /**
- * 변환된 파일 다운로드 핸들러
- * @param {Context} c - Hono 컨텍스트
- * @returns {Promise<Response>}
+ * GET /api/download/:jobId
+ *
+ * 변환 완료된 파일 다운로드
  */
-export async function downloadHandler(c) {
+async function downloadHandler(req, res) {
+  const { jobId } = req.params;
+
   try {
-    const taskId = c.req.param('taskId');
-    
-    if (!taskId) {
-      return c.json({ 
-        error: '작업 ID가 필요합니다'
-      }, 400);
+    // Job 상태 확인
+    const job = conversionQueue.getJob(jobId);
+
+    if (!job) {
+      return res.status(404).json({
+        error: 'Job not found',
+        message: `No conversion job found with ID: ${jobId}`
+      });
     }
-    
-    // Durable Object에서 작업 정보 가져오기
-    const progressTrackerId = c.env.PROGRESS_TRACKER.idFromName(taskId);
-    const progressTracker = c.env.PROGRESS_TRACKER.get(progressTrackerId);
-    
-    const statusResponse = await progressTracker.fetch('http://localhost/status');
-    const statusData = await statusResponse.json();
-    
-    if (!statusData.task) {
-      return c.json({ 
-        error: '존재하지 않는 작업입니다'
-      }, 404);
+
+    // 완료 상태 확인
+    if (job.status !== 'completed') {
+      return res.status(400).json({
+        error: 'Conversion not completed',
+        message: `Job status is: ${job.status}`,
+        status: job.status,
+        progress: job.progress
+      });
     }
-    
-    const task = statusData.task;
-    
-    // 작업 완료 확인
-    if (statusData.status !== 'completed') {
-      return c.json({ 
-        error: '변환이 완료되지 않았습니다',
-        currentStatus: statusData.status,
-        progress: statusData.progress
-      }, 400);
+
+    // 출력 파일 경로
+    const outputPath = job.outputPath;
+
+    // 파일 존재 확인
+    try {
+      await fs.access(outputPath);
+    } catch (err) {
+      return res.status(404).json({
+        error: 'File not found',
+        message: 'Converted file has been deleted or expired'
+      });
     }
-    
-    // 출력 파일 키 확인
-    const outputFileKey = statusData.outputFileKey;
-    if (!outputFileKey) {
-      return c.json({ 
-        error: '출력 파일을 찾을 수 없습니다'
-      }, 404);
-    }
-    
-    // R2에서 파일 다운로드
-    const fileObject = await downloadFile(c.env.STORAGE, outputFileKey);
-    
-    if (!fileObject) {
-      return c.json({ 
-        error: '파일을 찾을 수 없습니다'
-      }, 404);
-    }
-    
-    // 출력 파일명 생성
-    const outputFilename = generateOutputFilename(
-      task.originalFileName || 'converted_file',
-      task.outputFormat
-    );
-    
-    // 파일 스트림 응답
-    return new Response(fileObject.body, {
-      headers: {
-        'Content-Type': fileObject.httpMetadata?.contentType || 'application/octet-stream',
-        'Content-Disposition': `attachment; filename="${outputFilename}"`,
-        'Content-Length': fileObject.size?.toString() || '',
-        'Cache-Control': 'private, max-age=3600',
-        'Last-Modified': fileObject.uploaded?.toUTCString() || new Date().toUTCString(),
-        // CORS 헤더
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'GET',
-        'Access-Control-Allow-Headers': 'Content-Type',
-        'Access-Control-Expose-Headers': 'Content-Disposition, Content-Length'
+
+    // 파일 정보
+    const stats = await fs.stat(outputPath);
+    const filename = path.basename(outputPath);
+
+    // 다운로드 응답
+    res.setHeader('Content-Type', 'application/octet-stream');
+    res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
+    res.setHeader('Content-Length', stats.size);
+
+    // 파일 스트리밍
+    const fileStream = fsSync.createReadStream(outputPath);
+    fileStream.pipe(res);
+
+    fileStream.on('end', () => {
+      console.log(`[Download] File downloaded: ${jobId}`);
+    });
+
+    fileStream.on('error', (err) => {
+      console.error(`[Download] Stream error for ${jobId}:`, err);
+      if (!res.headersSent) {
+        res.status(500).json({
+          error: 'Download failed',
+          message: err.message
+        });
       }
     });
-    
-  } catch (error) {
-    console.error('파일 다운로드 오류:', error);
-    return c.json({ 
-      error: '파일 다운로드에 실패했습니다',
-      details: error.message
-    }, 500);
-  }
-}
 
-/**
- * 다운로드 가능한 파일 목록 조회 (옵션)
- * @param {Context} c - Hono 컨텍스트
- * @returns {Promise<Response>}
- */
-export async function listDownloadsHandler(c) {
-  try {
-    const { searchParams } = new URL(c.req.url);
-    const taskIds = searchParams.get('taskIds')?.split(',') || [];
-    
-    if (taskIds.length === 0) {
-      return c.json({ 
-        error: '조회할 작업 ID가 필요합니다'
-      }, 400);
-    }
-    
-    const downloads = [];
-    
-    for (const taskId of taskIds) {
-      try {
-        const progressTrackerId = c.env.PROGRESS_TRACKER.idFromName(taskId);
-        const progressTracker = c.env.PROGRESS_TRACKER.get(progressTrackerId);
-        
-        const statusResponse = await progressTracker.fetch('http://localhost/status');
-        const statusData = await statusResponse.json();
-        
-        if (statusData.task && statusData.status === 'completed' && statusData.outputFileKey) {
-          const task = statusData.task;
-          const outputFilename = generateOutputFilename(
-            task.originalFileName || 'converted_file',
-            task.outputFormat
-          );
-          
-          downloads.push({
-            taskId: taskId,
-            filename: outputFilename,
-            status: statusData.status,
-            downloadUrl: `/download/${taskId}`,
-            completedAt: statusData.lastUpdate,
-            inputFormat: task.inputFormat,
-            outputFormat: task.outputFormat
-          });
-        }
-      } catch (error) {
-        console.error(`작업 ${taskId} 조회 실패:`, error);
-        // 개별 작업 실패는 무시하고 계속 진행
-      }
-    }
-    
-    return c.json({
-      downloads: downloads,
-      count: downloads.length
+  } catch (err) {
+    console.error('[Download] Error:', err);
+    res.status(500).json({
+      error: 'Download failed',
+      message: err.message
     });
-    
-  } catch (error) {
-    console.error('다운로드 목록 조회 오류:', error);
-    return c.json({ 
-      error: '다운로드 목록 조회에 실패했습니다',
-      details: error.message
-    }, 500);
   }
 }
 
-/**
- * 파일 메타데이터 조회
- * @param {Context} c - Hono 컨텍스트  
- * @returns {Promise<Response>}
- */
-export async function getFileInfoHandler(c) {
-  try {
-    const taskId = c.req.param('taskId');
-    
-    if (!taskId) {
-      return c.json({ 
-        error: '작업 ID가 필요합니다'
-      }, 400);
-    }
-    
-    // 작업 정보 가져오기
-    const progressTrackerId = c.env.PROGRESS_TRACKER.idFromName(taskId);
-    const progressTracker = c.env.PROGRESS_TRACKER.get(progressTrackerId);
-    
-    const statusResponse = await progressTracker.fetch('http://localhost/status');
-    const statusData = await statusResponse.json();
-    
-    if (!statusData.task) {
-      return c.json({ 
-        error: '존재하지 않는 작업입니다'
-      }, 404);
-    }
-    
-    const task = statusData.task;
-    
-    // 파일 정보 응답
-    const fileInfo = {
-      taskId: taskId,
-      status: statusData.status,
-      progress: statusData.progress,
-      inputFormat: task.inputFormat,
-      outputFormat: task.outputFormat,
-      originalFileName: task.originalFileName,
-      settings: task.settings,
-      createdAt: task.createdAt,
-      lastUpdate: statusData.lastUpdate,
-      isDownloadable: statusData.status === 'completed' && !!statusData.outputFileKey
-    };
-    
-    if (fileInfo.isDownloadable) {
-      fileInfo.downloadUrl = `/download/${taskId}`;
-      fileInfo.outputFileName = generateOutputFilename(
-        task.originalFileName || 'converted_file',
-        task.outputFormat
-      );
-    }
-    
-    return c.json(fileInfo);
-    
-  } catch (error) {
-    console.error('파일 정보 조회 오류:', error);
-    return c.json({ 
-      error: '파일 정보 조회에 실패했습니다',
-      details: error.message
-    }, 500);
-  }
-}
+export default downloadHandler;

@@ -1,128 +1,110 @@
 /**
- * Server-Sent Events를 통한 진행률 스트리밍 핸들러
- * @param {Context} c - Hono 컨텍스트
- * @returns {Promise<Response>}
+ * Progress Handler - SSE로 실시간 진행률 스트리밍
+ *
+ * Server-Sent Events (SSE) 사용
+ * 0.5초마다 진행률 업데이트 전송
  */
-export async function progressHandler(c) {
-  try {
-    const taskId = c.req.param('taskId');
-    
-    if (!taskId) {
-      return c.json({ 
-        error: '작업 ID가 필요합니다'
-      }, 400);
-    }
-    
-    // Durable Object 가져오기
-    const progressTrackerId = c.env.PROGRESS_TRACKER.idFromName(taskId);
-    const progressTracker = c.env.PROGRESS_TRACKER.get(progressTrackerId);
-    
-    // 현재 상태 확인
-    const statusResponse = await progressTracker.fetch('http://localhost/status');
-    const statusData = await statusResponse.json();
-    
-    if (!statusData.task) {
-      return c.json({ 
-        error: '존재하지 않는 작업입니다'
-      }, 404);
-    }
-    
-    // WebSocket을 통한 실시간 스트리밍으로 변경
-    // (Server-Sent Events 대신 WebSocket 사용)
-    const streamResponse = await progressTracker.fetch('http://localhost/stream');
-    
-    if (streamResponse.webSocket) {
-      return streamResponse;
-    }
-    
-    // WebSocket을 지원하지 않는 경우 폴백으로 Server-Sent Events 사용
-    return createSSEResponse(c, progressTracker);
-    
-  } catch (error) {
-    console.error('진행률 스트리밍 오류:', error);
-    return c.json({ 
-      error: '진행률 조회에 실패했습니다',
-      details: error.message
-    }, 500);
+
+import conversionQueue from '../queue/conversion-queue.js';
+
+/**
+ * GET /api/progress/:jobId
+ *
+ * SSE 스트리밍으로 진행률 전송
+ * 완료 또는 실패 시 연결 종료
+ */
+function progressHandler(req, res) {
+  const { jobId } = req.params;
+
+  // Job 존재 확인
+  const job = conversionQueue.getJob(jobId);
+  if (!job) {
+    return res.status(404).json({
+      error: 'Job not found',
+      message: `No conversion job found with ID: ${jobId}`
+    });
   }
+
+  // SSE 헤더 설정
+  res.setHeader('Content-Type', 'text/event-stream');
+  res.setHeader('Cache-Control', 'no-cache');
+  res.setHeader('Connection', 'keep-alive');
+  res.setHeader('X-Accel-Buffering', 'no'); // nginx buffering 방지
+
+  // 즉시 플러시
+  res.flushHeaders();
+
+  // 초기 연결 확인 메시지
+  res.write(`data: ${JSON.stringify({
+    type: 'connected',
+    jobId,
+    message: 'Progress stream connected'
+  })}\n\n`);
+
+  // 진행률 업데이트 인터벌
+  const intervalId = setInterval(() => {
+    const job = conversionQueue.getJob(jobId);
+
+    if (!job) {
+      // Job이 메모리에서 삭제됨
+      res.write(`data: ${JSON.stringify({
+        type: 'error',
+        message: 'Job expired or not found'
+      })}\n\n`);
+      clearInterval(intervalId);
+      res.end();
+      return;
+    }
+
+    // 진행률 데이터 전송
+    res.write(`data: ${JSON.stringify({
+      type: 'progress',
+      jobId,
+      status: job.status,
+      progress: job.progress,
+      message: job.message,
+      ...(job.error && { error: job.error })
+    })}\n\n`);
+
+    // 완료 또는 실패 시 종료
+    if (job.status === 'completed' || job.status === 'failed') {
+      clearInterval(intervalId);
+
+      // 최종 메시지
+      res.write(`data: ${JSON.stringify({
+        type: 'done',
+        jobId,
+        status: job.status,
+        ...(job.status === 'completed' && {
+          downloadUrl: `/api/download/${jobId}`
+        }),
+        ...(job.error && { error: job.error })
+      })}\n\n`);
+
+      res.end();
+    }
+  }, 500); // 0.5초마다 업데이트
+
+  // 클라이언트 연결 종료 처리
+  req.on('close', () => {
+    clearInterval(intervalId);
+    console.log(`[Progress] Client disconnected from job ${jobId}`);
+  });
+
+  // 타임아웃 (10분)
+  const timeoutId = setTimeout(() => {
+    clearInterval(intervalId);
+    res.write(`data: ${JSON.stringify({
+      type: 'error',
+      message: 'Connection timeout'
+    })}\n\n`);
+    res.end();
+  }, 10 * 60 * 1000);
+
+  // 인터벌 종료 시 타임아웃도 정리
+  req.on('close', () => {
+    clearTimeout(timeoutId);
+  });
 }
 
-/**
- * Server-Sent Events 응답 생성 (WebSocket 폴백)
- * @param {Context} c - Hono 컨텍스트
- * @param {DurableObjectStub} progressTracker - 진행률 추적기
- * @returns {Response}
- */
-function createSSEResponse(c, progressTracker) {
-  // ReadableStream을 사용한 SSE 구현
-  const encoder = new TextEncoder();
-  
-  const stream = new ReadableStream({
-    async start(controller) {
-      // 현재 상태 즉시 전송
-      const statusResponse = await progressTracker.fetch('http://localhost/status');
-      const statusData = await statusResponse.json();
-      
-      const initialData = {
-        status: statusData.status || 'pending',
-        percentage: statusData.progress || 0,
-        message: statusData.message || '작업 시작',
-        timestamp: new Date().toISOString()
-      };
-      
-      controller.enqueue(encoder.encode(formatSSEData(initialData)));
-      
-      // 주기적으로 상태 폴링 (실제 환경에서는 WebSocket 사용 권장)
-      const pollInterval = setInterval(async () => {
-        try {
-          const response = await progressTracker.fetch('http://localhost/status');
-          const data = await response.json();
-          
-          const updateData = {
-            status: data.status || 'pending',
-            percentage: data.progress || 0,
-            message: data.message || '',
-            timestamp: new Date().toISOString()
-          };
-          
-          controller.enqueue(encoder.encode(formatSSEData(updateData)));
-          
-          // 완료 또는 오류 시 스트림 종료
-          if (data.status === 'completed' || data.status === 'error') {
-            clearInterval(pollInterval);
-            controller.close();
-          }
-        } catch (error) {
-          console.error('상태 폴링 오류:', error);
-          clearInterval(pollInterval);
-          controller.error(error);
-        }
-      }, 1000); // 1초마다 폴링
-      
-      // 연결 종료 시 정리
-      c.req.signal?.addEventListener('abort', () => {
-        clearInterval(pollInterval);
-        controller.close();
-      });
-    }
-  });
-  
-  return new Response(stream, {
-    headers: {
-      'Content-Type': 'text/event-stream',
-      'Cache-Control': 'no-cache',
-      'Connection': 'keep-alive',
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Headers': 'Cache-Control'
-    }
-  });
-}
-
-/**
- * SSE 데이터 형식화
- * @param {Object} data - 전송할 데이터
- * @returns {string}
- */
-function formatSSEData(data) {
-  return `data: ${JSON.stringify(data)}\n\n`;
-}
+export default progressHandler;

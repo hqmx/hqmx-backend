@@ -1,6 +1,7 @@
 import { ImageConverter } from './converters/image-converter.js';
 import { VideoConverter } from './converters/video-converter.js';
 import { AudioConverter } from './converters/audio-converter.js';
+import { DocumentConverter } from './converters/document-converter.js';
 import { getFormatInfo } from './formats.js';
 
 /**
@@ -58,19 +59,17 @@ export class ConverterFactory {
     if (inputInfo.category === 'video' && outputInfo.category === 'audio') {
       return new VideoToAudioConverter(inputInfo.extension, outputInfo.extension, settings);
     }
-    
-    // 문서를 이미지로 변환
-    if (inputInfo.category === 'document' && outputInfo.category === 'image') {
-      // TODO: DocumentToImageConverter 구현
-      return null;
-    }
-    
-    // 이미지를 문서로 변환 (OCR)
+
+    // 이미지를 PDF로 변환
     if (inputInfo.category === 'image' && outputInfo.category === 'document') {
-      // TODO: ImageToDocumentConverter 구현 (OCR)
-      return null;
+      return new DocumentConverter(inputInfo.extension, outputInfo.extension, settings);
     }
-    
+
+    // PDF를 이미지로 변환
+    if (inputInfo.category === 'document' && outputInfo.category === 'image') {
+      return new DocumentConverter(inputInfo.extension, outputInfo.extension, settings);
+    }
+
     return null;
   }
 

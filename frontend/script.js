@@ -558,6 +558,10 @@ function initializeApp() {
 
         // Set initial category based on file type (더 정확한 감지 사용)
         const initialCategory = fileObj.category || detectFileCategory(fileObj.extension);
+
+        // 파일 카테고리에 따라 허용되는 변환 카테고리 필터링
+        filterAvailableCategories(initialCategory);
+
         handleCategorySelect(initialCategory, fileObj.recommendedFormats);
 
         // Show modal
@@ -577,6 +581,10 @@ function initializeApp() {
         // Set initial category based on first file's type
         const firstFileCategory = files.length > 0 ? detectFileCategory(files[0].extension) : 'document';
         console.log('첫 번째 파일 카테고리:', firstFileCategory);
+
+        // 파일 카테고리에 따라 허용되는 변환 카테고리 필터링
+        filterAvailableCategories(firstFileCategory);
+
         handleCategorySelect(firstFileCategory);
 
         // Store files for batch conversion
@@ -596,6 +604,37 @@ function initializeApp() {
         state.batchFiles = null;
     }
 
+    // 파일 카테고리에 따라 허용되는 변환 카테고리 필터링
+    function filterAvailableCategories(fileCategory) {
+        // 카테고리별 허용되는 변환 카테고리 정의
+        const allowedConversions = {
+            image: ['image'],
+            video: ['video', 'audio'],  // 비디오 → 비디오, 오디오 변환 가능
+            audio: ['audio'],
+            document: ['document', 'image'],  // 문서 → 문서, 이미지 변환 가능
+            archive: ['archive'],
+            social: ['video', 'audio']  // 소셜미디어 다운로드 → 비디오, 오디오
+        };
+
+        const allowed = allowedConversions[fileCategory] || [fileCategory];
+
+        // 모든 카테고리 버튼 처리
+        dom.formatCategories.forEach(cat => {
+            const category = cat.dataset.category;
+            const isAllowed = allowed.includes(category);
+
+            if (isAllowed) {
+                cat.classList.remove('disabled');
+                cat.style.pointerEvents = 'auto';
+                cat.style.opacity = '1';
+            } else {
+                cat.classList.add('disabled');
+                cat.style.pointerEvents = 'none';
+                cat.style.opacity = '0.3';
+            }
+        });
+    }
+
     function handleCategorySelect(category, recommendedFormats = []) {
         // Update active category
         dom.formatCategories.forEach(cat => {
@@ -611,7 +650,7 @@ function initializeApp() {
 
         formats.forEach(format => {
             const option = document.createElement('div');
-            option.className = `conversion-format-badge ${category}`; // 카테고리별 색상 적용
+            option.className = `format-badge ${category}`; // 카테고리별 색상 적용
             option.textContent = format.toUpperCase();
             option.dataset.format = format;
             option.addEventListener('click', () => selectFormat(format, category));
@@ -623,7 +662,7 @@ function initializeApp() {
 
     function selectFormat(format, category) {
         // Update visual selection
-        dom.formatOptions.querySelectorAll('.conversion-format-badge').forEach(opt => {
+        dom.formatOptions.querySelectorAll('.format-badge').forEach(opt => {
             opt.classList.toggle('selected', opt.dataset.format === format);
         });
 
