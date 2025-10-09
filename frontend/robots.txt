@@ -1,0 +1,30 @@
+# robots.txt - HQMX Converter
+
+# 모든 크롤러 허용
+User-agent: *
+Allow: /
+
+# Sitemap 위치
+Sitemap: https://converter.hqmx.net/sitemap.xml
+
+# 크롤링 제외 경로 (임시 파일, 백업 등)
+Disallow: /*.backup$
+Disallow: /_scripts/
+Disallow: /_templates/
+Disallow: /test-*.html
+
+# 특정 봇 설정
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 0
+
+# 검색량 높은 변환 페이지 우선 크롤링
+Allow: /jpg-to-png.html
+Allow: /png-to-jpg.html
+Allow: /jpg-to-pdf.html
+Allow: /webp-to-jpg.html
+Allow: /heic-to-jpg.html

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <!-- 메인 페이지 -->
+  <url>
+    <loc>https://converter.hqmx.net/</loc>
+    <lastmod>2025-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- JPG to PNG Converter -->
+  <url>
+    <loc>https://converter.hqmx.net/jpg-to-png.html</loc>
+    <lastmod>2025-10-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- PNG to JPG Converter -->
+  <url>
+    <loc>https://converter.hqmx.net/png-to-jpg.html</loc>
+    <lastmod>2025-10-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- WEBP to JPG Converter -->
+  <url>
+    <loc>https://converter.hqmx.net/webp-to-jpg.html</loc>
+    <lastmod>2025-10-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- PNG to WEBP Converter -->
+  <url>
+    <loc>https://converter.hqmx.net/png-to-webp.html</loc>
+    <lastmod>2025-10-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- HEIC to JPG Converter -->
+  <url>
+    <loc>https://converter.hqmx.net/heic-to-jpg.html</loc>
+    <lastmod>2025-10-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- JPG to PDF Converter -->
+  <url>
+    <loc>https://converter.hqmx.net/jpg-to-pdf.html</loc>
+    <lastmod>2025-10-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- MP4 to AVI Converter -->
+  <url>
+    <loc>https://converter.hqmx.net/mp4-to-avi.html</loc>
+    <lastmod>2025-10-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- AVI to MP4 Converter -->
+  <url>
+    <loc>https://converter.hqmx.net/avi-to-mp4.html</loc>
+    <lastmod>2025-10-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- MP3 to WAV Converter -->
+  <url>
+    <loc>https://converter.hqmx.net/mp3-to-wav.html</loc>
+    <lastmod>2025-10-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- WAV to MP3 Converter -->
+  <url>
+    <loc>https://converter.hqmx.net/wav-to-mp3.html</loc>
+    <lastmod>2025-10-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+</urlset>

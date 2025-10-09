@@ -1,0 +1,82 @@
+[
+  {
+    "from": "jpg",
+    "to": "png",
+    "fromCategory": "image",
+    "toCategory": "image",
+    "priority": 10,
+    "popular": true
+  },
+  {
+    "from": "png",
+    "to": "jpg",
+    "fromCategory": "image",
+    "toCategory": "image",
+    "priority": 10,
+    "popular": true
+  },
+  {
+    "from": "webp",
+    "to": "jpg",
+    "fromCategory": "image",
+    "toCategory": "image",
+    "priority": 9,
+    "popular": true
+  },
+  {
+    "from": "png",
+    "to": "webp",
+    "fromCategory": "image",
+    "toCategory": "image",
+    "priority": 8,
+    "popular": true
+  },
+  {
+    "from": "heic",
+    "to": "jpg",
+    "fromCategory": "image",
+    "toCategory": "image",
+    "priority": 9,
+    "popular": true
+  },
+  {
+    "from": "jpg",
+    "to": "pdf",
+    "fromCategory": "image",
+    "toCategory": "document",
+    "priority": 8,
+    "popular": true
+  },
+  {
+    "from": "mp4",
+    "to": "avi",
+    "fromCategory": "video",
+    "toCategory": "video",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "avi",
+    "to": "mp4",
+    "fromCategory": "video",
+    "toCategory": "video",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "mp3",
+    "to": "wav",
+    "fromCategory": "audio",
+    "toCategory": "audio",
+    "priority": 6,
+    "popular": false
+  },
+  {
+    "from": "wav",
+    "to": "mp3",
+    "fromCategory": "audio",
+    "toCategory": "audio",
+    "priority": 6,
+    "popular": false
+  }
+]
