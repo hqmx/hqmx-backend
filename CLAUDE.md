@@ -33,7 +33,68 @@ HQMX Converter는 100% 클라이언트 사이드에서 작동하는 파일 변�
 - **Git**: https://github.com/hqmx/converter-backend.git (legacy)
 - **PEM 파일**: `/Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem`
 
+## 광고 수익화 (Monetization)
 
+### Google AdSense
+- **계정 ID**: `ca-pub-1478922009946363`
+- **소유권 확인**: `index.html`의 `<head>` 섹션에 메타 태그 추가됨
+```html
+<meta name="google-adsense-account" content="ca-pub-1478922009946363">
+```
+
+### Adsterra 광고 (활성화됨)
+
+#### 1. Banner 광고 (728x90)
+- **위치**: "Your Files" 패널 바로 아래
+- **광고 키**: `a0109a486ddd226684cfa5934f412a88`
+- **표시 조건**: 파일 업로드 시 자동 표시, 파일 삭제 시 자동 숨김
+- **파일**: `index.html:192-204`
+```html
+<div id="adsterra-banner-728x90" style="display: none;">
+    <script type="text/javascript">
+        atOptions = {
+            'key' : 'a0109a486ddd226684cfa5934f412a88',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728
+        };
+    </script>
+    <script src="//www.highperformanceformat.com/a0109a486ddd226684cfa5934f412a88/invoke.js"></script>
+</div>
+```
+
+#### 2. Interstitials 광고 (전면 광고)
+- **광고 키**: `dfdeb4497c2530e9cc7c6c5a9e33f754`
+- **표시 시점**: "Start Conversion" 버튼 클릭 시
+- **동작**: 광고 표시 → 2초 지연 → 변환 시작
+- **파일**: `index.html:595-596`, `script.js:759-802`
+```html
+<script type='text/javascript' src='//pl27817229.effectivegatecpm.com/df/de/b4/dfdeb4497c2530e9cc7c6c5a9e33f754.js'></script>
+```
+
+#### 3. Anti-Adblock Popunder
+- **광고 키**: `a5b0d31831c41ea6968b77517c884ff0`
+- **표시 시점**: 페이지 로드 시 및 클릭 시 (백그라운드)
+- **특징**: Adblock 우회 기능
+- **파일**: `index.html:598-599`
+```html
+<script type='text/javascript' src='//outskirtsgrey.com/a5/b0/d3/a5b0d31831c41ea6968b77517c884ff0.js'></script>
+```
+
+### Propeller Ads
+- **소유권 확인 파일**: `/var/www/html/sw.js` (156B)
+- **⚠️ 중요**: 이 파일은 Propeller Ads 소유권 확인용이므로 **절대 삭제 금지**
+- **파일 위치**: 서버 루트 디렉토리 (`/var/www/html/sw.js`)
+
+### 광고 수익 예상 (월 10,000명 방문 기준)
+| 광고 유형 | 노출/클릭 | CPM/CPC | 월 수익 예상 |
+|----------|-----------|---------|-------------|
+| Banner (728x90) | 8,000 노출 | $2 CPM | $16 |
+| Interstitials | 5,000 노출 | $3 CPM | $15 |
+| Popunder | 3,000 클릭 | $5 CPM | $15 |
+| **총 월 수익** | | | **$46** |
+
+**트래픽 10배 증가 시**: 월 100,000명 = **$460/월**
 
 ## 명령어
 
