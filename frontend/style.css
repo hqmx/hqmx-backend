@@ -3250,3 +3250,21 @@ body[data-theme="dark"] .conversion-indicator {
 #socialMediaSection {
     display: none !important;
 }
+
+/* ========================================
+   헤더 네비게이션 메뉴 비활성화
+   ======================================== */
+/* 데스크톱 네비게이션 메뉴 숨김 */
+.nav-menu {
+    display: none !important;
+}
+
+/* 햄버거 메뉴 버튼 숨김 (모바일) */
+.hamburger-menu {
+    display: none !important;
+}
+
+/* 모바일 메뉴 오버레이 숨김 */
+.mobile-menu-overlay {
+    display: none !important;
+}
