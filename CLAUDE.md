@@ -19,12 +19,19 @@ HQMX Converter는 100% 클라이언트 사이드에서 작동하는 파일 변�
 서버로 파일을 업로드하지 않고 브라우저에서 직접 FFmpeg.wasm을 사용하여 변환합니다.
 
 ## 웹사이트 주소
-https://converter.hqmx.net
+- **메인**: https://hqmx.net
+- **서브**: https://converter.hqmx.net (legacy)
 
-## ip
-23.22.45.186
+## 서버 정보
+### hqmx.net (메인 서버)
+- **IP**: 54.242.63.16
+- **Git**: https://github.com/hqmx/hqmx-backend
+- **PEM 파일**: `/Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem`
 
-[text](hqmx-ec2.pem)
+### converter.hqmx.net (레거시 서버)
+- **IP**: 23.22.45.186
+- **Git**: https://github.com/hqmx/converter-backend.git (legacy)
+- **PEM 파일**: `/Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem`
 
 
 
@@ -309,7 +316,8 @@ pm2 restart converter-api                     # 재시작
 ## Git 및 버전 관리
 
 ### Git 기본 정보
-- **저장소**: https://github.com/hqmx/converter.git (실제), https://github.com/hqmx/convertor-backend (legacy)
+- **현재 저장소**: https://github.com/hqmx/hqmx-backend (hqmx.net 서버용)
+- **레거시 저장소**: https://github.com/hqmx/converter-backend.git (converter.hqmx.net 서버용)
 - **메인 브랜치**: main
 - **커밋 메시지**: 한글로 작성
 - **현재 상태**: Modified files in git status로 확인
@@ -335,8 +343,8 @@ git pull origin main
 
 # 원격 저장소 확인
 git remote -v
-# origin  https://github.com/hqmx/converter-backend.git (fetch)
-# origin  https://github.com/hqmx/converter-backend.git (push)
+# origin  https://github.com/hqmx/hqmx-backend.git (fetch)
+# origin  https://github.com/hqmx/hqmx-backend.git (push)
 ```
 
 ### 브랜치 전략
@@ -365,21 +373,31 @@ git config --global core.quotepath false
 
 ## 서버 관리
 
-### EC2 서버 연결
+### hqmx.net 서버 (메인)
+- **도메인**: https://hqmx.net
+- **IP**: 54.242.63.16
+- **Git**: https://github.com/hqmx/hqmx-backend
+- **PEM 파일**: `/Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem`
+
+#### SSH 연결
+```bash
+# SSH 연결
+ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@54.242.63.16
+
+# PEM 파일 권한 설정 (필요시)
+chmod 400 /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem
+```
+
+### converter.hqmx.net 서버 (레거시)
 - **도메인**: https://converter.hqmx.net
-- **EC2 IP**: 23.22.45.186
+- **IP**: 23.22.45.186
+- **Git**: https://github.com/hqmx/converter-backend.git
 - **PEM 파일**: `/Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem`
 
 #### SSH 연결
 ```bash
 # SSH 연결
 ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@23.22.45.186
-
-# 또는 ec2-user (AMI에 따라)
-ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ec2-user@23.22.45.186
-
-# PEM 파일 권한 설정 (필요시)
-chmod 400 /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem
 ```
 
 #### SCP 파일 전송
