@@ -1,5 +1,14 @@
 // DOM이 완전히 로드된 후 한 번만 초기화
 function initializeApp() {
+    // --- FEATURE FLAGS CHECK ---
+    // Social Media 기능 비활성화 처리
+    if (window.FEATURES && !window.FEATURES.SOCIAL_MEDIA) {
+        const socialBtn = document.getElementById('socialCategoryBtn');
+        const socialSection = document.getElementById('socialMediaSection');
+        if (socialBtn) socialBtn.style.display = 'none';
+        if (socialSection) socialSection.style.display = 'none';
+    }
+
     // --- STATE MANAGEMENT ---
     let state = {
         files: [],
@@ -27,6 +36,11 @@ function initializeApp() {
         archive: ['zip', 'rar', '7z', 'tar', 'gz', 'bz2', 'xz', 'tar.gz', 'tar.bz2', 'tar.xz'],
         social: ['youtube', 'facebook', 'instagram', 'tiktok', 'twitter', 'vimeo', 'twitch', 'dailymotion', 'reddit', 'soundcloud', 'spotify', 'linkedin']
     };
+
+    // Feature flag: social media 비활성화 처리
+    if (window.FEATURES && !window.FEATURES.SOCIAL_MEDIA) {
+        delete FORMATS.social;
+    }
 
     // Advanced settings by format type - 원본 품질 기준 설정
     const ADVANCED_SETTINGS = {
@@ -59,6 +73,11 @@ function initializeApp() {
             subtitles: { label: 'Include Subtitles', type: 'select', options: ['no', 'yes'], default: 'no' }
         }
     };
+
+    // Feature flag: social media advanced settings 비활성화 처리
+    if (window.FEATURES && !window.FEATURES.SOCIAL_MEDIA) {
+        delete ADVANCED_SETTINGS.social;
+    }
 
     // --- DOM ELEMENT CACHE ---
     const dom = {

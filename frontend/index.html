@@ -6,7 +6,7 @@
     <title>HQMX Converter - Universal File Converter</title>
     <meta name="description" content="Convert any file format to any other format. Support for video, audio, image, document, and archive conversions with high quality results.">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="/style.css?v=20251008p">
+    <link rel="stylesheet" href="/style.css?v=20251009social">
 
     <!-- Dropbox API -->
     <script src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="lsjgf5qy4g59sqz"></script>
@@ -232,7 +232,7 @@
                                     <i class="fas fa-file-archive"></i>
                                     <span data-i18n-key="archive">Archive</span>
                                 </button>
-                                <button class="format-category" data-category="social">
+                                <button id="socialCategoryBtn" class="format-category" data-category="social">
                                     <i class="fas fa-share-alt"></i>
                                     <span data-i18n-key="social">Social</span>
                                 </button>
@@ -422,7 +422,7 @@
                             <i class="fas fa-plus"></i>
                         </button>
                     </div>
-                    <div class="format-group">
+                    <div id="socialMediaSection" class="format-group">
                         <h4><i class="fas fa-share-alt"></i> <span>Social Media</span></h4>
                         <div class="format-badges">
                             <span class="supported-format-badge social">YouTube</span>
@@ -556,6 +556,7 @@
             <p data-i18n-key="footer">&copy; 2024 HQMX. All Rights Reserved.</p>
         </footer>
     </div>
+    <script src="/feature-flags.js?v=20251009"></script>
     <script src="/i18n.js?v=20251008"></script>
     <script src="/url-router.js?v=20251008"></script>
     <script src="/converter-engine.js?v=20251008"></script>

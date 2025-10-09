@@ -3237,3 +3237,16 @@ body[data-theme="dark"] .conversion-indicator {
         grid-template-columns: 1fr;
     }
 }
+
+/* ========================================
+   Feature Flags - Social Media 비활성화
+   ======================================== */
+/* Social Media 카테고리 버튼 숨김 */
+#socialCategoryBtn {
+    display: none !important;
+}
+
+/* Social Media 섹션 숨김 */
+#socialMediaSection {
+    display: none !important;
+}
