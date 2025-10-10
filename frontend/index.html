@@ -548,7 +548,7 @@
                 </div>
 
                 <div class="sitemap-bottom">
-                    <div class="sitemap-side sitemap-left">
+                    <div class="sitemap-side sitemap-left" style="display: none;">
                         <a href="https://hqmx.net/converter/" class="logo-link">
                             <div class="converter-logo">
                                 <span class="converter-text"><span class="converter-c">C</span><span class="converter-rest">ONVERTER</span></span>
@@ -556,7 +556,14 @@
                         </a>
                     </div>
 
-                    <div class="sitemap-side sitemap-right">
+                    <div class="sitemap-center">
+                        <h3 class="sitemap-title">Site Map</h3>
+                        <button class="sitemap-expand-btn" id="sitemapExpandBtn">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+
+                    <div class="sitemap-side sitemap-right" style="display: none;">
                         <a href="https://hqmx.net/downloader/" class="logo-link">
                             <div class="downloader-logo">
                                 <span class="downloader-text"><span class="downloader-d">D</span><span class="downloader-rest">OWNLOADER</span></span>
@@ -568,12 +575,9 @@
         </section>
             <!-- Supported Conversions Section -->
             <section class="supported-conversions">
-                <h3 class="sitemap-title">Site Map</h3>
-                <p class="section-description">479 conversion combinations across 5 categories • Click any badge to start converting</p>
-
                 <!-- Category Icon Navigation -->
                 <div class="category-icons-nav">
-                    <button class="category-icon-btn active" data-category="cross-category" title="Cross-Category Conversions">
+                    <button class="category-icon-btn" data-category="cross-category" title="Cross-Category Conversions">
                         <i class="fas fa-fire"></i>
                     </button>
                     <button class="category-icon-btn" data-category="video" title="Video Conversions">
@@ -593,8 +597,10 @@
                     </button>
                 </div>
 
+                <p class="section-description">479 conversion combinations across 5 categories • Click any badge to start converting</p>
+
                 <!-- Cross-Category Conversions (High Priority) -->
-                <div class="conversion-category active" data-category="cross-category">
+                <div class="conversion-category" data-category="cross-category">
                     <div class="conversion-badges-container">
                         <!-- IMAGE ↔ DOCUMENT -->
                         <div class="conversion-subcategory">

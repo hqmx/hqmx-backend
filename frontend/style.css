@@ -2381,7 +2381,6 @@ body[data-theme="dark"] .step-format .format-modal {
     color: var(--light-text-color);
     padding: 3rem 0 2rem 0;
     border-top: 1px solid var(--border-color);
-    border-bottom: 1px solid var(--border-color);
     opacity: 1;
 }
 
@@ -2426,13 +2425,30 @@ body[data-theme="dark"] .step-format .format-modal {
 
 .sitemap-bottom {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
     width: 100%;
-    max-width: 600px;
+    max-width: 800px;
+}
+
+.sitemap-center {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .sitemap-side {
     flex-shrink: 0;
+}
+
+.sitemap-left {
+    text-align: left;
+}
+
+.sitemap-right {
+    text-align: right;
 }
 
 .sitemap-side .converter-logo .converter-text,
@@ -2469,6 +2485,8 @@ footer {
     text-align: center;
     padding: 2rem 0;
     color: var(--light-text-color);
+    border-top: 1px solid var(--border-color);
+    margin-top: 3rem;
 }
 
 footer p {
@@ -2492,6 +2510,13 @@ footer p {
     .sitemap-bottom {
         max-width: 100%;
         padding: 0 1rem;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .sitemap-left,
+    .sitemap-right {
+        text-align: center;
     }
 
     .sitemap-side .converter-logo .converter-text,
@@ -3340,8 +3365,8 @@ body[data-theme="dark"] .conversion-indicator {
    ======================================== */
 
 .supported-conversions {
-    margin-top: 2rem;
-    padding: 2rem 0;
+    margin-top: 0;
+    padding: 0;
     background: transparent;
 }
 
@@ -3359,11 +3384,52 @@ body[data-theme="dark"] .conversion-indicator {
     color: var(--text-secondary) !important;
 }
 
+.sitemap-expand-btn {
+    display: block;
+    width: 32px;
+    height: 32px;
+    border: 2px solid var(--primary-color);
+    background: transparent;
+    border-radius: 8px;
+    color: var(--primary-color);
+    cursor: pointer;
+    margin: 0.5rem auto 0 auto;
+    transition: all 0.3s ease;
+    font-size: 14px;
+    position: relative;
+}
+
+.sitemap-expand-btn:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+.sitemap-expand-btn.expanded {
+    transform: rotate(45deg);
+}
+
+.sitemap-expand-btn.expanded:hover {
+    transform: rotate(45deg) translateY(-2px);
+}
+
+/* 기본적으로 배지 컨테이너 숨김 */
+.conversion-category .conversion-badges-container {
+    display: none;
+}
+
+/* 확장 상태일 때만 배지 컨테이너 표시 */
+.conversion-category.show-badges .conversion-badges-container {
+    display: block;
+}
+
 .supported-conversions .section-description {
     text-align: center;
     color: var(--light-text-color);
-    font-size: 1rem;
-    margin-bottom: 2rem;
+    font-size: 0.85rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
 }
 
 /* Conversion Category */
@@ -3455,7 +3521,7 @@ body[data-theme="dark"] .conversion-indicator {
     display: flex;
     justify-content: center;
     gap: 1rem;
-    margin: 2rem 0;
+    margin: -2.8rem 0 0.5rem 0;
     flex-wrap: wrap;
 }
 
@@ -3857,5 +3923,21 @@ body[data-theme="dark"] .conversion-category[data-category="archive"] .conversio
     .conversion-badge {
         height: 32px;
         font-size: 0.65rem;
+    }
+
+    .category-icons-nav {
+        display: grid;
+        grid-template-columns: repeat(3, auto);
+        grid-template-rows: repeat(2, 1fr);
+        row-gap: 0.8rem;
+        column-gap: 0.8rem;
+        max-width: 100%;
+        margin: -3.5rem auto 0.5rem auto;
+        padding: 0 1rem;
+        justify-content: center;
+    }
+
+    .category-icon-btn {
+        margin: 0;
     }
 }

@@ -308,6 +308,75 @@ function initializeApp() {
         });
     });
 
+    // Site Map 확장 버튼 이벤트 리스너
+    const sitemapExpandBtn = document.getElementById('sitemapExpandBtn');
+    const categoryIconBtns = document.querySelectorAll('.category-icon-btn');
+
+    if (sitemapExpandBtn) {
+        sitemapExpandBtn.addEventListener('click', () => {
+            const isExpanded = sitemapExpandBtn.classList.contains('expanded');
+            let activeCategory = document.querySelector('.conversion-category.active');
+
+            if (isExpanded) {
+                // 숨기기
+                sitemapExpandBtn.classList.remove('expanded');
+                if (activeCategory) {
+                    activeCategory.classList.remove('show-badges');
+                }
+            } else {
+                // 보이기
+                sitemapExpandBtn.classList.add('expanded');
+
+                // 활성 카테고리가 없으면 첫 번째 카테고리를 자동 선택
+                if (!activeCategory) {
+                    const firstIconBtn = categoryIconBtns[0];
+                    const firstCategory = document.querySelector('.conversion-category');
+
+                    if (firstIconBtn && firstCategory) {
+                        firstIconBtn.classList.add('active');
+                        firstCategory.classList.add('active');
+                        activeCategory = firstCategory;
+                    }
+                }
+
+                if (activeCategory) {
+                    activeCategory.classList.add('show-badges');
+                }
+            }
+        });
+    }
+
+    // 카테고리 아이콘 버튼 클릭 시 배지 표시 상태 유지
+    categoryIconBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const category = btn.dataset.category;
+            const isExpanded = sitemapExpandBtn && sitemapExpandBtn.classList.contains('expanded');
+
+            // 모든 카테고리 아이콘 버튼에서 active 제거
+            categoryIconBtns.forEach(b => b.classList.remove('active'));
+            // 클릭한 버튼에 active 추가
+            btn.classList.add('active');
+
+            // 모든 카테고리에서 active와 show-badges 제거
+            const allCategories = document.querySelectorAll('.conversion-category');
+            allCategories.forEach(cat => {
+                cat.classList.remove('active');
+                cat.classList.remove('show-badges');
+            });
+
+            // 클릭한 카테고리를 active로 설정
+            const targetCategory = document.querySelector(`.conversion-category[data-category="${category}"]`);
+            if (targetCategory) {
+                targetCategory.classList.add('active');
+
+                // + 버튼이 expanded 상태면 배지 표시
+                if (isExpanded) {
+                    targetCategory.classList.add('show-badges');
+                }
+            }
+        });
+    });
+
     // Modal listeners
     dom.modalCloseBtn.addEventListener('click', closeModal);
     dom.conversionModal.addEventListener('click', (e) => {
