@@ -42,6 +42,48 @@ function initializeApp() {
         delete FORMATS.social;
     }
 
+    // Cross-category conversion compatibility matrix
+    // 크로스 카테고리 변환 호환성 매트릭스
+    const CROSS_CATEGORY_COMPATIBILITY = {
+        // IMAGE ↔ DOCUMENT (12.3M+ 월간 검색량)
+        image: {
+            allowedCategories: ['image', 'document'], // 이미지는 문서 카테고리로도 변환 가능
+            formatRestrictions: {
+                // 이미지 → PDF만 가능 (다른 문서 형식은 불가)
+                document: ['pdf']
+            }
+        },
+        document: {
+            allowedCategories: ['document', 'image'], // 문서는 이미지 카테고리로도 변환 가능
+            formatRestrictions: {
+                // PDF → 이미지만 가능 (다른 문서는 이미지로 변환 불가)
+                image: {
+                    sourceFormats: ['pdf'], // PDF만 이미지로 변환 가능
+                    targetFormats: ['jpg', 'jpeg', 'png'] // JPG, PNG만 지원
+                }
+            }
+        },
+        // VIDEO ↔ AUDIO (8M+ 월간 검색량)
+        video: {
+            allowedCategories: ['video', 'audio', 'image'], // 비디오는 오디오, 이미지로도 변환 가능
+            formatRestrictions: {
+                audio: null, // 모든 비디오 형식 → 모든 오디오 형식 가능
+                image: ['gif'] // 비디오 → GIF만 가능
+            }
+        },
+        audio: {
+            allowedCategories: ['audio', 'video'], // 오디오는 비디오로도 변환 가능
+            formatRestrictions: {
+                video: null // 모든 오디오 형식 → 모든 비디오 형식 가능 (오디오 트랙으로)
+            }
+        },
+        // ARCHIVE는 크로스 카테고리 없음
+        archive: {
+            allowedCategories: ['archive'],
+            formatRestrictions: {}
+        }
+    };
+
     // Advanced settings by format type - 원본 품질 기준 설정
     const ADVANCED_SETTINGS = {
         video: {
@@ -118,8 +160,13 @@ function initializeApp() {
     const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
     if (hamburgerMenu && mobileMenuOverlay) {
         hamburgerMenu.addEventListener('click', toggleMobileMenu);
-        mobileMenuOverlay.addEventListener('click', (e) => {
-            if (e.target === mobileMenuOverlay) {
+
+        // document 전체에서 클릭 감지하여 메뉴 바깥 클릭 시 닫기
+        document.addEventListener('click', (e) => {
+            // 메뉴가 열려있고, 햄버거 버튼도 아니고, 메뉴 박스 바깥 클릭인 경우
+            if (mobileMenuOverlay.classList.contains('show') &&
+                !e.target.closest('#hamburgerMenu') &&
+                !e.target.closest('.mobile-menu-box')) {
                 closeMobileMenu();
             }
         });
@@ -433,6 +480,7 @@ function initializeApp() {
 
         updateFileList();
         showFileListSection();
+        showAdBanner(); // 파일 업로드 시 배너 표시
     }
 
     function updateFileList() {
@@ -497,6 +545,7 @@ function initializeApp() {
             dom.fileListSection.style.display = 'none';
             // 파일이 모두 제거되면 업로드 패널 확장
             dom.uploadZone.classList.remove('collapsed');
+            hideAdBanner(); // 모든 파일 제거 시 배너 숨김
         }
     }
 
@@ -548,6 +597,7 @@ function initializeApp() {
             dom.fileListSection.style.display = 'none';
             // 파일이 모두 제거되면 업로드 패널 확장
             dom.uploadZone.classList.remove('collapsed');
+            hideAdBanner(); // 파일이 모두 제거되면 배너 숨김
         }
 
         showToast(`Removed "${fileObj.name}"`, 'success');
@@ -625,17 +675,9 @@ function initializeApp() {
 
     // 파일 카테고리에 따라 허용되는 변환 카테고리 필터링
     function filterAvailableCategories(fileCategory) {
-        // 카테고리별 허용되는 변환 카테고리 정의
-        const allowedConversions = {
-            image: ['image'],
-            video: ['video', 'audio'],  // 비디오 → 비디오, 오디오 변환 가능
-            audio: ['audio'],
-            document: ['document', 'image'],  // 문서 → 문서, 이미지 변환 가능
-            archive: ['archive'],
-            social: ['video', 'audio']  // 소셜미디어 다운로드 → 비디오, 오디오
-        };
-
-        const allowed = allowedConversions[fileCategory] || [fileCategory];
+        // 크로스 카테고리 호환성 매트릭스 사용
+        const compatibility = CROSS_CATEGORY_COMPATIBILITY[fileCategory];
+        const allowed = compatibility ? compatibility.allowedCategories : [fileCategory];
 
         // 모든 카테고리 버튼 처리
         dom.formatCategories.forEach(cat => {
@@ -660,6 +702,21 @@ function initializeApp() {
             cat.classList.toggle('active', cat.dataset.category === category);
         });
 
+        // 현재 파일 정보 가져오기 (크로스 카테고리 제한 확인용)
+        let sourceFileObj = null;
+        let sourceCategory = category;
+        let sourceExtension = '';
+
+        if (state.currentFileIndex >= 0) {
+            sourceFileObj = state.files[state.currentFileIndex];
+            sourceCategory = sourceFileObj.category;
+            sourceExtension = sourceFileObj.extension.toLowerCase();
+        } else if (state.batchFiles && state.batchFiles.length > 0) {
+            sourceFileObj = state.batchFiles[0];
+            sourceCategory = sourceFileObj.category;
+            sourceExtension = sourceFileObj.extension.toLowerCase();
+        }
+
         // Populate format options - 단순한 그리드 형태로
         const formats = FORMATS[category] || [];
         dom.formatOptions.innerHTML = '';
@@ -672,11 +729,68 @@ function initializeApp() {
             option.className = `format-badge ${category}`; // 카테고리별 색상 적용
             option.textContent = format.toUpperCase();
             option.dataset.format = format;
-            option.addEventListener('click', () => selectFormat(format, category));
+
+            // 크로스 카테고리 변환인 경우 제한 사항 확인
+            let isRestricted = false;
+            if (sourceCategory !== category && sourceCategory) {
+                isRestricted = !isFormatAllowedForConversion(sourceCategory, sourceExtension, category, format);
+            }
+
+            if (isRestricted) {
+                option.classList.add('disabled');
+                option.style.opacity = '0.4';
+                option.style.pointerEvents = 'none';
+                option.style.cursor = 'not-allowed';
+                option.title = 'This conversion is not supported';
+            } else {
+                option.addEventListener('click', () => selectFormat(format, category));
+            }
+
             formatGrid.appendChild(option);
         });
 
         dom.formatOptions.appendChild(formatGrid);
+    }
+
+    // 크로스 카테고리 변환 가능 여부 확인
+    function isFormatAllowedForConversion(sourceCategory, sourceExtension, targetCategory, targetFormat) {
+        // 같은 카테고리 내 변환은 항상 허용
+        if (sourceCategory === targetCategory) {
+            return true;
+        }
+
+        // 크로스 카테고리 호환성 확인
+        const compatibility = CROSS_CATEGORY_COMPATIBILITY[sourceCategory];
+        if (!compatibility) {
+            return false;
+        }
+
+        // 타겟 카테고리가 허용되는지 확인
+        if (!compatibility.allowedCategories.includes(targetCategory)) {
+            return false;
+        }
+
+        // 형식 제한 확인
+        const restrictions = compatibility.formatRestrictions[targetCategory];
+
+        // 제한이 없으면 모두 허용
+        if (restrictions === null || restrictions === undefined) {
+            return true;
+        }
+
+        // 배열 형식 제한 (타겟 형식만 제한)
+        if (Array.isArray(restrictions)) {
+            return restrictions.includes(targetFormat);
+        }
+
+        // 객체 형식 제한 (소스 + 타겟 모두 제한)
+        if (restrictions.sourceFormats && restrictions.targetFormats) {
+            const sourceAllowed = restrictions.sourceFormats.includes(sourceExtension);
+            const targetAllowed = restrictions.targetFormats.includes(targetFormat);
+            return sourceAllowed && targetAllowed;
+        }
+
+        return true;
     }
 
     function selectFormat(format, category) {
@@ -768,8 +882,28 @@ function initializeApp() {
             fileObj.settings[key] = element.value;
         });
 
+        // 모달 닫기
         closeModal();
-        startFileConversion(fileObj);
+
+        // 모달 닫힌 후 Vignette 광고 실행 (중복 방지)
+        if (!document.querySelector('script[data-zone="10017255"]')) {
+            try {
+                // 광고 스크립트 직접 실행
+                const adScript = document.createElement('script');
+                adScript.dataset.zone = '10017255';
+                adScript.src = 'https://groleegni.net/vignette.min.js';
+                const targetElement = [document.documentElement, document.body].filter(Boolean).pop();
+                targetElement.appendChild(adScript);
+                console.log('Vignette 광고 로드 시작');
+            } catch (error) {
+                console.error('Vignette 광고 로드 실패:', error);
+            }
+        }
+
+        // 광고 표시 후 짧은 지연 후 변환 시작
+        setTimeout(() => {
+            startFileConversion(fileObj);
+        }, 1000);
     }
 
     function startBatchConversion() {
@@ -812,10 +946,28 @@ function initializeApp() {
         const batchFilesToConvert = [...state.batchFiles];
         console.log('배치 변환 시작 전 파일 수:', batchFilesToConvert.length);
 
+        // 모달 닫기
         closeModal();
 
-        // Start conversion for all files sequentially
-        startBatchFileConversions(batchFilesToConvert);
+        // 모달 닫힌 후 Vignette 광고 실행 (중복 방지)
+        if (!document.querySelector('script[data-zone="10017255"]')) {
+            try {
+                // 광고 스크립트 직접 실행
+                const adScript = document.createElement('script');
+                adScript.dataset.zone = '10017255';
+                adScript.src = 'https://groleegni.net/vignette.min.js';
+                const targetElement = [document.documentElement, document.body].filter(Boolean).pop();
+                targetElement.appendChild(adScript);
+                console.log('Vignette 광고 로드 시작 (배치 모드)');
+            } catch (error) {
+                console.error('Vignette 광고 로드 실패:', error);
+            }
+        }
+
+        // 광고 표시 후 짧은 지연 후 배치 변환 시작
+        setTimeout(() => {
+            startBatchFileConversions(batchFilesToConvert);
+        }, 1000);
     }
 
     async function startBatchFileConversions(files) {
@@ -1583,6 +1735,39 @@ function initializeApp() {
     initializeDropbox();
     initializeGoogleDrive();
 
+    // ========================================
+    // Supported Conversions - Expand/Collapse 기능
+    // ========================================
+    function initializeSupportedConversions() {
+        const categoryHeaders = document.querySelectorAll('.category-header');
+
+        categoryHeaders.forEach(header => {
+            header.addEventListener('click', function() {
+                const container = this.nextElementSibling;
+                const isExpanded = this.classList.contains('expanded');
+
+                // Toggle expanded state
+                if (isExpanded) {
+                    this.classList.remove('expanded');
+                    container.classList.remove('show');
+                    container.style.display = 'none';
+                } else {
+                    this.classList.add('expanded');
+                    container.style.display = 'block';
+                    // Small delay for smooth animation
+                    setTimeout(() => {
+                        container.classList.add('show');
+                    }, 10);
+                }
+            });
+        });
+    }
+
+    // Initialize Supported Conversions if section exists
+    if (document.querySelector('.supported-conversions')) {
+        initializeSupportedConversions();
+    }
+
     // 스크롤 시 헤더 blur 효과
     const topNav = document.querySelector('.top-nav');
 
@@ -1599,6 +1784,116 @@ function initializeApp() {
 
     // 스크롤 이벤트 리스너 추가
     window.addEventListener('scroll', handleScroll, { passive: true });
+
+    // Category icon navigation
+    initializeCategoryTabs();
+
+    // Show more buttons for conversion badges
+    initializeShowMoreButtons();
+}
+
+// Category tabs functionality
+function initializeCategoryTabs() {
+    const categoryButtons = document.querySelectorAll('.category-icon-btn');
+    const categories = document.querySelectorAll('.conversion-category');
+
+    categoryButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const targetCategory = button.getAttribute('data-category');
+
+            // Remove active class from all buttons
+            categoryButtons.forEach(btn => btn.classList.remove('active'));
+
+            // Add active class to clicked button
+            button.classList.add('active');
+
+            // Hide all categories
+            categories.forEach(cat => cat.classList.remove('active'));
+
+            // Show target category
+            const targetCat = document.querySelector(`.conversion-category[data-category="${targetCategory}"]`);
+            if (targetCat) {
+                targetCat.classList.add('active');
+            }
+        });
+    });
+}
+
+// Show More functionality for conversion badges
+function initializeShowMoreButtons() {
+    const subcategories = document.querySelectorAll('.conversion-subcategory');
+
+    subcategories.forEach(subcategory => {
+        const badgeContainer = subcategory.querySelector('.conversion-badges');
+        if (!badgeContainer) return;
+
+        const badges = Array.from(badgeContainer.querySelectorAll('.conversion-badge'));
+
+        // Determine visible limit based on screen size
+        const getVisibleLimit = () => {
+            if (window.innerWidth >= 1024) {
+                return 32; // 8 columns × 4 rows
+            } else {
+                return 24; // 3 columns × 8 rows
+            }
+        };
+
+        const limit = getVisibleLimit();
+
+        // Only add show more button if there are more badges than the limit
+        if (badges.length > limit) {
+            // Hide badges beyond the limit
+            badges.forEach((badge, index) => {
+                if (index >= limit) {
+                    badge.classList.add('hidden');
+                }
+            });
+
+            // Create show more button
+            const showMoreBtn = document.createElement('button');
+            showMoreBtn.className = 'show-more-conversions-btn';
+            showMoreBtn.textContent = '+';
+            showMoreBtn.setAttribute('aria-label', 'Show more conversions');
+
+            // Insert button after the badge container
+            badgeContainer.insertAdjacentElement('afterend', showMoreBtn);
+
+            // Toggle hidden badges on button click
+            showMoreBtn.addEventListener('click', () => {
+                const isExpanded = showMoreBtn.classList.contains('expanded');
+
+                badges.forEach((badge, index) => {
+                    if (index >= limit) {
+                        if (isExpanded) {
+                            badge.classList.add('hidden');
+                        } else {
+                            badge.classList.remove('hidden');
+                        }
+                    }
+                });
+
+                showMoreBtn.classList.toggle('expanded');
+                showMoreBtn.textContent = isExpanded ? '+' : '×';
+            });
+        }
+    });
+}
+
+// Adsterra Banner 표시/숨김 함수
+function showAdBanner() {
+    const banner = document.getElementById('adsterra-banner-728x90');
+    if (banner) {
+        banner.style.display = 'flex';
+        console.log('Adsterra 배너 표시');
+    }
+}
+
+function hideAdBanner() {
+    const banner = document.getElementById('adsterra-banner-728x90');
+    if (banner) {
+        banner.style.display = 'none';
+        console.log('Adsterra 배너 숨김');
+    }
 }
 
 // DOM이 완전히 로드된 후 한 번만 초기화 실행

@@ -128,8 +128,8 @@ npm run dev          # 로컬 개발 서버 (http://localhost:3001)
 npm run test         # Jest 테스트 실행
 npm run lint         # ESLint 검사
 
-# EC2 서버에서 실행
-ssh -i /path/to/hqmx-ec2.pem ubuntu@23.22.45.186
+# EC2 서버에서 실행 (메인 서버: hqmx.net)
+ssh -i /path/to/hqmx-ec2.pem ubuntu@54.242.63.16
 cd ~/converter.hqmx/backend
 pm2 start src/index.js --name converter-api  # API 서버 시작
 pm2 logs converter-api                        # 로그 확인
@@ -216,7 +216,7 @@ pm2 restart converter-api                     # 재시작
 - **자동 정리**: 1시간마다 임시 파일 삭제
 
 ### Cloudflare 역할 명확화
-- **DNS 관리만**: 도메인 구입처 (converter.hqmx.net)
+- **DNS 관리**: 도메인 관리 (hqmx.net, converter.hqmx.net)
 - **CDN 캐싱**: 정적 파일만 (HTML, CSS, JS, 이미지)
 - **변환 파일**: 관여하지 않음 (EC2 → 사용자 직접 다운로드)
 - **Workers/Pages**: 사용하지 않음
@@ -461,37 +461,37 @@ chmod 400 /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem
 ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@23.22.45.186
 ```
 
-#### SCP 파일 전송
+#### SCP 파일 전송 (레거시 서버)
 ```bash
-# 로컬 -> 서버 파일 전송
+# 로컬 -> 레거시 서버 파일 전송
 scp -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem -r frontend/ ubuntu@23.22.45.186:~/
 
 # 서버 -> 로컬 파일 다운로드
 scp -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@23.22.45.186:~/backup.tar.gz ./
 ```
 
-#### 서버에서 Git 동기화
+#### 서버에서 Git 동기화 (메인 서버)
 ```bash
 # 서버에서 최신 코드 받기 (GitHub에서)
-ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@23.22.45.186 'cd ~/converter.hqmx && git pull origin main'
+ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@54.242.63.16 'cd ~/converter.hqmx && git pull origin main'
 
 # 서버에서 Git 상태 확인
-ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@23.22.45.186 'cd ~/converter.hqmx && git status'
+ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@54.242.63.16 'cd ~/converter.hqmx && git status'
 
 # 서버에서 원격 저장소 확인
-ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@23.22.45.186 'cd ~/converter.hqmx && git remote -v'
+ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@54.242.63.16 'cd ~/converter.hqmx && git remote -v'
 ```
 
-#### 서버 상태 확인
+#### 서버 상태 확인 (메인 서버)
 ```bash
 # 웹 서버 상태 확인
-curl -I https://converter.hqmx.net
+curl -I https://hqmx.net
 
 # 서버 포트 확인
-ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@23.22.45.186 'sudo netstat -tlnp'
+ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@54.242.63.16 'sudo netstat -tlnp'
 
 # 디스크 사용량 확인
-ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@23.22.45.186 'df -h'
+ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@54.242.63.16 'df -h'
 ```
 
 ## 배포
@@ -512,20 +512,20 @@ ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@23.22.45.1
 - **nginx root 경로**: `/var/www/html/`
 - **절대 복사하지 말 것**: `~/frontend/` (nginx가 보지 않는 위치)
 
-**올바른 배포 절차:**
+**올바른 배포 절차 (메인 서버 hqmx.net):**
 ```bash
 # 1. 로컬에서 /tmp로 복사
 scp -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem \
-  frontend/style.css frontend/index.html ubuntu@23.22.45.186:/tmp/
+  frontend/style.css frontend/index.html ubuntu@54.242.63.16:/tmp/
 
 # 2. 서버에서 nginx root로 이동 및 권한 설정
-ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@23.22.45.186 \
+ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@54.242.63.16 \
   'sudo cp /tmp/style.css /tmp/index.html /var/www/html/ && \
    sudo chown www-data:www-data /var/www/html/style.css /var/www/html/index.html && \
    sudo chmod 755 /var/www/html/style.css /var/www/html/index.html'
 
 # 3. nginx reload
-ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@23.22.45.186 \
+ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@54.242.63.16 \
   'sudo nginx -t && sudo systemctl reload nginx'
 ```
 
@@ -536,22 +536,22 @@ ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@23.22.45.1
 
 **nginx 설정 확인:**
 ```bash
-ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@23.22.45.186 \
+ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@54.242.63.16 \
   'sudo nginx -T 2>/dev/null | grep "root\|server_name"'
 ```
 
 ### 백엔드 API 배포 (100-200MB 대용량 파일용)
 ```bash
-# 백엔드 API 서버 시작/재시작
-ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@23.22.45.186 \
+# 백엔드 API 서버 시작/재시작 (메인 서버)
+ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@54.242.63.16 \
   'cd ~/converter.hqmx/backend && npm install && pm2 restart converter-api'
 
 # 또는 처음 시작
-ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@23.22.45.186 \
+ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@54.242.63.16 \
   'cd ~/converter.hqmx/backend && npm install && pm2 start src/index.js --name converter-api'
 
 # 백엔드 로그 확인
-ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@23.22.45.186 \
+ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@54.242.63.16 \
   'pm2 logs converter-api'
 ```
 
@@ -798,18 +798,18 @@ node generate-pages.js
 node generate-pages.js
 ```
 
-#### 4. 서버 배포
+#### 4. 서버 배포 (메인 서버 hqmx.net)
 ```bash
 # 로컬에서 페이지 생성 후 서버로 전송
 cd frontend/_scripts
 node generate-pages.js
 
-# EC2 서버로 배포
+# EC2 메인 서버로 배포
 scp -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem \
   /Users/wonjunjang/Documents/converter.hqmx/frontend/*.html \
-  ubuntu@23.22.45.186:/tmp/
+  ubuntu@54.242.63.16:/tmp/
 
-ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@23.22.45.186 \
+ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@54.242.63.16 \
   'sudo cp /tmp/*.html /var/www/html/ && \
    sudo chown www-data:www-data /var/www/html/*.html && \
    sudo chmod 755 /var/www/html/*.html && \

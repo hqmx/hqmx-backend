@@ -338,11 +338,22 @@ class ConverterEngine {
                     const outputType = this.getFileType(outputFormat);
 
                     if (outputType === 'image') {
-                        // 비디오를 이미지로 변환 (썸네일 추출)
-                        const imageBlob = await this.extractVideoThumbnail(videoElement, outputFormat, onProgress);
-                        resolve(imageBlob);
+                        // 비디오 → 이미지 변환
+                        if (outputFormat.toLowerCase() === 'gif') {
+                            // 비디오 → GIF 애니메이션 변환
+                            const gifBlob = await this.convertVideoToGif(videoElement, options, onProgress);
+                            resolve(gifBlob);
+                        } else {
+                            // 비디오 → 썸네일 이미지 (JPG, PNG 등)
+                            const imageBlob = await this.extractVideoThumbnail(videoElement, outputFormat, onProgress);
+                            resolve(imageBlob);
+                        }
+                    } else if (outputType === 'audio') {
+                        // 비디오 → 오디오 변환 (오디오 트랙 추출)
+                        const audioBlob = await this.extractAudioFromVideo(videoElement, outputFormat, options, onProgress);
+                        resolve(audioBlob);
                     } else if (outputType === 'video') {
-                        // 비디오를 다른 비디오 형식으로 변환 (MediaRecorder 사용)
+                        // 비디오 → 비디오 형식 변환 (MediaRecorder 사용)
                         const videoBlob = await this.convertVideoFormat(videoElement, outputFormat, options, onProgress);
                         resolve(videoBlob);
                     } else {
@@ -589,6 +600,205 @@ class ConverterEngine {
         }
 
         return new Blob([arrayBuffer], { type: 'audio/wav' });
+    }
+
+    /**
+     * 비디오에서 오디오 트랙 추출 (VIDEO → AUDIO 크로스 카테고리)
+     */
+    async extractAudioFromVideo(videoElement, outputFormat, options = {}, onProgress) {
+        onProgress?.(10, '오디오 트랙 추출 중...');
+
+        // AudioContext 생성
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
+        try {
+            // MediaElementSource로 비디오의 오디오 트랙 가져오기
+            const source = audioContext.createMediaElementSource(videoElement);
+            const destination = audioContext.createMediaStreamDestination();
+            source.connect(destination);
+
+            onProgress?.(30, '오디오 녹음 중...');
+
+            // MediaRecorder로 오디오 녹음
+            const mimeType = this.getAudioMimeTypeForRecording(outputFormat);
+            const mediaRecorder = new MediaRecorder(destination.stream, {
+                mimeType: mimeType,
+                audioBitsPerSecond: options.bitrate || 128000
+            });
+
+            const recordedChunks = [];
+
+            return new Promise((resolve, reject) => {
+                mediaRecorder.ondataavailable = (event) => {
+                    if (event.data.size > 0) {
+                        recordedChunks.push(event.data);
+                    }
+                };
+
+                mediaRecorder.onstop = () => {
+                    const blob = new Blob(recordedChunks, { type: mimeType });
+                    onProgress?.(100, '오디오 추출 완료!');
+                    audioContext.close();
+                    resolve(blob);
+                };
+
+                mediaRecorder.onerror = (error) => {
+                    audioContext.close();
+                    reject(error);
+                };
+
+                // 비디오 재생 시작
+                videoElement.currentTime = 0;
+                videoElement.muted = false;
+                mediaRecorder.start();
+
+                videoElement.onended = () => {
+                    mediaRecorder.stop();
+                };
+
+                videoElement.onplay = () => {
+                    const duration = videoElement.duration;
+                    const startTime = Date.now();
+
+                    const updateProgress = () => {
+                        if (videoElement.ended || videoElement.paused) return;
+
+                        const elapsed = (Date.now() - startTime) / 1000;
+                        const progress = Math.min((elapsed / duration) * 100, 99);
+                        onProgress?.(30 + progress * 0.6, `오디오 추출 중... ${Math.round(progress)}%`);
+
+                        if (!videoElement.ended) {
+                            requestAnimationFrame(updateProgress);
+                        }
+                    };
+
+                    updateProgress();
+                };
+
+                videoElement.play().catch(reject);
+            });
+
+        } catch (error) {
+            audioContext.close();
+            throw new Error('오디오 추출 실패: ' + error.message);
+        }
+    }
+
+    /**
+     * 비디오를 GIF 애니메이션으로 변환 (VIDEO → GIF 크로스 카테고리)
+     */
+    async convertVideoToGif(videoElement, options = {}, onProgress) {
+        onProgress?.(10, 'GIF 변환 준비 중...');
+
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+
+        // GIF 크기 설정 (기본값: 원본 크기의 50%)
+        const scale = options.scale || 0.5;
+        canvas.width = Math.round(videoElement.videoWidth * scale);
+        canvas.height = Math.round(videoElement.videoHeight * scale);
+
+        // GIF 프레임 수 설정 (기본값: 10fps, 최대 5초)
+        const fps = options.fps || 10;
+        const maxDuration = options.maxDuration || 5; // 초
+        const totalFrames = Math.min(Math.round(videoElement.duration * fps), fps * maxDuration);
+        const frameInterval = videoElement.duration / totalFrames;
+
+        onProgress?.(20, `GIF 프레임 추출 중... (0/${totalFrames})`);
+
+        const frames = [];
+
+        try {
+            // 각 프레임 추출
+            for (let i = 0; i < totalFrames; i++) {
+                videoElement.currentTime = i * frameInterval;
+
+                await new Promise((resolve) => {
+                    videoElement.onseeked = () => {
+                        ctx.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
+
+                        // Canvas를 이미지 데이터로 변환
+                        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                        frames.push(imageData);
+
+                        const progress = 20 + (i / totalFrames) * 60;
+                        onProgress?.(progress, `GIF 프레임 추출 중... (${i + 1}/${totalFrames})`);
+                        resolve();
+                    };
+                });
+            }
+
+            onProgress?.(80, 'GIF 인코딩 중...');
+
+            // GIF 인코딩 (gif.js 라이브러리 사용)
+            await this.loadGifJs();
+
+            const gif = new GIF({
+                workers: 2,
+                quality: options.quality || 10,
+                width: canvas.width,
+                height: canvas.height,
+                workerScript: 'https://cdn.jsdelivr.net/npm/gif.js@0.2.0/dist/gif.worker.js'
+            });
+
+            // 프레임 추가
+            frames.forEach((imageData) => {
+                // ImageData를 canvas에 그려서 추가
+                ctx.putImageData(imageData, 0, 0);
+                gif.addFrame(canvas, { copy: true, delay: 1000 / fps });
+            });
+
+            return new Promise((resolve, reject) => {
+                gif.on('finished', (blob) => {
+                    onProgress?.(100, 'GIF 생성 완료!');
+                    resolve(blob);
+                });
+
+                gif.on('error', reject);
+
+                gif.render();
+            });
+
+        } catch (error) {
+            throw new Error('GIF 변환 실패: ' + error.message);
+        }
+    }
+
+    /**
+     * gif.js 라이브러리 동적 로드
+     */
+    async loadGifJs() {
+        if (window.GIF) return;
+
+        return new Promise((resolve, reject) => {
+            const script = document.createElement('script');
+            script.src = 'https://cdn.jsdelivr.net/npm/gif.js@0.2.0/dist/gif.js';
+            script.onload = resolve;
+            script.onerror = () => reject(new Error('gif.js 로드 실패'));
+            document.head.appendChild(script);
+        });
+    }
+
+    /**
+     * 녹음용 오디오 MIME 타입 가져오기
+     */
+    getAudioMimeTypeForRecording(format) {
+        const mimeTypes = {
+            'webm': 'audio/webm',
+            'mp4': 'audio/mp4',
+            'ogg': 'audio/ogg',
+            'wav': 'audio/wav'
+        };
+
+        const mimeType = mimeTypes[format.toLowerCase()] || 'audio/webm';
+
+        // 브라우저 지원 확인
+        if (MediaRecorder.isTypeSupported(mimeType)) {
+            return mimeType;
+        }
+
+        // Fallback to webm
+        return 'audio/webm';
     }
 
     /**
