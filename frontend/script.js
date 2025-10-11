@@ -1507,7 +1507,7 @@ function initializeApp() {
             en: {
                 confirmClearAll: 'Are you sure you want to remove all files?',
                 uploadMainText: 'Drop files here or click to upload',
-                uploadSubText: 'Support for 300+ file formats • Max file size: 100MB',
+                uploadSubText: 'Support for 300+ file formats',
                 selectFiles: 'Select Files'
             }
         };
