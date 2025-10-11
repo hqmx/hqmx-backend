@@ -2489,6 +2489,46 @@ footer p {
     opacity: 0.9;
 }
 
+.footer-social {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.footer-twitter {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    padding: 8px;
+    border-radius: 50%;
+    background-color: var(--bg-secondary);
+    transition: all 0.3s ease;
+}
+
+.footer-twitter:hover {
+    transform: translateY(-3px);
+    background-color: var(--primary-color);
+}
+
+.footer-social-icon {
+    width: 20px;
+    height: 20px;
+    display: block;
+}
+
+/* 다크모드에서 아이콘 흰색으로 */
+body.dark-mode .footer-social-icon {
+    filter: brightness(0) invert(1);
+}
+
+/* 라이트모드에서 아이콘 어둡게 */
+body:not(.dark-mode) .footer-social-icon {
+    filter: brightness(0) invert(0.3);
+}
+
 /* Sitemap & Footer Mobile Responsive */
 @media (max-width: 768px) {
     .sitemap-content {
