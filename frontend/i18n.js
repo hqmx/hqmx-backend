@@ -328,10 +328,8 @@ class I18n {
 }
 
 // Initialize i18n when DOM is loaded
-let i18n;
-
 document.addEventListener('DOMContentLoaded', async () => {
-    i18n = new I18n();
+    window.i18n = new I18n();
 
     // Set up language change handlers
     const languageOptions = document.getElementById('language-options');
@@ -348,12 +346,12 @@ document.addEventListener('DOMContentLoaded', async () => {
                 }
 
                 // Update URL with new language (this will navigate)
-                i18n.updateURLWithLanguage(newLang);
+                window.i18n.updateURLWithLanguage(newLang);
 
                 // If updateURLWithLanguage didn't navigate (stayed on same page),
                 // change language without reload
                 if (window.location.pathname === window.location.pathname) {
-                    await i18n.changeLanguage(newLang);
+                    await window.i18n.changeLanguage(newLang);
                 }
             }
         });
@@ -362,7 +360,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 // Global translation function
 function t(key, params = {}) {
-    return i18n ? i18n.t(key, params) : key;
+    return window.i18n ? window.i18n.t(key, params) : key;
 }
 
 // Export for use in other scripts
