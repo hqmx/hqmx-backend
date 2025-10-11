@@ -12,7 +12,7 @@ YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
 PEM_FILE="/Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem"
-SERVER="ubuntu@23.22.45.186"
+SERVER="ubuntu@54.242.63.16"
 NGINX_ROOT="/var/www/html"
 
 echo -e "${YELLOW}========================================${NC}"
@@ -35,22 +35,43 @@ scp -i "$PEM_FILE" \
     frontend/script.js \
     frontend/converter-engine.js \
     frontend/i18n.js \
+    frontend/url-router.js \
+    frontend/feature-flags.js \
     "$SERVER:/tmp/"
+
+# locales 디렉토리 복사
+scp -i "$PEM_FILE" -r frontend/locales "$SERVER:/tmp/"
+
+# assets 디렉토리 복사
+scp -i "$PEM_FILE" -r frontend/assets "$SERVER:/tmp/"
 
 echo -e "${GREEN}✅ 파일 복사 완료${NC}"
 
 # 2. 서버에서 nginx root로 이동 및 권한 설정
 echo -e "\n${YELLOW}📁 파일을 $NGINX_ROOT 로 이동 및 권한 설정 중...${NC}"
 ssh -i "$PEM_FILE" "$SERVER" << 'EOF'
-    # nginx root로 복사
-    sudo cp /tmp/style.css /tmp/index.html /tmp/script.js /tmp/converter-engine.js /tmp/i18n.js /var/www/html/
+    # nginx root로 복사 (개별 파일)
+    sudo cp /tmp/style.css /tmp/index.html /tmp/script.js /tmp/converter-engine.js /tmp/i18n.js /tmp/url-router.js /tmp/feature-flags.js /var/www/html/
 
-    # 권한 설정
-    sudo chown www-data:www-data /var/www/html/style.css /var/www/html/index.html /var/www/html/script.js /var/www/html/converter-engine.js /var/www/html/i18n.js
-    sudo chmod 755 /var/www/html/style.css /var/www/html/index.html /var/www/html/script.js /var/www/html/converter-engine.js /var/www/html/i18n.js
+    # locales 디렉토리 복사
+    sudo rm -rf /var/www/html/locales
+    sudo cp -r /tmp/locales /var/www/html/
+
+    # assets 디렉토리 복사
+    sudo rm -rf /var/www/html/assets
+    sudo cp -r /tmp/assets /var/www/html/
+
+    # 권한 설정 (개별 파일)
+    sudo chown www-data:www-data /var/www/html/style.css /var/www/html/index.html /var/www/html/script.js /var/www/html/converter-engine.js /var/www/html/i18n.js /var/www/html/url-router.js /var/www/html/feature-flags.js
+    sudo chmod 755 /var/www/html/style.css /var/www/html/index.html /var/www/html/script.js /var/www/html/converter-engine.js /var/www/html/i18n.js /var/www/html/url-router.js /var/www/html/feature-flags.js
+
+    # 디렉토리 권한 설정
+    sudo chown -R www-data:www-data /var/www/html/locales /var/www/html/assets
+    sudo chmod -R 755 /var/www/html/locales /var/www/html/assets
 
     # /tmp 정리
-    rm /tmp/style.css /tmp/index.html /tmp/script.js /tmp/converter-engine.js /tmp/i18n.js
+    rm /tmp/style.css /tmp/index.html /tmp/script.js /tmp/converter-engine.js /tmp/i18n.js /tmp/url-router.js /tmp/feature-flags.js
+    rm -rf /tmp/locales /tmp/assets
 EOF
 
 echo -e "${GREEN}✅ 파일 이동 및 권한 설정 완료${NC}"
