@@ -20,17 +20,11 @@ HQMX Converter는 100% 클라이언트 사이드에서 작동하는 파일 변�
 
 ## 웹사이트 주소
 - **메인**: https://hqmx.net
-- **서브**: https://converter.hqmx.net (legacy)
 
 ## 서버 정보
 ### hqmx.net (메인 서버)
 - **IP**: 54.242.63.16
 - **Git**: https://github.com/hqmx/hqmx-backend
-- **PEM 파일**: `/Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem`
-
-### converter.hqmx.net (레거시 서버)
-- **IP**: 23.22.45.186
-- **Git**: https://github.com/hqmx/converter-backend.git (legacy)
 - **PEM 파일**: `/Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem`
 
 ## 광고 수익화 (Monetization)
@@ -216,7 +210,7 @@ pm2 restart converter-api                     # 재시작
 - **자동 정리**: 1시간마다 임시 파일 삭제
 
 ### Cloudflare 역할 명확화
-- **DNS 관리**: 도메인 관리 (hqmx.net, converter.hqmx.net)
+- **DNS 관리**: 도메인 관리 (hqmx.net)
 - **CDN 캐싱**: 정적 파일만 (HTML, CSS, JS, 이미지)
 - **변환 파일**: 관여하지 않음 (EC2 → 사용자 직접 다운로드)
 - **Workers/Pages**: 사용하지 않음
@@ -377,8 +371,7 @@ pm2 restart converter-api                     # 재시작
 ## Git 및 버전 관리
 
 ### Git 기본 정보
-- **현재 저장소**: https://github.com/hqmx/hqmx-backend (hqmx.net 서버용)
-- **레거시 저장소**: https://github.com/hqmx/converter-backend.git (converter.hqmx.net 서버용)
+- **현재 저장소**: https://github.com/hqmx/hqmx-backend
 - **메인 브랜치**: main
 - **커밋 메시지**: 한글로 작성
 - **현재 상태**: Modified files in git status로 확인
@@ -434,7 +427,7 @@ git config --global core.quotepath false
 
 ## 서버 관리
 
-### hqmx.net 서버 (메인)
+### hqmx.net 서버
 - **도메인**: https://hqmx.net
 - **IP**: 54.242.63.16
 - **Git**: https://github.com/hqmx/hqmx-backend
@@ -449,28 +442,16 @@ ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@54.242.63.
 chmod 400 /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem
 ```
 
-### converter.hqmx.net 서버 (레거시)
-- **도메인**: https://converter.hqmx.net
-- **IP**: 23.22.45.186
-- **Git**: https://github.com/hqmx/converter-backend.git
-- **PEM 파일**: `/Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem`
-
-#### SSH 연결
+#### SCP 파일 전송
 ```bash
-# SSH 연결
-ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@23.22.45.186
-```
-
-#### SCP 파일 전송 (레거시 서버)
-```bash
-# 로컬 -> 레거시 서버 파일 전송
-scp -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem -r frontend/ ubuntu@23.22.45.186:~/
+# 로컬 -> 서버 파일 전송
+scp -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem -r frontend/ ubuntu@54.242.63.16:~/
 
 # 서버 -> 로컬 파일 다운로드
-scp -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@23.22.45.186:~/backup.tar.gz ./
+scp -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@54.242.63.16:~/backup.tar.gz ./
 ```
 
-#### 서버에서 Git 동기화 (메인 서버)
+#### 서버에서 Git 동기화
 ```bash
 # 서버에서 최신 코드 받기 (GitHub에서)
 ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@54.242.63.16 'cd ~/converter.hqmx && git pull origin main'
@@ -482,7 +463,7 @@ ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@54.242.63.
 ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@54.242.63.16 'cd ~/converter.hqmx && git remote -v'
 ```
 
-#### 서버 상태 확인 (메인 서버)
+#### 서버 상태 확인
 ```bash
 # 웹 서버 상태 확인
 curl -I https://hqmx.net
@@ -512,7 +493,7 @@ ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@54.242.63.
 - **nginx root 경로**: `/var/www/html/`
 - **절대 복사하지 말 것**: `~/frontend/` (nginx가 보지 않는 위치)
 
-**올바른 배포 절차 (메인 서버 hqmx.net):**
+**올바른 배포 절차:**
 ```bash
 # 1. 로컬에서 /tmp로 복사
 scp -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem \
@@ -542,7 +523,7 @@ ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@54.242.63.
 
 ### 백엔드 API 배포 (100-200MB 대용량 파일용)
 ```bash
-# 백엔드 API 서버 시작/재시작 (메인 서버)
+# 백엔드 API 서버 시작/재시작
 ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@54.242.63.16 \
   'cd ~/converter.hqmx/backend && npm install && pm2 restart converter-api'
 
@@ -798,13 +779,13 @@ node generate-pages.js
 node generate-pages.js
 ```
 
-#### 4. 서버 배포 (메인 서버 hqmx.net)
+#### 4. 서버 배포
 ```bash
 # 로컬에서 페이지 생성 후 서버로 전송
 cd frontend/_scripts
 node generate-pages.js
 
-# EC2 메인 서버로 배포
+# EC2 서버로 배포
 scp -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem \
   /Users/wonjunjang/Documents/converter.hqmx/frontend/*.html \
   ubuntu@54.242.63.16:/tmp/
