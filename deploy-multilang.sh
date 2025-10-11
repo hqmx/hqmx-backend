@@ -19,10 +19,10 @@ for LANG in "${LANGUAGES[@]}"; do
     echo "📦 배포 중: $LANG"
 
     # 임시 디렉토리로 복사
-    scp -i "$PEM_FILE" -r "$FRONTEND_DIR/$LANG/" "ubuntu@$EC2_IP:/tmp/$LANG/" 2>&1 | grep -v "Offending" || true
+    scp -i "$PEM_FILE" -r "$FRONTEND_DIR/$LANG" "ubuntu@$EC2_IP:/tmp/" 2>&1 | grep -v "Offending" || true
 
     # 서버에서 /var/www/html로 이동 및 권한 설정
-    ssh -i "$PEM_FILE" "ubuntu@$EC2_IP" "sudo cp -r /tmp/$LANG /var/www/html/ && sudo chown -R www-data:www-data /var/www/html/$LANG && sudo chmod -R 755 /var/www/html/$LANG"
+    ssh -i "$PEM_FILE" "ubuntu@$EC2_IP" "sudo rm -rf /var/www/html/$LANG && sudo cp -r /tmp/$LANG /var/www/html/ && sudo chown -R www-data:www-data /var/www/html/$LANG && sudo chmod -R 755 /var/www/html/$LANG && rm -rf /tmp/$LANG"
 
     echo "✅ 완료: $LANG"
 done
