@@ -296,13 +296,8 @@ function initializeApp() {
                     formatGroup.classList.add('expanded');
                     btn.classList.add('expanded');
 
-                    // 부드러운 스크롤 애니메이션
-                    setTimeout(() => {
-                        extendedFormats.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'nearest'
-                        });
-                    }, 100);
+                    // scrollIntoView 제거 - 브라우저 먹통 방지
+                    // 사용자가 필요시 직접 스크롤 가능
                 }
             }
         });

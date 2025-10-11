@@ -1912,19 +1912,16 @@ body[data-theme="dark"] .supported-format-badge.archive {
 /* Extended Format Badges */
 .supported-format-badges-extended,
 .format-badges-extended {
-    display: none;
+    display: none; /* 기본적으로 숨김 */
     grid-template-columns: repeat(2, 1fr); /* 기본 모바일 2열 */
     gap: 0.5rem;
     margin-top: 0.75rem;
     padding-top: 0.75rem;
     border-top: 1px solid var(--border-color);
-    max-height: 0;
-    overflow: hidden;
-    transition: all 0.3s ease;
-    opacity: 0;
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
+    /* transition, max-height, overflow, opacity 모두 제거 - 즉시 표시 */
 }
 
 /* 820px 이상에서 확장 뱃지도 3열 */
@@ -1944,10 +1941,7 @@ body[data-theme="dark"] .supported-format-badge.archive {
 }
 
 .format-group.expanded .format-badges-extended {
-    display: grid !important;
-    opacity: 1;
-    max-height: 1000px;
-    animation: slideDown 0.3s ease;
+    display: grid !important; /* 확장 시 즉시 grid 표시 */
 }
 
 @keyframes slideDown {
@@ -1963,15 +1957,15 @@ body[data-theme="dark"] .supported-format-badge.archive {
 
 /* Format Group Hover Effect */
 .format-group {
-    transition: all 0.3s ease;
     padding: 1.5rem;
     border-radius: 12px;
     background: var(--card-background);
     border: 1px solid transparent;
-    overflow: hidden;
+    overflow: visible; /* hidden → visible로 변경 */
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
+    /* transition 제거 - 브라우저 깨짐 방지 */
 }
 
 body[data-theme="dark"] .format-group {
@@ -1981,7 +1975,7 @@ body[data-theme="dark"] .format-group {
 
 .format-group:hover {
     border-color: var(--border-color);
-    transform: translateY(-2px);
+    /* transform 제거 - 성능 최적화 */
     box-shadow: var(--shadow);
 }
 

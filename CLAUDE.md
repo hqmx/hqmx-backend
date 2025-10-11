@@ -94,22 +94,38 @@ HQMX Converter는 100% 클라이언트 사이드에서 작동하는 파일 변�
 
 ### 메인 프론트엔드 (frontend 디렉토리) ✅ 사용
 ```bash
-# 개발 서버 실행 (두 가지 방법)
+# 개발 서버 실행 (권장)
 cd frontend
 python3 -m http.server 3000  # http://localhost:3000에서 개발 서버 시작
 
 # 또는 프로젝트 루트에서
-npm run dev                   # package.json 스크립트 사용
+npm run dev                   # package.json 스크립트 사용 (python3 서버 실행)
 ```
-- **특징**: 순수 HTML/JS/CSS, 의존성 없음, 바로 실행 가능
-- **변환 엔진**: `CLIENT_SIDE_MODE = true` - 브라우저에서 직접 변환
-- **다국어**: i18n.js로 다국어 지원
-- **완성된 UI**: 드래그&드롭, 진행률, 테마 등 모든 기능 구현
+
+**기술 스택**:
+- **순수 HTML/JS/CSS**: Vite, React 등 빌드 도구 사용 안 함
+- **의존성 없음**: npm install 불필요, 바로 실행 가능
+- **변환 엔진**: FFmpeg.wasm (CDN), 브라우저 Canvas API
+- **다국어**: i18n.js + locales/*.json (21개 언어)
+- **특징**: 100% 클라이언트 사이드, 서버 업로드 없음
+
+### 페이지 생성 및 배포 명령어
+```bash
+# 변환 페이지 생성 (jpg-to-png.html 등) - 선택사항
+cd frontend/_scripts
+node generate-pages.js
+
+# EC2 배포 (정적 파일 업로드)
+cd ../..
+./deploy-to-ec2.sh
+```
+
+**참고**: 다국어는 nginx rewrite + i18n.js로 자동 처리되므로, 별도 페이지 생성 불필요
 
 ### 프로젝트 레벨 명령어 (package.json)
 ```bash
-npm run dev          # 프론트엔드 개발 서버 시작
-npm run build        # 빌드 완료 메시지 출력
+npm run dev          # 프론트엔드 개발 서버 시작 (python3)
+npm run build        # 빌드 완료 메시지 출력 (빌드 불필요)
 npm run lint         # JavaScript/CSS 린팅
 npm run test         # 테스트 실행
 ```
@@ -137,27 +153,92 @@ pm2 restart converter-api                     # 재시작
 
 ## 아키텍처 개요
 
-### 메인 프론트엔드 (`/frontend`) ✅ 완성된 앱
-- **아키텍처**: 순수 HTML/JS/CSS + WebAssembly 변환
-- **기술 스택**: 순수 JavaScript, FFmpeg.wasm (CDN), 브라우저 네이티브 API
-- **변환 엔진**:
-  - FFmpeg.wasm: 비디오/오디오 변환 (CDN에서 로드)
-  - Canvas API: 이미지 변환
-  - 변환 엔진 자동 선택: converter-engine.js
-- **주요 기능**:
-  - 실시간 진행률 추적
-  - 배치 변환 지원
-  - 다국어 지원 (i18n.js)
-  - 다크/라이트 테마
-  - 드래그&드롭 업로드
-  - 300+ 파일 형식 지원
+### 하이브리드 변환 시스템
 
-### 백엔드 (EC2 기반) - 대용량 파일용 ⚠️
-- **플랫폼**: AWS EC2 (t3.small spot instance)
-- **웹 서버**: nginx (정적 파일 서빙)
-- **변환 API**: Node.js/Python FFmpeg
-- **용도**: 100-200MB 대용량 파일 서버 변환 (전체 트래픽의 5%)
-- **상태**: 개발 중 (클라이언트 사이드 우선 정책)
+**핵심 원칙**: 클라이언트 우선 (95%) + 서버 백업 (5%)
+
+```
+사용자 파일
+    ↓
+[파일 크기 감지]
+    ↓
+├─ 0-100MB (95%)
+│   └→ 브라우저 변환 (FFmpeg.wasm/Canvas API)
+│      - 비용: $0 (무료)
+│      - 속도: 사용자 CPU 의존
+│      - 프라이버시: 완벽 (서버 전송 없음)
+│
+└─ 100MB-2.5GB (5%)
+    └→ EC2 서버 변환 (nginx + FFmpeg)
+       - 비용: $0.01/변환
+       - 속도: 빠름 (서버 CPU)
+       - 처리: 스트리밍 방식
+```
+
+### 메인 프론트엔드 (`/frontend`) ✅ 완성된 앱
+
+**아키텍처**: 순수 HTML/JS/CSS + WebAssembly
+
+**핵심 파일**:
+- `script.js` (5000+ 라인): 상태 관리, UI 제어, 이벤트 처리
+- `converter-engine.js`: FFmpeg.wasm 래핑, 진행률 파싱
+- `i18n.js`: 21개 언어 지원, 동적 번역
+- `feature-flags.js`: 기능 토글 시스템
+
+**변환 엔진**:
+1. **FFmpeg.wasm**: 비디오/오디오 변환
+   - CDN 로드 (지연 로딩)
+   - SharedArrayBuffer 멀티스레드
+   - 실시간 진행률 파싱
+
+2. **Canvas API**: 이미지 변환
+   - 브라우저 네이티브 API
+   - JPG/PNG/WebP 변환
+   - 품질/크기 조절
+
+3. **자동 라우팅**: converter-engine.js
+   - 형식별 엔진 자동 선택
+   - 에러 처리 및 폴백
+
+**주요 기능**:
+- ✅ 실시간 진행률 추적
+- ✅ 배치 변환 (여러 파일 동시)
+- ✅ 21개 언어 지원
+- ✅ 다크/라이트 테마
+- ✅ 드래그&드롭 업로드
+- ✅ 300+ 파일 형식
+- ✅ SEO 최적화 (개별 변환 페이지)
+
+### 백엔드 (EC2 기반) - 대용량 파일 전용 ⚠️
+
+**플랫폼**: AWS EC2 (t3.small spot instance)
+
+**구성**:
+- **nginx**: 정적 파일 서빙 + 리버스 프록시
+- **FFmpeg**: 서버 사이드 변환
+- **pm2**: Node.js API 프로세스 관리
+
+**역할**:
+- 100-2500MB 대용량 파일 변환 (전체 트래픽의 5%)
+- 스트리밍 방식 처리 (메모리 효율)
+- 1시간 임시 파일 자동 삭제
+
+**제한사항**:
+- 2.5GB 하드 제한 (nginx body size)
+- 동시 변환 1-2개 (메모리 제약)
+
+### SEO 및 다국어 시스템
+
+**변환 페이지 SEO** (generate-pages.js):
+- `/jpg-to-png.html`, `/mp4-to-avi.html` 등 개별 페이지
+- 템플릿 기반 자동 생성 (conversions.json)
+- Open Graph, Twitter Card 메타 태그
+
+**다국어 SEO** (nginx + i18n.js):
+- nginx URL rewrite: `/es/` → `/index.html?lang=es`
+- i18n.js 동적 번역 로딩: `/locales/es.json`
+- SEO 완벽 지원: 각 언어 URL이 별도 페이지로 인식
+- hreflang 태그: `index.html`에 이미 설정됨
 
 ## 주요 기능
 
@@ -563,13 +644,66 @@ ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@54.242.63.
 3. 필요시 이미지 처리 로직을 script.js에 추가
 
 ### 번역 추가
-1. `frontend/locales/` 디렉토리에 새 언어 JSON 파일 생성
-2. `frontend/i18n.js`의 언어 목록에 추가
-3. HTML 요소에 `data-i18n-key` 속성 사용
+1. `frontend/locales/` 디렉토리에 새 언어 JSON 파일 생성 (예: `vi.json`)
+2. `frontend/i18n.js`의 `supportedLangs` 배열에 언어 코드 추가
+3. nginx 설정에 언어 코드 추가 (`/etc/nginx/sites-available/hqmx.net`)
+4. HTML 요소에 `data-i18n-key` 속성 사용하여 번역 가능하게 마크업
+
+**참고**: 물리적 언어별 페이지 생성은 불필요합니다. nginx rewrite가 자동 처리합니다.
 
 ### 스타일 수정
 - `frontend/style.css`에서 테마 및 UI 스타일 수정
 - CSS 변수를 활용한 테마 커스터마이징
+
+## 핵심 파일 구조
+
+### 프론트엔드 주요 파일
+```
+frontend/
+├── index.html              # 메인 페이지 (단 하나!)
+├── script.js               # 메인 애플리케이션 로직 (5000+ 라인)
+├── converter-engine.js     # FFmpeg.wasm 변환 엔진
+├── i18n.js                 # 다국어 동적 로딩 시스템
+├── feature-flags.js        # 기능 플래그 설정
+├── style.css               # 스타일링 및 테마
+├── locales/                # 다국어 번역 파일 (21개 언어)
+│   ├── en.json
+│   ├── es.json
+│   ├── ko.json
+│   └── ... (총 21개)
+├── assets/                 # 정적 파일 (아이콘, 이미지)
+├── _scripts/               # 빌드 스크립트
+│   ├── generate-pages.js       # 변환 페이지 생성
+│   └── generate-sitemap.js     # sitemap.xml 생성
+├── _templates/             # 페이지 템플릿
+│   └── conversion-page.html    # 변환 페이지 템플릿
+└── (생성된 변환 페이지들)
+    ├── jpg-to-png.html
+    ├── mp4-to-avi.html
+    └── ...
+```
+
+### Feature Flags 시스템 (feature-flags.js)
+
+**목적**: 기능 단위 활성화/비활성화 제어
+
+**사용 방법**:
+```javascript
+// feature-flags.js
+window.FEATURES = {
+    SOCIAL_MEDIA: false  // Social Media 카테고리 비활성화
+};
+
+// script.js에서 자동 감지 및 적용
+if (window.FEATURES && !window.FEATURES.SOCIAL_MEDIA) {
+    // Social Media 관련 UI/기능 자동 숨김
+    delete FORMATS.social;
+    document.getElementById('socialCategoryBtn').style.display = 'none';
+}
+```
+
+**지원 플래그**:
+- `SOCIAL_MEDIA`: 소셜 미디어 다운로드 기능 (현재 비활성화)
 
 ## 중요 참고사항
 
@@ -681,28 +815,124 @@ console.log('Active conversions:', window.converterState?.conversions);
 - 브라우저 탭 새로고침 (메모리 정리)
 - 다른 탭 닫기 (메모리 확보)
 
-## SEO 최적화 개별 변환 페이지 시스템
+## SEO 최적화 시스템
 
-### 개요
-- **목적**: `/jpg-to-png`, `/png-to-jpg` 등 100+ 개별 SEO 페이지 자동 생성 및 관리
-- **방식**: 템플릿 기반 빌드 스크립트로 일괄 생성
-- **장점**: `index.html` 수정 → 템플릿 업데이트 → 스크립트 실행 → 모든 페이지 자동 업데이트
+### 개별 변환 페이지 시스템 (generate-pages.js)
 
-### 파일 구조
+**목적**: `/jpg-to-png.html`, `/mp4-to-avi.html` 등 100+ 개별 SEO 페이지 자동 생성
+
+**파일 구조**:
 ```
 frontend/
 ├── _templates/
 │   └── conversion-page.html      # 마스터 템플릿 (플레이스홀더 포함)
 ├── _scripts/
-│   ├── generate-pages.js         # Node.js 빌드 스크립트
+│   ├── generate-pages.js         # 변환 페이지 빌드 스크립트
 │   ├── conversions.json          # 변환 조합 목록 (10개 → 100개 확장 예정)
 │   └── format-metadata.json      # 형식별 상세 정보 (extensions, mimeType 등)
 └── (생성된 HTML 파일들)
     ├── jpg-to-png.html
     ├── png-to-jpg.html
-    ├── webp-to-jpg.html
     └── ... (총 10개, 확장 가능)
 ```
+
+**사용 명령어**:
+```bash
+cd frontend/_scripts
+node generate-pages.js
+```
+
+## 다국어 시스템 (nginx + i18n.js)
+
+### 아키텍처: 동적 로딩 방식 (파일 중복 없음)
+
+**핵심 원리**: 단 하나의 `index.html` + nginx URL rewrite + 동적 번역 로딩
+
+```
+사용자 요청: /es/
+    ↓
+nginx rewrite: /index.html?lang=es
+    ↓
+i18n.js: URL에서 ?lang=es 감지
+    ↓
+/locales/es.json 동적 로드
+    ↓
+페이지 번역 적용 (DOM 조작)
+```
+
+### nginx 설정 (이미 적용됨)
+
+```nginx
+# 언어코드만 있는 경우 (홈페이지)
+location ~ ^/(en|de|es|fr|ko|ja|...)/?$ {
+    rewrite ^/([^/]+)/?$ /index.html?lang=$1 last;
+}
+
+# 언어 + 변환 경로
+location ~ ^/(en|de|es|fr|ko|ja|...)/([a-z0-9]+)-to-([a-z0-9]+)/?$ {
+    rewrite ^/([^/]+)/([^/]+)-to-([^/]+)/?$ /index.html?lang=$1&from=$2&to=$3 last;
+}
+```
+
+### i18n.js 동적 로딩
+
+```javascript
+// 1. URL에서 언어 감지
+getLanguageFromURL() {
+    const params = new URLSearchParams(window.location.search);
+    if (params.has('lang')) {
+        return params.get('lang');  // ?lang=es
+    }
+    // pathname에서도 파싱 가능 (/es/)
+}
+
+// 2. 번역 파일 동적 로드
+async loadTranslations(lang) {
+    const response = await fetch(`/locales/${lang}.json`);
+    this.translations = await response.json();
+}
+
+// 3. DOM에 번역 적용
+applyTranslations() {
+    document.querySelectorAll('[data-i18n-key]').forEach(el => {
+        const key = el.getAttribute('data-i18n-key');
+        el.textContent = this.translations[key];
+    });
+}
+```
+
+### 파일 구조 (간결함!)
+
+```
+frontend/
+├── index.html              # 단 하나의 메인 페이지
+├── i18n.js                 # 다국어 동적 로딩 시스템
+└── locales/                # 번역 파일만 (21개)
+    ├── en.json
+    ├── es.json
+    ├── ko.json
+    └── ... (총 21개)
+```
+
+**이점**:
+- ✅ **파일 중복 제거**: 21개 `index.html` → 1개 `index.html`
+- ✅ **유지보수 간편**: 수정 시 한 곳만 변경
+- ✅ **Git 히스토리 깔끔**: 불필요한 커밋 없음
+- ✅ **배포 속도 향상**: 업로드할 파일 최소화
+- ✅ **SEO 완벽 지원**: nginx가 각 언어 URL을 별도 페이지로 인식
+
+### 지원 언어 (21개)
+
+```
+en, ko, ja, de, es, fr, zh-CN, zh-TW, pt, it, ru, ar,
+hi, id, th, vi, tr, my, ms, bn, fil
+```
+
+**URL 예시**:
+- `https://hqmx.net/` → 브라우저 언어 자동 감지
+- `https://hqmx.net/es/` → 스페인어
+- `https://hqmx.net/ko/` → 한국어
+- `https://hqmx.net/ja/jpg-to-png` → 일본어 + 변환 페이지
 
 ### 플레이스홀더 규칙
 템플릿에서 사용되는 플레이스홀더와 치환 예시:
