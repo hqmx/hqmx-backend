@@ -352,6 +352,11 @@ function initializeApp() {
             const category = btn.dataset.category;
             const isExpanded = sitemapExpandBtn && sitemapExpandBtn.classList.contains('expanded');
 
+            // +버튼이 아직 펼쳐지지 않았으면 자동으로 펼치기
+            if (!isExpanded && sitemapExpandBtn) {
+                sitemapExpandBtn.click();
+            }
+
             // 모든 카테고리 아이콘 버튼에서 active 제거
             categoryIconBtns.forEach(b => b.classList.remove('active'));
             // 클릭한 버튼에 active 추가
@@ -369,10 +374,8 @@ function initializeApp() {
             if (targetCategory) {
                 targetCategory.classList.add('active');
 
-                // + 버튼이 expanded 상태면 배지 표시
-                if (isExpanded) {
-                    targetCategory.classList.add('show-badges');
-                }
+                // +버튼이 펼쳐진 상태이므로 배지 표시
+                targetCategory.classList.add('show-badges');
             }
         });
     });
