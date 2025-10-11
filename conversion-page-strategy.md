@@ -1,7 +1,7 @@
 # 개별 변환 페이지 구축 전략
 
 **작성일**: 2025-10-08
-**프로젝트**: converter.hqmx.net
+**프로젝트**: hqmx.net
 **목표**: SEO 최적화된 개별 변환 페이지 100+ 구축
 
 ---
@@ -9,7 +9,7 @@
 ## 📋 전략 개요
 
 ### 핵심 목표
-- `converter.hqmx.net/jpg-to-png` 형태의 개별 URL 생성
+- `hqmx.net/jpg-to-png` 형태의 개별 URL 생성
 - Top 100+ 변환 페이지 자동 생성 (검색량 기준)
 - 완벽한 SEO 최적화로 검색 트래픽 극대화
 - 100% 무료 서비스 + 팝언더 광고 수익화
@@ -38,7 +38,7 @@
 
 **URL 패턴 규칙:**
 ```
-converter.hqmx.net/{source}-to-{target}
+hqmx.net/{source}-to-{target}
 
 예시:
 - /jpg-to-png
@@ -162,8 +162,8 @@ python3 scripts/sitemap-generator.py
 <!-- Open Graph -->
 <meta property="og:title" content="Convert JPG to PNG - Free Online Converter">
 <meta property="og:description" content="Convert JPG to PNG online for free with high quality results.">
-<meta property="og:url" content="https://converter.hqmx.net/jpg-to-png">
-<meta property="og:image" content="https://converter.hqmx.net/assets/og-jpg-to-png.jpg">
+<meta property="og:url" content="https://hqmx.net/jpg-to-png">
+<meta property="og:image" content="https://hqmx.net/assets/og-jpg-to-png.jpg">
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
@@ -199,13 +199,13 @@ python3 scripts/sitemap-generator.py
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://converter.hqmx.net/jpg-to-png</loc>
+    <loc>https://hqmx.net/jpg-to-png</loc>
     <lastmod>2025-10-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://converter.hqmx.net/pdf-to-word</loc>
+    <loc>https://hqmx.net/pdf-to-word</loc>
     <lastmod>2025-10-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
@@ -374,7 +374,7 @@ const qualityWarnings = {
 웹서버: nginx
 프로세스_관리: PM2 (서버 변환용)
 CDN: CloudFlare (무료)
-도메인: converter.hqmx.net
+도메인: hqmx.net
 SSL: Let's Encrypt (무료)
 ```
 

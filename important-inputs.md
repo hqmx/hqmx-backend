@@ -8,8 +8,8 @@
 
 ### 도메인 및 서버 정보
 ```
-[ ] 도메인: converter.hqmx.net (확인됨)
-[ ] EC2 IP 주소: 23.22.45.186 (확인됨)
+[ ] 도메인: hqmx.net (확인됨)
+[ ] EC2 IP 주소: 54.242.63.16 (확인됨)
 [ ] EC2 인스턴스 타입: ____________
 [ ] 현재 월 EC2 비용: $____________
 [ ] PEM 키 파일 경로: /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem (확인됨)

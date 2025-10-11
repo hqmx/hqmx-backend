@@ -73,14 +73,14 @@ http {
 }
 ```
 
-### 사이트 설정 (/etc/nginx/sites-available/converter.hqmx.net)
+### 사이트 설정 (/etc/nginx/sites-available/hqmx.net)
 
 ```nginx
 # HTTP → HTTPS 리디렉션
 server {
     listen 80;
     listen [::]:80;
-    server_name converter.hqmx.net;
+    server_name hqmx.net;
 
     # Let's Encrypt ACME challenge
     location /.well-known/acme-challenge/ {
@@ -97,11 +97,11 @@ server {
 server {
     listen 443 ssl http2;
     listen [::]:443 ssl http2;
-    server_name converter.hqmx.net;
+    server_name hqmx.net;
 
     # SSL 인증서 (Let's Encrypt)
-    ssl_certificate /etc/letsencrypt/live/converter.hqmx.net/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/converter.hqmx.net/privkey.pem;
+    ssl_certificate /etc/letsencrypt/live/hqmx.net/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/hqmx.net/privkey.pem;
 
     # SSL 설정 (Mozilla Intermediate 권장)
     ssl_protocols TLSv1.2 TLSv1.3;
@@ -130,7 +130,7 @@ server {
         try_files $uri $uri/ /index.html;
 
         # CORS 헤더 (API만 필요하지만 전역 설정)
-        add_header Access-Control-Allow-Origin "https://converter.hqmx.net" always;
+        add_header Access-Control-Allow-Origin "https://hqmx.net" always;
         add_header Access-Control-Allow-Methods "GET, POST, DELETE, OPTIONS" always;
         add_header Access-Control-Allow-Headers "Content-Type, Authorization" always;
     }
@@ -158,14 +158,14 @@ server {
         chunked_transfer_encoding off;
 
         # CORS 헤더
-        add_header Access-Control-Allow-Origin "https://converter.hqmx.net" always;
+        add_header Access-Control-Allow-Origin "https://hqmx.net" always;
         add_header Access-Control-Allow-Methods "GET, POST, DELETE, OPTIONS" always;
         add_header Access-Control-Allow-Headers "Content-Type, Authorization" always;
         add_header Access-Control-Allow-Credentials "true" always;
 
         # OPTIONS 요청 처리 (preflight)
         if ($request_method = 'OPTIONS') {
-            add_header Access-Control-Allow-Origin "https://converter.hqmx.net";
+            add_header Access-Control-Allow-Origin "https://hqmx.net";
             add_header Access-Control-Allow-Methods "GET, POST, DELETE, OPTIONS";
             add_header Access-Control-Allow-Headers "Content-Type, Authorization";
             add_header Access-Control-Max-Age 1728000;
@@ -184,8 +184,8 @@ server {
     }
 
     # 로그 설정
-    access_log /var/log/nginx/converter.hqmx.net-access.log;
-    error_log /var/log/nginx/converter.hqmx.net-error.log warn;
+    access_log /var/log/nginx/hqmx.net-access.log;
+    error_log /var/log/nginx/hqmx.net-error.log warn;
 }
 ```
 
@@ -200,12 +200,12 @@ sudo apt install nginx -y
 ### 2. 설정 파일 생성
 ```bash
 # 사이트 설정 파일 생성
-sudo nano /etc/nginx/sites-available/converter.hqmx.net
+sudo nano /etc/nginx/sites-available/hqmx.net
 
 # 위의 "사이트 설정" 내용 붙여넣기
 
 # 심볼릭 링크 생성 (사이트 활성화)
-sudo ln -s /etc/nginx/sites-available/converter.hqmx.net /etc/nginx/sites-enabled/
+sudo ln -s /etc/nginx/sites-available/hqmx.net /etc/nginx/sites-enabled/
 ```
 
 ### 3. 기본 사이트 비활성화 (선택)
@@ -249,10 +249,10 @@ sudo apt install certbot python3-certbot-nginx -y
 ### 2. 인증서 발급
 ```bash
 # 자동 설정 (nginx 자동 수정)
-sudo certbot --nginx -d converter.hqmx.net
+sudo certbot --nginx -d hqmx.net
 
 # 또는 수동 설정 (인증서만 발급)
-sudo certbot certonly --webroot -w /var/www/certbot -d converter.hqmx.net
+sudo certbot certonly --webroot -w /var/www/certbot -d hqmx.net
 ```
 
 ### 3. 자동 갱신 설정
@@ -269,19 +269,19 @@ sudo certbot renew --dry-run
 ### Access Log
 ```bash
 # 실시간 로그 확인
-sudo tail -f /var/log/nginx/converter.hqmx.net-access.log
+sudo tail -f /var/log/nginx/hqmx.net-access.log
 
 # 에러만 필터링
-sudo grep "error" /var/log/nginx/converter.hqmx.net-access.log
+sudo grep "error" /var/log/nginx/hqmx.net-access.log
 ```
 
 ### Error Log
 ```bash
 # 실시간 에러 로그
-sudo tail -f /var/log/nginx/converter.hqmx.net-error.log
+sudo tail -f /var/log/nginx/hqmx.net-error.log
 
 # 최근 100줄
-sudo tail -n 100 /var/log/nginx/converter.hqmx.net-error.log
+sudo tail -n 100 /var/log/nginx/hqmx.net-error.log
 ```
 
 ### Express 서버 로그 (pm2)
@@ -344,7 +344,7 @@ proxy_cache off;
 ### CORS 에러
 **원인**: CORS 헤더 누락 또는 잘못 설정
 **해결**:
-- Origin 정확히 지정 (`https://converter.hqmx.net`)
+- Origin 정확히 지정 (`https://hqmx.net`)
 - OPTIONS 요청 처리 추가
 - `Access-Control-Allow-Credentials: true` 설정
 
@@ -420,7 +420,7 @@ add_header Permissions-Policy "geolocation=(), microphone=(), camera=()" always;
 sudo tar -czf nginx-backup-$(date +%Y%m%d).tar.gz /etc/nginx/
 
 # 특정 사이트 설정만 백업
-sudo cp /etc/nginx/sites-available/converter.hqmx.net /etc/nginx/sites-available/converter.hqmx.net.backup
+sudo cp /etc/nginx/sites-available/hqmx.net /etc/nginx/sites-available/hqmx.net.backup
 ```
 
 ### 복구

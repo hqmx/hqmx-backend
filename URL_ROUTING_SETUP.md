@@ -34,12 +34,12 @@ URL을 index.html로 리다이렉트하면서 언어코드와 변환 타입을 �
 
 1. SSH 접속:
 ```bash
-ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@23.22.45.186
+ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@54.242.63.16
 ```
 
 2. nginx 사이트 설정 편집:
 ```bash
-sudo nano /etc/nginx/sites-available/converter.hqmx.net
+sudo nano /etc/nginx/sites-available/hqmx.net
 ```
 
 3. `location /` 블록 **이전에** 다음 설정 추가:
@@ -82,27 +82,27 @@ sudo systemctl reload nginx
 # 1. 파일 복사
 scp -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem \
   frontend/url-router.js frontend/script.js frontend/index.html \
-  ubuntu@23.22.45.186:/tmp/
+  ubuntu@54.242.63.16:/tmp/
 
 # 2. nginx 루트로 이동 및 권한 설정
-ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@23.22.45.186 '\
+ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@54.242.63.16 '\
   sudo cp /tmp/url-router.js /tmp/script.js /tmp/index.html /var/www/html/ && \
   sudo chown www-data:www-data /var/www/html/url-router.js /var/www/html/script.js /var/www/html/index.html && \
   sudo chmod 755 /var/www/html/url-router.js /var/www/html/script.js /var/www/html/index.html'
 
 # 3. nginx reload
-ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@23.22.45.186 '\
+ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@54.242.63.16 '\
   sudo nginx -t && sudo systemctl reload nginx'
 ```
 
 ## 테스트
 
 ### 브라우저에서 테스트
-1. **기본 홈페이지**: https://converter.hqmx.net
-2. **한국어 홈페이지**: https://converter.hqmx.net/kr
-3. **JPG→PNG 변환 (한국어)**: https://converter.hqmx.net/kr/jpg-to-png
-4. **MP4→AVI 변환 (영어)**: https://converter.hqmx.net/en/mp4-to-avi
-5. **PDF→DOCX 변환 (스페인어)**: https://converter.hqmx.net/es/pdf-to-docx
+1. **기본 홈페이지**: https://hqmx.net
+2. **한국어 홈페이지**: https://hqmx.net/kr
+3. **JPG→PNG 변환 (한국어)**: https://hqmx.net/kr/jpg-to-png
+4. **MP4→AVI 변환 (영어)**: https://hqmx.net/en/mp4-to-avi
+5. **PDF→DOCX 변환 (스페인어)**: https://hqmx.net/es/pdf-to-docx
 
 ### 확인 사항
 - ✅ URL 접속 시 자동으로 해당 언어로 전환되는지
@@ -163,7 +163,7 @@ ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@23.22.45.1
 ```
 User-agent: *
 Allow: /
-Sitemap: https://converter.hqmx.net/sitemap.xml
+Sitemap: https://hqmx.net/sitemap.xml
 ```
 
 ### sitemap.xml 생성 (향후 작업)

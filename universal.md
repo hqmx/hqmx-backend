@@ -1,7 +1,7 @@
 # 유니버설 파일 변환기 프로젝트
 
 ## 프로젝트 개요
-- **도메인**: converter.hqmx.net
+- **도메인**: hqmx.net
 - **핵심 컨셉**: 하나의 유니버설 변환기로 100개 이상 파일 형식 지원
 - **SEO 전략**: 동적 라우팅으로 각 변환별 고유 URL 생성 (예: /jpg-to-pdf)
 
@@ -13,7 +13,7 @@
 - 자동 파일 형식 감지
 
 ### 2. 동적 SEO 라우팅
-- URL 패턴: converter.hqmx.net/[source]-to-[target]
+- URL 패턴: hqmx.net/[source]-to-[target]
 - 예시: /jpg-to-pdf, /pdf-to-word, /mp4-to-mp3
 - 각 URL은 SEO 최적화된 메타데이터 제공
 - 실제로는 모두 같은 유니버설 변환기 컴포넌트 사용
@@ -34,7 +34,7 @@
 - **CDN**: Cloudflare
 
 ## 핵심 구현 파일 구조
-converter.hqmx.net/
+hqmx.net/
 ├── app/
 │   ├── page.tsx                 // 메인 페이지
 │   ├── [conversion]/page.tsx    // 동적 라우팅 (jpg-to-pdf 등)

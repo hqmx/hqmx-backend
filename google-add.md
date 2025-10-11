@@ -1,7 +1,7 @@
 # Google 검색 노출 등록 가이드
 
 ## 🎯 목표
-"jpg to png converter" 검색 시 `https://converter.hqmx.net/` 또는 `https://hqmx.net/` 노출
+"jpg to png converter" 검색 시 `https://hqmx.net/` 또는 `https://hqmx.net/` 노출
 
 ## 📋 준비사항
 1. 도메인 소유권 확인
@@ -30,12 +30,12 @@
 # 파일 내용: google-site-verification: google1234567890abcdef.html
 
 # 서버의 public root에 업로드
-scp -i hqmx-ec2.pem google1234567890abcdef.html ubuntu@23.22.45.186:/tmp/
-ssh -i hqmx-ec2.pem ubuntu@23.22.45.186 \
+scp -i hqmx-ec2.pem google1234567890abcdef.html ubuntu@54.242.63.16:/tmp/
+ssh -i hqmx-ec2.pem ubuntu@54.242.63.16 \
   'sudo cp /tmp/google1234567890abcdef.html /var/www/html/ && \
    sudo chown www-data:www-data /var/www/html/google1234567890abcdef.html'
 
-# 확인: https://converter.hqmx.net/google1234567890abcdef.html
+# 확인: https://hqmx.net/google1234567890abcdef.html
 ```
 
 #### 방법 2: HTML 태그 (현재 권장)
@@ -73,7 +73,7 @@ GTM이 설정되어 있다면 자동 확인 가능
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <!-- 메인 페이지 -->
   <url>
-    <loc>https://converter.hqmx.net/</loc>
+    <loc>https://hqmx.net/</loc>
     <lastmod>2025-10-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
@@ -81,7 +81,7 @@ GTM이 설정되어 있다면 자동 확인 가능
 
   <!-- 약관 페이지 -->
   <url>
-    <loc>https://converter.hqmx.net/terms.html</loc>
+    <loc>https://hqmx.net/terms.html</loc>
     <lastmod>2025-10-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
@@ -89,7 +89,7 @@ GTM이 설정되어 있다면 자동 확인 가능
 
   <!-- 개인정보처리방침 -->
   <url>
-    <loc>https://converter.hqmx.net/privacy.html</loc>
+    <loc>https://hqmx.net/privacy.html</loc>
     <lastmod>2025-10-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
@@ -99,12 +99,12 @@ GTM이 설정되어 있다면 자동 확인 가능
 
 ### 2.2 sitemap.xml 업로드
 ```bash
-scp -i hqmx-ec2.pem frontend/sitemap.xml ubuntu@23.22.45.186:/tmp/
-ssh -i hqmx-ec2.pem ubuntu@23.22.45.186 \
+scp -i hqmx-ec2.pem frontend/sitemap.xml ubuntu@54.242.63.16:/tmp/
+ssh -i hqmx-ec2.pem ubuntu@54.242.63.16 \
   'sudo cp /tmp/sitemap.xml /var/www/html/ && \
    sudo chown www-data:www-data /var/www/html/sitemap.xml'
 
-# 확인: https://converter.hqmx.net/sitemap.xml
+# 확인: https://hqmx.net/sitemap.xml
 ```
 
 ### 2.3 Search Console에 sitemap 제출
@@ -131,17 +131,17 @@ Disallow: /*.js$
 Disallow: /*.css$
 
 # Sitemap 위치
-Sitemap: https://converter.hqmx.net/sitemap.xml
+Sitemap: https://hqmx.net/sitemap.xml
 ```
 
 ### 3.2 robots.txt 업로드
 ```bash
-scp -i hqmx-ec2.pem frontend/robots.txt ubuntu@23.22.45.186:/tmp/
-ssh -i hqmx-ec2.pem ubuntu@23.22.45.186 \
+scp -i hqmx-ec2.pem frontend/robots.txt ubuntu@54.242.63.16:/tmp/
+ssh -i hqmx-ec2.pem ubuntu@54.242.63.16 \
   'sudo cp /tmp/robots.txt /var/www/html/ && \
    sudo chown www-data:www-data /var/www/html/robots.txt'
 
-# 확인: https://converter.hqmx.net/robots.txt
+# 확인: https://hqmx.net/robots.txt
 ```
 
 ---
@@ -165,17 +165,17 @@ ssh -i hqmx-ec2.pem ubuntu@23.22.45.186 \
     <meta property="og:title" content="Free JPG to PNG Converter | HQMX Converter">
     <meta property="og:description" content="Convert any file format online - images, videos, audio, documents. 100% free and secure.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://converter.hqmx.net/">
-    <meta property="og:image" content="https://converter.hqmx.net/assets/og-image.jpg">
+    <meta property="og:url" content="https://hqmx.net/">
+    <meta property="og:image" content="https://hqmx.net/assets/og-image.jpg">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Free JPG to PNG Converter | HQMX Converter">
     <meta name="twitter:description" content="Convert any file format online - images, videos, audio, documents.">
-    <meta name="twitter:image" content="https://converter.hqmx.net/assets/twitter-card.jpg">
+    <meta name="twitter:image" content="https://hqmx.net/assets/twitter-card.jpg">
 
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://converter.hqmx.net/">
+    <link rel="canonical" href="https://hqmx.net/">
 </head>
 ```
 
@@ -189,7 +189,7 @@ ssh -i hqmx-ec2.pem ubuntu@23.22.45.186 \
   "@type": "WebApplication",
   "name": "HQMX Converter",
   "description": "Free online file converter supporting 300+ formats",
-  "url": "https://converter.hqmx.net",
+  "url": "https://hqmx.net",
   "applicationCategory": "MultimediaApplication",
   "operatingSystem": "Web browser",
   "offers": {
@@ -281,17 +281,17 @@ ssh -i hqmx-ec2.pem ubuntu@23.22.45.186 \
 현재 메인 페이지에서 해시 라우팅으로 변환 타입 구분:
 
 ```
-https://converter.hqmx.net/#jpg-to-png
-https://converter.hqmx.net/#png-to-jpg
-https://converter.hqmx.net/#webp-to-jpg
+https://hqmx.net/#jpg-to-png
+https://hqmx.net/#png-to-jpg
+https://hqmx.net/#webp-to-jpg
 ```
 
 ### 6.2 URL 파라미터 활용
 쿼리 파라미터로 변환 타입 지정:
 
 ```
-https://converter.hqmx.net/?from=jpg&to=png
-https://converter.hqmx.net/?from=png&to=jpg
+https://hqmx.net/?from=jpg&to=png
+https://hqmx.net/?from=png&to=jpg
 ```
 
 `frontend/script.js`에서 URL 파라미터 파싱:
@@ -314,7 +314,7 @@ if (fromFormat && toFormat) {
 
 ### 7.1 URL 검사 도구로 즉시 색인 요청
 1. Google Search Console → "URL 검사" 메뉴
-2. `https://converter.hqmx.net/` 입력
+2. `https://hqmx.net/` 입력
 3. "색인 생성 요청" 클릭
 4. Google이 즉시 크롤링 시작 (24-48시간 소요)
 

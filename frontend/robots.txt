@@ -5,7 +5,7 @@ User-agent: *
 Allow: /
 
 # Sitemap 위치
-Sitemap: https://converter.hqmx.net/sitemap.xml
+Sitemap: https://hqmx.net/sitemap.xml
 
 # 크롤링 제외 경로 (임시 파일, 백업 등)
 Disallow: /*.backup$
