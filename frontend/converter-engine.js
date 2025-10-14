@@ -38,15 +38,20 @@ class ConverterEngine {
                 }
             });
 
-            onProgress?.(30, 'FFmpeg 코어 로딩 중...');
-
-            // 최신 버전용 로드 방식
-            await this.ffmpeg.load({
-                coreURL: 'https://unpkg.com/@ffmpeg/core@0.12.6/dist/umd/ffmpeg-core.js',
-                wasmURL: 'https://unpkg.com/@ffmpeg/core@0.12.6/dist/umd/ffmpeg-core.wasm'
+            // FFmpeg 로그 출력 (디버깅용)
+            this.ffmpeg.on('log', ({ message }) => {
+                console.log('[FFmpeg]', message);
             });
 
-            this.fetchFile = FFmpegLib.fetchFile;
+            onProgress?.(30, 'FFmpeg 코어 로딩 중...');
+
+            // 로컬 서버에서 코어 파일 로드 (자체 호스팅)
+            await this.ffmpeg.load({
+                coreURL: '/lib/ffmpeg/ffmpeg-core.js',   // 로컬 경로로 변경
+                wasmURL: '/lib/ffmpeg/ffmpeg-core.wasm'  // 로컬 경로로 변경
+            });
+
+            // FFmpeg.wasm 0.12.x는 fetchFile 없음 (새 API 사용)
             this.ffmpegLoaded = true;
             this.ffmpegLoading = false;
             
@@ -63,6 +68,35 @@ class ConverterEngine {
     /**
      * FFmpeg 라이브러리 로드
      */
+    async loadFFmpegLibrary() {
+        // FFmpeg.wasm 라이브러리가 이미 로드되었는지 확인
+        if (window.FFmpegWASM) {
+            return window.FFmpegWASM;
+        }
+
+        // 로컬 서버에서 FFmpeg.wasm 라이브러리 로드 (자체 호스팅으로 CORS 문제 해결)
+        return new Promise((resolve, reject) => {
+            const script = document.createElement('script');
+            script.src = '/lib/ffmpeg/ffmpeg.js';  // 로컬 경로로 변경
+            script.crossOrigin = 'anonymous';  // CORS 명시적 허용
+            script.async = true;
+
+            script.onload = () => {
+                if (window.FFmpegWASM) {
+                    resolve(window.FFmpegWASM);
+                } else {
+                    reject(new Error('FFmpeg 라이브러리 로드 실패'));
+                }
+            };
+
+            script.onerror = () => {
+                reject(new Error('FFmpeg 스크립트 로드 실패'));
+            };
+
+            document.head.appendChild(script);
+        });
+    }
+
     /**
      * Web API 기반 미디어 변환 초기화
      */
@@ -93,10 +127,10 @@ class ConverterEngine {
             return await this.convertImage(file, outputFormat, options, onProgress);
         }
         
-        // 비디오/오디오 변환 (Web API 사용)
+        // 비디오/오디오 변환 (FFmpeg 사용)
         if ((inputType === 'video' || inputType === 'audio') ||
             (outputType === 'video' || outputType === 'audio')) {
-            return await this.convertMediaWithWebAPI(file, outputFormat, options, onProgress);
+            return await this.convertWithFFmpeg(file, outputFormat, options, onProgress);
         }
 
         // 문서 변환 (제한적 지원)
@@ -310,6 +344,11 @@ class ConverterEngine {
         const inputExt = this.getFileExtension(file.name);
         const inputType = this.getFileType(inputExt);
         const outputType = this.getFileType(outputFormat);
+
+        // GIF → 비디오 특별 처리 (GIF는 image 타입이지만 애니메이션이 있음)
+        if (inputExt === 'gif' && outputType === 'video') {
+            return await this.convertGifToVideo(file, outputFormat, options, onProgress);
+        }
 
         // 비디오 변환
         if ((inputType === 'video' || outputType === 'video')) {
@@ -780,6 +819,67 @@ class ConverterEngine {
     }
 
     /**
+     * GIF → MP4 변환 (FFmpeg.wasm 사용)
+     *
+     * 작은 GIF 파일을 빠르게 변환 (<5MB 권장)
+     * - h.264 인코딩
+     * - 웹 최적화 (faststart)
+     * - 30fps 고정
+     */
+    async convertGifToVideo(file, outputFormat, options = {}, onProgress) {
+        // FFmpeg 초기화 (딱 1번만, 이후엔 재사용)
+        await this.initFFmpeg(onProgress);
+
+        const inputName = 'input.gif';
+        const outputName = `output.${outputFormat}`;
+
+        try {
+            onProgress?.(20, 'GIF 파일 준비 중...');
+
+            // 입력 GIF 파일 쓰기
+            this.ffmpeg.FS('writeFile', inputName, await this.fetchFile(file));
+
+            onProgress?.(30, 'GIF → 비디오 변환 시작...');
+
+            // FFmpeg 명령 실행 (빠른 프리셋 사용)
+            const args = [
+                '-i', inputName,
+                '-c:v', 'libx264',         // h.264 코덱
+                '-pix_fmt', 'yuv420p',     // 호환성
+                '-movflags', '+faststart',  // 웹 스트리밍
+                '-vf', 'fps=30',           // 30fps 고정
+                '-preset', 'ultrafast',     // 빠른 인코딩 (veryfast보다 빠름)
+                '-crf', '28',              // 품질 (낮춰서 속도 향상)
+                outputName
+            ];
+
+            console.log('FFmpeg 명령 (GIF→MP4):', args);
+            await this.ffmpeg.run(...args);
+
+            onProgress?.(90, '변환된 비디오 추출 중...');
+
+            // 출력 파일 읽기
+            const data = this.ffmpeg.FS('readFile', outputName);
+
+            // Blob 생성
+            const blob = new Blob([data.buffer], {
+                type: this.getMimeType(outputFormat)
+            });
+
+            // 정리
+            this.ffmpeg.FS('unlink', inputName);
+            this.ffmpeg.FS('unlink', outputName);
+
+            onProgress?.(100, 'GIF → 비디오 변환 완료!');
+            return blob;
+
+        } catch (error) {
+            console.error('GIF → 비디오 변환 오류:', error);
+            throw new Error('GIF 변환 실패: ' + error.message);
+        }
+    }
+
+    /**
      * 녹음용 오디오 MIME 타입 가져오기
      */
     getAudioMimeTypeForRecording(format) {
@@ -814,36 +914,47 @@ class ConverterEngine {
         
         try {
             onProgress?.(20, '파일 준비 중...');
-            
-            // 입력 파일 쓰기
-            this.ffmpeg.FS('writeFile', inputName, await this.fetchFile(file));
-            
+
+            // 입력 파일 쓰기 (FFmpeg.wasm 0.12.x 새 API)
+            console.log(`[Debug] 원본 파일 크기: ${file.size} bytes (${(file.size / 1024 / 1024).toFixed(2)} MB)`);
+            const fileData = new Uint8Array(await file.arrayBuffer());
+            console.log(`[Debug] Uint8Array 크기: ${fileData.byteLength} bytes (${(fileData.byteLength / 1024 / 1024).toFixed(2)} MB)`);
+            console.log(`[Debug] 데이터 무결성: 처음 4바이트 = ${Array.from(fileData.slice(0, 4)).map(b => b.toString(16).padStart(2, '0')).join(' ')}`);
+
+            await this.ffmpeg.writeFile(inputName, fileData);
+            console.log(`[Debug] writeFile 완료: ${inputName}`);
+
             onProgress?.(30, '변환 시작...');
-            
-            // FFmpeg 명령 실행
+
+            // FFmpeg 명령 실행 (FFmpeg.wasm 0.12.x 새 API)
             const args = this.buildFFmpegCommand(inputName, outputName, outputFormat, options);
-            await this.ffmpeg.run(...args);
-            
+            await this.ffmpeg.exec(args);
+
             onProgress?.(90, '파일 추출 중...');
-            
-            // 출력 파일 읽기
-            const data = this.ffmpeg.FS('readFile', outputName);
-            
-            // Blob 생성
-            const blob = new Blob([data.buffer], { 
-                type: this.getMimeType(outputFormat) 
+
+            // 출력 파일 읽기 (FFmpeg.wasm 0.12.x 새 API)
+            const data = await this.ffmpeg.readFile(outputName);
+
+            // Blob 생성 (Uint8Array를 직접 사용)
+            const blob = new Blob([data], {
+                type: this.getMimeType(outputFormat)
             });
-            
-            // 정리
-            this.ffmpeg.FS('unlink', inputName);
-            this.ffmpeg.FS('unlink', outputName);
-            
+
+            // 정리 (FFmpeg.wasm 0.12.x 새 API)
+            try {
+                await this.ffmpeg.deleteFile(inputName);
+                await this.ffmpeg.deleteFile(outputName);
+            } catch (cleanupError) {
+                console.warn('파일 정리 중 오류 (무시):', cleanupError);
+            }
+
             onProgress?.(100, '변환 완료!');
             return blob;
-            
+
         } catch (error) {
             console.error('FFmpeg 변환 오류:', error);
-            throw new Error('파일 변환 실패: ' + error.message);
+            console.error('오류 상세:', error.stack);
+            throw new Error('파일 변환 실패: ' + (error.message || error.toString()));
         }
     }
 
@@ -1256,11 +1367,16 @@ class ConverterEngine {
     buildFFmpegCommand(input, output, format, options) {
         const args = ['-i', input];
 
+        // 비디오 변환 시 멀티스레드 활성화 (모든 가용 코어 사용)
+        if (this.getFileType(format) === 'video') {
+            args.push('-threads', '0');
+        }
+
         // 포맷별 기본 설정
         switch(format) {
             // 비디오
             case 'mp4':
-                args.push('-c:v', 'libx264', '-preset', 'medium', '-crf', '23');
+                args.push('-c:v', 'libx264', '-preset', 'ultrafast', '-crf', '21');
                 break;
             case 'webm':
                 args.push('-c:v', 'libvpx', '-c:a', 'libvorbis');
@@ -1269,9 +1385,25 @@ class ConverterEngine {
                 args.push('-c:v', 'mpeg4', '-vtag', 'XVID');
                 break;
             case 'mov':
-                args.push('-c:v', 'libx264', '-c:a', 'aac');
+                args.push('-c:v', 'libx264', '-preset', 'ultrafast', '-crf', '21', '-c:a', 'aac');
                 break;
-            
+            case 'mkv':
+                args.push('-c:v', 'libx264', '-preset', 'ultrafast', '-crf', '21', '-c:a', 'aac');
+                break;
+            case 'flv':
+                args.push('-c:v', 'flv', '-c:a', 'mp3');
+                break;
+            case 'wmv':
+                args.push('-c:v', 'wmv2', '-c:a', 'wmav2');
+                break;
+            case 'm4v':
+                args.push('-c:v', 'libx264', '-preset', 'ultrafast', '-crf', '21', '-c:a', 'aac');
+                break;
+            case 'gif':
+                // 비디오 → GIF 변환
+                args.push('-vf', 'fps=10,scale=320:-1:flags=lanczos');
+                break;
+
             // 오디오
             case 'mp3':
                 args.push('-c:a', 'libmp3lame', '-b:a', '192k');
@@ -1290,6 +1422,12 @@ class ConverterEngine {
                 break;
             case 'm4a':
                 args.push('-c:a', 'aac', '-b:a', '192k');
+                break;
+            case 'wma':
+                args.push('-c:a', 'wmav2', '-b:a', '192k');
+                break;
+            case 'opus':
+                args.push('-c:a', 'libopus', '-b:a', '128k');
                 break;
         }
 
