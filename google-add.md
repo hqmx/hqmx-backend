@@ -1,412 +1,532 @@
-# Google 검색 노출 등록 가이드
+# 🔧 Dropbox & Google Drive 연동 가이드
 
-## 🎯 목표
-"jpg to png converter" 검색 시 `https://hqmx.net/` 또는 `https://hqmx.net/` 노출
-
-## 📋 준비사항
-1. 도메인 소유권 확인
-2. 사이트 콘텐츠 최적화
-3. sitemap.xml 및 robots.txt 준비
+> **최종 업데이트**: 2025-10-14
+> **현재 상태**: ⚠️ COEP 헤더 충돌로 인한 Dropbox 차단, Google Drive API Key 누락
 
 ---
 
-## 1️⃣ Google Search Console 등록
+## 🚨 현재 문제 및 근본 원인
 
-### 1.1 Search Console 접속
-1. https://search.google.com/search-console 접속
-2. Google 계정으로 로그인
+### 1. Dropbox Chooser API 차단
+**에러**: `ERR_BLOCKED_BY_RESPONSE.NotSameOriginAfterDefaultedToSameOriginByCoep`
 
-### 1.2 속성 추가
-1. 좌측 상단 "속성 추가" 클릭
-2. **도메인** 또는 **URL 접두어** 선택
-   - **권장**: URL 접두어 → `https://hqmx.net`
-   - 대안: 도메인 → `hqmx.net` (모든 하위 도메인 포함)
+**근본 원인**:
+- FFmpeg.wasm을 위해 nginx에 `Cross-Origin-Embedder-Policy: require-corp` 헤더 설정
+- 이 헤더가 Dropbox API 스크립트를 차단함
+- Dropbox CDN이 `Cross-Origin-Resource-Policy` 헤더를 반환하지 않음
 
-### 1.3 소유권 확인 방법 (5가지 중 선택)
+**해결 방법**:
+✅ nginx 설정에서 `Cross-Origin-Embedder-Policy: credentialless` 사용
+(Safari 제외 모든 브라우저 지원, FFmpeg.wasm도 정상 작동)
 
-#### 방법 1: HTML 파일 업로드 (가장 간단)
-```bash
-# Google이 제공한 HTML 파일 다운로드 (예: google1234567890abcdef.html)
-# 파일 내용: google-site-verification: google1234567890abcdef.html
+### 2. Google Drive API Key 누락
+**증상**: gapi.client 초기화 실패, 버튼 비활성화
 
-# 서버의 public root에 업로드
-scp -i hqmx-ec2.pem google1234567890abcdef.html ubuntu@54.242.63.16:/tmp/
-ssh -i hqmx-ec2.pem ubuntu@54.242.63.16 \
-  'sudo cp /tmp/google1234567890abcdef.html /var/www/html/ && \
-   sudo chown www-data:www-data /var/www/html/google1234567890abcdef.html'
+**근본 원인**:
+- API Key가 설정되지 않음
+- `gapi.client.init()`가 API Key 없이 실행 불가
 
-# 확인: https://hqmx.net/google1234567890abcdef.html
-```
-
-#### 방법 2: HTML 태그 (현재 권장)
-`frontend/index.html`의 `<head>` 섹션에 추가:
-```html
-<head>
-    <meta name="google-site-verification" content="YOUR_VERIFICATION_CODE" />
-    <!-- 기존 meta 태그들... -->
-</head>
-```
-
-#### 방법 3: DNS TXT 레코드
-Cloudflare 또는 도메인 DNS 설정에 추가:
-```
-Type: TXT
-Name: @ (또는 converter)
-Content: google-site-verification=YOUR_VERIFICATION_CODE
-```
-
-#### 방법 4: Google Analytics
-이미 GA4가 설정되어 있다면 자동 확인 가능
-
-#### 방법 5: Google Tag Manager
-GTM이 설정되어 있다면 자동 확인 가능
+**해결 방법**:
+✅ Google Cloud Console에서 API Key 생성 및 제한 설정 필요
 
 ---
 
-## 2️⃣ sitemap.xml 생성 및 제출
+## 📋 Dropbox Chooser API 설정 체크리스트
 
-### 2.1 sitemap.xml 생성
-`frontend/sitemap.xml` 파일 생성:
+### A. Dropbox App 생성 및 설정
 
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!-- 메인 페이지 -->
-  <url>
-    <loc>https://hqmx.net/</loc>
-    <lastmod>2025-10-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-  </url>
+- [x] **A1. Dropbox Developer Portal 접속**
+  - URL: https://www.dropbox.com/developers/apps
+  - 로그인 완료
 
-  <!-- 약관 페이지 -->
-  <url>
-    <loc>https://hqmx.net/terms.html</loc>
-    <lastmod>2025-10-10</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.3</priority>
-  </url>
+- [x] **A2. Create App 클릭**
+  - "Scoped access" 선택
+  - "App folder" 또는 "Full Dropbox" 선택
+  - App 이름: `HQMX-Converter`
 
-  <!-- 개인정보처리방침 -->
-  <url>
-    <loc>https://hqmx.net/privacy.html</loc>
-    <lastmod>2025-10-10</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.3</priority>
-  </url>
-</urlset>
-```
+- [x] **A3. App Key 발급**
+  - **App Key**: `xfuwomiskerr8by` (이미 발급됨)
+  - Settings 탭에서 확인
 
-### 2.2 sitemap.xml 업로드
-```bash
-scp -i hqmx-ec2.pem frontend/sitemap.xml ubuntu@54.242.63.16:/tmp/
-ssh -i hqmx-ec2.pem ubuntu@54.242.63.16 \
-  'sudo cp /tmp/sitemap.xml /var/www/html/ && \
-   sudo chown www-data:www-data /var/www/html/sitemap.xml'
+- [x] **A4. Chooser Domains 등록**
+  - Settings → Chooser / Saver / Embedder domains
+  - 추가할 도메인:
+    ```
+    https://hqmx.net
+    https://hqmx.net/*
+    ```
+  - ⚠️ `http://localhost`는 Dropbox가 지원하지 않음 (HTTPS 필수)
 
-# 확인: https://hqmx.net/sitemap.xml
-```
+### B. 프론트엔드 구현
 
-### 2.3 Search Console에 sitemap 제출
-1. Google Search Console → "Sitemaps" 메뉴
-2. "새 사이트맵 추가" 클릭
-3. `sitemap.xml` 입력 후 제출
-4. 상태가 "성공"으로 변경되는지 확인 (24시간 이내)
+- [x] **B1. Dropbox SDK 스크립트 추가**
+  - `frontend/index.html`의 `</body>` 직전에 추가됨:
+    ```html
+    <script type="text/javascript"
+            src="https://www.dropbox.com/static/api/2/dropins.js"
+            id="dropboxjs"
+            data-app-key="xfuwomiskerr8by"
+            crossorigin="anonymous"></script>
+    ```
+  - ⚠️ `crossorigin="anonymous"` 속성 필수 (COEP 호환성)
 
----
+- [x] **B2. Dropbox 버튼 HTML 추가**
+  - `frontend/index.html`에 버튼 추가됨
 
-## 3️⃣ robots.txt 설정
+- [x] **B3. JavaScript 이벤트 핸들러 구현**
+  - `frontend/script.js`에 Dropbox Chooser 로직 구현됨
+  - 파일 선택 → Blob 변환 → addFile() 호출
 
-### 3.1 robots.txt 생성
-`frontend/robots.txt` 파일 생성:
+- [x] **B4. CSS 스타일 추가**
+  - `frontend/style.css`에 `.dropbox-btn` 스타일 추가됨
 
-```txt
-# HQMX Converter - Robots.txt
-User-agent: *
-Allow: /
+### C. 서버 설정 (nginx)
 
-# 특정 파일 제외
-Disallow: /assets/
-Disallow: /*.js$
-Disallow: /*.css$
+- [ ] **C1. COEP 헤더를 credentialless로 변경** ⚠️ **필수 작업**
+  - `/etc/nginx/nginx.conf` 수정 필요:
+    ```nginx
+    # 변경 전 (현재)
+    add_header Cross-Origin-Embedder-Policy "require-corp" always;
 
-# Sitemap 위치
-Sitemap: https://hqmx.net/sitemap.xml
-```
+    # 변경 후 (권장)
+    add_header Cross-Origin-Embedder-Policy "credentialless" always;
+    ```
+  - Safari 제외 모든 브라우저 지원
+  - FFmpeg.wasm 정상 작동
+  - Dropbox/Google Drive API 정상 작동
 
-### 3.2 robots.txt 업로드
-```bash
-scp -i hqmx-ec2.pem frontend/robots.txt ubuntu@54.242.63.16:/tmp/
-ssh -i hqmx-ec2.pem ubuntu@54.242.63.16 \
-  'sudo cp /tmp/robots.txt /var/www/html/ && \
-   sudo chown www-data:www-data /var/www/html/robots.txt'
+- [ ] **C2. nginx 재시작**
+  ```bash
+  ssh -i hqmx-ec2.pem ubuntu@54.242.63.16 'sudo nginx -t && sudo systemctl reload nginx'
+  ```
 
-# 확인: https://hqmx.net/robots.txt
-```
+- [ ] **C3. 브라우저 캐시 클리어 후 테스트**
 
 ---
 
-## 4️⃣ SEO 최적화 (index.html)
+## 📋 Google Drive Picker API 설정 체크리스트
 
-### 4.1 메타 태그 최적화
-`frontend/index.html`의 `<head>` 섹션 확인 및 개선:
+### A. Google Cloud Console 프로젝트 생성
 
-```html
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+- [x] **A1. Google Cloud Console 접속**
+  - URL: https://console.cloud.google.com
+  - 로그인 완료
 
-    <!-- 🎯 핵심 SEO 메타 태그 -->
-    <title>Free JPG to PNG Converter | HQMX Converter</title>
-    <meta name="description" content="Convert JPG to PNG, PNG to JPG, WebP, HEIC, and 300+ file formats online. Free, fast, and secure file converter with no upload required.">
-    <meta name="keywords" content="jpg to png, png to jpg, image converter, webp converter, heic to jpg, file converter, online converter">
+- [x] **A2. 프로젝트 생성**
+  - 프로젝트 이름: "HQMX-Converter"
+  - 프로젝트 ID: 자동 생성됨
 
-    <!-- Open Graph (Facebook, LinkedIn) -->
-    <meta property="og:title" content="Free JPG to PNG Converter | HQMX Converter">
-    <meta property="og:description" content="Convert any file format online - images, videos, audio, documents. 100% free and secure.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://hqmx.net/">
-    <meta property="og:image" content="https://hqmx.net/assets/og-image.jpg">
+- [x] **A3. 프로젝트 선택**
+  - 좌측 상단에서 프로젝트 선택 확인
 
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Free JPG to PNG Converter | HQMX Converter">
-    <meta name="twitter:description" content="Convert any file format online - images, videos, audio, documents.">
-    <meta name="twitter:image" content="https://hqmx.net/assets/twitter-card.jpg">
+### B. API 활성화
 
-    <!-- Canonical URL -->
-    <link rel="canonical" href="https://hqmx.net/">
-</head>
-```
+- [x] **B1. Google Picker API 활성화**
+  - APIs & Services → Library → "Google Picker API" 검색
+  - "사용 설정" 클릭
 
-### 4.2 구조화된 데이터 (JSON-LD)
-`</head>` 태그 직전에 추가:
+- [x] **B2. Google Drive API 활성화**
+  - APIs & Services → Library → "Google Drive API" 검색
+  - "사용 설정" 클릭 (이미 활성화됨)
 
-```html
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebApplication",
-  "name": "HQMX Converter",
-  "description": "Free online file converter supporting 300+ formats",
-  "url": "https://hqmx.net",
-  "applicationCategory": "MultimediaApplication",
-  "operatingSystem": "Web browser",
-  "offers": {
-    "@type": "Offer",
-    "price": "0",
-    "priceCurrency": "USD"
-  },
-  "featureList": [
-    "JPG to PNG conversion",
-    "PNG to JPG conversion",
-    "WebP converter",
-    "HEIC to JPG",
-    "Video converter",
-    "Audio converter",
-    "No file upload required",
-    "Client-side processing"
-  ],
-  "softwareVersion": "1.0",
-  "author": {
-    "@type": "Organization",
-    "name": "HQMX",
-    "url": "https://hqmx.net"
-  }
-}
-</script>
-```
+### C. OAuth 2.0 클라이언트 ID 생성
 
----
+- [x] **C1. OAuth 동의 화면 설정**
+  - APIs & Services → OAuth 동의 화면
+  - "외부" 선택 → 앱 정보 입력
 
-## 5️⃣ 콘텐츠 최적화
+- [x] **C2. OAuth 클라이언트 ID 생성**
+  - APIs & Services → 사용자 인증 정보 → "사용자 인증 정보 만들기"
+  - "OAuth 클라이언트 ID" 선택
+  - 애플리케이션 유형: "웹 애플리케이션"
+  - 이름: "HQMX Converter Web Client"
+  - **승인된 JavaScript 원본**:
+    ```
+    https://hqmx.net
+    http://localhost:3000
+    ```
+  - **승인된 리디렉션 URI**: 비워둠 (Picker는 필요 없음)
 
-### 5.1 주요 키워드 타겟팅
-메인 페이지 콘텐츠에 다음 키워드 자연스럽게 포함:
+- [x] **C3. Client ID 복사**
+  - **Client ID**: `280998173097-ffdh6ft1kujjcn5kp9md1p6mso17cvpj.apps.googleusercontent.com`
+  - `frontend/script.js`에 이미 적용됨
 
-**1순위 키워드**:
-- "jpg to png converter"
-- "png to jpg"
-- "image converter online"
-- "free file converter"
+### D. API Key 생성 및 제한 설정
 
-**2순위 키워드**:
-- "webp to jpg"
-- "heic to jpg"
-- "convert jpg to pdf"
-- "online converter no upload"
+- [ ] **D1. API Key 생성** ⚠️ **필수 작업**
+  - APIs & Services → 사용자 인증 정보
+  - "사용자 인증 정보 만들기" → "API 키" 클릭
+  - API Key 복사 (예: `AIzaSyXXXXXXXXXXXXXXXXXXXXXX`)
 
-### 5.2 제목 태그 (H1, H2, H3) 최적화
-```html
-<h1>Free JPG to PNG Converter Online</h1>
-<h2>Convert Images, Videos, Audio Files Online</h2>
-<h3>No Upload Required - 100% Secure Conversion</h3>
-```
+- [ ] **D2. API Key 제한 설정 (권장)**
+  - 생성된 API Key 옆의 연필 아이콘 클릭
+  - **애플리케이션 제한사항**: "HTTP 리퍼러(웹사이트)" 선택
+  - **웹사이트 제한사항** 추가:
+    ```
+    https://hqmx.net/*
+    http://localhost:3000/*
+    ```
+  - **API 제한사항**: "키 제한" 선택
+    - Google Drive API
+    - Google Picker API
+  - "저장" 클릭
 
-### 5.3 텍스트 콘텐츠 추가
-메인 페이지 하단에 설명 섹션 추가:
+- [ ] **D3. script.js에 API Key 추가**
+  - `frontend/script.js` 파일에서 다음 라인 수정:
+    ```javascript
+    // 현재 (누락)
+    const GOOGLE_API_KEY = ''; // ❌ 비어있음
 
-```html
-<section class="seo-content">
-  <h2>Why Use HQMX Converter?</h2>
-  <p>
-    HQMX Converter is a free online tool that converts <strong>JPG to PNG</strong>,
-    <strong>PNG to JPG</strong>, and 300+ other file formats directly in your browser.
-    Unlike other converters, we don't upload your files to any server—all conversion
-    happens on your device, ensuring complete privacy and security.
-  </p>
+    // 변경 후
+    const GOOGLE_API_KEY = 'YOUR_GENERATED_API_KEY'; // ✅ D1에서 생성한 키
+    ```
 
-  <h3>Supported Conversions</h3>
-  <ul>
-    <li><strong>Image Conversions</strong>: JPG, PNG, WebP, HEIC, AVIF, SVG, GIF, TIFF</li>
-    <li><strong>Video Conversions</strong>: MP4, AVI, MOV, WebM, MKV, FLV</li>
-    <li><strong>Audio Conversions</strong>: MP3, WAV, FLAC, AAC, OGG, M4A</li>
-    <li><strong>Document Conversions</strong>: PDF, DOCX, PPTX, EPUB, TXT</li>
-  </ul>
+### E. 프론트엔드 구현
 
-  <h3>How to Convert JPG to PNG</h3>
-  <ol>
-    <li>Drop your JPG file or click "Select Files"</li>
-    <li>Choose PNG as output format</li>
-    <li>Click "Convert" and download your PNG file</li>
-  </ol>
-</section>
-```
+- [x] **E1. Google API 스크립트 추가**
+  - `frontend/index.html`에 추가됨:
+    ```html
+    <script src="https://apis.google.com/js/api.js"></script>
+    <script src="https://accounts.google.com/gsi/client"></script>
+    ```
+
+- [x] **E2. Google Drive 버튼 HTML 추가**
+  - `frontend/index.html`에 버튼 추가됨
+
+- [x] **E3. JavaScript 구현**
+  - `frontend/script.js`에 Google Drive Picker 로직 구현됨
+  - OAuth 2.0 토큰 관리 구현됨
+  - gapi.client 초기화 구현됨
+
+- [x] **E4. CSS 스타일 추가**
+  - `frontend/style.css`에 `.google-drive-btn` 스타일 추가됨
 
 ---
 
-## 6️⃣ URL 구조 최적화 (선택사항)
+## 🔐 보안 권장사항
 
-### 6.1 해시 라우팅 활용
-현재 메인 페이지에서 해시 라우팅으로 변환 타입 구분:
+### 방법 1: 별도 설정 파일 생성 (권장)
 
-```
-https://hqmx.net/#jpg-to-png
-https://hqmx.net/#png-to-jpg
-https://hqmx.net/#webp-to-jpg
-```
-
-### 6.2 URL 파라미터 활용
-쿼리 파라미터로 변환 타입 지정:
-
-```
-https://hqmx.net/?from=jpg&to=png
-https://hqmx.net/?from=png&to=jpg
-```
-
-`frontend/script.js`에서 URL 파라미터 파싱:
-
+**`frontend/config.js` 파일 생성**:
 ```javascript
-// URL 파라미터 읽기
-const urlParams = new URLSearchParams(window.location.search);
-const fromFormat = urlParams.get('from');
-const toFormat = urlParams.get('to');
+// Git에 커밋하지 말 것!
+const CONFIG = {
+    DROPBOX_APP_KEY: 'xfuwomiskerr8by',
+    GOOGLE_API_KEY: 'YOUR_API_KEY_HERE',  // D1에서 생성한 키
+    GOOGLE_CLIENT_ID: '280998173097-ffdh6ft1kujjcn5kp9md1p6mso17cvpj.apps.googleusercontent.com'
+};
+```
 
-if (fromFormat && toFormat) {
-    // 자동으로 입력/출력 형식 선택
-    console.log(`Converting ${fromFormat} to ${toFormat}`);
-}
+**`.gitignore`에 추가**:
+```bash
+# frontend/.gitignore
+config.js
+*.key
+*.secret
+```
+
+**`frontend/index.html`에서 로드**:
+```html
+<script src="/config.js"></script>
+<script src="/script.js"></script>
+```
+
+**`frontend/script.js`에서 사용**:
+```javascript
+const GOOGLE_API_KEY = CONFIG.GOOGLE_API_KEY;
+const GOOGLE_CLIENT_ID = CONFIG.GOOGLE_CLIENT_ID;
+```
+
+### 방법 2: 직접 script.js에 하드코딩 (간단하지만 덜 안전)
+
+API Key는 클라이언트 사이드에서 사용되므로 어차피 노출됩니다.
+대신 **API Key 제한 설정**으로 보안을 강화하세요 (D2 참조).
+
+---
+
+## ✅ 현재 상태 분석
+
+### Dropbox
+
+| 항목 | 상태 | 설명 |
+|------|------|------|
+| App 생성 | ✅ 완료 | `xfuwomiskerr8by` |
+| Domain 등록 | ✅ 완료 | `https://hqmx.net` |
+| SDK 스크립트 | ✅ 완료 | `crossorigin="anonymous"` 추가됨 |
+| 버튼 UI | ✅ 완료 | HTML/CSS 구현됨 |
+| JavaScript 로직 | ✅ 완료 | 이벤트 핸들러 구현됨 |
+| **COEP 헤더 수정** | ❌ **미완료** | nginx에서 `credentialless`로 변경 필요 |
+| 프로덕션 배포 | ⏳ 대기 | COEP 수정 후 배포 |
+| 실제 테스트 | ⏳ 대기 | COEP 수정 후 테스트 |
+
+### Google Drive
+
+| 항목 | 상태 | 설명 |
+|------|------|------|
+| 프로젝트 생성 | ✅ 완료 | "HQMX-Converter" |
+| Picker API 활성화 | ✅ 완료 | 사용 설정됨 |
+| Drive API 활성화 | ✅ 완료 | 사용 설정됨 |
+| OAuth Client ID | ✅ 완료 | `280998173097-...` |
+| **API Key 생성** | ❌ **미완료** | 생성 후 script.js에 추가 필요 |
+| API Key 제한 | ⏳ 대기 | API Key 생성 후 설정 |
+| 스크립트 로드 | ✅ 완료 | gapi, GIS 로드됨 |
+| 버튼 UI | ✅ 완료 | HTML/CSS 구현됨 |
+| JavaScript 로직 | ✅ 완료 | OAuth 토큰 관리 구현됨 |
+| 프로덕션 배포 | ⏳ 대기 | API Key 추가 후 배포 |
+| 실제 테스트 | ⏳ 대기 | API Key 추가 후 테스트 |
+
+---
+
+## 🛠️ 즉시 해야 할 작업 (우선순위)
+
+### 1단계: nginx COEP 헤더 수정 (Dropbox 문제 해결)
+
+**로컬에서 EC2 서버 접속**:
+```bash
+ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@54.242.63.16
+```
+
+**nginx 설정 파일 편집**:
+```bash
+sudo nano /etc/nginx/nginx.conf
+```
+
+**변경 내용**:
+```nginx
+# 🔍 찾기: 다음 라인을 찾아서
+add_header Cross-Origin-Embedder-Policy "require-corp" always;
+
+# ✏️ 변경: 다음으로 변경
+add_header Cross-Origin-Embedder-Policy "credentialless" always;
+```
+
+**변경 사항 저장 및 적용**:
+```bash
+# 설정 검증
+sudo nginx -t
+
+# nginx 재시작
+sudo systemctl reload nginx
+
+# 확인
+curl -I https://hqmx.net | grep -i cross-origin
+
+# 예상 출력:
+# Cross-Origin-Embedder-Policy: credentialless
+```
+
+### 2단계: Google Drive API Key 생성 및 설정
+
+**A. Google Cloud Console에서 API Key 생성**:
+1. https://console.cloud.google.com 접속
+2. "HQMX-Converter" 프로젝트 선택
+3. APIs & Services → 사용자 인증 정보
+4. "사용자 인증 정보 만들기" → "API 키" 클릭
+5. API Key 복사 (예: `AIzaSyXXXXXXXXXXXXXXXXXXXXXX`)
+
+**B. API Key 제한 설정** (보안 강화):
+1. 생성된 API Key 옆의 연필 아이콘 클릭
+2. **애플리케이션 제한사항**: "HTTP 리퍼러(웹사이트)" 선택
+3. **웹사이트 제한사항** 추가:
+   ```
+   https://hqmx.net/*
+   http://localhost:3000/*
+   ```
+4. **API 제한사항**: "키 제한" 선택
+   - Google Drive API
+   - Google Picker API
+5. "저장" 클릭
+
+**C. frontend/script.js 수정**:
+
+로컬 파일 열기:
+```bash
+nano /Users/wonjunjang/Documents/converter.hqmx/frontend/script.js
+```
+
+찾아서 수정:
+```javascript
+// 🔍 찾기 (대략 Line 1670 근처)
+const GOOGLE_API_KEY = '';
+
+// ✏️ 변경
+const GOOGLE_API_KEY = 'AIzaSyXXXXXXXXXXXXXXXXXXXXXX';  // A단계에서 생성한 키
+```
+
+저장 후 배포:
+```bash
+scp -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem \
+  /Users/wonjunjang/Documents/converter.hqmx/frontend/script.js \
+  ubuntu@54.242.63.16:/tmp/
+
+ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@54.242.63.16 \
+  'sudo cp /tmp/script.js /var/www/html/ && \
+   sudo chown www-data:www-data /var/www/html/script.js && \
+   sudo chmod 755 /var/www/html/script.js'
+```
+
+### 3단계: 브라우저 캐시 클리어 및 테스트
+
+1. 브라우저에서 `Ctrl+Shift+R` (강제 새로고침)
+2. https://hqmx.net 접속
+3. 개발자 도구 열기 (F12)
+4. Console 탭 확인:
+   - Dropbox 로그: `🔵 [Dropbox] 버튼 활성화됨`
+   - Google Drive 로그: `🟢 [Google Drive] ✅ 버튼 활성화됨`
+5. "From Dropbox" 버튼 클릭 → Chooser 팝업 정상 열림
+6. "From Google Drive" 버튼 클릭 → Picker 팝업 정상 열림
+
+---
+
+## 🧪 테스트 시나리오
+
+### Dropbox 테스트
+1. "From Dropbox" 버튼 클릭
+2. Dropbox 로그인 (필요 시)
+3. 파일 선택 (이미지, 비디오, 오디오)
+4. "Choose" 버튼 클릭
+5. 파일이 "Your Files" 섹션에 추가되는지 확인
+6. 변환 형식 선택 후 "Start Conversion" 클릭
+7. 변환 완료 후 다운로드 테스트
+
+### Google Drive 테스트
+1. "From Google Drive" 버튼 클릭
+2. Google 계정 로그인 및 권한 승인
+3. 파일 선택 (이미지, 비디오, 오디오)
+4. 파일이 "Your Files" 섹션에 추가되는지 확인
+5. 변환 형식 선택 후 "Start Conversion" 클릭
+6. 변환 완료 후 다운로드 테스트
+
+---
+
+## 🐛 문제 해결
+
+### Dropbox 관련 문제
+
+**Q1: "Dropbox SDK not loaded" 에러**
+```javascript
+// 콘솔에서 확인
+console.log(typeof Dropbox);  // "object"여야 함
+
+// "undefined"면 스크립트 로딩 실패
+// → nginx COEP 헤더 확인
+```
+
+**Q2: COEP 에러 여전히 발생**
+```bash
+# nginx 설정 확인
+ssh -i hqmx-ec2.pem ubuntu@54.242.63.16 'sudo nginx -T 2>/dev/null | grep -i embedder'
+
+# 예상 출력:
+# Cross-Origin-Embedder-Policy: credentialless
+
+# 브라우저 캐시 클리어 (Ctrl+Shift+Delete)
+```
+
+**Q3: 파일 다운로드 실패 (CORS 에러)**
+```javascript
+// script.js에서 fetch mode 확인
+fetch(file.link, { mode: 'cors' })
+```
+
+### Google Drive 관련 문제
+
+**Q1: "gapi.client.init() 실패" 에러**
+```javascript
+// API Key 확인
+console.log(GOOGLE_API_KEY);  // 빈 문자열이면 ❌
+
+// API Key 생성 및 설정 (2단계 참조)
+```
+
+**Q2: OAuth 인증 팝업이 열리지 않음**
+```javascript
+// Client ID 확인
+console.log(GOOGLE_CLIENT_ID);
+
+// Authorized JavaScript origins 확인
+// https://console.cloud.google.com → 사용자 인증 정보
+```
+
+**Q3: 파일 선택 후 다운로드 실패**
+```javascript
+// OAuth scope 확인
+// scope: 'https://www.googleapis.com/auth/drive.readonly'
+
+// API 활성화 확인
+// Google Drive API, Google Picker API
 ```
 
 ---
 
-## 7️⃣ 색인 요청 및 모니터링
+## 📊 브라우저 호환성
 
-### 7.1 URL 검사 도구로 즉시 색인 요청
-1. Google Search Console → "URL 검사" 메뉴
-2. `https://hqmx.net/` 입력
-3. "색인 생성 요청" 클릭
-4. Google이 즉시 크롤링 시작 (24-48시간 소요)
+| 브라우저 | COEP: credentialless | FFmpeg.wasm | Dropbox API | Google Drive API |
+|---------|----------------------|-------------|-------------|------------------|
+| Chrome 109+ | ✅ 지원 | ✅ 지원 | ✅ 지원 | ✅ 지원 |
+| Edge 109+ | ✅ 지원 | ✅ 지원 | ✅ 지원 | ✅ 지원 |
+| Firefox 121+ | ✅ 지원 | ✅ 지원 | ✅ 지원 | ✅ 지원 |
+| Safari 16+ | ❌ 미지원 | ⚠️ 제한적 | ⚠️ 제한적 | ✅ 지원 |
 
-### 7.2 성능 모니터링
-**Search Console 메뉴**:
-- **실적**: 클릭수, 노출수, CTR, 평균 순위
-- **색인 생성 범위**: 색인된 페이지 수
-- **사이트맵**: sitemap.xml 상태
-- **모바일 사용성**: 모바일 친화성 문제
-- **Core Web Vitals**: 페이지 속도 및 성능
-
-### 7.3 주요 검색어 모니터링
-- "jpg to png converter"
-- "png to jpg"
-- "online image converter"
-- "free file converter"
-
----
-
-## 8️⃣ 추가 SEO 전략
-
-### 8.1 백링크 구축
-- Reddit, Quora, Stack Overflow 등에서 자연스럽게 도구 소개
-- ProductHunt, BetaList 등 런칭 플랫폼 활용
-- 블로그 포스팅 (Medium, Dev.to)
-
-### 8.2 소셜 미디어 공유
-- Twitter/X, Facebook, LinkedIn에 공유
-- 해시태그: #fileconverter #jpgtopng #webtools
-
-### 8.3 성능 최적화
-- 페이지 로딩 속도 개선 (Core Web Vitals)
-- 이미지 최적화 (WebP 사용)
-- CDN 활용 (Cloudflare)
-
----
-
-## 📊 예상 타임라인
-
-| 단계 | 소요 시간 | 상태 |
-|------|-----------|------|
-| Search Console 등록 | 1일 | ⏳ 대기 |
-| Sitemap 제출 | 1일 | ⏳ 대기 |
-| 첫 색인 생성 | 3-7일 | ⏳ 대기 |
-| 검색 결과 노출 | 2-4주 | ⏳ 대기 |
-| 순위 상승 | 2-3개월 | ⏳ 대기 |
-
----
-
-## ✅ 체크리스트
-
-- [ ] Google Search Console 등록
-- [ ] 소유권 확인 (HTML 태그 또는 파일)
-- [ ] sitemap.xml 생성 및 제출
-- [ ] robots.txt 생성 및 업로드
-- [ ] SEO 메타 태그 최적화
-- [ ] 구조화된 데이터 추가 (JSON-LD)
-- [ ] 콘텐츠 키워드 최적화
-- [ ] URL 검사 및 색인 요청
-- [ ] 성능 모니터링 설정
+**Safari 사용자 대응**:
+- FFmpeg.wasm 작동 (COEP 없어도 일부 기능 가능)
+- Dropbox/Google Drive는 정상 작동 (COEP 영향 없음)
+- 전체 사용자의 ~10% (Safari 점유율)
 
 ---
 
 ## 🔗 유용한 링크
 
-- [Google Search Console](https://search.google.com/search-console)
-- [Google Search Central](https://developers.google.com/search)
-- [Schema.org 문서](https://schema.org/)
-- [Core Web Vitals](https://web.dev/vitals/)
-- [Structured Data Testing Tool](https://search.google.com/test/rich-results)
+### Dropbox
+- [Dropbox Developer Portal](https://www.dropbox.com/developers/apps)
+- [Chooser API 문서](https://www.dropbox.com/developers/chooser)
+- [SDK 레퍼런스](https://www.dropbox.com/developers/reference/chooser)
+
+### Google Drive
+- [Google Cloud Console](https://console.cloud.google.com)
+- [Picker API 문서](https://developers.google.com/picker)
+- [Drive API 문서](https://developers.google.com/drive)
+- [OAuth 2.0 가이드](https://developers.google.com/identity/protocols/oauth2)
+
+### COEP/COOP
+- [MDN: Cross-Origin-Embedder-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cross-Origin-Embedder-Policy)
+- [web.dev: COOP and COEP](https://web.dev/articles/coop-coep)
+- [Chrome Dev: COEP credentialless](https://developer.chrome.com/blog/coep-credentialless-origin-trial)
 
 ---
 
-## 📞 문제 해결
+## 📝 참고사항
 
-### Q1: 색인이 안 됩니다
-**A**:
-1. robots.txt에서 Disallow 설정 확인
-2. sitemap.xml URL이 정확한지 확인
-3. 소유권 확인이 완료되었는지 확인
-4. URL 검사 도구로 수동 색인 요청
+1. **HTTPS 필수**: 프로덕션 환경에서는 반드시 HTTPS 사용 (이미 적용됨)
+2. **API 키 보안**:
+   - API Key는 클라이언트 사이드에서 노출됨 (정상)
+   - 대신 **API Key 제한 설정**으로 보안 강화
+3. **CORS 정책**: Dropbox/Google Drive는 CORS를 지원하므로 Blob 변환 필요
+4. **파일 크기 제한**: 브라우저 메모리 제한 고려 (권장: 100MB 이하)
+5. **사용자 경험**: 파일 다운로드 중 로딩 표시 이미 구현됨 (업로드 속도 표시)
+6. **에러 처리**: 사용자에게 명확한 에러 메시지 표시 (showToast 사용)
+7. **Safari 고려**: COEP credentialless는 Safari 미지원하지만 영향 적음 (Dropbox/Google Drive는 작동)
 
-### Q2: 검색 결과에 나타나지 않습니다
-**A**:
-1. 경쟁이 매우 높은 키워드는 시간이 오래 걸림
-2. 콘텐츠 품질 개선 필요
-3. 백링크 구축 필요
-4. 2-3개월 정도 기다려보기
+---
 
-### Q3: 순위가 낮습니다
-**A**:
-1. 페이지 속도 최적화 (Core Web Vitals)
-2. 콘텐츠 추가 및 개선
-3. 내부 링크 구조 개선
-4. 백링크 품질 향상
+## 🎯 완료 기준
+
+다음 조건을 모두 만족하면 연동 완료:
+
+- [ ] nginx COEP 헤더가 `credentialless`로 변경됨
+- [ ] `curl -I https://hqmx.net | grep -i embedder` 명령어로 확인
+- [ ] Google Drive API Key가 생성되고 제한 설정됨
+- [ ] `frontend/script.js`에 API Key가 추가됨
+- [ ] 브라우저 콘솔에서 Dropbox 에러가 사라짐
+- [ ] 브라우저 콘솔에서 Google Drive 초기화 성공 로그 확인
+- [ ] "From Dropbox" 버튼 클릭 시 Chooser 팝업이 정상적으로 열림
+- [ ] "From Google Drive" 버튼 클릭 시 Picker 팝업이 정상적으로 열림
+- [ ] Dropbox에서 파일 선택 후 "Your Files"에 추가됨
+- [ ] Google Drive에서 파일 선택 후 "Your Files"에 추가됨
+- [ ] 선택한 파일이 변환되고 다운로드됨
+
+---
+
+**마지막 업데이트**: 2025-10-14
+**작성자**: Claude (Anthropic)
+**문의**: support@hqmx.net
