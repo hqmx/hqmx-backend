@@ -21,17 +21,23 @@ function initializeApp() {
     // --- CONFIGURATION ---
     // 클라이언트 사이드 변환 모드 (브라우저에서 직접 변환)
     const CLIENT_SIDE_MODE = true;
-    
-    // API endpoints for converter service
-    // Local development: http://localhost:8787
-    // Cloudflare deployment: https://converter-workers.your-subdomain.workers.dev
-    const API_BASE_URL = 'http://localhost:8787';
+
+    // API Base URL - 환경에 따라 자동 감지
+    const API_BASE_URL = (() => {
+        const hostname = window.location.hostname;
+        // 로컬 개발 환경
+        if (hostname === 'localhost' || hostname === '127.0.0.1') {
+            return 'http://localhost:3001/api';
+        }
+        // 프로덕션: 상대 경로 (nginx가 /api -> localhost:3001로 프록시)
+        return '/api';
+    })();
 
     // Supported file formats by category
     const FORMATS = {
         video: ['mp4', 'avi', 'mov', 'mkv', 'webm', 'flv', 'wmv', '3gp', 'm4v', 'mpg', 'mpeg', 'ogv'],
         audio: ['mp3', 'wav', 'flac', 'aac', 'ogg', 'm4a', 'wma', 'aiff', 'au', 'ra', 'amr', 'ac3'],
-        image: ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg', 'bmp', 'tiff', 'tga', 'ico', 'psd', 'raw'],
+        image: ['jpg', 'jpeg', 'png', 'gif', 'webp', 'avif', 'svg', 'bmp', 'tiff', 'tga', 'ico', 'psd', 'raw'],
         document: ['pdf', 'doc', 'docx', 'ppt', 'pptx', 'xls', 'xlsx', 'txt', 'rtf', 'odt', 'ods', 'odp'],
         archive: ['zip', 'rar', '7z', 'tar', 'gz', 'bz2', 'xz', 'tar.gz', 'tar.bz2', 'tar.xz'],
         social: ['youtube', 'facebook', 'instagram', 'tiktok', 'twitter', 'vimeo', 'twitch', 'dailymotion', 'reddit', 'soundcloud', 'spotify', 'linkedin']
@@ -223,6 +229,11 @@ function initializeApp() {
     function triggerFileInput(e) {
         // 버튼 클릭은 별도 이벤트 리스너에서 처리하므로 여기서는 제외
         if (e.target.closest('#uploadBtn')) {
+            return;
+        }
+
+        // Cloud storage 버튼 클릭 시에는 파일 입력창을 열지 않음
+        if (e.target.closest('.cloud-btn') || e.target.closest('#dropboxBtn') || e.target.closest('#gdriveBtn')) {
             return;
         }
 
@@ -500,10 +511,12 @@ function initializeApp() {
     }
 
     function addFiles(files) {
+        const initialFileCount = state.files.length;
+
         files.forEach(file => {
-            // Validate file size (100MB limit for free tier)
-            if (file.size > 100 * 1024 * 1024) {
-                showToast(`File "${file.name}" exceeds 100MB limit`, 'error');
+            // Validate file size (2.5GB limit)
+            if (file.size > 2560 * 1024 * 1024) {
+                showToast(`File "${file.name}" exceeds 2.5GB limit`, 'error');
                 return;
             }
 
@@ -545,9 +558,11 @@ function initializeApp() {
             state.files.push(fileObj);
         });
 
-        updateFileList();
-        showFileListSection();
-        showAdBanner(); // 파일 업로드 시 배너 표시
+        // 파일이 실제로 추가되었을 때만 UI 업데이트
+        if (state.files.length > initialFileCount) {
+            updateFileList();
+            showFileListSection();
+        }
     }
 
     function updateFileList() {
@@ -612,7 +627,6 @@ function initializeApp() {
             dom.fileListSection.style.display = 'none';
             // 파일이 모두 제거되면 업로드 패널 확장
             dom.uploadZone.classList.remove('collapsed');
-            hideAdBanner(); // 모든 파일 제거 시 배너 숨김
         }
     }
 
@@ -664,7 +678,6 @@ function initializeApp() {
             dom.fileListSection.style.display = 'none';
             // 파일이 모두 제거되면 업로드 패널 확장
             dom.uploadZone.classList.remove('collapsed');
-            hideAdBanner(); // 파일이 모두 제거되면 배너 숨김
         }
 
         showToast(`Removed "${fileObj.name}"`, 'success');
@@ -692,8 +705,9 @@ function initializeApp() {
         dom.fileName.textContent = fileObj.name;
         dom.fileSize.textContent = formatFileSize(fileObj.size);
 
-        // Set initial category based on file type (더 정확한 감지 사용)
-        const initialCategory = fileObj.category || detectFileCategory(fileObj.extension);
+        // Set initial category based on CURRENT file extension (always re-detect to handle converted files)
+        // 변환된 파일을 재변환할 때 정확한 카테고리 감지를 위해 항상 확장자 기반으로 재감지
+        const initialCategory = detectFileCategory(fileObj.extension);
 
         // 파일 카테고리에 따라 허용되는 변환 카테고리 필터링
         filterAvailableCategories(initialCategory);
@@ -707,6 +721,12 @@ function initializeApp() {
 
     function openBatchConversionModal(files) {
         console.log('openBatchConversionModal 호출됨, 파일 수:', files.length);
+
+        // 파일이 없으면 모달을 열지 않음
+        if (!files || files.length === 0) {
+            showToast('변환할 파일을 선택해주세요', 'warning');
+            return;
+        }
 
         // Hide single file preview since we're in batch mode
         const singleFilePreview = document.getElementById('singleFilePreview');
@@ -776,11 +796,13 @@ function initializeApp() {
 
         if (state.currentFileIndex >= 0) {
             sourceFileObj = state.files[state.currentFileIndex];
-            sourceCategory = sourceFileObj.category;
+            // 항상 확장자 기반으로 재감지 (변환 실패 후 손상된 category 방지)
+            sourceCategory = detectFileCategory(sourceFileObj.extension);
             sourceExtension = sourceFileObj.extension.toLowerCase();
         } else if (state.batchFiles && state.batchFiles.length > 0) {
             sourceFileObj = state.batchFiles[0];
-            sourceCategory = sourceFileObj.category;
+            // 항상 확장자 기반으로 재감지 (변환 실패 후 손상된 category 방지)
+            sourceCategory = detectFileCategory(sourceFileObj.extension);
             sourceExtension = sourceFileObj.extension.toLowerCase();
         }
 
@@ -953,24 +975,7 @@ function initializeApp() {
         closeModal();
 
         // 모달 닫힌 후 Vignette 광고 실행 (중복 방지)
-        if (!document.querySelector('script[data-zone="10017255"]')) {
-            try {
-                // 광고 스크립트 직접 실행
-                const adScript = document.createElement('script');
-                adScript.dataset.zone = '10017255';
-                adScript.src = 'https://groleegni.net/vignette.min.js';
-                const targetElement = [document.documentElement, document.body].filter(Boolean).pop();
-                targetElement.appendChild(adScript);
-                console.log('Vignette 광고 로드 시작');
-            } catch (error) {
-                console.error('Vignette 광고 로드 실패:', error);
-            }
-        }
-
-        // 광고 표시 후 짧은 지연 후 변환 시작
-        setTimeout(() => {
-            startFileConversion(fileObj);
-        }, 1000);
+        startFileConversion(fileObj);
     }
 
     function startBatchConversion() {
@@ -1016,25 +1021,7 @@ function initializeApp() {
         // 모달 닫기
         closeModal();
 
-        // 모달 닫힌 후 Vignette 광고 실행 (중복 방지)
-        if (!document.querySelector('script[data-zone="10017255"]')) {
-            try {
-                // 광고 스크립트 직접 실행
-                const adScript = document.createElement('script');
-                adScript.dataset.zone = '10017255';
-                adScript.src = 'https://groleegni.net/vignette.min.js';
-                const targetElement = [document.documentElement, document.body].filter(Boolean).pop();
-                targetElement.appendChild(adScript);
-                console.log('Vignette 광고 로드 시작 (배치 모드)');
-            } catch (error) {
-                console.error('Vignette 광고 로드 실패:', error);
-            }
-        }
-
-        // 광고 표시 후 짧은 지연 후 배치 변환 시작
-        setTimeout(() => {
-            startBatchFileConversions(batchFilesToConvert);
-        }, 1000);
+        startBatchFileConversions(batchFilesToConvert);
     }
 
     async function startBatchFileConversions(files) {
@@ -1078,23 +1065,49 @@ function initializeApp() {
         }
     }
 
-    // 백엔드가 필요한 파일 형식들 정의
+    // 서버 사이드 변환이 필요한 파일 형식들 (클라이언트에서 처리 불가능한 것만)
     const SERVER_SIDE_FORMATS = {
-        input: ['psd', 'ai', 'sketch', 'fig', 'raw', 'cr2', 'nef', 'arw', 'dng'],
-        output: ['psd', 'ai', 'indd', 'eps'],
-        document: ['pdf', 'doc', 'docx', 'ppt', 'pptx', 'xls', 'xlsx']
+        // 디자인 툴 전용 형식 (클라이언트 불가능)
+        design: ['ai', 'sketch', 'fig', 'indd', 'eps'],
+        // RAW 사진 형식 (복잡한 디코딩 필요)
+        raw: ['raw', 'cr2', 'nef', 'arw', 'dng', 'orf', 'rw2', 'raf', 'pef'],
+        // Office 문서 형식 (복잡한 변환)
+        office: ['doc', 'docx', 'ppt', 'pptx', 'xls', 'xlsx']
     };
+
+    // 파일 크기 제한 (100MB 이상은 서버로)
+    const CLIENT_SIDE_MAX_SIZE = 100 * 1024 * 1024; // 100MB
 
     // 파일이 서버 사이드 변환이 필요한지 확인
     function needsServerSideConversion(fileObj) {
         const inputExt = fileObj.extension.toLowerCase();
         const outputExt = fileObj.outputFormat.toLowerCase();
 
-        // 입력 파일이 복잡한 형식이거나 출력 형식이 복잡한 경우
-        return SERVER_SIDE_FORMATS.input.includes(inputExt) ||
-               SERVER_SIDE_FORMATS.output.includes(outputExt) ||
-               (SERVER_SIDE_FORMATS.document.includes(inputExt) &&
-                SERVER_SIDE_FORMATS.document.includes(outputExt));
+        // 1. 파일 크기 체크 (100MB 이상)
+        if (fileObj.file && fileObj.file.size > CLIENT_SIDE_MAX_SIZE) {
+            console.log(`파일 크기 ${(fileObj.file.size / 1024 / 1024).toFixed(1)}MB > 100MB → 서버 변환`);
+            return true;
+        }
+
+        // 2. 디자인 툴 형식 (ai, sketch, fig, indd, eps)
+        if (SERVER_SIDE_FORMATS.design.includes(inputExt) ||
+            SERVER_SIDE_FORMATS.design.includes(outputExt)) {
+            return true;
+        }
+
+        // 3. RAW 사진 형식
+        if (SERVER_SIDE_FORMATS.raw.includes(inputExt)) {
+            return true;
+        }
+
+        // 4. Office 문서 형식 (복잡한 변환)
+        if (SERVER_SIDE_FORMATS.office.includes(inputExt) ||
+            SERVER_SIDE_FORMATS.office.includes(outputExt)) {
+            return true;
+        }
+
+        // 모든 조건을 통과하면 클라이언트에서 처리
+        return false;
     }
 
     async function startFileConversion(fileObj) {
@@ -1103,12 +1116,12 @@ function initializeApp() {
         updateFileItem(fileObj);
 
         try {
-            // 하이브리드 모드: 파일 형식에 따라 클라이언트/서버 결정
+            // 하이브리드 모드: 파일 형식과 크기에 따라 클라이언트/서버 자동 결정
             if (CLIENT_SIDE_MODE && !needsServerSideConversion(fileObj)) {
-                console.log(`클라이언트 사이드 변환: ${fileObj.name} → ${fileObj.outputFormat}`);
+                console.log(`✅ 클라이언트 사이드 변환: ${fileObj.name} (${(fileObj.file.size / 1024 / 1024).toFixed(1)}MB) → ${fileObj.outputFormat}`);
                 await clientSideConversion(fileObj);
             } else {
-                console.log(`서버 사이드 변환: ${fileObj.name} → ${fileObj.outputFormat}`);
+                console.log(`🔄 서버 사이드 변환: ${fileObj.name} (${(fileObj.file.size / 1024 / 1024).toFixed(1)}MB) → ${fileObj.outputFormat}`);
                 await serverSideConversion(fileObj);
             }
         } catch (error) {
@@ -1123,7 +1136,51 @@ function initializeApp() {
     // 클라이언트 사이드 변환 함수
     async function clientSideConversion(fileObj) {
         try {
+            // Step 1: File Reading Phase (Simulated Upload)
+            fileObj.status = 'uploading';
+            fileObj.progress = 0;
+            fileObj.statusDetail = 'Loading file...';
+            updateFileItem(fileObj);
+
+            // Read file and track progress
+            const startTime = Date.now();
+            let lastUpdateTime = startTime;
+            let loadedBytes = 0;
+
+            await new Promise((resolve, reject) => {
+                const reader = new FileReader();
+
+                reader.onprogress = (event) => {
+                    if (event.lengthComputable) {
+                        const progress = Math.round((event.loaded / event.total) * 100);
+                        const currentTime = Date.now();
+                        const elapsedTime = (currentTime - lastUpdateTime) / 1000; // seconds
+
+                        if (elapsedTime > 0.1) { // Update every 100ms
+                            const bytesThisInterval = event.loaded - loadedBytes;
+                            const speed = bytesThisInterval / elapsedTime; // bytes per second
+                            const speedMB = (speed / (1024 * 1024)).toFixed(1); // MB/s
+
+                            fileObj.progress = Math.min(progress, 15); // Cap at 15% for loading
+                            fileObj.statusDetail = `Uploading... (${speedMB} MB/s)`;
+                            updateFileItem(fileObj);
+
+                            loadedBytes = event.loaded;
+                            lastUpdateTime = currentTime;
+                        }
+                    }
+                };
+
+                reader.onload = () => resolve();
+                reader.onerror = () => reject(new Error('File reading failed'));
+
+                reader.readAsArrayBuffer(fileObj.file);
+            });
+
+            // Step 2: Conversion Phase
             fileObj.status = 'converting';
+            fileObj.progress = 20;
+            fileObj.statusDetail = 'Initializing converter...';
             updateFileItem(fileObj);
 
             // 변환 엔진 확인
@@ -1131,19 +1188,40 @@ function initializeApp() {
                 throw new Error('변환 엔진을 로드할 수 없습니다');
             }
 
-            // 진행률 콜백 설정
+            // 진행률 콜백 설정 (with FFmpeg log parsing)
             const progressCallback = (progress, message) => {
-                fileObj.progress = Math.round(progress);
+                const actualProgress = 20 + Math.round(progress * 0.8); // 20-100%
+                fileObj.progress = actualProgress;
                 fileObj.status = progress < 100 ? 'converting' : 'completed';
+
+                // Parse FFmpeg console output for detailed info
+                if (message.includes('[FFmpeg]')) {
+                    // Extract FFmpeg details: frame, fps, size, bitrate, speed
+                    const frameMatch = message.match(/frame=\s*(\d+)/);
+                    const fpsMatch = message.match(/fps=\s*([\d.]+)/);
+                    const sizeMatch = message.match(/size=\s*([\d]+kB)/);
+                    const bitrateMatch = message.match(/bitrate=\s*([\d.]+kbits\/s)/);
+                    const speedMatch = message.match(/speed=\s*([\d.]+x)/);
+
+                    if (frameMatch || fpsMatch || speedMatch) {
+                        const details = [];
+                        if (frameMatch) details.push(`frame ${frameMatch[1]}`);
+                        if (fpsMatch) details.push(`${fpsMatch[1]} fps`);
+                        if (speedMatch) details.push(`${speedMatch[1]}`);
+
+                        fileObj.statusDetail = `Converting... ${details.join(' | ')}`;
+                    } else {
+                        fileObj.statusDetail = message.replace('[FFmpeg]', '').trim();
+                    }
+                } else {
+                    fileObj.statusDetail = message;
+                }
+
                 updateFileItem(fileObj);
                 console.log(`변환 진행: ${progress}% - ${message}`);
             };
 
             // 변환 실행
-            fileObj.status = 'converting';
-            fileObj.progress = 0;
-            updateFileItem(fileObj);
-            
             const blob = await window.converterEngine.convert(
                 fileObj.file,
                 fileObj.outputFormat,
@@ -1159,6 +1237,7 @@ function initializeApp() {
             fileObj.outputFileName = fileName;
             fileObj.status = 'completed';
             fileObj.progress = 100;
+            fileObj.statusDetail = 'Conversion complete!';
             updateFileItem(fileObj);
 
             // 단일 파일 변환 완료
@@ -1197,7 +1276,7 @@ function initializeApp() {
             }
 
             // Start progress monitoring
-            startProgressMonitor(fileObj.id, data.task_id);
+            startProgressMonitor(fileObj.id, data.jobId);
 
         } catch (error) {
             throw error;
@@ -1221,7 +1300,7 @@ function initializeApp() {
             state.eventSources.get(fileId).close();
         }
 
-        const eventSource = new EventSource(`${API_BASE_URL}/stream-progress/${taskId}`);
+        const eventSource = new EventSource(`${API_BASE_URL}/progress/${taskId}`);
         state.eventSources.set(fileId, eventSource);
         state.conversions.set(fileId, taskId);
 
@@ -1305,7 +1384,14 @@ function initializeApp() {
         } else {
             progressElement.style.display = 'block';
             statusElement.style.display = 'block';
-            statusElement.textContent = getStatusText(fileObj.status);
+
+            // Use detailed status if available, otherwise fallback to basic status
+            if (fileObj.statusDetail) {
+                statusElement.textContent = fileObj.statusDetail;
+            } else {
+                statusElement.textContent = getStatusText(fileObj.status);
+            }
+
             progressFill.style.width = `${fileObj.progress}%`;
 
             // 변환 중이거나 업로드 중일 때만 버튼 비활성화
@@ -1371,7 +1457,7 @@ function initializeApp() {
     // 파일 카테고리 감지 (더 정확한 버전)
     function detectFileCategory(extension) {
         const categories = {
-            image: ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg', 'bmp', 'tiff', 'ico', 'heic', 'raw', 'psd'],
+            image: ['jpg', 'jpeg', 'png', 'gif', 'webp', 'avif', 'svg', 'bmp', 'tiff', 'ico', 'heic', 'raw', 'psd'],
             video: ['mp4', 'avi', 'mov', 'mkv', 'webm', 'flv', 'wmv', '3gp', 'ogv'],
             audio: ['mp3', 'wav', 'flac', 'aac', 'ogg', 'm4a', 'wma', 'opus'],
             document: ['pdf', 'doc', 'docx', 'txt', 'rtf', 'odt', 'pages', 'tex'],
@@ -1390,11 +1476,12 @@ function initializeApp() {
     function getRecommendedFormats(extension, category) {
         const recommendations = {
             image: {
-                png: ['jpg', 'webp', 'pdf', 'svg'],
-                jpg: ['png', 'webp', 'pdf', 'gif'],
-                jpeg: ['png', 'webp', 'pdf', 'gif'],
+                png: ['jpg', 'webp', 'avif', 'pdf', 'svg'],
+                jpg: ['png', 'webp', 'avif', 'pdf', 'gif'],
+                jpeg: ['png', 'webp', 'avif', 'pdf', 'gif'],
                 gif: ['mp4', 'webp', 'png', 'jpg'],
-                webp: ['jpg', 'png', 'gif'],
+                webp: ['jpg', 'png', 'avif', 'gif'],
+                avif: ['jpg', 'png', 'webp'],
                 svg: ['png', 'jpg', 'pdf'],
                 bmp: ['jpg', 'png', 'webp'],
                 tiff: ['jpg', 'png', 'pdf'],
@@ -1536,11 +1623,16 @@ function initializeApp() {
     // Dropbox integration
     function initializeDropbox() {
         const dropboxBtn = document.getElementById('dropboxBtn');
+        console.log('🔵 [Dropbox] 초기화 시작, Dropbox 객체:', typeof Dropbox !== 'undefined' ? '✓ 로드됨' : '✗ 없음');
+
         if (dropboxBtn) {
             dropboxBtn.addEventListener('click', () => {
+                console.log('🔵 [Dropbox] 버튼 클릭됨');
                 if (typeof Dropbox !== 'undefined') {
+                    console.log('🔵 [Dropbox] Chooser 열기 시도...');
                     Dropbox.choose({
                         success: function(files) {
+                            console.log('🔵 [Dropbox] ✅ 파일 선택 성공:', files.length, '개');
                             files.forEach(file => {
                                 // Convert Dropbox file to File object
                                 fetch(file.link)
@@ -1557,11 +1649,12 @@ function initializeApp() {
                             });
                         },
                         cancel: function() {
-                            console.log('Dropbox selection cancelled');
+                            console.log('🔵 [Dropbox] ❌ 선택 취소됨 (팝업 차단 또는 사용자 취소)');
                         },
                         linkType: "direct",
-                        multiselect: true,
-                        extensions: Object.values(FORMATS).flat()
+                        multiselect: true
+                        // extensions 파라미터 제거: Dropbox Chooser는 개별 확장자를 지원하지 않음
+                        // 대신 사용자가 모든 파일을 선택할 수 있도록 함
                     });
                 } else {
                     showToast('Dropbox API is not configured. Please add your Dropbox app key.', 'info');
@@ -1572,12 +1665,18 @@ function initializeApp() {
 
     // Google Drive integration
     function initializeGoogleDrive() {
-        // Get API keys from localStorage or use defaults
-        const CLIENT_ID = localStorage.getItem('googleDriveClientId') || 'YOUR_GOOGLE_CLIENT_ID';
-        const API_KEY = localStorage.getItem('googleDriveApiKey') || 'YOUR_GOOGLE_API_KEY';
+        console.log('🟢 [Google Drive] 초기화 시작');
+        console.log('🟢 [Google Drive] gapi 객체:', typeof gapi !== 'undefined' ? '✓ 로드됨' : '✗ 없음');
+        console.log('🟢 [Google Drive] google 객체:', typeof google !== 'undefined' ? '✓ 로드됨' : '✗ 없음');
 
-        // Skip initialization if API keys are not configured
-        if (CLIENT_ID === 'YOUR_GOOGLE_CLIENT_ID' || API_KEY === 'YOUR_GOOGLE_API_KEY') {
+        // Get API keys from localStorage or use defaults
+        const CLIENT_ID = localStorage.getItem('googleDriveClientId') || '280998173097-ffdh6ft1kujjcn5kp9md1p6mso17cvpj.apps.googleusercontent.com';
+        const API_KEY = localStorage.getItem('googleDriveApiKey') || 'AIzaSyBvc5M9cheAAs7hnZHN1nUid2vpO1XyS_c';
+
+        console.log('🟢 [Google Drive] Client ID:', CLIENT_ID.substring(0, 20) + '...');
+
+        // Skip initialization if CLIENT_ID is not configured
+        if (CLIENT_ID === 'YOUR_GOOGLE_CLIENT_ID') {
             const gdriveBtn = document.getElementById('gdriveBtn');
             if (gdriveBtn) {
                 gdriveBtn.disabled = false;
@@ -1597,32 +1696,54 @@ function initializeApp() {
         let gisInited = false;
 
         function gapiLoaded() {
+            console.log('🟢 [Google Drive] gapi.load 시작...');
             gapi.load('client', async () => {
-                await gapi.client.init({
-                    apiKey: API_KEY,
+                console.log('🟢 [Google Drive] gapi.client 로드 완료');
+                const initConfig = {
                     discoveryDocs: [DISCOVERY_DOC],
-                });
-                gapiInited = true;
-                maybeEnableButtons();
+                };
+                // API Key가 있으면 추가 (선택사항)
+                if (API_KEY) {
+                    initConfig.apiKey = API_KEY;
+                    console.log('🟢 [Google Drive] API Key 설정됨');
+                }
+                try {
+                    await gapi.client.init(initConfig);
+                    console.log('🟢 [Google Drive] ✅ gapi.client 초기화 성공');
+                    gapiInited = true;
+                    maybeEnableButtons();
+                } catch (error) {
+                    console.error('🟢 [Google Drive] ❌ gapi.client 초기화 실패:', error);
+                }
             });
         }
 
         function gisLoaded() {
-            tokenClient = google.accounts.oauth2.initTokenClient({
-                client_id: CLIENT_ID,
-                scope: SCOPES,
-                callback: '', // defined later
-            });
-            gisInited = true;
-            maybeEnableButtons();
+            console.log('🟢 [Google Drive] Google Identity Services 초기화 시작...');
+            try {
+                tokenClient = google.accounts.oauth2.initTokenClient({
+                    client_id: CLIENT_ID,
+                    scope: SCOPES,
+                    callback: '', // defined later
+                });
+                console.log('🟢 [Google Drive] ✅ GIS 초기화 성공');
+                gisInited = true;
+                maybeEnableButtons();
+            } catch (error) {
+                console.error('🟢 [Google Drive] ❌ GIS 초기화 실패:', error);
+            }
         }
 
         function maybeEnableButtons() {
+            console.log('🟢 [Google Drive] 버튼 활성화 확인... gapiInited:', gapiInited, 'gisInited:', gisInited);
             if (gapiInited && gisInited) {
                 const gdriveBtn = document.getElementById('gdriveBtn');
                 if (gdriveBtn) {
                     gdriveBtn.disabled = false;
+                    console.log('🟢 [Google Drive] ✅ 버튼 활성화됨');
                 }
+            } else {
+                console.log('🟢 [Google Drive] ⏳ 아직 초기화 중... 버튼 비활성화 상태');
             }
         }
 
@@ -1946,22 +2067,6 @@ function initializeShowMoreButtons() {
     });
 }
 
-// Adsterra Banner 표시/숨김 함수
-function showAdBanner() {
-    const banner = document.getElementById('adsterra-banner-728x90');
-    if (banner) {
-        banner.style.display = 'flex';
-        console.log('Adsterra 배너 표시');
-    }
-}
-
-function hideAdBanner() {
-    const banner = document.getElementById('adsterra-banner-728x90');
-    if (banner) {
-        banner.style.display = 'none';
-        console.log('Adsterra 배너 숨김');
-    }
-}
 
 // DOM이 완전히 로드된 후 한 번만 초기화 실행
 if (document.readyState === 'loading') {

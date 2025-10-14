@@ -6,6 +6,7 @@ class ConverterEngine {
         this.ffmpeg = null;
         this.ffmpegLoaded = false;
         this.ffmpegLoading = false;
+        this.currentProgressCallback = null;
     }
 
     /**
@@ -30,17 +31,23 @@ class ConverterEngine {
 
             this.ffmpeg = new FFmpegLib.FFmpeg();
 
-            // 진행률 콜백 설정
+            // 진행률 콜백 설정 (동적으로 currentProgressCallback 사용)
             this.ffmpeg.on('progress', ({ progress, time }) => {
                 const percent = Math.round(progress * 100);
                 if (percent > 0 && percent <= 100) {
-                    onProgress?.(percent, `변환 중... ${percent}%`);
+                    const callback = this.currentProgressCallback || onProgress;
+                    callback?.(percent, `Converting... ${percent}%`);
                 }
             });
 
-            // FFmpeg 로그 출력 (디버깅용)
+            // FFmpeg 로그 출력 (UI로 전달)
             this.ffmpeg.on('log', ({ message }) => {
                 console.log('[FFmpeg]', message);
+                // Forward log to UI callback
+                const callback = this.currentProgressCallback || onProgress;
+                if (callback && message) {
+                    callback(null, `[FFmpeg] ${message}`);
+                }
             });
 
             onProgress?.(30, 'FFmpeg 코어 로딩 중...');
