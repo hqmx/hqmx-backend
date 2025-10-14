@@ -9,12 +9,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="/style.css?v=20251011fix2">
 
-    <!-- Dropbox API -->
-    <script src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="xfuwomiskerr8by"></script>
-
-    <!-- Google Drive API -->
-    <script src="https://apis.google.com/js/api.js"></script>
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <link rel="icon" type="image/png" href="/assets/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
     <link rel="shortcut icon" href="/assets/favicon.ico" />
@@ -2245,6 +2239,18 @@
     <script src="/url-router.js?v=20251008"></script>
     <script src="/converter-engine.js?v=20251014n"></script>
     <script src="/script.js?v=20251014h"></script>
+
+    <!-- Cloud Storage APIs (로드 순서: script.js 다음, 초기화 이전) -->
+    <!-- Dropbox Chooser API -->
+    <script type="text/javascript"
+            src="https://www.dropbox.com/static/api/2/dropins.js"
+            id="dropboxjs"
+            data-app-key="xfuwomiskerr8by"
+            crossorigin="anonymous"></script>
+
+    <!-- Google Drive Picker API -->
+    <script src="https://apis.google.com/js/api.js" crossorigin="anonymous"></script>
+    <script src="https://accounts.google.com/gsi/client" async defer crossorigin="anonymous"></script>
 
     <!-- Service Worker 등록 -->
     <script>
