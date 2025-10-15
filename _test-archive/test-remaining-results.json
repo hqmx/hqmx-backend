@@ -1,0 +1,324 @@
+{
+  "timestamp": "2025-10-13T20:23:30.537Z",
+  "total": 45,
+  "passed": 0,
+  "failed": 38,
+  "skipped": 7,
+  "tests": [
+    {
+      "name": "gif → mp4",
+      "from": "gif",
+      "to": "mp4",
+      "status": "failed",
+      "error": "locator.click: Target page, context or browser has been closed\nCall log:\n\u001b[2m  - waiting for locator('.format-badge[data-format=\"mp4\"]').first()\u001b[22m\n\u001b[2m    - locator resolved to <div data-format=\"mp4\" class=\"format-badge video disabled\" title=\"This conversion is not supported\">MP4</div>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <div class=\"format-grid\">…</div> intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <div class=\"format-grid\">…</div> intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    277 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m        - element is visible, enabled and stable\u001b[22m\n\u001b[2m        - scrolling into view if needed\u001b[22m\n\u001b[2m        - done scrolling\u001b[22m\n\u001b[2m        - <div class=\"format-grid\">…</div> intercepts pointer events\u001b[22m\n\u001b[2m      - retrying click action\u001b[22m\n\u001b[2m        - waiting 500ms\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and stable\u001b[22m\n"
+    },
+    {
+      "name": "gif → png",
+      "from": "gif",
+      "to": "png",
+      "status": "failed",
+      "error": "page.setInputFiles: Target page, context or browser has been closed"
+    },
+    {
+      "name": "gif → jpg",
+      "from": "gif",
+      "to": "jpg",
+      "status": "failed",
+      "error": "page.setInputFiles: Target page, context or browser has been closed"
+    },
+    {
+      "name": "svg → png",
+      "from": "svg",
+      "to": "png",
+      "status": "failed",
+      "error": "page.setInputFiles: Target page, context or browser has been closed"
+    },
+    {
+      "name": "svg → jpg",
+      "from": "svg",
+      "to": "jpg",
+      "status": "failed",
+      "error": "page.setInputFiles: Target page, context or browser has been closed"
+    },
+    {
+      "name": "bmp → jpg",
+      "from": "bmp",
+      "to": "jpg",
+      "status": "failed",
+      "error": "page.setInputFiles: Target page, context or browser has been closed"
+    },
+    {
+      "name": "bmp → png",
+      "from": "bmp",
+      "to": "png",
+      "status": "failed",
+      "error": "page.setInputFiles: Target page, context or browser has been closed"
+    },
+    {
+      "name": "ico → png",
+      "from": "ico",
+      "to": "png",
+      "status": "failed",
+      "error": "page.setInputFiles: Target page, context or browser has been closed"
+    },
+    {
+      "name": "png → ico",
+      "from": "png",
+      "to": "ico",
+      "status": "failed",
+      "error": "page.setInputFiles: Target page, context or browser has been closed"
+    },
+    {
+      "name": "avif → jpg",
+      "from": "avif",
+      "to": "jpg",
+      "status": "skipped",
+      "reason": "avif 소스 파일 없음"
+    },
+    {
+      "name": "avif → png",
+      "from": "avif",
+      "to": "png",
+      "status": "skipped",
+      "reason": "avif 소스 파일 없음"
+    },
+    {
+      "name": "jpg → avif",
+      "from": "jpg",
+      "to": "avif",
+      "status": "failed",
+      "error": "page.setInputFiles: Target page, context or browser has been closed"
+    },
+    {
+      "name": "png → avif",
+      "from": "png",
+      "to": "avif",
+      "status": "failed",
+      "error": "page.setInputFiles: Target page, context or browser has been closed"
+    },
+    {
+      "name": "docx → pdf",
+      "from": "docx",
+      "to": "pdf",
+      "status": "skipped",
+      "reason": "docx 소스 파일 없음"
+    },
+    {
+      "name": "doc → pdf",
+      "from": "doc",
+      "to": "pdf",
+      "status": "skipped",
+      "reason": "doc 소스 파일 없음"
+    },
+    {
+      "name": "xls → pdf",
+      "from": "xls",
+      "to": "pdf",
+      "status": "skipped",
+      "reason": "xls 소스 파일 없음"
+    },
+    {
+      "name": "pptx → pdf",
+      "from": "pptx",
+      "to": "pdf",
+      "status": "skipped",
+      "reason": "pptx 소스 파일 없음"
+    },
+    {
+      "name": "ppt → pdf",
+      "from": "ppt",
+      "to": "pdf",
+      "status": "skipped",
+      "reason": "ppt 소스 파일 없음"
+    },
+    {
+      "name": "txt → pdf",
+      "from": "txt",
+      "to": "pdf",
+      "status": "failed",
+      "error": "page.setInputFiles: Target page, context or browser has been closed"
+    },
+    {
+      "name": "mov → mp4",
+      "from": "mov",
+      "to": "mp4",
+      "status": "failed",
+      "error": "page.setInputFiles: Target page, context or browser has been closed"
+    },
+    {
+      "name": "mkv → mp4",
+      "from": "mkv",
+      "to": "mp4",
+      "status": "failed",
+      "error": "page.setInputFiles: Target page, context or browser has been closed"
+    },
+    {
+      "name": "flv → mp4",
+      "from": "flv",
+      "to": "mp4",
+      "status": "failed",
+      "error": "page.setInputFiles: Target page, context or browser has been closed"
+    },
+    {
+      "name": "wmv → mp4",
+      "from": "wmv",
+      "to": "mp4",
+      "status": "failed",
+      "error": "page.setInputFiles: Target page, context or browser has been closed"
+    },
+    {
+      "name": "webm → mp4",
+      "from": "webm",
+      "to": "mp4",
+      "status": "failed",
+      "error": "page.setInputFiles: Target page, context or browser has been closed"
+    },
+    {
+      "name": "mp4 → webm",
+      "from": "mp4",
+      "to": "webm",
+      "status": "failed",
+      "error": "page.setInputFiles: Target page, context or browser has been closed"
+    },
+    {
+      "name": "mp4 → gif",
+      "from": "mp4",
+      "to": "gif",
+      "status": "failed",
+      "error": "page.setInputFiles: Target page, context or browser has been closed"
+    },
+    {
+      "name": "mp4 → mov",
+      "from": "mp4",
+      "to": "mov",
+      "status": "failed",
+      "error": "page.setInputFiles: Target page, context or browser has been closed"
+    },
+    {
+      "name": "mp4 → avi",
+      "from": "mp4",
+      "to": "avi",
+      "status": "failed",
+      "error": "page.setInputFiles: Target page, context or browser has been closed"
+    },
+    {
+      "name": "avi → mp4",
+      "from": "avi",
+      "to": "mp4",
+      "status": "failed",
+      "error": "page.setInputFiles: Target page, context or browser has been closed"
+    },
+    {
+      "name": "mp4 → mkv",
+      "from": "mp4",
+      "to": "mkv",
+      "status": "failed",
+      "error": "page.setInputFiles: Target page, context or browser has been closed"
+    },
+    {
+      "name": "m4v → mp4",
+      "from": "m4v",
+      "to": "mp4",
+      "status": "failed",
+      "error": "page.setInputFiles: Target page, context or browser has been closed"
+    },
+    {
+      "name": "mp4 → m4v",
+      "from": "mp4",
+      "to": "m4v",
+      "status": "failed",
+      "error": "page.setInputFiles: Target page, context or browser has been closed"
+    },
+    {
+      "name": "m4a → mp3",
+      "from": "m4a",
+      "to": "mp3",
+      "status": "failed",
+      "error": "page.setInputFiles: Target page, context or browser has been closed"
+    },
+    {
+      "name": "flac → mp3",
+      "from": "flac",
+      "to": "mp3",
+      "status": "failed",
+      "error": "page.setInputFiles: Target page, context or browser has been closed"
+    },
+    {
+      "name": "ogg → mp3",
+      "from": "ogg",
+      "to": "mp3",
+      "status": "failed",
+      "error": "page.setInputFiles: Target page, context or browser has been closed"
+    },
+    {
+      "name": "aac → mp3",
+      "from": "aac",
+      "to": "mp3",
+      "status": "failed",
+      "error": "page.setInputFiles: Target page, context or browser has been closed"
+    },
+    {
+      "name": "wma → mp3",
+      "from": "wma",
+      "to": "mp3",
+      "status": "failed",
+      "error": "page.setInputFiles: Target page, context or browser has been closed"
+    },
+    {
+      "name": "wav → mp3",
+      "from": "wav",
+      "to": "mp3",
+      "status": "failed",
+      "error": "page.setInputFiles: Target page, context or browser has been closed"
+    },
+    {
+      "name": "mp3 → wav",
+      "from": "mp3",
+      "to": "wav",
+      "status": "failed",
+      "error": "page.setInputFiles: Target page, context or browser has been closed"
+    },
+    {
+      "name": "mp3 → m4a",
+      "from": "mp3",
+      "to": "m4a",
+      "status": "failed",
+      "error": "page.setInputFiles: Target page, context or browser has been closed"
+    },
+    {
+      "name": "mp3 → flac",
+      "from": "mp3",
+      "to": "flac",
+      "status": "failed",
+      "error": "page.setInputFiles: Target page, context or browser has been closed"
+    },
+    {
+      "name": "mp3 → ogg",
+      "from": "mp3",
+      "to": "ogg",
+      "status": "failed",
+      "error": "page.setInputFiles: Target page, context or browser has been closed"
+    },
+    {
+      "name": "mp3 → aac",
+      "from": "mp3",
+      "to": "aac",
+      "status": "failed",
+      "error": "page.setInputFiles: Target page, context or browser has been closed"
+    },
+    {
+      "name": "opus → mp3",
+      "from": "opus",
+      "to": "mp3",
+      "status": "failed",
+      "error": "page.setInputFiles: Target page, context or browser has been closed"
+    },
+    {
+      "name": "mp3 → opus",
+      "from": "mp3",
+      "to": "opus",
+      "status": "failed",
+      "error": "page.setInputFiles: Target page, context or browser has been closed"
+    }
+  ]
+}

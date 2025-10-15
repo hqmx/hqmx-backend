@@ -26,6 +26,9 @@ HQMX Converter는 100% 클라이언트 사이드에서 작동하는 파일 변�
 - **IP**: 54.242.63.16
 - **Git**: https://github.com/hqmx/hqmx-backend
 - **PEM 파일**: `/Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem`
+- **서버 상태**: ✅ 정상 작동 (2025-10-13 확인)
+- **백엔드 API**: https://hqmx.net/api/health
+- **Trust Proxy**: Cloudflare + nginx 설정 완료 (2025-10-13)
 
 ## 광고 수익화 (Monetization)
 
@@ -208,6 +211,313 @@ pm2 restart converter-api                     # 재시작
 - ✅ 드래그&드롭 업로드
 - ✅ 300+ 파일 형식
 - ✅ SEO 최적화 (개별 변환 페이지)
+
+### FFmpeg.wasm 문제 해결 가이드 (2025-10-14)
+
+#### 문제: 10MB 이상 파일 변환 실패
+
+**증상**:
+- 작은 파일 (<10MB): 정상 작동
+- 큰 파일 (≥10MB): FFmpeg 로딩 실패 또는 변환 중단
+- CDN에서 404 에러 또는 CORS 에러 발생
+
+**근본 원인**:
+1. **외부 CDN 불안정성**: unpkg.com, jsdelivr.com 등에서 FFmpeg.wasm 파일 로딩 실패
+2. **CORS 헤더 누락**: SharedArrayBuffer 사용에 필요한 CORP 헤더 없음
+3. **API 버전 불일치**: FFmpeg.wasm 0.11.x API를 0.12.x에서 사용
+
+#### 해결 방법: 자체 호스팅 + API 마이그레이션
+
+**1단계: FFmpeg.wasm 자체 호스팅**
+
+```bash
+# npm으로 FFmpeg.wasm 다운로드
+npm install @ffmpeg/ffmpeg@0.12.6 @ffmpeg/core@0.12.6
+
+# 필요한 파일 복사
+cp node_modules/@ffmpeg/ffmpeg/dist/umd/ffmpeg.js frontend/lib/ffmpeg/
+cp node_modules/@ffmpeg/ffmpeg/dist/umd/814.ffmpeg.js frontend/lib/ffmpeg/
+cp node_modules/@ffmpeg/core/dist/umd/ffmpeg-core.js frontend/lib/ffmpeg/
+cp node_modules/@ffmpeg/core/dist/umd/ffmpeg-core.wasm frontend/lib/ffmpeg/
+
+# EC2 서버로 업로드
+scp -i hqmx-ec2.pem -r frontend/lib/ffmpeg/ ubuntu@54.242.63.16:/tmp/
+ssh -i hqmx-ec2.pem ubuntu@54.242.63.16 \
+  'sudo mkdir -p /var/www/html/lib/ffmpeg && \
+   sudo cp -r /tmp/ffmpeg/* /var/www/html/lib/ffmpeg/ && \
+   sudo chown -R www-data:www-data /var/www/html/lib/ffmpeg && \
+   sudo chmod -R 755 /var/www/html/lib/ffmpeg'
+```
+
+**파일 크기**:
+- `ffmpeg.js`: 3.4KB
+- `814.ffmpeg.js`: 2.7KB
+- `ffmpeg-core.js`: 112KB
+- `ffmpeg-core.wasm`: 31MB
+
+**2단계: nginx CORS 헤더 추가**
+
+`/etc/nginx/nginx.conf`에 다음 추가:
+
+```nginx
+http {
+    # FFmpeg.wasm CORS 헤더 (SharedArrayBuffer 필수)
+    add_header Cross-Origin-Opener-Policy "same-origin" always;
+    add_header Cross-Origin-Embedder-Policy "require-corp" always;
+    add_header Cross-Origin-Resource-Policy "cross-origin" always;
+}
+```
+
+적용:
+```bash
+sudo nginx -t && sudo systemctl reload nginx
+```
+
+**3단계: converter-engine.js API 마이그레이션 (0.11.x → 0.12.x)**
+
+**변경 1**: FFmpeg 로딩 URL을 로컬 경로로 변경
+
+```javascript
+// frontend/converter-engine.js Line 75
+// BEFORE:
+const script = document.createElement('script');
+script.src = 'https://unpkg.com/@ffmpeg/ffmpeg@0.12.10/dist/umd/ffmpeg.min.js';
+
+// AFTER:
+const script = document.createElement('script');
+script.src = '/lib/ffmpeg/ffmpeg.js';
+```
+
+**변경 2**: Core 파일 경로 변경
+
+```javascript
+// frontend/converter-engine.js Lines 45-46
+// BEFORE:
+coreURL: 'https://unpkg.com/@ffmpeg/core@0.12.6/dist/umd/ffmpeg-core.js',
+wasmURL: 'https://unpkg.com/@ffmpeg/core@0.12.6/dist/umd/ffmpeg-core.wasm',
+
+// AFTER:
+coreURL: '/lib/ffmpeg/ffmpeg-core.js',
+wasmURL: '/lib/ffmpeg/ffmpeg-core.wasm',
+```
+
+**변경 3**: fetchFile 제거 (0.12.x에서 더 이상 제공 안 함)
+
+```javascript
+// frontend/converter-engine.js Line 49
+// BEFORE:
+this.fetchFile = FFmpegLib.fetchFile;
+
+// AFTER: (완전 제거)
+```
+
+**변경 4**: 파일 쓰기 API 변경
+
+```javascript
+// frontend/converter-engine.js Lines 914-915
+// BEFORE:
+this.ffmpeg.FS('writeFile', inputName, await this.fetchFile(file));
+
+// AFTER:
+const fileData = new Uint8Array(await file.arrayBuffer());
+await this.ffmpeg.writeFile(inputName, fileData);
+```
+
+**변경 5**: 실행 API 변경
+
+```javascript
+// frontend/converter-engine.js Lines 920-921
+// BEFORE:
+await this.ffmpeg.run(...args);
+
+// AFTER:
+await this.ffmpeg.exec(args);
+```
+
+**변경 6**: 파일 읽기 API 변경
+
+```javascript
+// frontend/converter-engine.js Lines 925-926
+// BEFORE:
+const data = this.ffmpeg.FS('readFile', outputName);
+
+// AFTER:
+const data = await this.ffmpeg.readFile(outputName);
+```
+
+**변경 7**: Blob 생성 수정 (중요!)
+
+```javascript
+// frontend/converter-engine.js Line 929
+// BEFORE:
+const blob = new Blob([data.buffer], { type: this.getMimeType(outputFormat) });
+
+// AFTER:
+const blob = new Blob([data], { type: this.getMimeType(outputFormat) });
+```
+
+**이유**: `readFile()`은 Uint8Array를 반환하므로 `.buffer` 속성 사용하면 에러 발생
+
+**변경 8**: 파일 삭제 API 변경
+
+```javascript
+// frontend/converter-engine.js Lines 933-935
+// BEFORE:
+this.ffmpeg.FS('unlink', inputName);
+this.ffmpeg.FS('unlink', outputName);
+
+// AFTER:
+try {
+    await this.ffmpeg.deleteFile(inputName);
+    await this.ffmpeg.deleteFile(outputName);
+} catch (cleanupError) {
+    console.warn('파일 정리 중 오류 (무시):', cleanupError);
+}
+```
+
+**변경 9**: FFmpeg 로그 이벤트 추가 (디버깅용)
+
+```javascript
+// frontend/converter-engine.js Lines 41-44
+this.ffmpeg.on('log', ({ message }) => {
+    console.log('[FFmpeg]', message);
+});
+```
+
+**변경 10**: 파일 무결성 검증 로깅 추가 (선택사항)
+
+```javascript
+// frontend/converter-engine.js Lines 919-925
+console.log(`[Debug] 원본 파일 크기: ${file.size} bytes (${(file.size / 1024 / 1024).toFixed(2)} MB)`);
+const fileData = new Uint8Array(await file.arrayBuffer());
+console.log(`[Debug] Uint8Array 크기: ${fileData.byteLength} bytes (${(fileData.byteLength / 1024 / 1024).toFixed(2)} MB)`);
+console.log(`[Debug] 데이터 무결성: 처음 4바이트 = ${Array.from(fileData.slice(0, 4)).map(b => b.toString(16).padStart(2, '0')).join(' ')}`);
+await this.ffmpeg.writeFile(inputName, fileData);
+console.log(`[Debug] writeFile 완료: ${inputName}`);
+```
+
+**4단계: 캐시 무효화**
+
+```html
+<!-- frontend/index.html -->
+<script src="/converter-engine.js?v=20251014l"></script>
+```
+
+버전 번호를 업데이트하여 브라우저 캐시 무효화
+
+#### 발생 가능한 에러와 해결법
+
+**에러 1**: `this.fetchFile is not a function`
+- **원인**: 0.12.x에서 fetchFile API 제거됨
+- **해결**: `fetchFile` 사용을 `new Uint8Array(await file.arrayBuffer())`로 변경
+
+**에러 2**: `ErrnoError: FS error`
+- **원인**: `data.buffer` 사용으로 인한 Blob 생성 실패
+- **해결**: `new Blob([data.buffer], ...)` → `new Blob([data], ...)`
+
+**에러 3**: `moov atom not found` (MP4 파일)
+- **원인**: 파일 데이터 손상 또는 불완전한 전송
+- **해결**: 파일 무결성 검증 로깅으로 원인 파악
+- **확인**: 디버그 로그에서 원본 크기 = Uint8Array 크기 일치 여부 확인
+
+**에러 4**: CORS 에러 또는 SharedArrayBuffer 사용 불가
+- **원인**: nginx CORS 헤더 누락
+- **해결**: nginx.conf에 COOP, COEP, CORP 헤더 추가
+
+**에러 5**: FFmpeg 404 Not Found
+- **원인**: CDN 파일 경로 오류 또는 파일 누락
+- **해결**: 자체 호스팅으로 전환, 파일 경로 확인
+
+#### 검증 방법
+
+**1. nginx 헤더 확인**:
+```bash
+curl -I https://hqmx.net/lib/ffmpeg/ffmpeg.js | grep -i "cross-origin"
+```
+
+예상 출력:
+```
+Cross-Origin-Opener-Policy: same-origin
+Cross-Origin-Embedder-Policy: require-corp
+Cross-Origin-Resource-Policy: cross-origin
+```
+
+**2. FFmpeg.wasm 파일 존재 확인**:
+```bash
+ssh -i hqmx-ec2.pem ubuntu@54.242.63.16 \
+  'ls -lh /var/www/html/lib/ffmpeg/'
+```
+
+예상 출력:
+```
+-rwxr-xr-x 1 www-data www-data  112K ffmpeg-core.js
+-rwxr-xr-x 1 www-data www-data   31M ffmpeg-core.wasm
+-rwxr-xr-x 1 www-data www-data  3.4K ffmpeg.js
+-rwxr-xr-x 1 www-data www-data  2.7K 814.ffmpeg.js
+```
+
+**3. 브라우저 콘솔에서 FFmpeg 로딩 확인**:
+```javascript
+// 개발자 도구 콘솔에서 확인
+[FFmpeg] load ffmpeg-core
+[FFmpeg] imported ffmpeg and ffmpeg core successfully
+// ✅ 에러 없이 로딩되면 성공
+```
+
+**4. 실제 변환 테스트**:
+- 10MB 이상 비디오 파일 업로드
+- 콘솔에서 FFmpeg 로그 확인:
+  ```
+  [FFmpeg] Duration: 00:00:08.09
+  [FFmpeg] Stream #0:0: Video: h264, 1920x1080, 24fps
+  [FFmpeg] frame=  193 fps= 38 q=-1.0 Lsize=    2445kB
+  ```
+- 변환 완료 후 다운로드 테스트
+
+#### 테스트 결과 (2025-10-14)
+
+**테스트 파일**: test.mp4 (9.96 MB, 8초, 1920x1080, 24fps)
+
+**성공 지표**:
+```
+✅ 파일 무결성: 10443457 bytes (원본 = Uint8Array)
+✅ MP4 서명: 00 00 00 18 (유효한 ftyp atom)
+✅ FFmpeg 실행: 193 프레임 처리
+✅ 진행률 추적: 5% → 10% → ... → 100%
+✅ 출력 파일: test.avi (2.4 MB, 2445 kb/s)
+✅ 파일 재생: ffmpeg -i로 검증 완료
+```
+
+**성능**:
+- FFmpeg 로딩: ~3초
+- 변환 시간: ~5초 (10MB 파일)
+- 총 소요 시간: ~8초
+
+#### API 버전 비교표
+
+| 작업 | 0.11.x (구버전) | 0.12.x (신버전) |
+|------|----------------|----------------|
+| 파일 쓰기 | `FS('writeFile', name, data)` | `await writeFile(name, data)` |
+| 파일 읽기 | `FS('readFile', name)` | `await readFile(name)` |
+| 파일 삭제 | `FS('unlink', name)` | `await deleteFile(name)` |
+| 실행 | `run(...args)` | `exec(args)` |
+| 파일 변환 | `fetchFile(file)` | `new Uint8Array(await file.arrayBuffer())` |
+| 반환 타입 | Uint8Array with buffer | Uint8Array (직접 사용) |
+
+#### 주의사항
+
+1. **Blob 생성 시**: `data.buffer` 사용 금지, `data` 직접 사용
+2. **모든 파일 작업**: 0.12.x에서는 `await` 필수
+3. **fetchFile 제거**: 더 이상 제공되지 않음
+4. **SharedArrayBuffer**: COOP, COEP, CORP 헤더 필수
+5. **파일 크기**: 31MB WASM 파일로 인한 초기 로딩 시간 있음
+6. **브라우저 호환성**: Chrome 90+, Firefox 88+, Safari 15+
+
+#### 참고 자료
+
+- FFmpeg.wasm 공식 문서: https://ffmpegwasm.netlify.app/docs/getting-started/usage
+- FFmpeg.wasm 0.12.x API: https://github.com/ffmpegwasm/ffmpeg.wasm/tree/main
+- Self-hosting 가이드: https://ffmpegwasm.netlify.app/docs/getting-started/installation#self-host
 
 ### 백엔드 (EC2 기반) - 대용량 파일 전용 ⚠️
 
@@ -819,7 +1129,7 @@ console.log('Active conversions:', window.converterState?.conversions);
 
 ### 개별 변환 페이지 시스템 (generate-pages.js)
 
-**목적**: `/jpg-to-png.html`, `/mp4-to-avi.html` 등 100+ 개별 SEO 페이지 자동 생성
+**목적**: `/jpg-to-png.html`, `/mp4-to-avi.html` 등 **289개 전체** 개별 SEO 페이지 자동 생성
 
 **파일 구조**:
 ```
@@ -828,12 +1138,13 @@ frontend/
 │   └── conversion-page.html      # 마스터 템플릿 (플레이스홀더 포함)
 ├── _scripts/
 │   ├── generate-pages.js         # 변환 페이지 빌드 스크립트
-│   ├── conversions.json          # 변환 조합 목록 (10개 → 100개 확장 예정)
+│   ├── generate-all-conversions.js  # conversions.json 자동 생성 (289개)
+│   ├── conversions.json          # 변환 조합 목록 (289개 - 전체 생성)
 │   └── format-metadata.json      # 형식별 상세 정보 (extensions, mimeType 등)
 └── (생성된 HTML 파일들)
     ├── jpg-to-png.html
     ├── png-to-jpg.html
-    └── ... (총 10개, 확장 가능)
+    └── ... (총 289개 - 전체)
 ```
 
 **사용 명령어**:
@@ -1036,23 +1347,64 @@ ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@54.242.63.
   - **제외 대상**: 생성된 HTML 파일들은 `.gitignore`에 추가 (배포 전 빌드로 생성)
 - **✅ 배포 전 빌드 필수**: 배포 전 반드시 `node generate-pages.js` 실행하여 최신 상태 유지
 
-### 현재 지원되는 변환 조합 (10개)
-1. JPG → PNG (이미지, 우선순위: 10)
-2. PNG → JPG (이미지, 우선순위: 10)
-3. WebP → JPG (이미지, 우선순위: 9)
-4. PNG → WebP (이미지, 우선순위: 8)
-5. HEIC → JPG (이미지, 우선순위: 9)
-6. JPG → PDF (이미지→문서, 우선순위: 8)
-7. MP4 → AVI (비디오, 우선순위: 7)
-8. AVI → MP4 (비디오, 우선순위: 7)
-9. MP3 → WAV (오디오, 우선순위: 6)
-10. WAV → MP3 (오디오, 우선순위: 6)
+### ✅ 전체 페이지 생성 결정 (289개)
 
-### 향후 확장 계획
-- 100+ 변환 조합으로 확대
-- 인기 검색어 기반 우선순위 조정
-- 카테고리별 자동 Related Conversions 개선
-- OG 이미지 자동 생성 (`og-{{FROM}}-to-{{TO}}.jpg`)
+**결정일**: 2025-10-15
+
+**결정 이유**:
+1. **사용자 경험 일관성**: 289개 HTML 페이지를 생성하면서 54개만 작동하면 나쁜 UX
+2. **SEO 신뢰도**: 모든 페이지가 실제로 작동해야 검색엔진 신뢰도 유지
+3. **기술적 준비**: FFmpeg.wasm과 Canvas API가 이미 대부분 변환 지원
+4. **완전한 시스템**: 289개 HTML + 289개 conversions.json + 289개 테스트
+
+**289개 변환 분류**:
+- **이미지 → 이미지**: 72개 (9 formats × 9 - 자기자신 제외)
+- **비디오 → 비디오**: 56개 (8 formats × 8 - 자기자신 제외)
+- **오디오 → 오디오**: 56개 (8 formats × 8 - 자기자신 제외)
+- **비디오 → 오디오**: 64개 (8 video × 8 audio)
+- **문서 → PDF**: 7개 (docx, doc, xlsx, xls, pptx, ppt, txt)
+- **이미지 → PDF**: 9개
+- **PDF → 이미지**: 9개
+- **비디오 → GIF**: 8개
+- **GIF → 비디오**: 8개
+- **총계**: **289개**
+
+**지원 형식**:
+```javascript
+image: ['jpg', 'png', 'webp', 'heic', 'gif', 'svg', 'bmp', 'ico', 'avif']  // 9개
+video: ['mp4', 'mov', 'mkv', 'flv', 'wmv', 'webm', 'avi', 'm4v']           // 8개
+audio: ['mp3', 'm4a', 'flac', 'ogg', 'aac', 'wma', 'wav', 'opus']          // 8개
+document: ['pdf', 'docx', 'doc', 'xlsx', 'xls', 'pptx', 'ppt', 'txt']      // 8개
+```
+
+**생성 절차**:
+```bash
+# 1단계: conversions.json 생성 (289개 항목)
+cd frontend/_scripts
+node generate-all-conversions.js
+
+# 2단계: HTML 페이지 생성 (289개)
+node generate-pages.js
+
+# 3단계: 전체 테스트 (선택사항, 2-3시간 소요)
+cd ../..
+node test-comprehensive.js
+
+# 4단계: 서버 배포
+./deploy-to-ec2.sh
+```
+
+**테스트 계획**:
+- **전체 테스트 시간**: 약 2-3시간 (289개 × 30초 평균)
+- **프록시 로테이션**: 무료 프록시로 IP 분산
+- **배치 테스트**: 카테고리별로 나눠서 테스트 가능
+- **진행 상황 저장**: 중단 시 이어서 테스트 가능 (향후 기능)
+
+**예상 테스트 결과**:
+- **이미지 변환**: ~100% 성공 (Canvas API 지원)
+- **비디오/오디오 변환**: ~95% 성공 (FFmpeg.wasm 지원)
+- **문서 변환**: ~70% 성공 (일부 형식 제한)
+- **크로스 카테고리**: ~80% 성공 (특수 처리 필요)
 
 ---
 

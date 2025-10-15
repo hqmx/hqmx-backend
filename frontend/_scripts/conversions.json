@@ -8,12 +8,124 @@
     "popular": true
   },
   {
+    "from": "jpg",
+    "to": "webp",
+    "fromCategory": "image",
+    "toCategory": "image",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "jpg",
+    "to": "heic",
+    "fromCategory": "image",
+    "toCategory": "image",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "jpg",
+    "to": "gif",
+    "fromCategory": "image",
+    "toCategory": "image",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "jpg",
+    "to": "svg",
+    "fromCategory": "image",
+    "toCategory": "image",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "jpg",
+    "to": "bmp",
+    "fromCategory": "image",
+    "toCategory": "image",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "jpg",
+    "to": "ico",
+    "fromCategory": "image",
+    "toCategory": "image",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "jpg",
+    "to": "avif",
+    "fromCategory": "image",
+    "toCategory": "image",
+    "priority": 7,
+    "popular": false
+  },
+  {
     "from": "png",
     "to": "jpg",
     "fromCategory": "image",
     "toCategory": "image",
     "priority": 10,
     "popular": true
+  },
+  {
+    "from": "png",
+    "to": "webp",
+    "fromCategory": "image",
+    "toCategory": "image",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "png",
+    "to": "heic",
+    "fromCategory": "image",
+    "toCategory": "image",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "png",
+    "to": "gif",
+    "fromCategory": "image",
+    "toCategory": "image",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "png",
+    "to": "svg",
+    "fromCategory": "image",
+    "toCategory": "image",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "png",
+    "to": "bmp",
+    "fromCategory": "image",
+    "toCategory": "image",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "png",
+    "to": "ico",
+    "fromCategory": "image",
+    "toCategory": "image",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "png",
+    "to": "avif",
+    "fromCategory": "image",
+    "toCategory": "image",
+    "priority": 7,
+    "popular": false
   },
   {
     "from": "webp",
@@ -24,12 +136,60 @@
     "popular": true
   },
   {
-    "from": "png",
-    "to": "webp",
+    "from": "webp",
+    "to": "png",
     "fromCategory": "image",
     "toCategory": "image",
-    "priority": 8,
+    "priority": 9,
     "popular": true
+  },
+  {
+    "from": "webp",
+    "to": "heic",
+    "fromCategory": "image",
+    "toCategory": "image",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "webp",
+    "to": "gif",
+    "fromCategory": "image",
+    "toCategory": "image",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "webp",
+    "to": "svg",
+    "fromCategory": "image",
+    "toCategory": "image",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "webp",
+    "to": "bmp",
+    "fromCategory": "image",
+    "toCategory": "image",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "webp",
+    "to": "ico",
+    "fromCategory": "image",
+    "toCategory": "image",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "webp",
+    "to": "avif",
+    "fromCategory": "image",
+    "toCategory": "image",
+    "priority": 7,
+    "popular": false
   },
   {
     "from": "heic",
@@ -40,16 +200,712 @@
     "popular": true
   },
   {
-    "from": "jpg",
-    "to": "pdf",
+    "from": "heic",
+    "to": "png",
     "fromCategory": "image",
-    "toCategory": "document",
-    "priority": 8,
+    "toCategory": "image",
+    "priority": 9,
     "popular": true
+  },
+  {
+    "from": "heic",
+    "to": "webp",
+    "fromCategory": "image",
+    "toCategory": "image",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "heic",
+    "to": "gif",
+    "fromCategory": "image",
+    "toCategory": "image",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "heic",
+    "to": "svg",
+    "fromCategory": "image",
+    "toCategory": "image",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "heic",
+    "to": "bmp",
+    "fromCategory": "image",
+    "toCategory": "image",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "heic",
+    "to": "ico",
+    "fromCategory": "image",
+    "toCategory": "image",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "heic",
+    "to": "avif",
+    "fromCategory": "image",
+    "toCategory": "image",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "gif",
+    "to": "jpg",
+    "fromCategory": "image",
+    "toCategory": "image",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "gif",
+    "to": "png",
+    "fromCategory": "image",
+    "toCategory": "image",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "gif",
+    "to": "webp",
+    "fromCategory": "image",
+    "toCategory": "image",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "gif",
+    "to": "heic",
+    "fromCategory": "image",
+    "toCategory": "image",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "gif",
+    "to": "svg",
+    "fromCategory": "image",
+    "toCategory": "image",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "gif",
+    "to": "bmp",
+    "fromCategory": "image",
+    "toCategory": "image",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "gif",
+    "to": "ico",
+    "fromCategory": "image",
+    "toCategory": "image",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "gif",
+    "to": "avif",
+    "fromCategory": "image",
+    "toCategory": "image",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "svg",
+    "to": "jpg",
+    "fromCategory": "image",
+    "toCategory": "image",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "svg",
+    "to": "png",
+    "fromCategory": "image",
+    "toCategory": "image",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "svg",
+    "to": "webp",
+    "fromCategory": "image",
+    "toCategory": "image",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "svg",
+    "to": "heic",
+    "fromCategory": "image",
+    "toCategory": "image",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "svg",
+    "to": "gif",
+    "fromCategory": "image",
+    "toCategory": "image",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "svg",
+    "to": "bmp",
+    "fromCategory": "image",
+    "toCategory": "image",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "svg",
+    "to": "ico",
+    "fromCategory": "image",
+    "toCategory": "image",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "svg",
+    "to": "avif",
+    "fromCategory": "image",
+    "toCategory": "image",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "bmp",
+    "to": "jpg",
+    "fromCategory": "image",
+    "toCategory": "image",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "bmp",
+    "to": "png",
+    "fromCategory": "image",
+    "toCategory": "image",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "bmp",
+    "to": "webp",
+    "fromCategory": "image",
+    "toCategory": "image",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "bmp",
+    "to": "heic",
+    "fromCategory": "image",
+    "toCategory": "image",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "bmp",
+    "to": "gif",
+    "fromCategory": "image",
+    "toCategory": "image",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "bmp",
+    "to": "svg",
+    "fromCategory": "image",
+    "toCategory": "image",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "bmp",
+    "to": "ico",
+    "fromCategory": "image",
+    "toCategory": "image",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "bmp",
+    "to": "avif",
+    "fromCategory": "image",
+    "toCategory": "image",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "ico",
+    "to": "jpg",
+    "fromCategory": "image",
+    "toCategory": "image",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "ico",
+    "to": "png",
+    "fromCategory": "image",
+    "toCategory": "image",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "ico",
+    "to": "webp",
+    "fromCategory": "image",
+    "toCategory": "image",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "ico",
+    "to": "heic",
+    "fromCategory": "image",
+    "toCategory": "image",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "ico",
+    "to": "gif",
+    "fromCategory": "image",
+    "toCategory": "image",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "ico",
+    "to": "svg",
+    "fromCategory": "image",
+    "toCategory": "image",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "ico",
+    "to": "bmp",
+    "fromCategory": "image",
+    "toCategory": "image",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "ico",
+    "to": "avif",
+    "fromCategory": "image",
+    "toCategory": "image",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "avif",
+    "to": "jpg",
+    "fromCategory": "image",
+    "toCategory": "image",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "avif",
+    "to": "png",
+    "fromCategory": "image",
+    "toCategory": "image",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "avif",
+    "to": "webp",
+    "fromCategory": "image",
+    "toCategory": "image",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "avif",
+    "to": "heic",
+    "fromCategory": "image",
+    "toCategory": "image",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "avif",
+    "to": "gif",
+    "fromCategory": "image",
+    "toCategory": "image",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "avif",
+    "to": "svg",
+    "fromCategory": "image",
+    "toCategory": "image",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "avif",
+    "to": "bmp",
+    "fromCategory": "image",
+    "toCategory": "image",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "avif",
+    "to": "ico",
+    "fromCategory": "image",
+    "toCategory": "image",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "mp4",
+    "to": "mov",
+    "fromCategory": "video",
+    "toCategory": "video",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "mp4",
+    "to": "mkv",
+    "fromCategory": "video",
+    "toCategory": "video",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "mp4",
+    "to": "flv",
+    "fromCategory": "video",
+    "toCategory": "video",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "mp4",
+    "to": "wmv",
+    "fromCategory": "video",
+    "toCategory": "video",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "mp4",
+    "to": "webm",
+    "fromCategory": "video",
+    "toCategory": "video",
+    "priority": 8,
+    "popular": false
   },
   {
     "from": "mp4",
     "to": "avi",
+    "fromCategory": "video",
+    "toCategory": "video",
+    "priority": 9,
+    "popular": true
+  },
+  {
+    "from": "mp4",
+    "to": "m4v",
+    "fromCategory": "video",
+    "toCategory": "video",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "mov",
+    "to": "mp4",
+    "fromCategory": "video",
+    "toCategory": "video",
+    "priority": 9,
+    "popular": true
+  },
+  {
+    "from": "mov",
+    "to": "mkv",
+    "fromCategory": "video",
+    "toCategory": "video",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "mov",
+    "to": "flv",
+    "fromCategory": "video",
+    "toCategory": "video",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "mov",
+    "to": "wmv",
+    "fromCategory": "video",
+    "toCategory": "video",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "mov",
+    "to": "webm",
+    "fromCategory": "video",
+    "toCategory": "video",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "mov",
+    "to": "avi",
+    "fromCategory": "video",
+    "toCategory": "video",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "mov",
+    "to": "m4v",
+    "fromCategory": "video",
+    "toCategory": "video",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "mkv",
+    "to": "mp4",
+    "fromCategory": "video",
+    "toCategory": "video",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "mkv",
+    "to": "mov",
+    "fromCategory": "video",
+    "toCategory": "video",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "mkv",
+    "to": "flv",
+    "fromCategory": "video",
+    "toCategory": "video",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "mkv",
+    "to": "wmv",
+    "fromCategory": "video",
+    "toCategory": "video",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "mkv",
+    "to": "webm",
+    "fromCategory": "video",
+    "toCategory": "video",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "mkv",
+    "to": "avi",
+    "fromCategory": "video",
+    "toCategory": "video",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "mkv",
+    "to": "m4v",
+    "fromCategory": "video",
+    "toCategory": "video",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "flv",
+    "to": "mp4",
+    "fromCategory": "video",
+    "toCategory": "video",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "flv",
+    "to": "mov",
+    "fromCategory": "video",
+    "toCategory": "video",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "flv",
+    "to": "mkv",
+    "fromCategory": "video",
+    "toCategory": "video",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "flv",
+    "to": "wmv",
+    "fromCategory": "video",
+    "toCategory": "video",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "flv",
+    "to": "webm",
+    "fromCategory": "video",
+    "toCategory": "video",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "flv",
+    "to": "avi",
+    "fromCategory": "video",
+    "toCategory": "video",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "flv",
+    "to": "m4v",
+    "fromCategory": "video",
+    "toCategory": "video",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "wmv",
+    "to": "mp4",
+    "fromCategory": "video",
+    "toCategory": "video",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "wmv",
+    "to": "mov",
+    "fromCategory": "video",
+    "toCategory": "video",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "wmv",
+    "to": "mkv",
+    "fromCategory": "video",
+    "toCategory": "video",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "wmv",
+    "to": "flv",
+    "fromCategory": "video",
+    "toCategory": "video",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "wmv",
+    "to": "webm",
+    "fromCategory": "video",
+    "toCategory": "video",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "wmv",
+    "to": "avi",
+    "fromCategory": "video",
+    "toCategory": "video",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "wmv",
+    "to": "m4v",
+    "fromCategory": "video",
+    "toCategory": "video",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "webm",
+    "to": "mp4",
+    "fromCategory": "video",
+    "toCategory": "video",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "webm",
+    "to": "mov",
+    "fromCategory": "video",
+    "toCategory": "video",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "webm",
+    "to": "mkv",
+    "fromCategory": "video",
+    "toCategory": "video",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "webm",
+    "to": "flv",
+    "fromCategory": "video",
+    "toCategory": "video",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "webm",
+    "to": "wmv",
+    "fromCategory": "video",
+    "toCategory": "video",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "webm",
+    "to": "avi",
+    "fromCategory": "video",
+    "toCategory": "video",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "webm",
+    "to": "m4v",
     "fromCategory": "video",
     "toCategory": "video",
     "priority": 7,
@@ -60,12 +916,444 @@
     "to": "mp4",
     "fromCategory": "video",
     "toCategory": "video",
+    "priority": 9,
+    "popular": true
+  },
+  {
+    "from": "avi",
+    "to": "mov",
+    "fromCategory": "video",
+    "toCategory": "video",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "avi",
+    "to": "mkv",
+    "fromCategory": "video",
+    "toCategory": "video",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "avi",
+    "to": "flv",
+    "fromCategory": "video",
+    "toCategory": "video",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "avi",
+    "to": "wmv",
+    "fromCategory": "video",
+    "toCategory": "video",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "avi",
+    "to": "webm",
+    "fromCategory": "video",
+    "toCategory": "video",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "avi",
+    "to": "m4v",
+    "fromCategory": "video",
+    "toCategory": "video",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "m4v",
+    "to": "mp4",
+    "fromCategory": "video",
+    "toCategory": "video",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "m4v",
+    "to": "mov",
+    "fromCategory": "video",
+    "toCategory": "video",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "m4v",
+    "to": "mkv",
+    "fromCategory": "video",
+    "toCategory": "video",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "m4v",
+    "to": "flv",
+    "fromCategory": "video",
+    "toCategory": "video",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "m4v",
+    "to": "wmv",
+    "fromCategory": "video",
+    "toCategory": "video",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "m4v",
+    "to": "webm",
+    "fromCategory": "video",
+    "toCategory": "video",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "m4v",
+    "to": "avi",
+    "fromCategory": "video",
+    "toCategory": "video",
     "priority": 7,
     "popular": false
   },
   {
     "from": "mp3",
+    "to": "m4a",
+    "fromCategory": "audio",
+    "toCategory": "audio",
+    "priority": 6,
+    "popular": false
+  },
+  {
+    "from": "mp3",
+    "to": "flac",
+    "fromCategory": "audio",
+    "toCategory": "audio",
+    "priority": 6,
+    "popular": false
+  },
+  {
+    "from": "mp3",
+    "to": "ogg",
+    "fromCategory": "audio",
+    "toCategory": "audio",
+    "priority": 6,
+    "popular": false
+  },
+  {
+    "from": "mp3",
+    "to": "aac",
+    "fromCategory": "audio",
+    "toCategory": "audio",
+    "priority": 6,
+    "popular": false
+  },
+  {
+    "from": "mp3",
+    "to": "wma",
+    "fromCategory": "audio",
+    "toCategory": "audio",
+    "priority": 6,
+    "popular": false
+  },
+  {
+    "from": "mp3",
     "to": "wav",
+    "fromCategory": "audio",
+    "toCategory": "audio",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "mp3",
+    "to": "opus",
+    "fromCategory": "audio",
+    "toCategory": "audio",
+    "priority": 6,
+    "popular": false
+  },
+  {
+    "from": "m4a",
+    "to": "mp3",
+    "fromCategory": "audio",
+    "toCategory": "audio",
+    "priority": 9,
+    "popular": true
+  },
+  {
+    "from": "m4a",
+    "to": "flac",
+    "fromCategory": "audio",
+    "toCategory": "audio",
+    "priority": 6,
+    "popular": false
+  },
+  {
+    "from": "m4a",
+    "to": "ogg",
+    "fromCategory": "audio",
+    "toCategory": "audio",
+    "priority": 6,
+    "popular": false
+  },
+  {
+    "from": "m4a",
+    "to": "aac",
+    "fromCategory": "audio",
+    "toCategory": "audio",
+    "priority": 6,
+    "popular": false
+  },
+  {
+    "from": "m4a",
+    "to": "wma",
+    "fromCategory": "audio",
+    "toCategory": "audio",
+    "priority": 6,
+    "popular": false
+  },
+  {
+    "from": "m4a",
+    "to": "wav",
+    "fromCategory": "audio",
+    "toCategory": "audio",
+    "priority": 6,
+    "popular": false
+  },
+  {
+    "from": "m4a",
+    "to": "opus",
+    "fromCategory": "audio",
+    "toCategory": "audio",
+    "priority": 6,
+    "popular": false
+  },
+  {
+    "from": "flac",
+    "to": "mp3",
+    "fromCategory": "audio",
+    "toCategory": "audio",
+    "priority": 9,
+    "popular": true
+  },
+  {
+    "from": "flac",
+    "to": "m4a",
+    "fromCategory": "audio",
+    "toCategory": "audio",
+    "priority": 6,
+    "popular": false
+  },
+  {
+    "from": "flac",
+    "to": "ogg",
+    "fromCategory": "audio",
+    "toCategory": "audio",
+    "priority": 6,
+    "popular": false
+  },
+  {
+    "from": "flac",
+    "to": "aac",
+    "fromCategory": "audio",
+    "toCategory": "audio",
+    "priority": 6,
+    "popular": false
+  },
+  {
+    "from": "flac",
+    "to": "wma",
+    "fromCategory": "audio",
+    "toCategory": "audio",
+    "priority": 6,
+    "popular": false
+  },
+  {
+    "from": "flac",
+    "to": "wav",
+    "fromCategory": "audio",
+    "toCategory": "audio",
+    "priority": 6,
+    "popular": false
+  },
+  {
+    "from": "flac",
+    "to": "opus",
+    "fromCategory": "audio",
+    "toCategory": "audio",
+    "priority": 6,
+    "popular": false
+  },
+  {
+    "from": "ogg",
+    "to": "mp3",
+    "fromCategory": "audio",
+    "toCategory": "audio",
+    "priority": 6,
+    "popular": false
+  },
+  {
+    "from": "ogg",
+    "to": "m4a",
+    "fromCategory": "audio",
+    "toCategory": "audio",
+    "priority": 6,
+    "popular": false
+  },
+  {
+    "from": "ogg",
+    "to": "flac",
+    "fromCategory": "audio",
+    "toCategory": "audio",
+    "priority": 6,
+    "popular": false
+  },
+  {
+    "from": "ogg",
+    "to": "aac",
+    "fromCategory": "audio",
+    "toCategory": "audio",
+    "priority": 6,
+    "popular": false
+  },
+  {
+    "from": "ogg",
+    "to": "wma",
+    "fromCategory": "audio",
+    "toCategory": "audio",
+    "priority": 6,
+    "popular": false
+  },
+  {
+    "from": "ogg",
+    "to": "wav",
+    "fromCategory": "audio",
+    "toCategory": "audio",
+    "priority": 6,
+    "popular": false
+  },
+  {
+    "from": "ogg",
+    "to": "opus",
+    "fromCategory": "audio",
+    "toCategory": "audio",
+    "priority": 6,
+    "popular": false
+  },
+  {
+    "from": "aac",
+    "to": "mp3",
+    "fromCategory": "audio",
+    "toCategory": "audio",
+    "priority": 6,
+    "popular": false
+  },
+  {
+    "from": "aac",
+    "to": "m4a",
+    "fromCategory": "audio",
+    "toCategory": "audio",
+    "priority": 6,
+    "popular": false
+  },
+  {
+    "from": "aac",
+    "to": "flac",
+    "fromCategory": "audio",
+    "toCategory": "audio",
+    "priority": 6,
+    "popular": false
+  },
+  {
+    "from": "aac",
+    "to": "ogg",
+    "fromCategory": "audio",
+    "toCategory": "audio",
+    "priority": 6,
+    "popular": false
+  },
+  {
+    "from": "aac",
+    "to": "wma",
+    "fromCategory": "audio",
+    "toCategory": "audio",
+    "priority": 6,
+    "popular": false
+  },
+  {
+    "from": "aac",
+    "to": "wav",
+    "fromCategory": "audio",
+    "toCategory": "audio",
+    "priority": 6,
+    "popular": false
+  },
+  {
+    "from": "aac",
+    "to": "opus",
+    "fromCategory": "audio",
+    "toCategory": "audio",
+    "priority": 6,
+    "popular": false
+  },
+  {
+    "from": "wma",
+    "to": "mp3",
+    "fromCategory": "audio",
+    "toCategory": "audio",
+    "priority": 6,
+    "popular": false
+  },
+  {
+    "from": "wma",
+    "to": "m4a",
+    "fromCategory": "audio",
+    "toCategory": "audio",
+    "priority": 6,
+    "popular": false
+  },
+  {
+    "from": "wma",
+    "to": "flac",
+    "fromCategory": "audio",
+    "toCategory": "audio",
+    "priority": 6,
+    "popular": false
+  },
+  {
+    "from": "wma",
+    "to": "ogg",
+    "fromCategory": "audio",
+    "toCategory": "audio",
+    "priority": 6,
+    "popular": false
+  },
+  {
+    "from": "wma",
+    "to": "aac",
+    "fromCategory": "audio",
+    "toCategory": "audio",
+    "priority": 6,
+    "popular": false
+  },
+  {
+    "from": "wma",
+    "to": "wav",
+    "fromCategory": "audio",
+    "toCategory": "audio",
+    "priority": 6,
+    "popular": false
+  },
+  {
+    "from": "wma",
+    "to": "opus",
     "fromCategory": "audio",
     "toCategory": "audio",
     "priority": 6,
@@ -76,6 +1364,950 @@
     "to": "mp3",
     "fromCategory": "audio",
     "toCategory": "audio",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "wav",
+    "to": "m4a",
+    "fromCategory": "audio",
+    "toCategory": "audio",
+    "priority": 6,
+    "popular": false
+  },
+  {
+    "from": "wav",
+    "to": "flac",
+    "fromCategory": "audio",
+    "toCategory": "audio",
+    "priority": 6,
+    "popular": false
+  },
+  {
+    "from": "wav",
+    "to": "ogg",
+    "fromCategory": "audio",
+    "toCategory": "audio",
+    "priority": 6,
+    "popular": false
+  },
+  {
+    "from": "wav",
+    "to": "aac",
+    "fromCategory": "audio",
+    "toCategory": "audio",
+    "priority": 6,
+    "popular": false
+  },
+  {
+    "from": "wav",
+    "to": "wma",
+    "fromCategory": "audio",
+    "toCategory": "audio",
+    "priority": 6,
+    "popular": false
+  },
+  {
+    "from": "wav",
+    "to": "opus",
+    "fromCategory": "audio",
+    "toCategory": "audio",
+    "priority": 6,
+    "popular": false
+  },
+  {
+    "from": "opus",
+    "to": "mp3",
+    "fromCategory": "audio",
+    "toCategory": "audio",
+    "priority": 6,
+    "popular": false
+  },
+  {
+    "from": "opus",
+    "to": "m4a",
+    "fromCategory": "audio",
+    "toCategory": "audio",
+    "priority": 6,
+    "popular": false
+  },
+  {
+    "from": "opus",
+    "to": "flac",
+    "fromCategory": "audio",
+    "toCategory": "audio",
+    "priority": 6,
+    "popular": false
+  },
+  {
+    "from": "opus",
+    "to": "ogg",
+    "fromCategory": "audio",
+    "toCategory": "audio",
+    "priority": 6,
+    "popular": false
+  },
+  {
+    "from": "opus",
+    "to": "aac",
+    "fromCategory": "audio",
+    "toCategory": "audio",
+    "priority": 6,
+    "popular": false
+  },
+  {
+    "from": "opus",
+    "to": "wma",
+    "fromCategory": "audio",
+    "toCategory": "audio",
+    "priority": 6,
+    "popular": false
+  },
+  {
+    "from": "opus",
+    "to": "wav",
+    "fromCategory": "audio",
+    "toCategory": "audio",
+    "priority": 6,
+    "popular": false
+  },
+  {
+    "from": "mp4",
+    "to": "mp3",
+    "fromCategory": "video",
+    "toCategory": "audio",
+    "priority": 10,
+    "popular": true
+  },
+  {
+    "from": "mp4",
+    "to": "m4a",
+    "fromCategory": "video",
+    "toCategory": "audio",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "mp4",
+    "to": "flac",
+    "fromCategory": "video",
+    "toCategory": "audio",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "mp4",
+    "to": "ogg",
+    "fromCategory": "video",
+    "toCategory": "audio",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "mp4",
+    "to": "aac",
+    "fromCategory": "video",
+    "toCategory": "audio",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "mp4",
+    "to": "wma",
+    "fromCategory": "video",
+    "toCategory": "audio",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "mp4",
+    "to": "wav",
+    "fromCategory": "video",
+    "toCategory": "audio",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "mp4",
+    "to": "opus",
+    "fromCategory": "video",
+    "toCategory": "audio",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "mov",
+    "to": "mp3",
+    "fromCategory": "video",
+    "toCategory": "audio",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "mov",
+    "to": "m4a",
+    "fromCategory": "video",
+    "toCategory": "audio",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "mov",
+    "to": "flac",
+    "fromCategory": "video",
+    "toCategory": "audio",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "mov",
+    "to": "ogg",
+    "fromCategory": "video",
+    "toCategory": "audio",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "mov",
+    "to": "aac",
+    "fromCategory": "video",
+    "toCategory": "audio",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "mov",
+    "to": "wma",
+    "fromCategory": "video",
+    "toCategory": "audio",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "mov",
+    "to": "wav",
+    "fromCategory": "video",
+    "toCategory": "audio",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "mov",
+    "to": "opus",
+    "fromCategory": "video",
+    "toCategory": "audio",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "mkv",
+    "to": "mp3",
+    "fromCategory": "video",
+    "toCategory": "audio",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "mkv",
+    "to": "m4a",
+    "fromCategory": "video",
+    "toCategory": "audio",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "mkv",
+    "to": "flac",
+    "fromCategory": "video",
+    "toCategory": "audio",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "mkv",
+    "to": "ogg",
+    "fromCategory": "video",
+    "toCategory": "audio",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "mkv",
+    "to": "aac",
+    "fromCategory": "video",
+    "toCategory": "audio",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "mkv",
+    "to": "wma",
+    "fromCategory": "video",
+    "toCategory": "audio",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "mkv",
+    "to": "wav",
+    "fromCategory": "video",
+    "toCategory": "audio",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "mkv",
+    "to": "opus",
+    "fromCategory": "video",
+    "toCategory": "audio",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "flv",
+    "to": "mp3",
+    "fromCategory": "video",
+    "toCategory": "audio",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "flv",
+    "to": "m4a",
+    "fromCategory": "video",
+    "toCategory": "audio",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "flv",
+    "to": "flac",
+    "fromCategory": "video",
+    "toCategory": "audio",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "flv",
+    "to": "ogg",
+    "fromCategory": "video",
+    "toCategory": "audio",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "flv",
+    "to": "aac",
+    "fromCategory": "video",
+    "toCategory": "audio",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "flv",
+    "to": "wma",
+    "fromCategory": "video",
+    "toCategory": "audio",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "flv",
+    "to": "wav",
+    "fromCategory": "video",
+    "toCategory": "audio",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "flv",
+    "to": "opus",
+    "fromCategory": "video",
+    "toCategory": "audio",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "wmv",
+    "to": "mp3",
+    "fromCategory": "video",
+    "toCategory": "audio",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "wmv",
+    "to": "m4a",
+    "fromCategory": "video",
+    "toCategory": "audio",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "wmv",
+    "to": "flac",
+    "fromCategory": "video",
+    "toCategory": "audio",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "wmv",
+    "to": "ogg",
+    "fromCategory": "video",
+    "toCategory": "audio",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "wmv",
+    "to": "aac",
+    "fromCategory": "video",
+    "toCategory": "audio",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "wmv",
+    "to": "wma",
+    "fromCategory": "video",
+    "toCategory": "audio",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "wmv",
+    "to": "wav",
+    "fromCategory": "video",
+    "toCategory": "audio",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "wmv",
+    "to": "opus",
+    "fromCategory": "video",
+    "toCategory": "audio",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "webm",
+    "to": "mp3",
+    "fromCategory": "video",
+    "toCategory": "audio",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "webm",
+    "to": "m4a",
+    "fromCategory": "video",
+    "toCategory": "audio",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "webm",
+    "to": "flac",
+    "fromCategory": "video",
+    "toCategory": "audio",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "webm",
+    "to": "ogg",
+    "fromCategory": "video",
+    "toCategory": "audio",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "webm",
+    "to": "aac",
+    "fromCategory": "video",
+    "toCategory": "audio",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "webm",
+    "to": "wma",
+    "fromCategory": "video",
+    "toCategory": "audio",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "webm",
+    "to": "wav",
+    "fromCategory": "video",
+    "toCategory": "audio",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "webm",
+    "to": "opus",
+    "fromCategory": "video",
+    "toCategory": "audio",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "avi",
+    "to": "mp3",
+    "fromCategory": "video",
+    "toCategory": "audio",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "avi",
+    "to": "m4a",
+    "fromCategory": "video",
+    "toCategory": "audio",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "avi",
+    "to": "flac",
+    "fromCategory": "video",
+    "toCategory": "audio",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "avi",
+    "to": "ogg",
+    "fromCategory": "video",
+    "toCategory": "audio",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "avi",
+    "to": "aac",
+    "fromCategory": "video",
+    "toCategory": "audio",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "avi",
+    "to": "wma",
+    "fromCategory": "video",
+    "toCategory": "audio",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "avi",
+    "to": "wav",
+    "fromCategory": "video",
+    "toCategory": "audio",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "avi",
+    "to": "opus",
+    "fromCategory": "video",
+    "toCategory": "audio",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "m4v",
+    "to": "mp3",
+    "fromCategory": "video",
+    "toCategory": "audio",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "m4v",
+    "to": "m4a",
+    "fromCategory": "video",
+    "toCategory": "audio",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "m4v",
+    "to": "flac",
+    "fromCategory": "video",
+    "toCategory": "audio",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "m4v",
+    "to": "ogg",
+    "fromCategory": "video",
+    "toCategory": "audio",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "m4v",
+    "to": "aac",
+    "fromCategory": "video",
+    "toCategory": "audio",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "m4v",
+    "to": "wma",
+    "fromCategory": "video",
+    "toCategory": "audio",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "m4v",
+    "to": "wav",
+    "fromCategory": "video",
+    "toCategory": "audio",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "m4v",
+    "to": "opus",
+    "fromCategory": "video",
+    "toCategory": "audio",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "docx",
+    "to": "pdf",
+    "fromCategory": "document",
+    "toCategory": "document",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "doc",
+    "to": "pdf",
+    "fromCategory": "document",
+    "toCategory": "document",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "xlsx",
+    "to": "pdf",
+    "fromCategory": "document",
+    "toCategory": "document",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "xls",
+    "to": "pdf",
+    "fromCategory": "document",
+    "toCategory": "document",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "pptx",
+    "to": "pdf",
+    "fromCategory": "document",
+    "toCategory": "document",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "ppt",
+    "to": "pdf",
+    "fromCategory": "document",
+    "toCategory": "document",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "txt",
+    "to": "pdf",
+    "fromCategory": "document",
+    "toCategory": "document",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "jpg",
+    "to": "pdf",
+    "fromCategory": "image",
+    "toCategory": "document",
+    "priority": 9,
+    "popular": true
+  },
+  {
+    "from": "png",
+    "to": "pdf",
+    "fromCategory": "image",
+    "toCategory": "document",
+    "priority": 9,
+    "popular": true
+  },
+  {
+    "from": "webp",
+    "to": "pdf",
+    "fromCategory": "image",
+    "toCategory": "document",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "heic",
+    "to": "pdf",
+    "fromCategory": "image",
+    "toCategory": "document",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "gif",
+    "to": "pdf",
+    "fromCategory": "image",
+    "toCategory": "document",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "svg",
+    "to": "pdf",
+    "fromCategory": "image",
+    "toCategory": "document",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "bmp",
+    "to": "pdf",
+    "fromCategory": "image",
+    "toCategory": "document",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "ico",
+    "to": "pdf",
+    "fromCategory": "image",
+    "toCategory": "document",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "avif",
+    "to": "pdf",
+    "fromCategory": "image",
+    "toCategory": "document",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "pdf",
+    "to": "jpg",
+    "fromCategory": "document",
+    "toCategory": "image",
+    "priority": 9,
+    "popular": true
+  },
+  {
+    "from": "pdf",
+    "to": "png",
+    "fromCategory": "document",
+    "toCategory": "image",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "pdf",
+    "to": "webp",
+    "fromCategory": "document",
+    "toCategory": "image",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "pdf",
+    "to": "heic",
+    "fromCategory": "document",
+    "toCategory": "image",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "pdf",
+    "to": "gif",
+    "fromCategory": "document",
+    "toCategory": "image",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "pdf",
+    "to": "svg",
+    "fromCategory": "document",
+    "toCategory": "image",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "pdf",
+    "to": "bmp",
+    "fromCategory": "document",
+    "toCategory": "image",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "pdf",
+    "to": "ico",
+    "fromCategory": "document",
+    "toCategory": "image",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "pdf",
+    "to": "avif",
+    "fromCategory": "document",
+    "toCategory": "image",
+    "priority": 8,
+    "popular": false
+  },
+  {
+    "from": "mp4",
+    "to": "gif",
+    "fromCategory": "video",
+    "toCategory": "image",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "mov",
+    "to": "gif",
+    "fromCategory": "video",
+    "toCategory": "image",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "mkv",
+    "to": "gif",
+    "fromCategory": "video",
+    "toCategory": "image",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "flv",
+    "to": "gif",
+    "fromCategory": "video",
+    "toCategory": "image",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "wmv",
+    "to": "gif",
+    "fromCategory": "video",
+    "toCategory": "image",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "webm",
+    "to": "gif",
+    "fromCategory": "video",
+    "toCategory": "image",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "avi",
+    "to": "gif",
+    "fromCategory": "video",
+    "toCategory": "image",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "m4v",
+    "to": "gif",
+    "fromCategory": "video",
+    "toCategory": "image",
+    "priority": 7,
+    "popular": false
+  },
+  {
+    "from": "gif",
+    "to": "mp4",
+    "fromCategory": "image",
+    "toCategory": "video",
+    "priority": 6,
+    "popular": false
+  },
+  {
+    "from": "gif",
+    "to": "mov",
+    "fromCategory": "image",
+    "toCategory": "video",
+    "priority": 6,
+    "popular": false
+  },
+  {
+    "from": "gif",
+    "to": "mkv",
+    "fromCategory": "image",
+    "toCategory": "video",
+    "priority": 6,
+    "popular": false
+  },
+  {
+    "from": "gif",
+    "to": "flv",
+    "fromCategory": "image",
+    "toCategory": "video",
+    "priority": 6,
+    "popular": false
+  },
+  {
+    "from": "gif",
+    "to": "wmv",
+    "fromCategory": "image",
+    "toCategory": "video",
+    "priority": 6,
+    "popular": false
+  },
+  {
+    "from": "gif",
+    "to": "webm",
+    "fromCategory": "image",
+    "toCategory": "video",
+    "priority": 6,
+    "popular": false
+  },
+  {
+    "from": "gif",
+    "to": "avi",
+    "fromCategory": "image",
+    "toCategory": "video",
+    "priority": 6,
+    "popular": false
+  },
+  {
+    "from": "gif",
+    "to": "m4v",
+    "fromCategory": "image",
+    "toCategory": "video",
     "priority": 6,
     "popular": false
   }

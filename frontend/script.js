@@ -613,6 +613,12 @@ function initializeApp() {
         dom.fileListSection.style.display = 'block';
         // 파일이 추가되면 업로드 패널 축소
         dom.uploadZone.classList.add('collapsed');
+
+        // 광고 배너 표시
+        const adBanners = document.getElementById('adsterra-banners');
+        if (adBanners) {
+            adBanners.style.display = 'block';
+        }
     }
 
     function clearAllFiles() {
@@ -627,6 +633,12 @@ function initializeApp() {
             dom.fileListSection.style.display = 'none';
             // 파일이 모두 제거되면 업로드 패널 확장
             dom.uploadZone.classList.remove('collapsed');
+
+            // 광고 배너 숨김
+            const adBanners = document.getElementById('adsterra-banners');
+            if (adBanners) {
+                adBanners.style.display = 'none';
+            }
         }
     }
 
@@ -678,6 +690,12 @@ function initializeApp() {
             dom.fileListSection.style.display = 'none';
             // 파일이 모두 제거되면 업로드 패널 확장
             dom.uploadZone.classList.remove('collapsed');
+
+            // 광고 배너 숨김
+            const adBanners = document.getElementById('adsterra-banners');
+            if (adBanners) {
+                adBanners.style.display = 'none';
+            }
         }
 
         showToast(`Removed "${fileObj.name}"`, 'success');
@@ -758,6 +776,9 @@ function initializeApp() {
         document.body.style.overflow = 'auto';
         state.currentFileIndex = -1;
         state.batchFiles = null;
+
+        // 모달 닫은 후 페이지 최상단으로 스크롤
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     // 파일 카테고리에 따라 허용되는 변환 카테고리 필터링

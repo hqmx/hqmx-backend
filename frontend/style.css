@@ -192,6 +192,18 @@ body[data-theme="dark"] .top-nav.scrolled {
     opacity: 1;
 }
 
+.converter-logo-link {
+    text-decoration: none;
+    cursor: pointer;
+    display: inline-block;
+    transition: opacity 0.3s ease, transform 0.2s ease;
+}
+
+.converter-logo-link:hover {
+    opacity: 0.8;
+    transform: translateY(-1px);
+}
+
 .converter-logo {
     display: flex;
     align-items: center;

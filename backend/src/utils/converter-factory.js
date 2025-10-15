@@ -2,6 +2,7 @@ import { ImageConverter } from './converters/image-converter.js';
 import { VideoConverter } from './converters/video-converter.js';
 import { AudioConverter } from './converters/audio-converter.js';
 import { DocumentConverter } from './converters/document-converter.js';
+import { LibreOfficeConverter } from './converters/libreoffice-converter.js';
 import { getFormatInfo } from './formats.js';
 
 /**
@@ -58,6 +59,12 @@ export class ConverterFactory {
     // 비디오에서 오디오 추출
     if (inputInfo.category === 'video' && outputInfo.category === 'audio') {
       return new VideoToAudioConverter(inputInfo.extension, outputInfo.extension, settings);
+    }
+
+    // 문서 → PDF (DOC, DOCX, XLSX, XLS, PPTX, PPT)
+    const officeFormats = ['doc', 'docx', 'xlsx', 'xls', 'pptx', 'ppt'];
+    if (officeFormats.includes(inputInfo.extension) && outputInfo.extension === 'pdf') {
+      return new LibreOfficeConverter(inputInfo.extension, outputInfo.extension, settings);
     }
 
     // 이미지를 PDF로 변환

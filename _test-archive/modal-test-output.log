@@ -1,0 +1,80 @@
+🌐 https://hqmx.net 접속 중...
+✅ 사이트 로드 완료
+
+📤 JPG 파일 업로드 중...
+✅ 파일 업로드 완료: 1개 파일
+
+🔍 Convert 버튼 찾는 중...
+  - .convert-btn: 1개
+  - button.convert-btn: 1개
+  - #fileList .convert-btn: 1개
+  - #fileList button:has-text("Convert"): 1개
+  - .file-item button:has-text("Convert"): 1개
+  - button:has-text("변환"): 2개
+
+🔘 Convert 버튼 클릭...
+
+🔍 모달 상태 확인 중...
+  - #conversionModal: 1개, 보임: true
+  - .conversion-modal: 0개, 보임: false
+  - .modal: 1개, 보임: true
+  - [role="dialog"]: 0개, 보임: false
+  - .modal-overlay: 0개, 보임: false
+
+🔍 모달 내부 포맷 선택 요소 찾기...
+  - .format-badge: 12개
+    [0] 텍스트: "JPG", data-format: "jpg"
+    [1] 텍스트: "JPEG", data-format: "jpeg"
+    [2] 텍스트: "PNG", data-format: "png"
+    [3] 텍스트: "GIF", data-format: "gif"
+    [4] 텍스트: "WEBP", data-format: "webp"
+  - .format-btn: 6개
+    [0] 텍스트: "MP4", data-format: "null"
+    [1] 텍스트: "AVI", data-format: "null"
+    [2] 텍스트: "MOV", data-format: "null"
+    [3] 텍스트: "WEBM", data-format: "null"
+    [4] 텍스트: "FLV", data-format: "null"
+  - .format-option: 0개
+  - button[data-format]: 0개
+  - .format-badge[data-format]: 12개
+    [0] 텍스트: "JPG", data-format: "jpg"
+    [1] 텍스트: "JPEG", data-format: "jpeg"
+    [2] 텍스트: "PNG", data-format: "png"
+    [3] 텍스트: "GIF", data-format: "gif"
+    [4] 텍스트: "WEBP", data-format: "webp"
+  - [data-format]: 12개
+    [0] 텍스트: "JPG", data-format: "jpg"
+    [1] 텍스트: "JPEG", data-format: "jpeg"
+    [2] 텍스트: "PNG", data-format: "png"
+    [3] 텍스트: "GIF", data-format: "gif"
+    [4] 텍스트: "WEBP", data-format: "webp"
+  - .modal button: 9개
+    [0] 텍스트: "", data-format: "null"
+    [1] 텍스트: "동영상", data-format: "null"
+    [2] 텍스트: "오디오", data-format: "null"
+    [3] 텍스트: "이미지", data-format: "null"
+    [4] 텍스트: "문서", data-format: "null"
+  - .modal .format: 0개
+
+🔍 JavaScript 상태 확인...
+JavaScript 상태: {
+  "hasConverterEngine": true,
+  "hasFFmpeg": false,
+  "hasDOMElements": {
+    "conversionModal": true,
+    "formatOptions": true,
+    "startConversionBtn": true
+  },
+  "modalInfo": {
+    "visible": true,
+    "classes": "modal",
+    "id": "conversionModal",
+    "innerHTML": "\n                <div class=\"modal-content\">\n                    <div class=\"modal-header\">\n                        <h3 data-i18n-key=\"conversionSettings\">변환 설정</h3>\n                        <button class=\"modal-close\" id=\"modalCloseBtn\">\n                            <i class=\"fas fa-times\"></i>\n                        </button>\n                    </div>\n                    <div class=\"modal-body\">\n                        <div class=\"file-info\">\n                            <div class=\"file-previe"
+  }
+}
+
+📸 스크린샷 저장: modal-test-after-click.png
+
+⏸️  10초간 브라우저 열어둠 (수동 확인 가능)...
+
+✅ 테스트 완료!

@@ -59,11 +59,21 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
+  // POST 요청과 광고 스크립트는 캐시하지 않음
+  if (event.request.method !== 'GET' ||
+      event.request.url.includes('outskirtsgrey.com') ||
+      event.request.url.includes('highperformanceformat.com') ||
+      event.request.url.includes('effectivegatecpm.com') ||
+      event.request.url.includes('shoukigaigoors.net')) {
+    event.respondWith(fetch(event.request));
+    return;
+  }
+
   event.respondWith(
     fetch(event.request)
       .then((response) => {
-        // 네트워크 응답이 성공적인 경우
-        if (response && response.status === 200) {
+        // 네트워크 응답이 성공적인 경우 (GET 요청만 캐시)
+        if (response && response.status === 200 && event.request.method === 'GET') {
           const responseClone = response.clone();
           caches.open(CACHE_NAME)
             .then((cache) => {

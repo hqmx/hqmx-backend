@@ -4,90 +4,3790 @@
 
   <!-- 메인 페이지 -->
   <url>
-    <loc>https://converter.hqmx.net/</loc>
-    <lastmod>2025-10-09</lastmod>
+    <loc>https://hqmx.net/</loc>
+    <lastmod>2025-10-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
 
-  <!-- JPG to PNG Converter -->
+  <!-- JPG to PNG (kr) -->
   <url>
-    <loc>https://converter.hqmx.net/jpg-to-png.html</loc>
-    <lastmod>2025-10-09</lastmod>
+    <loc>https://hqmx.net/kr/convert/jpg-to-png.html</loc>
+    <lastmod>2025-10-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="kr" href="https://hqmx.net/kr/convert/jpg-to-png.html" />
   </url>
 
-  <!-- PNG to JPG Converter -->
+  <!-- JPG to PNG (en) -->
   <url>
-    <loc>https://converter.hqmx.net/png-to-jpg.html</loc>
-    <lastmod>2025-10-09</lastmod>
+    <loc>https://hqmx.net/en/convert/jpg-to-png.html</loc>
+    <lastmod>2025-10-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hqmx.net/en/convert/jpg-to-png.html" />
   </url>
 
-  <!-- WEBP to JPG Converter -->
+  <!-- JPG to PNG (ja) -->
   <url>
-    <loc>https://converter.hqmx.net/webp-to-jpg.html</loc>
-    <lastmod>2025-10-09</lastmod>
+    <loc>https://hqmx.net/ja/convert/jpg-to-png.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://hqmx.net/ja/convert/jpg-to-png.html" />
+  </url>
+
+  <!-- JPG to PNG (zh-CN) -->
+  <url>
+    <loc>https://hqmx.net/zh-CN/convert/jpg-to-png.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://hqmx.net/zh-CN/convert/jpg-to-png.html" />
+  </url>
+
+  <!-- JPG to PNG (es) -->
+  <url>
+    <loc>https://hqmx.net/es/convert/jpg-to-png.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://hqmx.net/es/convert/jpg-to-png.html" />
+  </url>
+
+  <!-- JPG to PNG (fr) -->
+  <url>
+    <loc>https://hqmx.net/fr/convert/jpg-to-png.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://hqmx.net/fr/convert/jpg-to-png.html" />
+  </url>
+
+  <!-- JPG to PNG (de) -->
+  <url>
+    <loc>https://hqmx.net/de/convert/jpg-to-png.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://hqmx.net/de/convert/jpg-to-png.html" />
+  </url>
+
+  <!-- PNG to JPG (kr) -->
+  <url>
+    <loc>https://hqmx.net/kr/convert/png-to-jpg.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="kr" href="https://hqmx.net/kr/convert/png-to-jpg.html" />
+  </url>
+
+  <!-- PNG to JPG (en) -->
+  <url>
+    <loc>https://hqmx.net/en/convert/png-to-jpg.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hqmx.net/en/convert/png-to-jpg.html" />
+  </url>
+
+  <!-- PNG to JPG (ja) -->
+  <url>
+    <loc>https://hqmx.net/ja/convert/png-to-jpg.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://hqmx.net/ja/convert/png-to-jpg.html" />
+  </url>
+
+  <!-- PNG to JPG (zh-CN) -->
+  <url>
+    <loc>https://hqmx.net/zh-CN/convert/png-to-jpg.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://hqmx.net/zh-CN/convert/png-to-jpg.html" />
+  </url>
+
+  <!-- PNG to JPG (es) -->
+  <url>
+    <loc>https://hqmx.net/es/convert/png-to-jpg.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://hqmx.net/es/convert/png-to-jpg.html" />
+  </url>
+
+  <!-- PNG to JPG (fr) -->
+  <url>
+    <loc>https://hqmx.net/fr/convert/png-to-jpg.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://hqmx.net/fr/convert/png-to-jpg.html" />
+  </url>
+
+  <!-- PNG to JPG (de) -->
+  <url>
+    <loc>https://hqmx.net/de/convert/png-to-jpg.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://hqmx.net/de/convert/png-to-jpg.html" />
+  </url>
+
+  <!-- WEBP to JPG (kr) -->
+  <url>
+    <loc>https://hqmx.net/kr/convert/webp-to-jpg.html</loc>
+    <lastmod>2025-10-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="kr" href="https://hqmx.net/kr/convert/webp-to-jpg.html" />
   </url>
 
-  <!-- PNG to WEBP Converter -->
+  <!-- WEBP to JPG (en) -->
   <url>
-    <loc>https://converter.hqmx.net/png-to-webp.html</loc>
-    <lastmod>2025-10-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- HEIC to JPG Converter -->
-  <url>
-    <loc>https://converter.hqmx.net/heic-to-jpg.html</loc>
-    <lastmod>2025-10-09</lastmod>
+    <loc>https://hqmx.net/en/convert/webp-to-jpg.html</loc>
+    <lastmod>2025-10-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hqmx.net/en/convert/webp-to-jpg.html" />
   </url>
 
-  <!-- JPG to PDF Converter -->
+  <!-- WEBP to JPG (ja) -->
   <url>
-    <loc>https://converter.hqmx.net/jpg-to-pdf.html</loc>
-    <lastmod>2025-10-09</lastmod>
+    <loc>https://hqmx.net/ja/convert/webp-to-jpg.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://hqmx.net/ja/convert/webp-to-jpg.html" />
+  </url>
+
+  <!-- WEBP to JPG (zh-CN) -->
+  <url>
+    <loc>https://hqmx.net/zh-CN/convert/webp-to-jpg.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://hqmx.net/zh-CN/convert/webp-to-jpg.html" />
+  </url>
+
+  <!-- WEBP to JPG (es) -->
+  <url>
+    <loc>https://hqmx.net/es/convert/webp-to-jpg.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://hqmx.net/es/convert/webp-to-jpg.html" />
+  </url>
+
+  <!-- WEBP to JPG (fr) -->
+  <url>
+    <loc>https://hqmx.net/fr/convert/webp-to-jpg.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://hqmx.net/fr/convert/webp-to-jpg.html" />
+  </url>
+
+  <!-- WEBP to JPG (de) -->
+  <url>
+    <loc>https://hqmx.net/de/convert/webp-to-jpg.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://hqmx.net/de/convert/webp-to-jpg.html" />
+  </url>
+
+  <!-- WEBP to PNG (kr) -->
+  <url>
+    <loc>https://hqmx.net/kr/convert/webp-to-png.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="kr" href="https://hqmx.net/kr/convert/webp-to-png.html" />
+  </url>
+
+  <!-- WEBP to PNG (en) -->
+  <url>
+    <loc>https://hqmx.net/en/convert/webp-to-png.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hqmx.net/en/convert/webp-to-png.html" />
+  </url>
+
+  <!-- WEBP to PNG (ja) -->
+  <url>
+    <loc>https://hqmx.net/ja/convert/webp-to-png.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://hqmx.net/ja/convert/webp-to-png.html" />
+  </url>
+
+  <!-- WEBP to PNG (zh-CN) -->
+  <url>
+    <loc>https://hqmx.net/zh-CN/convert/webp-to-png.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://hqmx.net/zh-CN/convert/webp-to-png.html" />
+  </url>
+
+  <!-- WEBP to PNG (es) -->
+  <url>
+    <loc>https://hqmx.net/es/convert/webp-to-png.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://hqmx.net/es/convert/webp-to-png.html" />
+  </url>
+
+  <!-- WEBP to PNG (fr) -->
+  <url>
+    <loc>https://hqmx.net/fr/convert/webp-to-png.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://hqmx.net/fr/convert/webp-to-png.html" />
+  </url>
+
+  <!-- WEBP to PNG (de) -->
+  <url>
+    <loc>https://hqmx.net/de/convert/webp-to-png.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://hqmx.net/de/convert/webp-to-png.html" />
+  </url>
+
+  <!-- PNG to WEBP (kr) -->
+  <url>
+    <loc>https://hqmx.net/kr/convert/png-to-webp.html</loc>
+    <lastmod>2025-10-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="kr" href="https://hqmx.net/kr/convert/png-to-webp.html" />
   </url>
 
-  <!-- MP4 to AVI Converter -->
+  <!-- PNG to WEBP (en) -->
   <url>
-    <loc>https://converter.hqmx.net/mp4-to-avi.html</loc>
-    <lastmod>2025-10-09</lastmod>
+    <loc>https://hqmx.net/en/convert/png-to-webp.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hqmx.net/en/convert/png-to-webp.html" />
+  </url>
+
+  <!-- PNG to WEBP (ja) -->
+  <url>
+    <loc>https://hqmx.net/ja/convert/png-to-webp.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://hqmx.net/ja/convert/png-to-webp.html" />
+  </url>
+
+  <!-- PNG to WEBP (zh-CN) -->
+  <url>
+    <loc>https://hqmx.net/zh-CN/convert/png-to-webp.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://hqmx.net/zh-CN/convert/png-to-webp.html" />
+  </url>
+
+  <!-- PNG to WEBP (es) -->
+  <url>
+    <loc>https://hqmx.net/es/convert/png-to-webp.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://hqmx.net/es/convert/png-to-webp.html" />
+  </url>
+
+  <!-- PNG to WEBP (fr) -->
+  <url>
+    <loc>https://hqmx.net/fr/convert/png-to-webp.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://hqmx.net/fr/convert/png-to-webp.html" />
+  </url>
+
+  <!-- PNG to WEBP (de) -->
+  <url>
+    <loc>https://hqmx.net/de/convert/png-to-webp.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://hqmx.net/de/convert/png-to-webp.html" />
+  </url>
+
+  <!-- JPG to WEBP (kr) -->
+  <url>
+    <loc>https://hqmx.net/kr/convert/jpg-to-webp.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="kr" href="https://hqmx.net/kr/convert/jpg-to-webp.html" />
+  </url>
+
+  <!-- JPG to WEBP (en) -->
+  <url>
+    <loc>https://hqmx.net/en/convert/jpg-to-webp.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hqmx.net/en/convert/jpg-to-webp.html" />
+  </url>
+
+  <!-- JPG to WEBP (ja) -->
+  <url>
+    <loc>https://hqmx.net/ja/convert/jpg-to-webp.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://hqmx.net/ja/convert/jpg-to-webp.html" />
+  </url>
+
+  <!-- JPG to WEBP (zh-CN) -->
+  <url>
+    <loc>https://hqmx.net/zh-CN/convert/jpg-to-webp.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://hqmx.net/zh-CN/convert/jpg-to-webp.html" />
+  </url>
+
+  <!-- JPG to WEBP (es) -->
+  <url>
+    <loc>https://hqmx.net/es/convert/jpg-to-webp.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://hqmx.net/es/convert/jpg-to-webp.html" />
+  </url>
+
+  <!-- JPG to WEBP (fr) -->
+  <url>
+    <loc>https://hqmx.net/fr/convert/jpg-to-webp.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://hqmx.net/fr/convert/jpg-to-webp.html" />
+  </url>
+
+  <!-- JPG to WEBP (de) -->
+  <url>
+    <loc>https://hqmx.net/de/convert/jpg-to-webp.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://hqmx.net/de/convert/jpg-to-webp.html" />
+  </url>
+
+  <!-- HEIC to JPG (kr) -->
+  <url>
+    <loc>https://hqmx.net/kr/convert/heic-to-jpg.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="kr" href="https://hqmx.net/kr/convert/heic-to-jpg.html" />
+  </url>
+
+  <!-- HEIC to JPG (en) -->
+  <url>
+    <loc>https://hqmx.net/en/convert/heic-to-jpg.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hqmx.net/en/convert/heic-to-jpg.html" />
+  </url>
+
+  <!-- HEIC to JPG (ja) -->
+  <url>
+    <loc>https://hqmx.net/ja/convert/heic-to-jpg.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://hqmx.net/ja/convert/heic-to-jpg.html" />
+  </url>
+
+  <!-- HEIC to JPG (zh-CN) -->
+  <url>
+    <loc>https://hqmx.net/zh-CN/convert/heic-to-jpg.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://hqmx.net/zh-CN/convert/heic-to-jpg.html" />
+  </url>
+
+  <!-- HEIC to JPG (es) -->
+  <url>
+    <loc>https://hqmx.net/es/convert/heic-to-jpg.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://hqmx.net/es/convert/heic-to-jpg.html" />
+  </url>
+
+  <!-- HEIC to JPG (fr) -->
+  <url>
+    <loc>https://hqmx.net/fr/convert/heic-to-jpg.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://hqmx.net/fr/convert/heic-to-jpg.html" />
+  </url>
+
+  <!-- HEIC to JPG (de) -->
+  <url>
+    <loc>https://hqmx.net/de/convert/heic-to-jpg.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://hqmx.net/de/convert/heic-to-jpg.html" />
+  </url>
+
+  <!-- HEIC to PNG (kr) -->
+  <url>
+    <loc>https://hqmx.net/kr/convert/heic-to-png.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="kr" href="https://hqmx.net/kr/convert/heic-to-png.html" />
+  </url>
+
+  <!-- HEIC to PNG (en) -->
+  <url>
+    <loc>https://hqmx.net/en/convert/heic-to-png.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hqmx.net/en/convert/heic-to-png.html" />
+  </url>
+
+  <!-- HEIC to PNG (ja) -->
+  <url>
+    <loc>https://hqmx.net/ja/convert/heic-to-png.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://hqmx.net/ja/convert/heic-to-png.html" />
+  </url>
+
+  <!-- HEIC to PNG (zh-CN) -->
+  <url>
+    <loc>https://hqmx.net/zh-CN/convert/heic-to-png.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://hqmx.net/zh-CN/convert/heic-to-png.html" />
+  </url>
+
+  <!-- HEIC to PNG (es) -->
+  <url>
+    <loc>https://hqmx.net/es/convert/heic-to-png.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://hqmx.net/es/convert/heic-to-png.html" />
+  </url>
+
+  <!-- HEIC to PNG (fr) -->
+  <url>
+    <loc>https://hqmx.net/fr/convert/heic-to-png.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://hqmx.net/fr/convert/heic-to-png.html" />
+  </url>
+
+  <!-- HEIC to PNG (de) -->
+  <url>
+    <loc>https://hqmx.net/de/convert/heic-to-png.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://hqmx.net/de/convert/heic-to-png.html" />
+  </url>
+
+  <!-- JPG to PDF (kr) -->
+  <url>
+    <loc>https://hqmx.net/kr/convert/jpg-to-pdf.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="kr" href="https://hqmx.net/kr/convert/jpg-to-pdf.html" />
+  </url>
+
+  <!-- JPG to PDF (en) -->
+  <url>
+    <loc>https://hqmx.net/en/convert/jpg-to-pdf.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hqmx.net/en/convert/jpg-to-pdf.html" />
+  </url>
+
+  <!-- JPG to PDF (ja) -->
+  <url>
+    <loc>https://hqmx.net/ja/convert/jpg-to-pdf.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://hqmx.net/ja/convert/jpg-to-pdf.html" />
+  </url>
+
+  <!-- JPG to PDF (zh-CN) -->
+  <url>
+    <loc>https://hqmx.net/zh-CN/convert/jpg-to-pdf.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://hqmx.net/zh-CN/convert/jpg-to-pdf.html" />
+  </url>
+
+  <!-- JPG to PDF (es) -->
+  <url>
+    <loc>https://hqmx.net/es/convert/jpg-to-pdf.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://hqmx.net/es/convert/jpg-to-pdf.html" />
+  </url>
+
+  <!-- JPG to PDF (fr) -->
+  <url>
+    <loc>https://hqmx.net/fr/convert/jpg-to-pdf.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://hqmx.net/fr/convert/jpg-to-pdf.html" />
+  </url>
+
+  <!-- JPG to PDF (de) -->
+  <url>
+    <loc>https://hqmx.net/de/convert/jpg-to-pdf.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://hqmx.net/de/convert/jpg-to-pdf.html" />
+  </url>
+
+  <!-- PNG to PDF (kr) -->
+  <url>
+    <loc>https://hqmx.net/kr/convert/png-to-pdf.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="kr" href="https://hqmx.net/kr/convert/png-to-pdf.html" />
+  </url>
+
+  <!-- PNG to PDF (en) -->
+  <url>
+    <loc>https://hqmx.net/en/convert/png-to-pdf.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hqmx.net/en/convert/png-to-pdf.html" />
+  </url>
+
+  <!-- PNG to PDF (ja) -->
+  <url>
+    <loc>https://hqmx.net/ja/convert/png-to-pdf.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://hqmx.net/ja/convert/png-to-pdf.html" />
+  </url>
+
+  <!-- PNG to PDF (zh-CN) -->
+  <url>
+    <loc>https://hqmx.net/zh-CN/convert/png-to-pdf.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://hqmx.net/zh-CN/convert/png-to-pdf.html" />
+  </url>
+
+  <!-- PNG to PDF (es) -->
+  <url>
+    <loc>https://hqmx.net/es/convert/png-to-pdf.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://hqmx.net/es/convert/png-to-pdf.html" />
+  </url>
+
+  <!-- PNG to PDF (fr) -->
+  <url>
+    <loc>https://hqmx.net/fr/convert/png-to-pdf.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://hqmx.net/fr/convert/png-to-pdf.html" />
+  </url>
+
+  <!-- PNG to PDF (de) -->
+  <url>
+    <loc>https://hqmx.net/de/convert/png-to-pdf.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://hqmx.net/de/convert/png-to-pdf.html" />
+  </url>
+
+  <!-- PDF to JPG (kr) -->
+  <url>
+    <loc>https://hqmx.net/kr/convert/pdf-to-jpg.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="kr" href="https://hqmx.net/kr/convert/pdf-to-jpg.html" />
+  </url>
+
+  <!-- PDF to JPG (en) -->
+  <url>
+    <loc>https://hqmx.net/en/convert/pdf-to-jpg.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hqmx.net/en/convert/pdf-to-jpg.html" />
+  </url>
+
+  <!-- PDF to JPG (ja) -->
+  <url>
+    <loc>https://hqmx.net/ja/convert/pdf-to-jpg.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://hqmx.net/ja/convert/pdf-to-jpg.html" />
+  </url>
+
+  <!-- PDF to JPG (zh-CN) -->
+  <url>
+    <loc>https://hqmx.net/zh-CN/convert/pdf-to-jpg.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://hqmx.net/zh-CN/convert/pdf-to-jpg.html" />
+  </url>
+
+  <!-- PDF to JPG (es) -->
+  <url>
+    <loc>https://hqmx.net/es/convert/pdf-to-jpg.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://hqmx.net/es/convert/pdf-to-jpg.html" />
+  </url>
+
+  <!-- PDF to JPG (fr) -->
+  <url>
+    <loc>https://hqmx.net/fr/convert/pdf-to-jpg.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://hqmx.net/fr/convert/pdf-to-jpg.html" />
+  </url>
+
+  <!-- PDF to JPG (de) -->
+  <url>
+    <loc>https://hqmx.net/de/convert/pdf-to-jpg.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://hqmx.net/de/convert/pdf-to-jpg.html" />
+  </url>
+
+  <!-- PDF to PNG (kr) -->
+  <url>
+    <loc>https://hqmx.net/kr/convert/pdf-to-png.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="kr" href="https://hqmx.net/kr/convert/pdf-to-png.html" />
+  </url>
+
+  <!-- PDF to PNG (en) -->
+  <url>
+    <loc>https://hqmx.net/en/convert/pdf-to-png.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hqmx.net/en/convert/pdf-to-png.html" />
+  </url>
+
+  <!-- PDF to PNG (ja) -->
+  <url>
+    <loc>https://hqmx.net/ja/convert/pdf-to-png.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://hqmx.net/ja/convert/pdf-to-png.html" />
+  </url>
+
+  <!-- PDF to PNG (zh-CN) -->
+  <url>
+    <loc>https://hqmx.net/zh-CN/convert/pdf-to-png.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://hqmx.net/zh-CN/convert/pdf-to-png.html" />
+  </url>
+
+  <!-- PDF to PNG (es) -->
+  <url>
+    <loc>https://hqmx.net/es/convert/pdf-to-png.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://hqmx.net/es/convert/pdf-to-png.html" />
+  </url>
+
+  <!-- PDF to PNG (fr) -->
+  <url>
+    <loc>https://hqmx.net/fr/convert/pdf-to-png.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://hqmx.net/fr/convert/pdf-to-png.html" />
+  </url>
+
+  <!-- PDF to PNG (de) -->
+  <url>
+    <loc>https://hqmx.net/de/convert/pdf-to-png.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://hqmx.net/de/convert/pdf-to-png.html" />
+  </url>
+
+  <!-- GIF to MP4 (kr) -->
+  <url>
+    <loc>https://hqmx.net/kr/convert/gif-to-mp4.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="kr" href="https://hqmx.net/kr/convert/gif-to-mp4.html" />
+  </url>
+
+  <!-- GIF to MP4 (en) -->
+  <url>
+    <loc>https://hqmx.net/en/convert/gif-to-mp4.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hqmx.net/en/convert/gif-to-mp4.html" />
+  </url>
+
+  <!-- GIF to MP4 (ja) -->
+  <url>
+    <loc>https://hqmx.net/ja/convert/gif-to-mp4.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://hqmx.net/ja/convert/gif-to-mp4.html" />
+  </url>
+
+  <!-- GIF to MP4 (zh-CN) -->
+  <url>
+    <loc>https://hqmx.net/zh-CN/convert/gif-to-mp4.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://hqmx.net/zh-CN/convert/gif-to-mp4.html" />
+  </url>
+
+  <!-- GIF to MP4 (es) -->
+  <url>
+    <loc>https://hqmx.net/es/convert/gif-to-mp4.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://hqmx.net/es/convert/gif-to-mp4.html" />
+  </url>
+
+  <!-- GIF to MP4 (fr) -->
+  <url>
+    <loc>https://hqmx.net/fr/convert/gif-to-mp4.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://hqmx.net/fr/convert/gif-to-mp4.html" />
+  </url>
+
+  <!-- GIF to MP4 (de) -->
+  <url>
+    <loc>https://hqmx.net/de/convert/gif-to-mp4.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://hqmx.net/de/convert/gif-to-mp4.html" />
+  </url>
+
+  <!-- GIF to PNG (kr) -->
+  <url>
+    <loc>https://hqmx.net/kr/convert/gif-to-png.html</loc>
+    <lastmod>2025-10-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="kr" href="https://hqmx.net/kr/convert/gif-to-png.html" />
   </url>
 
-  <!-- AVI to MP4 Converter -->
+  <!-- GIF to PNG (en) -->
   <url>
-    <loc>https://converter.hqmx.net/avi-to-mp4.html</loc>
-    <lastmod>2025-10-09</lastmod>
+    <loc>https://hqmx.net/en/convert/gif-to-png.html</loc>
+    <lastmod>2025-10-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hqmx.net/en/convert/gif-to-png.html" />
   </url>
 
-  <!-- MP3 to WAV Converter -->
+  <!-- GIF to PNG (ja) -->
   <url>
-    <loc>https://converter.hqmx.net/mp3-to-wav.html</loc>
-    <lastmod>2025-10-09</lastmod>
+    <loc>https://hqmx.net/ja/convert/gif-to-png.html</loc>
+    <lastmod>2025-10-13</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://hqmx.net/ja/convert/gif-to-png.html" />
   </url>
 
-  <!-- WAV to MP3 Converter -->
+  <!-- GIF to PNG (zh-CN) -->
   <url>
-    <loc>https://converter.hqmx.net/wav-to-mp3.html</loc>
-    <lastmod>2025-10-09</lastmod>
+    <loc>https://hqmx.net/zh-CN/convert/gif-to-png.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://hqmx.net/zh-CN/convert/gif-to-png.html" />
+  </url>
+
+  <!-- GIF to PNG (es) -->
+  <url>
+    <loc>https://hqmx.net/es/convert/gif-to-png.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://hqmx.net/es/convert/gif-to-png.html" />
+  </url>
+
+  <!-- GIF to PNG (fr) -->
+  <url>
+    <loc>https://hqmx.net/fr/convert/gif-to-png.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://hqmx.net/fr/convert/gif-to-png.html" />
+  </url>
+
+  <!-- GIF to PNG (de) -->
+  <url>
+    <loc>https://hqmx.net/de/convert/gif-to-png.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://hqmx.net/de/convert/gif-to-png.html" />
+  </url>
+
+  <!-- GIF to JPG (kr) -->
+  <url>
+    <loc>https://hqmx.net/kr/convert/gif-to-jpg.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="kr" href="https://hqmx.net/kr/convert/gif-to-jpg.html" />
+  </url>
+
+  <!-- GIF to JPG (en) -->
+  <url>
+    <loc>https://hqmx.net/en/convert/gif-to-jpg.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hqmx.net/en/convert/gif-to-jpg.html" />
+  </url>
+
+  <!-- GIF to JPG (ja) -->
+  <url>
+    <loc>https://hqmx.net/ja/convert/gif-to-jpg.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://hqmx.net/ja/convert/gif-to-jpg.html" />
+  </url>
+
+  <!-- GIF to JPG (zh-CN) -->
+  <url>
+    <loc>https://hqmx.net/zh-CN/convert/gif-to-jpg.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://hqmx.net/zh-CN/convert/gif-to-jpg.html" />
+  </url>
+
+  <!-- GIF to JPG (es) -->
+  <url>
+    <loc>https://hqmx.net/es/convert/gif-to-jpg.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://hqmx.net/es/convert/gif-to-jpg.html" />
+  </url>
+
+  <!-- GIF to JPG (fr) -->
+  <url>
+    <loc>https://hqmx.net/fr/convert/gif-to-jpg.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://hqmx.net/fr/convert/gif-to-jpg.html" />
+  </url>
+
+  <!-- GIF to JPG (de) -->
+  <url>
+    <loc>https://hqmx.net/de/convert/gif-to-jpg.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://hqmx.net/de/convert/gif-to-jpg.html" />
+  </url>
+
+  <!-- SVG to PNG (kr) -->
+  <url>
+    <loc>https://hqmx.net/kr/convert/svg-to-png.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="kr" href="https://hqmx.net/kr/convert/svg-to-png.html" />
+  </url>
+
+  <!-- SVG to PNG (en) -->
+  <url>
+    <loc>https://hqmx.net/en/convert/svg-to-png.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hqmx.net/en/convert/svg-to-png.html" />
+  </url>
+
+  <!-- SVG to PNG (ja) -->
+  <url>
+    <loc>https://hqmx.net/ja/convert/svg-to-png.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://hqmx.net/ja/convert/svg-to-png.html" />
+  </url>
+
+  <!-- SVG to PNG (zh-CN) -->
+  <url>
+    <loc>https://hqmx.net/zh-CN/convert/svg-to-png.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://hqmx.net/zh-CN/convert/svg-to-png.html" />
+  </url>
+
+  <!-- SVG to PNG (es) -->
+  <url>
+    <loc>https://hqmx.net/es/convert/svg-to-png.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://hqmx.net/es/convert/svg-to-png.html" />
+  </url>
+
+  <!-- SVG to PNG (fr) -->
+  <url>
+    <loc>https://hqmx.net/fr/convert/svg-to-png.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://hqmx.net/fr/convert/svg-to-png.html" />
+  </url>
+
+  <!-- SVG to PNG (de) -->
+  <url>
+    <loc>https://hqmx.net/de/convert/svg-to-png.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://hqmx.net/de/convert/svg-to-png.html" />
+  </url>
+
+  <!-- SVG to JPG (kr) -->
+  <url>
+    <loc>https://hqmx.net/kr/convert/svg-to-jpg.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="kr" href="https://hqmx.net/kr/convert/svg-to-jpg.html" />
+  </url>
+
+  <!-- SVG to JPG (en) -->
+  <url>
+    <loc>https://hqmx.net/en/convert/svg-to-jpg.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hqmx.net/en/convert/svg-to-jpg.html" />
+  </url>
+
+  <!-- SVG to JPG (ja) -->
+  <url>
+    <loc>https://hqmx.net/ja/convert/svg-to-jpg.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://hqmx.net/ja/convert/svg-to-jpg.html" />
+  </url>
+
+  <!-- SVG to JPG (zh-CN) -->
+  <url>
+    <loc>https://hqmx.net/zh-CN/convert/svg-to-jpg.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://hqmx.net/zh-CN/convert/svg-to-jpg.html" />
+  </url>
+
+  <!-- SVG to JPG (es) -->
+  <url>
+    <loc>https://hqmx.net/es/convert/svg-to-jpg.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://hqmx.net/es/convert/svg-to-jpg.html" />
+  </url>
+
+  <!-- SVG to JPG (fr) -->
+  <url>
+    <loc>https://hqmx.net/fr/convert/svg-to-jpg.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://hqmx.net/fr/convert/svg-to-jpg.html" />
+  </url>
+
+  <!-- SVG to JPG (de) -->
+  <url>
+    <loc>https://hqmx.net/de/convert/svg-to-jpg.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://hqmx.net/de/convert/svg-to-jpg.html" />
+  </url>
+
+  <!-- BMP to JPG (kr) -->
+  <url>
+    <loc>https://hqmx.net/kr/convert/bmp-to-jpg.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="kr" href="https://hqmx.net/kr/convert/bmp-to-jpg.html" />
+  </url>
+
+  <!-- BMP to JPG (en) -->
+  <url>
+    <loc>https://hqmx.net/en/convert/bmp-to-jpg.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hqmx.net/en/convert/bmp-to-jpg.html" />
+  </url>
+
+  <!-- BMP to JPG (ja) -->
+  <url>
+    <loc>https://hqmx.net/ja/convert/bmp-to-jpg.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://hqmx.net/ja/convert/bmp-to-jpg.html" />
+  </url>
+
+  <!-- BMP to JPG (zh-CN) -->
+  <url>
+    <loc>https://hqmx.net/zh-CN/convert/bmp-to-jpg.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://hqmx.net/zh-CN/convert/bmp-to-jpg.html" />
+  </url>
+
+  <!-- BMP to JPG (es) -->
+  <url>
+    <loc>https://hqmx.net/es/convert/bmp-to-jpg.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://hqmx.net/es/convert/bmp-to-jpg.html" />
+  </url>
+
+  <!-- BMP to JPG (fr) -->
+  <url>
+    <loc>https://hqmx.net/fr/convert/bmp-to-jpg.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://hqmx.net/fr/convert/bmp-to-jpg.html" />
+  </url>
+
+  <!-- BMP to JPG (de) -->
+  <url>
+    <loc>https://hqmx.net/de/convert/bmp-to-jpg.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://hqmx.net/de/convert/bmp-to-jpg.html" />
+  </url>
+
+  <!-- BMP to PNG (kr) -->
+  <url>
+    <loc>https://hqmx.net/kr/convert/bmp-to-png.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="kr" href="https://hqmx.net/kr/convert/bmp-to-png.html" />
+  </url>
+
+  <!-- BMP to PNG (en) -->
+  <url>
+    <loc>https://hqmx.net/en/convert/bmp-to-png.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hqmx.net/en/convert/bmp-to-png.html" />
+  </url>
+
+  <!-- BMP to PNG (ja) -->
+  <url>
+    <loc>https://hqmx.net/ja/convert/bmp-to-png.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://hqmx.net/ja/convert/bmp-to-png.html" />
+  </url>
+
+  <!-- BMP to PNG (zh-CN) -->
+  <url>
+    <loc>https://hqmx.net/zh-CN/convert/bmp-to-png.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://hqmx.net/zh-CN/convert/bmp-to-png.html" />
+  </url>
+
+  <!-- BMP to PNG (es) -->
+  <url>
+    <loc>https://hqmx.net/es/convert/bmp-to-png.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://hqmx.net/es/convert/bmp-to-png.html" />
+  </url>
+
+  <!-- BMP to PNG (fr) -->
+  <url>
+    <loc>https://hqmx.net/fr/convert/bmp-to-png.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://hqmx.net/fr/convert/bmp-to-png.html" />
+  </url>
+
+  <!-- BMP to PNG (de) -->
+  <url>
+    <loc>https://hqmx.net/de/convert/bmp-to-png.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://hqmx.net/de/convert/bmp-to-png.html" />
+  </url>
+
+  <!-- TIFF to JPG (kr) -->
+  <url>
+    <loc>https://hqmx.net/kr/convert/tiff-to-jpg.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="kr" href="https://hqmx.net/kr/convert/tiff-to-jpg.html" />
+  </url>
+
+  <!-- TIFF to JPG (en) -->
+  <url>
+    <loc>https://hqmx.net/en/convert/tiff-to-jpg.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hqmx.net/en/convert/tiff-to-jpg.html" />
+  </url>
+
+  <!-- TIFF to JPG (ja) -->
+  <url>
+    <loc>https://hqmx.net/ja/convert/tiff-to-jpg.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://hqmx.net/ja/convert/tiff-to-jpg.html" />
+  </url>
+
+  <!-- TIFF to JPG (zh-CN) -->
+  <url>
+    <loc>https://hqmx.net/zh-CN/convert/tiff-to-jpg.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://hqmx.net/zh-CN/convert/tiff-to-jpg.html" />
+  </url>
+
+  <!-- TIFF to JPG (es) -->
+  <url>
+    <loc>https://hqmx.net/es/convert/tiff-to-jpg.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://hqmx.net/es/convert/tiff-to-jpg.html" />
+  </url>
+
+  <!-- TIFF to JPG (fr) -->
+  <url>
+    <loc>https://hqmx.net/fr/convert/tiff-to-jpg.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://hqmx.net/fr/convert/tiff-to-jpg.html" />
+  </url>
+
+  <!-- TIFF to JPG (de) -->
+  <url>
+    <loc>https://hqmx.net/de/convert/tiff-to-jpg.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://hqmx.net/de/convert/tiff-to-jpg.html" />
+  </url>
+
+  <!-- TIFF to PNG (kr) -->
+  <url>
+    <loc>https://hqmx.net/kr/convert/tiff-to-png.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="kr" href="https://hqmx.net/kr/convert/tiff-to-png.html" />
+  </url>
+
+  <!-- TIFF to PNG (en) -->
+  <url>
+    <loc>https://hqmx.net/en/convert/tiff-to-png.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hqmx.net/en/convert/tiff-to-png.html" />
+  </url>
+
+  <!-- TIFF to PNG (ja) -->
+  <url>
+    <loc>https://hqmx.net/ja/convert/tiff-to-png.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://hqmx.net/ja/convert/tiff-to-png.html" />
+  </url>
+
+  <!-- TIFF to PNG (zh-CN) -->
+  <url>
+    <loc>https://hqmx.net/zh-CN/convert/tiff-to-png.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://hqmx.net/zh-CN/convert/tiff-to-png.html" />
+  </url>
+
+  <!-- TIFF to PNG (es) -->
+  <url>
+    <loc>https://hqmx.net/es/convert/tiff-to-png.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://hqmx.net/es/convert/tiff-to-png.html" />
+  </url>
+
+  <!-- TIFF to PNG (fr) -->
+  <url>
+    <loc>https://hqmx.net/fr/convert/tiff-to-png.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://hqmx.net/fr/convert/tiff-to-png.html" />
+  </url>
+
+  <!-- TIFF to PNG (de) -->
+  <url>
+    <loc>https://hqmx.net/de/convert/tiff-to-png.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://hqmx.net/de/convert/tiff-to-png.html" />
+  </url>
+
+  <!-- ICO to PNG (kr) -->
+  <url>
+    <loc>https://hqmx.net/kr/convert/ico-to-png.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="kr" href="https://hqmx.net/kr/convert/ico-to-png.html" />
+  </url>
+
+  <!-- ICO to PNG (en) -->
+  <url>
+    <loc>https://hqmx.net/en/convert/ico-to-png.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hqmx.net/en/convert/ico-to-png.html" />
+  </url>
+
+  <!-- ICO to PNG (ja) -->
+  <url>
+    <loc>https://hqmx.net/ja/convert/ico-to-png.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://hqmx.net/ja/convert/ico-to-png.html" />
+  </url>
+
+  <!-- ICO to PNG (zh-CN) -->
+  <url>
+    <loc>https://hqmx.net/zh-CN/convert/ico-to-png.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://hqmx.net/zh-CN/convert/ico-to-png.html" />
+  </url>
+
+  <!-- ICO to PNG (es) -->
+  <url>
+    <loc>https://hqmx.net/es/convert/ico-to-png.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://hqmx.net/es/convert/ico-to-png.html" />
+  </url>
+
+  <!-- ICO to PNG (fr) -->
+  <url>
+    <loc>https://hqmx.net/fr/convert/ico-to-png.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://hqmx.net/fr/convert/ico-to-png.html" />
+  </url>
+
+  <!-- ICO to PNG (de) -->
+  <url>
+    <loc>https://hqmx.net/de/convert/ico-to-png.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://hqmx.net/de/convert/ico-to-png.html" />
+  </url>
+
+  <!-- PNG to ICO (kr) -->
+  <url>
+    <loc>https://hqmx.net/kr/convert/png-to-ico.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="kr" href="https://hqmx.net/kr/convert/png-to-ico.html" />
+  </url>
+
+  <!-- PNG to ICO (en) -->
+  <url>
+    <loc>https://hqmx.net/en/convert/png-to-ico.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hqmx.net/en/convert/png-to-ico.html" />
+  </url>
+
+  <!-- PNG to ICO (ja) -->
+  <url>
+    <loc>https://hqmx.net/ja/convert/png-to-ico.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://hqmx.net/ja/convert/png-to-ico.html" />
+  </url>
+
+  <!-- PNG to ICO (zh-CN) -->
+  <url>
+    <loc>https://hqmx.net/zh-CN/convert/png-to-ico.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://hqmx.net/zh-CN/convert/png-to-ico.html" />
+  </url>
+
+  <!-- PNG to ICO (es) -->
+  <url>
+    <loc>https://hqmx.net/es/convert/png-to-ico.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://hqmx.net/es/convert/png-to-ico.html" />
+  </url>
+
+  <!-- PNG to ICO (fr) -->
+  <url>
+    <loc>https://hqmx.net/fr/convert/png-to-ico.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://hqmx.net/fr/convert/png-to-ico.html" />
+  </url>
+
+  <!-- PNG to ICO (de) -->
+  <url>
+    <loc>https://hqmx.net/de/convert/png-to-ico.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://hqmx.net/de/convert/png-to-ico.html" />
+  </url>
+
+  <!-- AVIF to JPG (kr) -->
+  <url>
+    <loc>https://hqmx.net/kr/convert/avif-to-jpg.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="kr" href="https://hqmx.net/kr/convert/avif-to-jpg.html" />
+  </url>
+
+  <!-- AVIF to JPG (en) -->
+  <url>
+    <loc>https://hqmx.net/en/convert/avif-to-jpg.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hqmx.net/en/convert/avif-to-jpg.html" />
+  </url>
+
+  <!-- AVIF to JPG (ja) -->
+  <url>
+    <loc>https://hqmx.net/ja/convert/avif-to-jpg.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://hqmx.net/ja/convert/avif-to-jpg.html" />
+  </url>
+
+  <!-- AVIF to JPG (zh-CN) -->
+  <url>
+    <loc>https://hqmx.net/zh-CN/convert/avif-to-jpg.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://hqmx.net/zh-CN/convert/avif-to-jpg.html" />
+  </url>
+
+  <!-- AVIF to JPG (es) -->
+  <url>
+    <loc>https://hqmx.net/es/convert/avif-to-jpg.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://hqmx.net/es/convert/avif-to-jpg.html" />
+  </url>
+
+  <!-- AVIF to JPG (fr) -->
+  <url>
+    <loc>https://hqmx.net/fr/convert/avif-to-jpg.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://hqmx.net/fr/convert/avif-to-jpg.html" />
+  </url>
+
+  <!-- AVIF to JPG (de) -->
+  <url>
+    <loc>https://hqmx.net/de/convert/avif-to-jpg.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://hqmx.net/de/convert/avif-to-jpg.html" />
+  </url>
+
+  <!-- AVIF to PNG (kr) -->
+  <url>
+    <loc>https://hqmx.net/kr/convert/avif-to-png.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="kr" href="https://hqmx.net/kr/convert/avif-to-png.html" />
+  </url>
+
+  <!-- AVIF to PNG (en) -->
+  <url>
+    <loc>https://hqmx.net/en/convert/avif-to-png.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hqmx.net/en/convert/avif-to-png.html" />
+  </url>
+
+  <!-- AVIF to PNG (ja) -->
+  <url>
+    <loc>https://hqmx.net/ja/convert/avif-to-png.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://hqmx.net/ja/convert/avif-to-png.html" />
+  </url>
+
+  <!-- AVIF to PNG (zh-CN) -->
+  <url>
+    <loc>https://hqmx.net/zh-CN/convert/avif-to-png.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://hqmx.net/zh-CN/convert/avif-to-png.html" />
+  </url>
+
+  <!-- AVIF to PNG (es) -->
+  <url>
+    <loc>https://hqmx.net/es/convert/avif-to-png.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://hqmx.net/es/convert/avif-to-png.html" />
+  </url>
+
+  <!-- AVIF to PNG (fr) -->
+  <url>
+    <loc>https://hqmx.net/fr/convert/avif-to-png.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://hqmx.net/fr/convert/avif-to-png.html" />
+  </url>
+
+  <!-- AVIF to PNG (de) -->
+  <url>
+    <loc>https://hqmx.net/de/convert/avif-to-png.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://hqmx.net/de/convert/avif-to-png.html" />
+  </url>
+
+  <!-- JPG to AVIF (kr) -->
+  <url>
+    <loc>https://hqmx.net/kr/convert/jpg-to-avif.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="kr" href="https://hqmx.net/kr/convert/jpg-to-avif.html" />
+  </url>
+
+  <!-- JPG to AVIF (en) -->
+  <url>
+    <loc>https://hqmx.net/en/convert/jpg-to-avif.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hqmx.net/en/convert/jpg-to-avif.html" />
+  </url>
+
+  <!-- JPG to AVIF (ja) -->
+  <url>
+    <loc>https://hqmx.net/ja/convert/jpg-to-avif.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://hqmx.net/ja/convert/jpg-to-avif.html" />
+  </url>
+
+  <!-- JPG to AVIF (zh-CN) -->
+  <url>
+    <loc>https://hqmx.net/zh-CN/convert/jpg-to-avif.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://hqmx.net/zh-CN/convert/jpg-to-avif.html" />
+  </url>
+
+  <!-- JPG to AVIF (es) -->
+  <url>
+    <loc>https://hqmx.net/es/convert/jpg-to-avif.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://hqmx.net/es/convert/jpg-to-avif.html" />
+  </url>
+
+  <!-- JPG to AVIF (fr) -->
+  <url>
+    <loc>https://hqmx.net/fr/convert/jpg-to-avif.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://hqmx.net/fr/convert/jpg-to-avif.html" />
+  </url>
+
+  <!-- JPG to AVIF (de) -->
+  <url>
+    <loc>https://hqmx.net/de/convert/jpg-to-avif.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://hqmx.net/de/convert/jpg-to-avif.html" />
+  </url>
+
+  <!-- PNG to AVIF (kr) -->
+  <url>
+    <loc>https://hqmx.net/kr/convert/png-to-avif.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="kr" href="https://hqmx.net/kr/convert/png-to-avif.html" />
+  </url>
+
+  <!-- PNG to AVIF (en) -->
+  <url>
+    <loc>https://hqmx.net/en/convert/png-to-avif.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hqmx.net/en/convert/png-to-avif.html" />
+  </url>
+
+  <!-- PNG to AVIF (ja) -->
+  <url>
+    <loc>https://hqmx.net/ja/convert/png-to-avif.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://hqmx.net/ja/convert/png-to-avif.html" />
+  </url>
+
+  <!-- PNG to AVIF (zh-CN) -->
+  <url>
+    <loc>https://hqmx.net/zh-CN/convert/png-to-avif.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://hqmx.net/zh-CN/convert/png-to-avif.html" />
+  </url>
+
+  <!-- PNG to AVIF (es) -->
+  <url>
+    <loc>https://hqmx.net/es/convert/png-to-avif.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://hqmx.net/es/convert/png-to-avif.html" />
+  </url>
+
+  <!-- PNG to AVIF (fr) -->
+  <url>
+    <loc>https://hqmx.net/fr/convert/png-to-avif.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://hqmx.net/fr/convert/png-to-avif.html" />
+  </url>
+
+  <!-- PNG to AVIF (de) -->
+  <url>
+    <loc>https://hqmx.net/de/convert/png-to-avif.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://hqmx.net/de/convert/png-to-avif.html" />
+  </url>
+
+  <!-- DOCX to PDF (kr) -->
+  <url>
+    <loc>https://hqmx.net/kr/convert/docx-to-pdf.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="kr" href="https://hqmx.net/kr/convert/docx-to-pdf.html" />
+  </url>
+
+  <!-- DOCX to PDF (en) -->
+  <url>
+    <loc>https://hqmx.net/en/convert/docx-to-pdf.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hqmx.net/en/convert/docx-to-pdf.html" />
+  </url>
+
+  <!-- DOCX to PDF (ja) -->
+  <url>
+    <loc>https://hqmx.net/ja/convert/docx-to-pdf.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://hqmx.net/ja/convert/docx-to-pdf.html" />
+  </url>
+
+  <!-- DOCX to PDF (zh-CN) -->
+  <url>
+    <loc>https://hqmx.net/zh-CN/convert/docx-to-pdf.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://hqmx.net/zh-CN/convert/docx-to-pdf.html" />
+  </url>
+
+  <!-- DOCX to PDF (es) -->
+  <url>
+    <loc>https://hqmx.net/es/convert/docx-to-pdf.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://hqmx.net/es/convert/docx-to-pdf.html" />
+  </url>
+
+  <!-- DOCX to PDF (fr) -->
+  <url>
+    <loc>https://hqmx.net/fr/convert/docx-to-pdf.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://hqmx.net/fr/convert/docx-to-pdf.html" />
+  </url>
+
+  <!-- DOCX to PDF (de) -->
+  <url>
+    <loc>https://hqmx.net/de/convert/docx-to-pdf.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://hqmx.net/de/convert/docx-to-pdf.html" />
+  </url>
+
+  <!-- DOC to PDF (kr) -->
+  <url>
+    <loc>https://hqmx.net/kr/convert/doc-to-pdf.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="kr" href="https://hqmx.net/kr/convert/doc-to-pdf.html" />
+  </url>
+
+  <!-- DOC to PDF (en) -->
+  <url>
+    <loc>https://hqmx.net/en/convert/doc-to-pdf.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hqmx.net/en/convert/doc-to-pdf.html" />
+  </url>
+
+  <!-- DOC to PDF (ja) -->
+  <url>
+    <loc>https://hqmx.net/ja/convert/doc-to-pdf.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://hqmx.net/ja/convert/doc-to-pdf.html" />
+  </url>
+
+  <!-- DOC to PDF (zh-CN) -->
+  <url>
+    <loc>https://hqmx.net/zh-CN/convert/doc-to-pdf.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://hqmx.net/zh-CN/convert/doc-to-pdf.html" />
+  </url>
+
+  <!-- DOC to PDF (es) -->
+  <url>
+    <loc>https://hqmx.net/es/convert/doc-to-pdf.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://hqmx.net/es/convert/doc-to-pdf.html" />
+  </url>
+
+  <!-- DOC to PDF (fr) -->
+  <url>
+    <loc>https://hqmx.net/fr/convert/doc-to-pdf.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://hqmx.net/fr/convert/doc-to-pdf.html" />
+  </url>
+
+  <!-- DOC to PDF (de) -->
+  <url>
+    <loc>https://hqmx.net/de/convert/doc-to-pdf.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://hqmx.net/de/convert/doc-to-pdf.html" />
+  </url>
+
+  <!-- XLSX to PDF (kr) -->
+  <url>
+    <loc>https://hqmx.net/kr/convert/xlsx-to-pdf.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="kr" href="https://hqmx.net/kr/convert/xlsx-to-pdf.html" />
+  </url>
+
+  <!-- XLSX to PDF (en) -->
+  <url>
+    <loc>https://hqmx.net/en/convert/xlsx-to-pdf.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hqmx.net/en/convert/xlsx-to-pdf.html" />
+  </url>
+
+  <!-- XLSX to PDF (ja) -->
+  <url>
+    <loc>https://hqmx.net/ja/convert/xlsx-to-pdf.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://hqmx.net/ja/convert/xlsx-to-pdf.html" />
+  </url>
+
+  <!-- XLSX to PDF (zh-CN) -->
+  <url>
+    <loc>https://hqmx.net/zh-CN/convert/xlsx-to-pdf.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://hqmx.net/zh-CN/convert/xlsx-to-pdf.html" />
+  </url>
+
+  <!-- XLSX to PDF (es) -->
+  <url>
+    <loc>https://hqmx.net/es/convert/xlsx-to-pdf.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://hqmx.net/es/convert/xlsx-to-pdf.html" />
+  </url>
+
+  <!-- XLSX to PDF (fr) -->
+  <url>
+    <loc>https://hqmx.net/fr/convert/xlsx-to-pdf.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://hqmx.net/fr/convert/xlsx-to-pdf.html" />
+  </url>
+
+  <!-- XLSX to PDF (de) -->
+  <url>
+    <loc>https://hqmx.net/de/convert/xlsx-to-pdf.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://hqmx.net/de/convert/xlsx-to-pdf.html" />
+  </url>
+
+  <!-- XLS to PDF (kr) -->
+  <url>
+    <loc>https://hqmx.net/kr/convert/xls-to-pdf.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="kr" href="https://hqmx.net/kr/convert/xls-to-pdf.html" />
+  </url>
+
+  <!-- XLS to PDF (en) -->
+  <url>
+    <loc>https://hqmx.net/en/convert/xls-to-pdf.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hqmx.net/en/convert/xls-to-pdf.html" />
+  </url>
+
+  <!-- XLS to PDF (ja) -->
+  <url>
+    <loc>https://hqmx.net/ja/convert/xls-to-pdf.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://hqmx.net/ja/convert/xls-to-pdf.html" />
+  </url>
+
+  <!-- XLS to PDF (zh-CN) -->
+  <url>
+    <loc>https://hqmx.net/zh-CN/convert/xls-to-pdf.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://hqmx.net/zh-CN/convert/xls-to-pdf.html" />
+  </url>
+
+  <!-- XLS to PDF (es) -->
+  <url>
+    <loc>https://hqmx.net/es/convert/xls-to-pdf.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://hqmx.net/es/convert/xls-to-pdf.html" />
+  </url>
+
+  <!-- XLS to PDF (fr) -->
+  <url>
+    <loc>https://hqmx.net/fr/convert/xls-to-pdf.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://hqmx.net/fr/convert/xls-to-pdf.html" />
+  </url>
+
+  <!-- XLS to PDF (de) -->
+  <url>
+    <loc>https://hqmx.net/de/convert/xls-to-pdf.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://hqmx.net/de/convert/xls-to-pdf.html" />
+  </url>
+
+  <!-- PPTX to PDF (kr) -->
+  <url>
+    <loc>https://hqmx.net/kr/convert/pptx-to-pdf.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="kr" href="https://hqmx.net/kr/convert/pptx-to-pdf.html" />
+  </url>
+
+  <!-- PPTX to PDF (en) -->
+  <url>
+    <loc>https://hqmx.net/en/convert/pptx-to-pdf.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hqmx.net/en/convert/pptx-to-pdf.html" />
+  </url>
+
+  <!-- PPTX to PDF (ja) -->
+  <url>
+    <loc>https://hqmx.net/ja/convert/pptx-to-pdf.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://hqmx.net/ja/convert/pptx-to-pdf.html" />
+  </url>
+
+  <!-- PPTX to PDF (zh-CN) -->
+  <url>
+    <loc>https://hqmx.net/zh-CN/convert/pptx-to-pdf.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://hqmx.net/zh-CN/convert/pptx-to-pdf.html" />
+  </url>
+
+  <!-- PPTX to PDF (es) -->
+  <url>
+    <loc>https://hqmx.net/es/convert/pptx-to-pdf.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://hqmx.net/es/convert/pptx-to-pdf.html" />
+  </url>
+
+  <!-- PPTX to PDF (fr) -->
+  <url>
+    <loc>https://hqmx.net/fr/convert/pptx-to-pdf.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://hqmx.net/fr/convert/pptx-to-pdf.html" />
+  </url>
+
+  <!-- PPTX to PDF (de) -->
+  <url>
+    <loc>https://hqmx.net/de/convert/pptx-to-pdf.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://hqmx.net/de/convert/pptx-to-pdf.html" />
+  </url>
+
+  <!-- PPT to PDF (kr) -->
+  <url>
+    <loc>https://hqmx.net/kr/convert/ppt-to-pdf.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="kr" href="https://hqmx.net/kr/convert/ppt-to-pdf.html" />
+  </url>
+
+  <!-- PPT to PDF (en) -->
+  <url>
+    <loc>https://hqmx.net/en/convert/ppt-to-pdf.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hqmx.net/en/convert/ppt-to-pdf.html" />
+  </url>
+
+  <!-- PPT to PDF (ja) -->
+  <url>
+    <loc>https://hqmx.net/ja/convert/ppt-to-pdf.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://hqmx.net/ja/convert/ppt-to-pdf.html" />
+  </url>
+
+  <!-- PPT to PDF (zh-CN) -->
+  <url>
+    <loc>https://hqmx.net/zh-CN/convert/ppt-to-pdf.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://hqmx.net/zh-CN/convert/ppt-to-pdf.html" />
+  </url>
+
+  <!-- PPT to PDF (es) -->
+  <url>
+    <loc>https://hqmx.net/es/convert/ppt-to-pdf.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://hqmx.net/es/convert/ppt-to-pdf.html" />
+  </url>
+
+  <!-- PPT to PDF (fr) -->
+  <url>
+    <loc>https://hqmx.net/fr/convert/ppt-to-pdf.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://hqmx.net/fr/convert/ppt-to-pdf.html" />
+  </url>
+
+  <!-- PPT to PDF (de) -->
+  <url>
+    <loc>https://hqmx.net/de/convert/ppt-to-pdf.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://hqmx.net/de/convert/ppt-to-pdf.html" />
+  </url>
+
+  <!-- TXT to PDF (kr) -->
+  <url>
+    <loc>https://hqmx.net/kr/convert/txt-to-pdf.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="kr" href="https://hqmx.net/kr/convert/txt-to-pdf.html" />
+  </url>
+
+  <!-- TXT to PDF (en) -->
+  <url>
+    <loc>https://hqmx.net/en/convert/txt-to-pdf.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hqmx.net/en/convert/txt-to-pdf.html" />
+  </url>
+
+  <!-- TXT to PDF (ja) -->
+  <url>
+    <loc>https://hqmx.net/ja/convert/txt-to-pdf.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://hqmx.net/ja/convert/txt-to-pdf.html" />
+  </url>
+
+  <!-- TXT to PDF (zh-CN) -->
+  <url>
+    <loc>https://hqmx.net/zh-CN/convert/txt-to-pdf.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://hqmx.net/zh-CN/convert/txt-to-pdf.html" />
+  </url>
+
+  <!-- TXT to PDF (es) -->
+  <url>
+    <loc>https://hqmx.net/es/convert/txt-to-pdf.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://hqmx.net/es/convert/txt-to-pdf.html" />
+  </url>
+
+  <!-- TXT to PDF (fr) -->
+  <url>
+    <loc>https://hqmx.net/fr/convert/txt-to-pdf.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://hqmx.net/fr/convert/txt-to-pdf.html" />
+  </url>
+
+  <!-- TXT to PDF (de) -->
+  <url>
+    <loc>https://hqmx.net/de/convert/txt-to-pdf.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://hqmx.net/de/convert/txt-to-pdf.html" />
+  </url>
+
+  <!-- MOV to MP4 (kr) -->
+  <url>
+    <loc>https://hqmx.net/kr/convert/mov-to-mp4.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="kr" href="https://hqmx.net/kr/convert/mov-to-mp4.html" />
+  </url>
+
+  <!-- MOV to MP4 (en) -->
+  <url>
+    <loc>https://hqmx.net/en/convert/mov-to-mp4.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hqmx.net/en/convert/mov-to-mp4.html" />
+  </url>
+
+  <!-- MOV to MP4 (ja) -->
+  <url>
+    <loc>https://hqmx.net/ja/convert/mov-to-mp4.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://hqmx.net/ja/convert/mov-to-mp4.html" />
+  </url>
+
+  <!-- MOV to MP4 (zh-CN) -->
+  <url>
+    <loc>https://hqmx.net/zh-CN/convert/mov-to-mp4.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://hqmx.net/zh-CN/convert/mov-to-mp4.html" />
+  </url>
+
+  <!-- MOV to MP4 (es) -->
+  <url>
+    <loc>https://hqmx.net/es/convert/mov-to-mp4.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://hqmx.net/es/convert/mov-to-mp4.html" />
+  </url>
+
+  <!-- MOV to MP4 (fr) -->
+  <url>
+    <loc>https://hqmx.net/fr/convert/mov-to-mp4.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://hqmx.net/fr/convert/mov-to-mp4.html" />
+  </url>
+
+  <!-- MOV to MP4 (de) -->
+  <url>
+    <loc>https://hqmx.net/de/convert/mov-to-mp4.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://hqmx.net/de/convert/mov-to-mp4.html" />
+  </url>
+
+  <!-- MKV to MP4 (kr) -->
+  <url>
+    <loc>https://hqmx.net/kr/convert/mkv-to-mp4.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="kr" href="https://hqmx.net/kr/convert/mkv-to-mp4.html" />
+  </url>
+
+  <!-- MKV to MP4 (en) -->
+  <url>
+    <loc>https://hqmx.net/en/convert/mkv-to-mp4.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hqmx.net/en/convert/mkv-to-mp4.html" />
+  </url>
+
+  <!-- MKV to MP4 (ja) -->
+  <url>
+    <loc>https://hqmx.net/ja/convert/mkv-to-mp4.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://hqmx.net/ja/convert/mkv-to-mp4.html" />
+  </url>
+
+  <!-- MKV to MP4 (zh-CN) -->
+  <url>
+    <loc>https://hqmx.net/zh-CN/convert/mkv-to-mp4.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://hqmx.net/zh-CN/convert/mkv-to-mp4.html" />
+  </url>
+
+  <!-- MKV to MP4 (es) -->
+  <url>
+    <loc>https://hqmx.net/es/convert/mkv-to-mp4.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://hqmx.net/es/convert/mkv-to-mp4.html" />
+  </url>
+
+  <!-- MKV to MP4 (fr) -->
+  <url>
+    <loc>https://hqmx.net/fr/convert/mkv-to-mp4.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://hqmx.net/fr/convert/mkv-to-mp4.html" />
+  </url>
+
+  <!-- MKV to MP4 (de) -->
+  <url>
+    <loc>https://hqmx.net/de/convert/mkv-to-mp4.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://hqmx.net/de/convert/mkv-to-mp4.html" />
+  </url>
+
+  <!-- FLV to MP4 (kr) -->
+  <url>
+    <loc>https://hqmx.net/kr/convert/flv-to-mp4.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="kr" href="https://hqmx.net/kr/convert/flv-to-mp4.html" />
+  </url>
+
+  <!-- FLV to MP4 (en) -->
+  <url>
+    <loc>https://hqmx.net/en/convert/flv-to-mp4.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hqmx.net/en/convert/flv-to-mp4.html" />
+  </url>
+
+  <!-- FLV to MP4 (ja) -->
+  <url>
+    <loc>https://hqmx.net/ja/convert/flv-to-mp4.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://hqmx.net/ja/convert/flv-to-mp4.html" />
+  </url>
+
+  <!-- FLV to MP4 (zh-CN) -->
+  <url>
+    <loc>https://hqmx.net/zh-CN/convert/flv-to-mp4.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://hqmx.net/zh-CN/convert/flv-to-mp4.html" />
+  </url>
+
+  <!-- FLV to MP4 (es) -->
+  <url>
+    <loc>https://hqmx.net/es/convert/flv-to-mp4.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://hqmx.net/es/convert/flv-to-mp4.html" />
+  </url>
+
+  <!-- FLV to MP4 (fr) -->
+  <url>
+    <loc>https://hqmx.net/fr/convert/flv-to-mp4.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://hqmx.net/fr/convert/flv-to-mp4.html" />
+  </url>
+
+  <!-- FLV to MP4 (de) -->
+  <url>
+    <loc>https://hqmx.net/de/convert/flv-to-mp4.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://hqmx.net/de/convert/flv-to-mp4.html" />
+  </url>
+
+  <!-- WMV to MP4 (kr) -->
+  <url>
+    <loc>https://hqmx.net/kr/convert/wmv-to-mp4.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="kr" href="https://hqmx.net/kr/convert/wmv-to-mp4.html" />
+  </url>
+
+  <!-- WMV to MP4 (en) -->
+  <url>
+    <loc>https://hqmx.net/en/convert/wmv-to-mp4.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hqmx.net/en/convert/wmv-to-mp4.html" />
+  </url>
+
+  <!-- WMV to MP4 (ja) -->
+  <url>
+    <loc>https://hqmx.net/ja/convert/wmv-to-mp4.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://hqmx.net/ja/convert/wmv-to-mp4.html" />
+  </url>
+
+  <!-- WMV to MP4 (zh-CN) -->
+  <url>
+    <loc>https://hqmx.net/zh-CN/convert/wmv-to-mp4.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://hqmx.net/zh-CN/convert/wmv-to-mp4.html" />
+  </url>
+
+  <!-- WMV to MP4 (es) -->
+  <url>
+    <loc>https://hqmx.net/es/convert/wmv-to-mp4.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://hqmx.net/es/convert/wmv-to-mp4.html" />
+  </url>
+
+  <!-- WMV to MP4 (fr) -->
+  <url>
+    <loc>https://hqmx.net/fr/convert/wmv-to-mp4.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://hqmx.net/fr/convert/wmv-to-mp4.html" />
+  </url>
+
+  <!-- WMV to MP4 (de) -->
+  <url>
+    <loc>https://hqmx.net/de/convert/wmv-to-mp4.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://hqmx.net/de/convert/wmv-to-mp4.html" />
+  </url>
+
+  <!-- WEBM to MP4 (kr) -->
+  <url>
+    <loc>https://hqmx.net/kr/convert/webm-to-mp4.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="kr" href="https://hqmx.net/kr/convert/webm-to-mp4.html" />
+  </url>
+
+  <!-- WEBM to MP4 (en) -->
+  <url>
+    <loc>https://hqmx.net/en/convert/webm-to-mp4.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hqmx.net/en/convert/webm-to-mp4.html" />
+  </url>
+
+  <!-- WEBM to MP4 (ja) -->
+  <url>
+    <loc>https://hqmx.net/ja/convert/webm-to-mp4.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://hqmx.net/ja/convert/webm-to-mp4.html" />
+  </url>
+
+  <!-- WEBM to MP4 (zh-CN) -->
+  <url>
+    <loc>https://hqmx.net/zh-CN/convert/webm-to-mp4.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://hqmx.net/zh-CN/convert/webm-to-mp4.html" />
+  </url>
+
+  <!-- WEBM to MP4 (es) -->
+  <url>
+    <loc>https://hqmx.net/es/convert/webm-to-mp4.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://hqmx.net/es/convert/webm-to-mp4.html" />
+  </url>
+
+  <!-- WEBM to MP4 (fr) -->
+  <url>
+    <loc>https://hqmx.net/fr/convert/webm-to-mp4.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://hqmx.net/fr/convert/webm-to-mp4.html" />
+  </url>
+
+  <!-- WEBM to MP4 (de) -->
+  <url>
+    <loc>https://hqmx.net/de/convert/webm-to-mp4.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://hqmx.net/de/convert/webm-to-mp4.html" />
+  </url>
+
+  <!-- MP4 to WEBM (kr) -->
+  <url>
+    <loc>https://hqmx.net/kr/convert/mp4-to-webm.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="kr" href="https://hqmx.net/kr/convert/mp4-to-webm.html" />
+  </url>
+
+  <!-- MP4 to WEBM (en) -->
+  <url>
+    <loc>https://hqmx.net/en/convert/mp4-to-webm.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hqmx.net/en/convert/mp4-to-webm.html" />
+  </url>
+
+  <!-- MP4 to WEBM (ja) -->
+  <url>
+    <loc>https://hqmx.net/ja/convert/mp4-to-webm.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://hqmx.net/ja/convert/mp4-to-webm.html" />
+  </url>
+
+  <!-- MP4 to WEBM (zh-CN) -->
+  <url>
+    <loc>https://hqmx.net/zh-CN/convert/mp4-to-webm.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://hqmx.net/zh-CN/convert/mp4-to-webm.html" />
+  </url>
+
+  <!-- MP4 to WEBM (es) -->
+  <url>
+    <loc>https://hqmx.net/es/convert/mp4-to-webm.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://hqmx.net/es/convert/mp4-to-webm.html" />
+  </url>
+
+  <!-- MP4 to WEBM (fr) -->
+  <url>
+    <loc>https://hqmx.net/fr/convert/mp4-to-webm.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://hqmx.net/fr/convert/mp4-to-webm.html" />
+  </url>
+
+  <!-- MP4 to WEBM (de) -->
+  <url>
+    <loc>https://hqmx.net/de/convert/mp4-to-webm.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://hqmx.net/de/convert/mp4-to-webm.html" />
+  </url>
+
+  <!-- MP4 to GIF (kr) -->
+  <url>
+    <loc>https://hqmx.net/kr/convert/mp4-to-gif.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="kr" href="https://hqmx.net/kr/convert/mp4-to-gif.html" />
+  </url>
+
+  <!-- MP4 to GIF (en) -->
+  <url>
+    <loc>https://hqmx.net/en/convert/mp4-to-gif.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hqmx.net/en/convert/mp4-to-gif.html" />
+  </url>
+
+  <!-- MP4 to GIF (ja) -->
+  <url>
+    <loc>https://hqmx.net/ja/convert/mp4-to-gif.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://hqmx.net/ja/convert/mp4-to-gif.html" />
+  </url>
+
+  <!-- MP4 to GIF (zh-CN) -->
+  <url>
+    <loc>https://hqmx.net/zh-CN/convert/mp4-to-gif.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://hqmx.net/zh-CN/convert/mp4-to-gif.html" />
+  </url>
+
+  <!-- MP4 to GIF (es) -->
+  <url>
+    <loc>https://hqmx.net/es/convert/mp4-to-gif.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://hqmx.net/es/convert/mp4-to-gif.html" />
+  </url>
+
+  <!-- MP4 to GIF (fr) -->
+  <url>
+    <loc>https://hqmx.net/fr/convert/mp4-to-gif.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://hqmx.net/fr/convert/mp4-to-gif.html" />
+  </url>
+
+  <!-- MP4 to GIF (de) -->
+  <url>
+    <loc>https://hqmx.net/de/convert/mp4-to-gif.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://hqmx.net/de/convert/mp4-to-gif.html" />
+  </url>
+
+  <!-- MP4 to MOV (kr) -->
+  <url>
+    <loc>https://hqmx.net/kr/convert/mp4-to-mov.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="kr" href="https://hqmx.net/kr/convert/mp4-to-mov.html" />
+  </url>
+
+  <!-- MP4 to MOV (en) -->
+  <url>
+    <loc>https://hqmx.net/en/convert/mp4-to-mov.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hqmx.net/en/convert/mp4-to-mov.html" />
+  </url>
+
+  <!-- MP4 to MOV (ja) -->
+  <url>
+    <loc>https://hqmx.net/ja/convert/mp4-to-mov.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://hqmx.net/ja/convert/mp4-to-mov.html" />
+  </url>
+
+  <!-- MP4 to MOV (zh-CN) -->
+  <url>
+    <loc>https://hqmx.net/zh-CN/convert/mp4-to-mov.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://hqmx.net/zh-CN/convert/mp4-to-mov.html" />
+  </url>
+
+  <!-- MP4 to MOV (es) -->
+  <url>
+    <loc>https://hqmx.net/es/convert/mp4-to-mov.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://hqmx.net/es/convert/mp4-to-mov.html" />
+  </url>
+
+  <!-- MP4 to MOV (fr) -->
+  <url>
+    <loc>https://hqmx.net/fr/convert/mp4-to-mov.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://hqmx.net/fr/convert/mp4-to-mov.html" />
+  </url>
+
+  <!-- MP4 to MOV (de) -->
+  <url>
+    <loc>https://hqmx.net/de/convert/mp4-to-mov.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://hqmx.net/de/convert/mp4-to-mov.html" />
+  </url>
+
+  <!-- MP4 to AVI (kr) -->
+  <url>
+    <loc>https://hqmx.net/kr/convert/mp4-to-avi.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="kr" href="https://hqmx.net/kr/convert/mp4-to-avi.html" />
+  </url>
+
+  <!-- MP4 to AVI (en) -->
+  <url>
+    <loc>https://hqmx.net/en/convert/mp4-to-avi.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hqmx.net/en/convert/mp4-to-avi.html" />
+  </url>
+
+  <!-- MP4 to AVI (ja) -->
+  <url>
+    <loc>https://hqmx.net/ja/convert/mp4-to-avi.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://hqmx.net/ja/convert/mp4-to-avi.html" />
+  </url>
+
+  <!-- MP4 to AVI (zh-CN) -->
+  <url>
+    <loc>https://hqmx.net/zh-CN/convert/mp4-to-avi.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://hqmx.net/zh-CN/convert/mp4-to-avi.html" />
+  </url>
+
+  <!-- MP4 to AVI (es) -->
+  <url>
+    <loc>https://hqmx.net/es/convert/mp4-to-avi.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://hqmx.net/es/convert/mp4-to-avi.html" />
+  </url>
+
+  <!-- MP4 to AVI (fr) -->
+  <url>
+    <loc>https://hqmx.net/fr/convert/mp4-to-avi.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://hqmx.net/fr/convert/mp4-to-avi.html" />
+  </url>
+
+  <!-- MP4 to AVI (de) -->
+  <url>
+    <loc>https://hqmx.net/de/convert/mp4-to-avi.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://hqmx.net/de/convert/mp4-to-avi.html" />
+  </url>
+
+  <!-- AVI to MP4 (kr) -->
+  <url>
+    <loc>https://hqmx.net/kr/convert/avi-to-mp4.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="kr" href="https://hqmx.net/kr/convert/avi-to-mp4.html" />
+  </url>
+
+  <!-- AVI to MP4 (en) -->
+  <url>
+    <loc>https://hqmx.net/en/convert/avi-to-mp4.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hqmx.net/en/convert/avi-to-mp4.html" />
+  </url>
+
+  <!-- AVI to MP4 (ja) -->
+  <url>
+    <loc>https://hqmx.net/ja/convert/avi-to-mp4.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://hqmx.net/ja/convert/avi-to-mp4.html" />
+  </url>
+
+  <!-- AVI to MP4 (zh-CN) -->
+  <url>
+    <loc>https://hqmx.net/zh-CN/convert/avi-to-mp4.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://hqmx.net/zh-CN/convert/avi-to-mp4.html" />
+  </url>
+
+  <!-- AVI to MP4 (es) -->
+  <url>
+    <loc>https://hqmx.net/es/convert/avi-to-mp4.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://hqmx.net/es/convert/avi-to-mp4.html" />
+  </url>
+
+  <!-- AVI to MP4 (fr) -->
+  <url>
+    <loc>https://hqmx.net/fr/convert/avi-to-mp4.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://hqmx.net/fr/convert/avi-to-mp4.html" />
+  </url>
+
+  <!-- AVI to MP4 (de) -->
+  <url>
+    <loc>https://hqmx.net/de/convert/avi-to-mp4.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://hqmx.net/de/convert/avi-to-mp4.html" />
+  </url>
+
+  <!-- MP4 to MKV (kr) -->
+  <url>
+    <loc>https://hqmx.net/kr/convert/mp4-to-mkv.html</loc>
+    <lastmod>2025-10-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="kr" href="https://hqmx.net/kr/convert/mp4-to-mkv.html" />
+  </url>
+
+  <!-- MP4 to MKV (en) -->
+  <url>
+    <loc>https://hqmx.net/en/convert/mp4-to-mkv.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hqmx.net/en/convert/mp4-to-mkv.html" />
+  </url>
+
+  <!-- MP4 to MKV (ja) -->
+  <url>
+    <loc>https://hqmx.net/ja/convert/mp4-to-mkv.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://hqmx.net/ja/convert/mp4-to-mkv.html" />
+  </url>
+
+  <!-- MP4 to MKV (zh-CN) -->
+  <url>
+    <loc>https://hqmx.net/zh-CN/convert/mp4-to-mkv.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://hqmx.net/zh-CN/convert/mp4-to-mkv.html" />
+  </url>
+
+  <!-- MP4 to MKV (es) -->
+  <url>
+    <loc>https://hqmx.net/es/convert/mp4-to-mkv.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://hqmx.net/es/convert/mp4-to-mkv.html" />
+  </url>
+
+  <!-- MP4 to MKV (fr) -->
+  <url>
+    <loc>https://hqmx.net/fr/convert/mp4-to-mkv.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://hqmx.net/fr/convert/mp4-to-mkv.html" />
+  </url>
+
+  <!-- MP4 to MKV (de) -->
+  <url>
+    <loc>https://hqmx.net/de/convert/mp4-to-mkv.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://hqmx.net/de/convert/mp4-to-mkv.html" />
+  </url>
+
+  <!-- M4V to MP4 (kr) -->
+  <url>
+    <loc>https://hqmx.net/kr/convert/m4v-to-mp4.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="kr" href="https://hqmx.net/kr/convert/m4v-to-mp4.html" />
+  </url>
+
+  <!-- M4V to MP4 (en) -->
+  <url>
+    <loc>https://hqmx.net/en/convert/m4v-to-mp4.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hqmx.net/en/convert/m4v-to-mp4.html" />
+  </url>
+
+  <!-- M4V to MP4 (ja) -->
+  <url>
+    <loc>https://hqmx.net/ja/convert/m4v-to-mp4.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://hqmx.net/ja/convert/m4v-to-mp4.html" />
+  </url>
+
+  <!-- M4V to MP4 (zh-CN) -->
+  <url>
+    <loc>https://hqmx.net/zh-CN/convert/m4v-to-mp4.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://hqmx.net/zh-CN/convert/m4v-to-mp4.html" />
+  </url>
+
+  <!-- M4V to MP4 (es) -->
+  <url>
+    <loc>https://hqmx.net/es/convert/m4v-to-mp4.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://hqmx.net/es/convert/m4v-to-mp4.html" />
+  </url>
+
+  <!-- M4V to MP4 (fr) -->
+  <url>
+    <loc>https://hqmx.net/fr/convert/m4v-to-mp4.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://hqmx.net/fr/convert/m4v-to-mp4.html" />
+  </url>
+
+  <!-- M4V to MP4 (de) -->
+  <url>
+    <loc>https://hqmx.net/de/convert/m4v-to-mp4.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://hqmx.net/de/convert/m4v-to-mp4.html" />
+  </url>
+
+  <!-- MP4 to M4V (kr) -->
+  <url>
+    <loc>https://hqmx.net/kr/convert/mp4-to-m4v.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="kr" href="https://hqmx.net/kr/convert/mp4-to-m4v.html" />
+  </url>
+
+  <!-- MP4 to M4V (en) -->
+  <url>
+    <loc>https://hqmx.net/en/convert/mp4-to-m4v.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hqmx.net/en/convert/mp4-to-m4v.html" />
+  </url>
+
+  <!-- MP4 to M4V (ja) -->
+  <url>
+    <loc>https://hqmx.net/ja/convert/mp4-to-m4v.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://hqmx.net/ja/convert/mp4-to-m4v.html" />
+  </url>
+
+  <!-- MP4 to M4V (zh-CN) -->
+  <url>
+    <loc>https://hqmx.net/zh-CN/convert/mp4-to-m4v.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://hqmx.net/zh-CN/convert/mp4-to-m4v.html" />
+  </url>
+
+  <!-- MP4 to M4V (es) -->
+  <url>
+    <loc>https://hqmx.net/es/convert/mp4-to-m4v.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://hqmx.net/es/convert/mp4-to-m4v.html" />
+  </url>
+
+  <!-- MP4 to M4V (fr) -->
+  <url>
+    <loc>https://hqmx.net/fr/convert/mp4-to-m4v.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://hqmx.net/fr/convert/mp4-to-m4v.html" />
+  </url>
+
+  <!-- MP4 to M4V (de) -->
+  <url>
+    <loc>https://hqmx.net/de/convert/mp4-to-m4v.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://hqmx.net/de/convert/mp4-to-m4v.html" />
+  </url>
+
+  <!-- M4A to MP3 (kr) -->
+  <url>
+    <loc>https://hqmx.net/kr/convert/m4a-to-mp3.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="kr" href="https://hqmx.net/kr/convert/m4a-to-mp3.html" />
+  </url>
+
+  <!-- M4A to MP3 (en) -->
+  <url>
+    <loc>https://hqmx.net/en/convert/m4a-to-mp3.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hqmx.net/en/convert/m4a-to-mp3.html" />
+  </url>
+
+  <!-- M4A to MP3 (ja) -->
+  <url>
+    <loc>https://hqmx.net/ja/convert/m4a-to-mp3.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://hqmx.net/ja/convert/m4a-to-mp3.html" />
+  </url>
+
+  <!-- M4A to MP3 (zh-CN) -->
+  <url>
+    <loc>https://hqmx.net/zh-CN/convert/m4a-to-mp3.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://hqmx.net/zh-CN/convert/m4a-to-mp3.html" />
+  </url>
+
+  <!-- M4A to MP3 (es) -->
+  <url>
+    <loc>https://hqmx.net/es/convert/m4a-to-mp3.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://hqmx.net/es/convert/m4a-to-mp3.html" />
+  </url>
+
+  <!-- M4A to MP3 (fr) -->
+  <url>
+    <loc>https://hqmx.net/fr/convert/m4a-to-mp3.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://hqmx.net/fr/convert/m4a-to-mp3.html" />
+  </url>
+
+  <!-- M4A to MP3 (de) -->
+  <url>
+    <loc>https://hqmx.net/de/convert/m4a-to-mp3.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://hqmx.net/de/convert/m4a-to-mp3.html" />
+  </url>
+
+  <!-- FLAC to MP3 (kr) -->
+  <url>
+    <loc>https://hqmx.net/kr/convert/flac-to-mp3.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="kr" href="https://hqmx.net/kr/convert/flac-to-mp3.html" />
+  </url>
+
+  <!-- FLAC to MP3 (en) -->
+  <url>
+    <loc>https://hqmx.net/en/convert/flac-to-mp3.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hqmx.net/en/convert/flac-to-mp3.html" />
+  </url>
+
+  <!-- FLAC to MP3 (ja) -->
+  <url>
+    <loc>https://hqmx.net/ja/convert/flac-to-mp3.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://hqmx.net/ja/convert/flac-to-mp3.html" />
+  </url>
+
+  <!-- FLAC to MP3 (zh-CN) -->
+  <url>
+    <loc>https://hqmx.net/zh-CN/convert/flac-to-mp3.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://hqmx.net/zh-CN/convert/flac-to-mp3.html" />
+  </url>
+
+  <!-- FLAC to MP3 (es) -->
+  <url>
+    <loc>https://hqmx.net/es/convert/flac-to-mp3.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://hqmx.net/es/convert/flac-to-mp3.html" />
+  </url>
+
+  <!-- FLAC to MP3 (fr) -->
+  <url>
+    <loc>https://hqmx.net/fr/convert/flac-to-mp3.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://hqmx.net/fr/convert/flac-to-mp3.html" />
+  </url>
+
+  <!-- FLAC to MP3 (de) -->
+  <url>
+    <loc>https://hqmx.net/de/convert/flac-to-mp3.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://hqmx.net/de/convert/flac-to-mp3.html" />
+  </url>
+
+  <!-- OGG to MP3 (kr) -->
+  <url>
+    <loc>https://hqmx.net/kr/convert/ogg-to-mp3.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="kr" href="https://hqmx.net/kr/convert/ogg-to-mp3.html" />
+  </url>
+
+  <!-- OGG to MP3 (en) -->
+  <url>
+    <loc>https://hqmx.net/en/convert/ogg-to-mp3.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hqmx.net/en/convert/ogg-to-mp3.html" />
+  </url>
+
+  <!-- OGG to MP3 (ja) -->
+  <url>
+    <loc>https://hqmx.net/ja/convert/ogg-to-mp3.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://hqmx.net/ja/convert/ogg-to-mp3.html" />
+  </url>
+
+  <!-- OGG to MP3 (zh-CN) -->
+  <url>
+    <loc>https://hqmx.net/zh-CN/convert/ogg-to-mp3.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://hqmx.net/zh-CN/convert/ogg-to-mp3.html" />
+  </url>
+
+  <!-- OGG to MP3 (es) -->
+  <url>
+    <loc>https://hqmx.net/es/convert/ogg-to-mp3.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://hqmx.net/es/convert/ogg-to-mp3.html" />
+  </url>
+
+  <!-- OGG to MP3 (fr) -->
+  <url>
+    <loc>https://hqmx.net/fr/convert/ogg-to-mp3.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://hqmx.net/fr/convert/ogg-to-mp3.html" />
+  </url>
+
+  <!-- OGG to MP3 (de) -->
+  <url>
+    <loc>https://hqmx.net/de/convert/ogg-to-mp3.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://hqmx.net/de/convert/ogg-to-mp3.html" />
+  </url>
+
+  <!-- AAC to MP3 (kr) -->
+  <url>
+    <loc>https://hqmx.net/kr/convert/aac-to-mp3.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="kr" href="https://hqmx.net/kr/convert/aac-to-mp3.html" />
+  </url>
+
+  <!-- AAC to MP3 (en) -->
+  <url>
+    <loc>https://hqmx.net/en/convert/aac-to-mp3.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hqmx.net/en/convert/aac-to-mp3.html" />
+  </url>
+
+  <!-- AAC to MP3 (ja) -->
+  <url>
+    <loc>https://hqmx.net/ja/convert/aac-to-mp3.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://hqmx.net/ja/convert/aac-to-mp3.html" />
+  </url>
+
+  <!-- AAC to MP3 (zh-CN) -->
+  <url>
+    <loc>https://hqmx.net/zh-CN/convert/aac-to-mp3.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://hqmx.net/zh-CN/convert/aac-to-mp3.html" />
+  </url>
+
+  <!-- AAC to MP3 (es) -->
+  <url>
+    <loc>https://hqmx.net/es/convert/aac-to-mp3.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://hqmx.net/es/convert/aac-to-mp3.html" />
+  </url>
+
+  <!-- AAC to MP3 (fr) -->
+  <url>
+    <loc>https://hqmx.net/fr/convert/aac-to-mp3.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://hqmx.net/fr/convert/aac-to-mp3.html" />
+  </url>
+
+  <!-- AAC to MP3 (de) -->
+  <url>
+    <loc>https://hqmx.net/de/convert/aac-to-mp3.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://hqmx.net/de/convert/aac-to-mp3.html" />
+  </url>
+
+  <!-- WMA to MP3 (kr) -->
+  <url>
+    <loc>https://hqmx.net/kr/convert/wma-to-mp3.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="kr" href="https://hqmx.net/kr/convert/wma-to-mp3.html" />
+  </url>
+
+  <!-- WMA to MP3 (en) -->
+  <url>
+    <loc>https://hqmx.net/en/convert/wma-to-mp3.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hqmx.net/en/convert/wma-to-mp3.html" />
+  </url>
+
+  <!-- WMA to MP3 (ja) -->
+  <url>
+    <loc>https://hqmx.net/ja/convert/wma-to-mp3.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://hqmx.net/ja/convert/wma-to-mp3.html" />
+  </url>
+
+  <!-- WMA to MP3 (zh-CN) -->
+  <url>
+    <loc>https://hqmx.net/zh-CN/convert/wma-to-mp3.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://hqmx.net/zh-CN/convert/wma-to-mp3.html" />
+  </url>
+
+  <!-- WMA to MP3 (es) -->
+  <url>
+    <loc>https://hqmx.net/es/convert/wma-to-mp3.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://hqmx.net/es/convert/wma-to-mp3.html" />
+  </url>
+
+  <!-- WMA to MP3 (fr) -->
+  <url>
+    <loc>https://hqmx.net/fr/convert/wma-to-mp3.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://hqmx.net/fr/convert/wma-to-mp3.html" />
+  </url>
+
+  <!-- WMA to MP3 (de) -->
+  <url>
+    <loc>https://hqmx.net/de/convert/wma-to-mp3.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://hqmx.net/de/convert/wma-to-mp3.html" />
+  </url>
+
+  <!-- WAV to MP3 (kr) -->
+  <url>
+    <loc>https://hqmx.net/kr/convert/wav-to-mp3.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="kr" href="https://hqmx.net/kr/convert/wav-to-mp3.html" />
+  </url>
+
+  <!-- WAV to MP3 (en) -->
+  <url>
+    <loc>https://hqmx.net/en/convert/wav-to-mp3.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hqmx.net/en/convert/wav-to-mp3.html" />
+  </url>
+
+  <!-- WAV to MP3 (ja) -->
+  <url>
+    <loc>https://hqmx.net/ja/convert/wav-to-mp3.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://hqmx.net/ja/convert/wav-to-mp3.html" />
+  </url>
+
+  <!-- WAV to MP3 (zh-CN) -->
+  <url>
+    <loc>https://hqmx.net/zh-CN/convert/wav-to-mp3.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://hqmx.net/zh-CN/convert/wav-to-mp3.html" />
+  </url>
+
+  <!-- WAV to MP3 (es) -->
+  <url>
+    <loc>https://hqmx.net/es/convert/wav-to-mp3.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://hqmx.net/es/convert/wav-to-mp3.html" />
+  </url>
+
+  <!-- WAV to MP3 (fr) -->
+  <url>
+    <loc>https://hqmx.net/fr/convert/wav-to-mp3.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://hqmx.net/fr/convert/wav-to-mp3.html" />
+  </url>
+
+  <!-- WAV to MP3 (de) -->
+  <url>
+    <loc>https://hqmx.net/de/convert/wav-to-mp3.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://hqmx.net/de/convert/wav-to-mp3.html" />
+  </url>
+
+  <!-- MP3 to WAV (kr) -->
+  <url>
+    <loc>https://hqmx.net/kr/convert/mp3-to-wav.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="kr" href="https://hqmx.net/kr/convert/mp3-to-wav.html" />
+  </url>
+
+  <!-- MP3 to WAV (en) -->
+  <url>
+    <loc>https://hqmx.net/en/convert/mp3-to-wav.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hqmx.net/en/convert/mp3-to-wav.html" />
+  </url>
+
+  <!-- MP3 to WAV (ja) -->
+  <url>
+    <loc>https://hqmx.net/ja/convert/mp3-to-wav.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://hqmx.net/ja/convert/mp3-to-wav.html" />
+  </url>
+
+  <!-- MP3 to WAV (zh-CN) -->
+  <url>
+    <loc>https://hqmx.net/zh-CN/convert/mp3-to-wav.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://hqmx.net/zh-CN/convert/mp3-to-wav.html" />
+  </url>
+
+  <!-- MP3 to WAV (es) -->
+  <url>
+    <loc>https://hqmx.net/es/convert/mp3-to-wav.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://hqmx.net/es/convert/mp3-to-wav.html" />
+  </url>
+
+  <!-- MP3 to WAV (fr) -->
+  <url>
+    <loc>https://hqmx.net/fr/convert/mp3-to-wav.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://hqmx.net/fr/convert/mp3-to-wav.html" />
+  </url>
+
+  <!-- MP3 to WAV (de) -->
+  <url>
+    <loc>https://hqmx.net/de/convert/mp3-to-wav.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://hqmx.net/de/convert/mp3-to-wav.html" />
+  </url>
+
+  <!-- MP3 to M4A (kr) -->
+  <url>
+    <loc>https://hqmx.net/kr/convert/mp3-to-m4a.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="kr" href="https://hqmx.net/kr/convert/mp3-to-m4a.html" />
+  </url>
+
+  <!-- MP3 to M4A (en) -->
+  <url>
+    <loc>https://hqmx.net/en/convert/mp3-to-m4a.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hqmx.net/en/convert/mp3-to-m4a.html" />
+  </url>
+
+  <!-- MP3 to M4A (ja) -->
+  <url>
+    <loc>https://hqmx.net/ja/convert/mp3-to-m4a.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://hqmx.net/ja/convert/mp3-to-m4a.html" />
+  </url>
+
+  <!-- MP3 to M4A (zh-CN) -->
+  <url>
+    <loc>https://hqmx.net/zh-CN/convert/mp3-to-m4a.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://hqmx.net/zh-CN/convert/mp3-to-m4a.html" />
+  </url>
+
+  <!-- MP3 to M4A (es) -->
+  <url>
+    <loc>https://hqmx.net/es/convert/mp3-to-m4a.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://hqmx.net/es/convert/mp3-to-m4a.html" />
+  </url>
+
+  <!-- MP3 to M4A (fr) -->
+  <url>
+    <loc>https://hqmx.net/fr/convert/mp3-to-m4a.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://hqmx.net/fr/convert/mp3-to-m4a.html" />
+  </url>
+
+  <!-- MP3 to M4A (de) -->
+  <url>
+    <loc>https://hqmx.net/de/convert/mp3-to-m4a.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://hqmx.net/de/convert/mp3-to-m4a.html" />
+  </url>
+
+  <!-- MP3 to FLAC (kr) -->
+  <url>
+    <loc>https://hqmx.net/kr/convert/mp3-to-flac.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="kr" href="https://hqmx.net/kr/convert/mp3-to-flac.html" />
+  </url>
+
+  <!-- MP3 to FLAC (en) -->
+  <url>
+    <loc>https://hqmx.net/en/convert/mp3-to-flac.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hqmx.net/en/convert/mp3-to-flac.html" />
+  </url>
+
+  <!-- MP3 to FLAC (ja) -->
+  <url>
+    <loc>https://hqmx.net/ja/convert/mp3-to-flac.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://hqmx.net/ja/convert/mp3-to-flac.html" />
+  </url>
+
+  <!-- MP3 to FLAC (zh-CN) -->
+  <url>
+    <loc>https://hqmx.net/zh-CN/convert/mp3-to-flac.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://hqmx.net/zh-CN/convert/mp3-to-flac.html" />
+  </url>
+
+  <!-- MP3 to FLAC (es) -->
+  <url>
+    <loc>https://hqmx.net/es/convert/mp3-to-flac.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://hqmx.net/es/convert/mp3-to-flac.html" />
+  </url>
+
+  <!-- MP3 to FLAC (fr) -->
+  <url>
+    <loc>https://hqmx.net/fr/convert/mp3-to-flac.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://hqmx.net/fr/convert/mp3-to-flac.html" />
+  </url>
+
+  <!-- MP3 to FLAC (de) -->
+  <url>
+    <loc>https://hqmx.net/de/convert/mp3-to-flac.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://hqmx.net/de/convert/mp3-to-flac.html" />
+  </url>
+
+  <!-- MP3 to OGG (kr) -->
+  <url>
+    <loc>https://hqmx.net/kr/convert/mp3-to-ogg.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="kr" href="https://hqmx.net/kr/convert/mp3-to-ogg.html" />
+  </url>
+
+  <!-- MP3 to OGG (en) -->
+  <url>
+    <loc>https://hqmx.net/en/convert/mp3-to-ogg.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hqmx.net/en/convert/mp3-to-ogg.html" />
+  </url>
+
+  <!-- MP3 to OGG (ja) -->
+  <url>
+    <loc>https://hqmx.net/ja/convert/mp3-to-ogg.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://hqmx.net/ja/convert/mp3-to-ogg.html" />
+  </url>
+
+  <!-- MP3 to OGG (zh-CN) -->
+  <url>
+    <loc>https://hqmx.net/zh-CN/convert/mp3-to-ogg.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://hqmx.net/zh-CN/convert/mp3-to-ogg.html" />
+  </url>
+
+  <!-- MP3 to OGG (es) -->
+  <url>
+    <loc>https://hqmx.net/es/convert/mp3-to-ogg.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://hqmx.net/es/convert/mp3-to-ogg.html" />
+  </url>
+
+  <!-- MP3 to OGG (fr) -->
+  <url>
+    <loc>https://hqmx.net/fr/convert/mp3-to-ogg.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://hqmx.net/fr/convert/mp3-to-ogg.html" />
+  </url>
+
+  <!-- MP3 to OGG (de) -->
+  <url>
+    <loc>https://hqmx.net/de/convert/mp3-to-ogg.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://hqmx.net/de/convert/mp3-to-ogg.html" />
+  </url>
+
+  <!-- MP3 to AAC (kr) -->
+  <url>
+    <loc>https://hqmx.net/kr/convert/mp3-to-aac.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="kr" href="https://hqmx.net/kr/convert/mp3-to-aac.html" />
+  </url>
+
+  <!-- MP3 to AAC (en) -->
+  <url>
+    <loc>https://hqmx.net/en/convert/mp3-to-aac.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hqmx.net/en/convert/mp3-to-aac.html" />
+  </url>
+
+  <!-- MP3 to AAC (ja) -->
+  <url>
+    <loc>https://hqmx.net/ja/convert/mp3-to-aac.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://hqmx.net/ja/convert/mp3-to-aac.html" />
+  </url>
+
+  <!-- MP3 to AAC (zh-CN) -->
+  <url>
+    <loc>https://hqmx.net/zh-CN/convert/mp3-to-aac.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://hqmx.net/zh-CN/convert/mp3-to-aac.html" />
+  </url>
+
+  <!-- MP3 to AAC (es) -->
+  <url>
+    <loc>https://hqmx.net/es/convert/mp3-to-aac.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://hqmx.net/es/convert/mp3-to-aac.html" />
+  </url>
+
+  <!-- MP3 to AAC (fr) -->
+  <url>
+    <loc>https://hqmx.net/fr/convert/mp3-to-aac.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://hqmx.net/fr/convert/mp3-to-aac.html" />
+  </url>
+
+  <!-- MP3 to AAC (de) -->
+  <url>
+    <loc>https://hqmx.net/de/convert/mp3-to-aac.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://hqmx.net/de/convert/mp3-to-aac.html" />
+  </url>
+
+  <!-- OPUS to MP3 (kr) -->
+  <url>
+    <loc>https://hqmx.net/kr/convert/opus-to-mp3.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="kr" href="https://hqmx.net/kr/convert/opus-to-mp3.html" />
+  </url>
+
+  <!-- OPUS to MP3 (en) -->
+  <url>
+    <loc>https://hqmx.net/en/convert/opus-to-mp3.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hqmx.net/en/convert/opus-to-mp3.html" />
+  </url>
+
+  <!-- OPUS to MP3 (ja) -->
+  <url>
+    <loc>https://hqmx.net/ja/convert/opus-to-mp3.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://hqmx.net/ja/convert/opus-to-mp3.html" />
+  </url>
+
+  <!-- OPUS to MP3 (zh-CN) -->
+  <url>
+    <loc>https://hqmx.net/zh-CN/convert/opus-to-mp3.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://hqmx.net/zh-CN/convert/opus-to-mp3.html" />
+  </url>
+
+  <!-- OPUS to MP3 (es) -->
+  <url>
+    <loc>https://hqmx.net/es/convert/opus-to-mp3.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://hqmx.net/es/convert/opus-to-mp3.html" />
+  </url>
+
+  <!-- OPUS to MP3 (fr) -->
+  <url>
+    <loc>https://hqmx.net/fr/convert/opus-to-mp3.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://hqmx.net/fr/convert/opus-to-mp3.html" />
+  </url>
+
+  <!-- OPUS to MP3 (de) -->
+  <url>
+    <loc>https://hqmx.net/de/convert/opus-to-mp3.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://hqmx.net/de/convert/opus-to-mp3.html" />
+  </url>
+
+  <!-- MP3 to OPUS (kr) -->
+  <url>
+    <loc>https://hqmx.net/kr/convert/mp3-to-opus.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="kr" href="https://hqmx.net/kr/convert/mp3-to-opus.html" />
+  </url>
+
+  <!-- MP3 to OPUS (en) -->
+  <url>
+    <loc>https://hqmx.net/en/convert/mp3-to-opus.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hqmx.net/en/convert/mp3-to-opus.html" />
+  </url>
+
+  <!-- MP3 to OPUS (ja) -->
+  <url>
+    <loc>https://hqmx.net/ja/convert/mp3-to-opus.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://hqmx.net/ja/convert/mp3-to-opus.html" />
+  </url>
+
+  <!-- MP3 to OPUS (zh-CN) -->
+  <url>
+    <loc>https://hqmx.net/zh-CN/convert/mp3-to-opus.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://hqmx.net/zh-CN/convert/mp3-to-opus.html" />
+  </url>
+
+  <!-- MP3 to OPUS (es) -->
+  <url>
+    <loc>https://hqmx.net/es/convert/mp3-to-opus.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://hqmx.net/es/convert/mp3-to-opus.html" />
+  </url>
+
+  <!-- MP3 to OPUS (fr) -->
+  <url>
+    <loc>https://hqmx.net/fr/convert/mp3-to-opus.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://hqmx.net/fr/convert/mp3-to-opus.html" />
+  </url>
+
+  <!-- MP3 to OPUS (de) -->
+  <url>
+    <loc>https://hqmx.net/de/convert/mp3-to-opus.html</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://hqmx.net/de/convert/mp3-to-opus.html" />
   </url>
 
 </urlset>

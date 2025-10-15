@@ -1,0 +1,1110 @@
+🌐 https://hqmx.net 접속 중...
+📋 Console: [log] %c🚀 페이지 로드 - Shoukigaigoors 광고 즉시 시작 color: #2196F3; font-weight: bold;
+📋 Console: [log] %c[Shoukigaigoors 1사이클] 광고 컨테이너 생성 및 로딩 color: #9C27B0; font-weight: bold;
+📋 Console: [log] %c[Shoukigaigoors 1사이클] 📍 광고를 푸터 위에 삽입 color: #2196F3;
+📋 Console: [log] URLRouter: No routing detected, using defaults
+📋 Console: [log] Convert All 버튼 이벤트 리스너 연결됨
+📋 Console: [log] 🔵 [Dropbox] 초기화 시작, Dropbox 객체: ✓ 로드됨
+📋 Console: [log] 🟢 [Google Drive] 초기화 시작
+📋 Console: [log] 🟢 [Google Drive] gapi 객체: ✓ 로드됨
+📋 Console: [log] 🟢 [Google Drive] google 객체: ✓ 로드됨
+📋 Console: [log] 🟢 [Google Drive] Client ID: 280998173097-ffdh6ft...
+📋 Console: [log] 🟢 [Google Drive] gapi.load 시작...
+📋 Console: [log] 🟢 [Google Drive] Google Identity Services 초기화 시작...
+📋 Console: [log] 🟢 [Google Drive] ✅ GIS 초기화 성공
+📋 Console: [log] 🟢 [Google Drive] 버튼 활성화 확인... gapiInited: false gisInited: true
+📋 Console: [log] 🟢 [Google Drive] ⏳ 아직 초기화 중... 버튼 비활성화 상태
+📋 Console: [log] 🟢 [Google Drive] gapi.client 로드 완료
+📋 Console: [log] 🟢 [Google Drive] API Key 설정됨
+📋 Console: [log] 🟢 [Google Drive] ✅ gapi.client 초기화 성공
+📋 Console: [log] 🟢 [Google Drive] 버튼 활성화 확인... gapiInited: true gisInited: true
+📋 Console: [log] 🟢 [Google Drive] ✅ 버튼 활성화됨
+📋 Console: [log] %c[Shoukigaigoors 1사이클] ✅ 광고 스크립트 로드 완료 (1분간 표시) color: #4CAF50; font-weight: bold;
+📋 Console: [log] SW 등록 성공: https://hqmx.net/
+✅ 사이트 로드 완료
+
+
+============================================================
+🧪 테스트 파일: sc_04.07.18.09.08.2025.jpg (image)
+============================================================
+📋 Console: [log] %c🚀 페이지 로드 - Shoukigaigoors 광고 즉시 시작 color: #2196F3; font-weight: bold;
+📋 Console: [log] %c[Shoukigaigoors 1사이클] 광고 컨테이너 생성 및 로딩 color: #9C27B0; font-weight: bold;
+📋 Console: [log] %c[Shoukigaigoors 1사이클] 📍 광고를 푸터 위에 삽입 color: #2196F3;
+📋 Console: [log] URLRouter: No routing detected, using defaults
+📋 Console: [log] Convert All 버튼 이벤트 리스너 연결됨
+📋 Console: [log] 🔵 [Dropbox] 초기화 시작, Dropbox 객체: ✓ 로드됨
+📋 Console: [log] 🟢 [Google Drive] 초기화 시작
+📋 Console: [log] 🟢 [Google Drive] gapi 객체: ✓ 로드됨
+📋 Console: [log] 🟢 [Google Drive] google 객체: ✓ 로드됨
+📋 Console: [log] 🟢 [Google Drive] Client ID: 280998173097-ffdh6ft...
+📋 Console: [log] 🟢 [Google Drive] gapi.load 시작...
+📋 Console: [log] 🟢 [Google Drive] Google Identity Services 초기화 시작...
+📋 Console: [log] 🟢 [Google Drive] ✅ GIS 초기화 성공
+📋 Console: [log] 🟢 [Google Drive] 버튼 활성화 확인... gapiInited: false gisInited: true
+📋 Console: [log] 🟢 [Google Drive] ⏳ 아직 초기화 중... 버튼 비활성화 상태
+📋 Console: [log] 🟢 [Google Drive] gapi.client 로드 완료
+📋 Console: [log] 🟢 [Google Drive] API Key 설정됨
+📋 Console: [log] %c[Shoukigaigoors 1사이클] ✅ 광고 스크립트 로드 완료 (1분간 표시) color: #4CAF50; font-weight: bold;
+📋 Console: [log] 🟢 [Google Drive] ✅ gapi.client 초기화 성공
+📋 Console: [log] 🟢 [Google Drive] 버튼 활성화 확인... gapiInited: true gisInited: true
+📋 Console: [log] 🟢 [Google Drive] ✅ 버튼 활성화됨
+📋 Console: [log] SW 등록 성공: https://hqmx.net/
+
+📤 파일 업로드: sc_04.07.18.09.08.2025.jpg
+📋 Console: [log] Adsterra 배너 표시
+
+⏳ 1초 대기 후 분석...
+
+🔍 JavaScript 상태 확인:
+  - converterState: ❌ 없음
+  - converterEngine: ✅ 존재
+  - FFmpeg: ❌ 없음
+  - 업로드된 파일 수: 0개
+
+⏳ 로딩 상태 확인:
+  - 로딩 요소: 0개
+
+🔘 포맷 버튼 분석:
+  - 전체 버튼 수: 41개
+    [27] MP4 (video) - ✅ 보임, 활성
+        class="format-btn active"
+    [28] AVI (video) - ✅ 보임, 활성
+        class="format-btn"
+    [29] MOV (video) - ✅ 보임, 활성
+        class="format-btn"
+    [30] WEBM (video) - ✅ 보임, 활성
+        class="format-btn"
+    [31] FLV (video) - ✅ 보임, 활성
+        class="format-btn"
+    [32] WMV (video) - ✅ 보임, 활성
+        class="format-btn"
+
+  📊 포맷 버튼 통계 (1초):
+    - 이미지: 0개
+    - 비디오: 6개
+    - 오디오: 0개
+    - 문서: 0개
+    - 보이는 버튼: 6개
+    - 숨겨진 버튼: 0개
+
+⏳ 3초 대기 후 분석...
+
+🔍 JavaScript 상태 확인:
+  - converterState: ❌ 없음
+  - converterEngine: ✅ 존재
+  - FFmpeg: ❌ 없음
+  - 업로드된 파일 수: 0개
+
+⏳ 로딩 상태 확인:
+  - 로딩 요소: 0개
+
+🔘 포맷 버튼 분석:
+  - 전체 버튼 수: 41개
+    [27] MP4 (video) - ✅ 보임, 활성
+        class="format-btn active"
+    [28] AVI (video) - ✅ 보임, 활성
+        class="format-btn"
+    [29] MOV (video) - ✅ 보임, 활성
+        class="format-btn"
+    [30] WEBM (video) - ✅ 보임, 활성
+        class="format-btn"
+    [31] FLV (video) - ✅ 보임, 활성
+        class="format-btn"
+    [32] WMV (video) - ✅ 보임, 활성
+        class="format-btn"
+
+  📊 포맷 버튼 통계 (3초):
+    - 이미지: 0개
+    - 비디오: 6개
+    - 오디오: 0개
+    - 문서: 0개
+    - 보이는 버튼: 6개
+    - 숨겨진 버튼: 0개
+
+⏳ 5초 대기 후 분석...
+
+🔍 JavaScript 상태 확인:
+  - converterState: ❌ 없음
+  - converterEngine: ✅ 존재
+  - FFmpeg: ❌ 없음
+  - 업로드된 파일 수: 0개
+
+⏳ 로딩 상태 확인:
+  - 로딩 요소: 0개
+
+🔘 포맷 버튼 분석:
+  - 전체 버튼 수: 41개
+    [27] MP4 (video) - ✅ 보임, 활성
+        class="format-btn active"
+    [28] AVI (video) - ✅ 보임, 활성
+        class="format-btn"
+    [29] MOV (video) - ✅ 보임, 활성
+        class="format-btn"
+    [30] WEBM (video) - ✅ 보임, 활성
+        class="format-btn"
+    [31] FLV (video) - ✅ 보임, 활성
+        class="format-btn"
+    [32] WMV (video) - ✅ 보임, 활성
+        class="format-btn"
+
+  📊 포맷 버튼 통계 (5초):
+    - 이미지: 0개
+    - 비디오: 6개
+    - 오디오: 0개
+    - 문서: 0개
+    - 보이는 버튼: 6개
+    - 숨겨진 버튼: 0개
+
+🏗️  DOM 구조 분석:
+  - format-selection 컨테이너: 1개
+  - 컨테이너 HTML (첫 100자):
+    
+                            <h4 data-i18n-key="convertTo">변환할 형식</h4>
+                            <...
+  - 변환 시작 버튼: 2개
+
+⏳ 10초 대기 후 분석...
+
+🔍 JavaScript 상태 확인:
+  - converterState: ❌ 없음
+  - converterEngine: ✅ 존재
+  - FFmpeg: ❌ 없음
+  - 업로드된 파일 수: 0개
+
+⏳ 로딩 상태 확인:
+  - 로딩 요소: 0개
+
+🔘 포맷 버튼 분석:
+  - 전체 버튼 수: 41개
+    [27] MP4 (video) - ✅ 보임, 활성
+        class="format-btn active"
+    [28] AVI (video) - ✅ 보임, 활성
+        class="format-btn"
+    [29] MOV (video) - ✅ 보임, 활성
+        class="format-btn"
+    [30] WEBM (video) - ✅ 보임, 활성
+        class="format-btn"
+    [31] FLV (video) - ✅ 보임, 활성
+        class="format-btn"
+    [32] WMV (video) - ✅ 보임, 활성
+        class="format-btn"
+
+  📊 포맷 버튼 통계 (10초):
+    - 이미지: 0개
+    - 비디오: 6개
+    - 오디오: 0개
+    - 문서: 0개
+    - 보이는 버튼: 6개
+    - 숨겨진 버튼: 0개
+
+📸 스크린샷 저장: debug-sc_04_07_18_09_08_2025_jpg.png
+
+============================================================
+🧪 테스트 파일: test.png (image)
+============================================================
+📋 Console: [log] %c🚀 페이지 로드 - Shoukigaigoors 광고 즉시 시작 color: #2196F3; font-weight: bold;
+📋 Console: [log] %c[Shoukigaigoors 1사이클] 광고 컨테이너 생성 및 로딩 color: #9C27B0; font-weight: bold;
+📋 Console: [log] %c[Shoukigaigoors 1사이클] 📍 광고를 푸터 위에 삽입 color: #2196F3;
+📋 Console: [log] URLRouter: No routing detected, using defaults
+📋 Console: [log] Convert All 버튼 이벤트 리스너 연결됨
+📋 Console: [log] 🔵 [Dropbox] 초기화 시작, Dropbox 객체: ✓ 로드됨
+📋 Console: [log] 🟢 [Google Drive] 초기화 시작
+📋 Console: [log] 🟢 [Google Drive] gapi 객체: ✓ 로드됨
+📋 Console: [log] 🟢 [Google Drive] google 객체: ✓ 로드됨
+📋 Console: [log] 🟢 [Google Drive] Client ID: 280998173097-ffdh6ft...
+📋 Console: [log] 🟢 [Google Drive] gapi.load 시작...
+📋 Console: [log] 🟢 [Google Drive] Google Identity Services 초기화 시작...
+📋 Console: [log] 🟢 [Google Drive] ✅ GIS 초기화 성공
+📋 Console: [log] 🟢 [Google Drive] 버튼 활성화 확인... gapiInited: false gisInited: true
+📋 Console: [log] 🟢 [Google Drive] ⏳ 아직 초기화 중... 버튼 비활성화 상태
+📋 Console: [log] 🟢 [Google Drive] gapi.client 로드 완료
+📋 Console: [log] 🟢 [Google Drive] API Key 설정됨
+📋 Console: [log] SW 등록 성공: https://hqmx.net/
+📋 Console: [log] 🟢 [Google Drive] ✅ gapi.client 초기화 성공
+📋 Console: [log] 🟢 [Google Drive] 버튼 활성화 확인... gapiInited: true gisInited: true
+📋 Console: [log] 🟢 [Google Drive] ✅ 버튼 활성화됨
+📋 Console: [log] %c[Shoukigaigoors 1사이클] ✅ 광고 스크립트 로드 완료 (1분간 표시) color: #4CAF50; font-weight: bold;
+
+📤 파일 업로드: test.png
+📋 Console: [log] Adsterra 배너 표시
+
+⏳ 1초 대기 후 분석...
+
+🔍 JavaScript 상태 확인:
+  - converterState: ❌ 없음
+  - converterEngine: ✅ 존재
+  - FFmpeg: ❌ 없음
+  - 업로드된 파일 수: 0개
+
+⏳ 로딩 상태 확인:
+  - 로딩 요소: 0개
+
+🔘 포맷 버튼 분석:
+  - 전체 버튼 수: 41개
+    [27] MP4 (video) - ✅ 보임, 활성
+        class="format-btn active"
+    [28] AVI (video) - ✅ 보임, 활성
+        class="format-btn"
+    [29] MOV (video) - ✅ 보임, 활성
+        class="format-btn"
+    [30] WEBM (video) - ✅ 보임, 활성
+        class="format-btn"
+    [31] FLV (video) - ✅ 보임, 활성
+        class="format-btn"
+    [32] WMV (video) - ✅ 보임, 활성
+        class="format-btn"
+
+  📊 포맷 버튼 통계 (1초):
+    - 이미지: 0개
+    - 비디오: 6개
+    - 오디오: 0개
+    - 문서: 0개
+    - 보이는 버튼: 6개
+    - 숨겨진 버튼: 0개
+
+⏳ 3초 대기 후 분석...
+
+🔍 JavaScript 상태 확인:
+  - converterState: ❌ 없음
+  - converterEngine: ✅ 존재
+  - FFmpeg: ❌ 없음
+  - 업로드된 파일 수: 0개
+
+⏳ 로딩 상태 확인:
+  - 로딩 요소: 0개
+
+🔘 포맷 버튼 분석:
+  - 전체 버튼 수: 41개
+    [27] MP4 (video) - ✅ 보임, 활성
+        class="format-btn active"
+    [28] AVI (video) - ✅ 보임, 활성
+        class="format-btn"
+    [29] MOV (video) - ✅ 보임, 활성
+        class="format-btn"
+    [30] WEBM (video) - ✅ 보임, 활성
+        class="format-btn"
+    [31] FLV (video) - ✅ 보임, 활성
+        class="format-btn"
+    [32] WMV (video) - ✅ 보임, 활성
+        class="format-btn"
+
+  📊 포맷 버튼 통계 (3초):
+    - 이미지: 0개
+    - 비디오: 6개
+    - 오디오: 0개
+    - 문서: 0개
+    - 보이는 버튼: 6개
+    - 숨겨진 버튼: 0개
+
+⏳ 5초 대기 후 분석...
+
+🔍 JavaScript 상태 확인:
+  - converterState: ❌ 없음
+  - converterEngine: ✅ 존재
+  - FFmpeg: ❌ 없음
+  - 업로드된 파일 수: 0개
+
+⏳ 로딩 상태 확인:
+  - 로딩 요소: 0개
+
+🔘 포맷 버튼 분석:
+  - 전체 버튼 수: 41개
+    [27] MP4 (video) - ✅ 보임, 활성
+        class="format-btn active"
+    [28] AVI (video) - ✅ 보임, 활성
+        class="format-btn"
+    [29] MOV (video) - ✅ 보임, 활성
+        class="format-btn"
+    [30] WEBM (video) - ✅ 보임, 활성
+        class="format-btn"
+    [31] FLV (video) - ✅ 보임, 활성
+        class="format-btn"
+    [32] WMV (video) - ✅ 보임, 활성
+        class="format-btn"
+
+  📊 포맷 버튼 통계 (5초):
+    - 이미지: 0개
+    - 비디오: 6개
+    - 오디오: 0개
+    - 문서: 0개
+    - 보이는 버튼: 6개
+    - 숨겨진 버튼: 0개
+
+🏗️  DOM 구조 분석:
+  - format-selection 컨테이너: 1개
+  - 컨테이너 HTML (첫 100자):
+    
+                            <h4 data-i18n-key="convertTo">변환할 형식</h4>
+                            <...
+  - 변환 시작 버튼: 2개
+
+⏳ 10초 대기 후 분석...
+
+🔍 JavaScript 상태 확인:
+  - converterState: ❌ 없음
+  - converterEngine: ✅ 존재
+  - FFmpeg: ❌ 없음
+  - 업로드된 파일 수: 0개
+
+⏳ 로딩 상태 확인:
+  - 로딩 요소: 0개
+
+🔘 포맷 버튼 분석:
+  - 전체 버튼 수: 41개
+    [27] MP4 (video) - ✅ 보임, 활성
+        class="format-btn active"
+    [28] AVI (video) - ✅ 보임, 활성
+        class="format-btn"
+    [29] MOV (video) - ✅ 보임, 활성
+        class="format-btn"
+    [30] WEBM (video) - ✅ 보임, 활성
+        class="format-btn"
+    [31] FLV (video) - ✅ 보임, 활성
+        class="format-btn"
+    [32] WMV (video) - ✅ 보임, 활성
+        class="format-btn"
+
+  📊 포맷 버튼 통계 (10초):
+    - 이미지: 0개
+    - 비디오: 6개
+    - 오디오: 0개
+    - 문서: 0개
+    - 보이는 버튼: 6개
+    - 숨겨진 버튼: 0개
+
+📸 스크린샷 저장: debug-test_png.png
+
+============================================================
+🧪 테스트 파일: test.gif (video)
+============================================================
+📋 Console: [log] %c🚀 페이지 로드 - Shoukigaigoors 광고 즉시 시작 color: #2196F3; font-weight: bold;
+📋 Console: [log] %c[Shoukigaigoors 1사이클] 광고 컨테이너 생성 및 로딩 color: #9C27B0; font-weight: bold;
+📋 Console: [log] %c[Shoukigaigoors 1사이클] 📍 광고를 푸터 위에 삽입 color: #2196F3;
+📋 Console: [log] URLRouter: No routing detected, using defaults
+📋 Console: [log] Convert All 버튼 이벤트 리스너 연결됨
+📋 Console: [log] 🔵 [Dropbox] 초기화 시작, Dropbox 객체: ✓ 로드됨
+📋 Console: [log] 🟢 [Google Drive] 초기화 시작
+📋 Console: [log] 🟢 [Google Drive] gapi 객체: ✓ 로드됨
+📋 Console: [log] 🟢 [Google Drive] google 객체: ✓ 로드됨
+📋 Console: [log] 🟢 [Google Drive] Client ID: 280998173097-ffdh6ft...
+📋 Console: [log] 🟢 [Google Drive] gapi.load 시작...
+📋 Console: [log] 🟢 [Google Drive] Google Identity Services 초기화 시작...
+📋 Console: [log] 🟢 [Google Drive] ✅ GIS 초기화 성공
+📋 Console: [log] 🟢 [Google Drive] 버튼 활성화 확인... gapiInited: false gisInited: true
+📋 Console: [log] 🟢 [Google Drive] ⏳ 아직 초기화 중... 버튼 비활성화 상태
+📋 Console: [log] 🟢 [Google Drive] gapi.client 로드 완료
+📋 Console: [log] 🟢 [Google Drive] API Key 설정됨
+📋 Console: [log] SW 등록 성공: https://hqmx.net/
+📋 Console: [log] 🟢 [Google Drive] ✅ gapi.client 초기화 성공
+📋 Console: [log] 🟢 [Google Drive] 버튼 활성화 확인... gapiInited: true gisInited: true
+📋 Console: [log] 🟢 [Google Drive] ✅ 버튼 활성화됨
+📋 Console: [log] %c[Shoukigaigoors 1사이클] ✅ 광고 스크립트 로드 완료 (1분간 표시) color: #4CAF50; font-weight: bold;
+
+📤 파일 업로드: test.gif
+📋 Console: [log] Adsterra 배너 표시
+
+⏳ 1초 대기 후 분석...
+
+🔍 JavaScript 상태 확인:
+  - converterState: ❌ 없음
+  - converterEngine: ✅ 존재
+  - FFmpeg: ❌ 없음
+  - 업로드된 파일 수: 0개
+
+⏳ 로딩 상태 확인:
+  - 로딩 요소: 0개
+
+🔘 포맷 버튼 분석:
+  - 전체 버튼 수: 41개
+    [27] MP4 (video) - ✅ 보임, 활성
+        class="format-btn active"
+    [28] AVI (video) - ✅ 보임, 활성
+        class="format-btn"
+    [29] MOV (video) - ✅ 보임, 활성
+        class="format-btn"
+    [30] WEBM (video) - ✅ 보임, 활성
+        class="format-btn"
+    [31] FLV (video) - ✅ 보임, 활성
+        class="format-btn"
+    [32] WMV (video) - ✅ 보임, 활성
+        class="format-btn"
+
+  📊 포맷 버튼 통계 (1초):
+    - 이미지: 0개
+    - 비디오: 6개
+    - 오디오: 0개
+    - 문서: 0개
+    - 보이는 버튼: 6개
+    - 숨겨진 버튼: 0개
+
+⏳ 3초 대기 후 분석...
+
+🔍 JavaScript 상태 확인:
+  - converterState: ❌ 없음
+  - converterEngine: ✅ 존재
+  - FFmpeg: ❌ 없음
+  - 업로드된 파일 수: 0개
+
+⏳ 로딩 상태 확인:
+  - 로딩 요소: 0개
+
+🔘 포맷 버튼 분석:
+  - 전체 버튼 수: 41개
+    [27] MP4 (video) - ✅ 보임, 활성
+        class="format-btn active"
+    [28] AVI (video) - ✅ 보임, 활성
+        class="format-btn"
+    [29] MOV (video) - ✅ 보임, 활성
+        class="format-btn"
+    [30] WEBM (video) - ✅ 보임, 활성
+        class="format-btn"
+    [31] FLV (video) - ✅ 보임, 활성
+        class="format-btn"
+    [32] WMV (video) - ✅ 보임, 활성
+        class="format-btn"
+
+  📊 포맷 버튼 통계 (3초):
+    - 이미지: 0개
+    - 비디오: 6개
+    - 오디오: 0개
+    - 문서: 0개
+    - 보이는 버튼: 6개
+    - 숨겨진 버튼: 0개
+
+⏳ 5초 대기 후 분석...
+
+🔍 JavaScript 상태 확인:
+  - converterState: ❌ 없음
+  - converterEngine: ✅ 존재
+  - FFmpeg: ❌ 없음
+  - 업로드된 파일 수: 0개
+
+⏳ 로딩 상태 확인:
+  - 로딩 요소: 0개
+
+🔘 포맷 버튼 분석:
+  - 전체 버튼 수: 41개
+    [27] MP4 (video) - ✅ 보임, 활성
+        class="format-btn active"
+    [28] AVI (video) - ✅ 보임, 활성
+        class="format-btn"
+    [29] MOV (video) - ✅ 보임, 활성
+        class="format-btn"
+    [30] WEBM (video) - ✅ 보임, 활성
+        class="format-btn"
+    [31] FLV (video) - ✅ 보임, 활성
+        class="format-btn"
+    [32] WMV (video) - ✅ 보임, 활성
+        class="format-btn"
+
+  📊 포맷 버튼 통계 (5초):
+    - 이미지: 0개
+    - 비디오: 6개
+    - 오디오: 0개
+    - 문서: 0개
+    - 보이는 버튼: 6개
+    - 숨겨진 버튼: 0개
+
+🏗️  DOM 구조 분석:
+  - format-selection 컨테이너: 1개
+  - 컨테이너 HTML (첫 100자):
+    
+                            <h4 data-i18n-key="convertTo">변환할 형식</h4>
+                            <...
+  - 변환 시작 버튼: 2개
+
+⏳ 10초 대기 후 분석...
+
+🔍 JavaScript 상태 확인:
+  - converterState: ❌ 없음
+  - converterEngine: ✅ 존재
+  - FFmpeg: ❌ 없음
+  - 업로드된 파일 수: 0개
+
+⏳ 로딩 상태 확인:
+  - 로딩 요소: 0개
+
+🔘 포맷 버튼 분석:
+  - 전체 버튼 수: 41개
+    [27] MP4 (video) - ✅ 보임, 활성
+        class="format-btn active"
+    [28] AVI (video) - ✅ 보임, 활성
+        class="format-btn"
+    [29] MOV (video) - ✅ 보임, 활성
+        class="format-btn"
+    [30] WEBM (video) - ✅ 보임, 활성
+        class="format-btn"
+    [31] FLV (video) - ✅ 보임, 활성
+        class="format-btn"
+    [32] WMV (video) - ✅ 보임, 활성
+        class="format-btn"
+
+  📊 포맷 버튼 통계 (10초):
+    - 이미지: 0개
+    - 비디오: 6개
+    - 오디오: 0개
+    - 문서: 0개
+    - 보이는 버튼: 6개
+    - 숨겨진 버튼: 0개
+
+📸 스크린샷 저장: debug-test_gif.png
+
+============================================================
+🧪 테스트 파일: mobbg.mp4 (video)
+============================================================
+📋 Console: [log] %c🚀 페이지 로드 - Shoukigaigoors 광고 즉시 시작 color: #2196F3; font-weight: bold;
+📋 Console: [log] %c[Shoukigaigoors 1사이클] 광고 컨테이너 생성 및 로딩 color: #9C27B0; font-weight: bold;
+📋 Console: [log] %c[Shoukigaigoors 1사이클] 📍 광고를 푸터 위에 삽입 color: #2196F3;
+📋 Console: [log] URLRouter: No routing detected, using defaults
+📋 Console: [log] Convert All 버튼 이벤트 리스너 연결됨
+📋 Console: [log] 🔵 [Dropbox] 초기화 시작, Dropbox 객체: ✓ 로드됨
+📋 Console: [log] 🟢 [Google Drive] 초기화 시작
+📋 Console: [log] 🟢 [Google Drive] gapi 객체: ✓ 로드됨
+📋 Console: [log] 🟢 [Google Drive] google 객체: ✓ 로드됨
+📋 Console: [log] 🟢 [Google Drive] Client ID: 280998173097-ffdh6ft...
+📋 Console: [log] 🟢 [Google Drive] gapi.load 시작...
+📋 Console: [log] 🟢 [Google Drive] Google Identity Services 초기화 시작...
+📋 Console: [log] 🟢 [Google Drive] ✅ GIS 초기화 성공
+📋 Console: [log] 🟢 [Google Drive] 버튼 활성화 확인... gapiInited: false gisInited: true
+📋 Console: [log] 🟢 [Google Drive] ⏳ 아직 초기화 중... 버튼 비활성화 상태
+📋 Console: [log] 🟢 [Google Drive] gapi.client 로드 완료
+📋 Console: [log] 🟢 [Google Drive] API Key 설정됨
+📋 Console: [log] SW 등록 성공: https://hqmx.net/
+📋 Console: [log] 🟢 [Google Drive] ✅ gapi.client 초기화 성공
+📋 Console: [log] 🟢 [Google Drive] 버튼 활성화 확인... gapiInited: true gisInited: true
+📋 Console: [log] 🟢 [Google Drive] ✅ 버튼 활성화됨
+📋 Console: [log] %c[Shoukigaigoors 1사이클] ✅ 광고 스크립트 로드 완료 (1분간 표시) color: #4CAF50; font-weight: bold;
+
+📤 파일 업로드: mobbg.mp4
+📋 Console: [log] Adsterra 배너 표시
+
+⏳ 1초 대기 후 분석...
+
+🔍 JavaScript 상태 확인:
+  - converterState: ❌ 없음
+  - converterEngine: ✅ 존재
+  - FFmpeg: ❌ 없음
+  - 업로드된 파일 수: 0개
+
+⏳ 로딩 상태 확인:
+  - 로딩 요소: 0개
+
+🔘 포맷 버튼 분석:
+  - 전체 버튼 수: 41개
+    [27] MP4 (video) - ✅ 보임, 활성
+        class="format-btn active"
+    [28] AVI (video) - ✅ 보임, 활성
+        class="format-btn"
+    [29] MOV (video) - ✅ 보임, 활성
+        class="format-btn"
+    [30] WEBM (video) - ✅ 보임, 활성
+        class="format-btn"
+    [31] FLV (video) - ✅ 보임, 활성
+        class="format-btn"
+    [32] WMV (video) - ✅ 보임, 활성
+        class="format-btn"
+
+  📊 포맷 버튼 통계 (1초):
+    - 이미지: 0개
+    - 비디오: 6개
+    - 오디오: 0개
+    - 문서: 0개
+    - 보이는 버튼: 6개
+    - 숨겨진 버튼: 0개
+
+⏳ 3초 대기 후 분석...
+
+🔍 JavaScript 상태 확인:
+  - converterState: ❌ 없음
+  - converterEngine: ✅ 존재
+  - FFmpeg: ❌ 없음
+  - 업로드된 파일 수: 0개
+
+⏳ 로딩 상태 확인:
+  - 로딩 요소: 0개
+
+🔘 포맷 버튼 분석:
+  - 전체 버튼 수: 41개
+    [27] MP4 (video) - ✅ 보임, 활성
+        class="format-btn active"
+    [28] AVI (video) - ✅ 보임, 활성
+        class="format-btn"
+    [29] MOV (video) - ✅ 보임, 활성
+        class="format-btn"
+    [30] WEBM (video) - ✅ 보임, 활성
+        class="format-btn"
+    [31] FLV (video) - ✅ 보임, 활성
+        class="format-btn"
+    [32] WMV (video) - ✅ 보임, 활성
+        class="format-btn"
+
+  📊 포맷 버튼 통계 (3초):
+    - 이미지: 0개
+    - 비디오: 6개
+    - 오디오: 0개
+    - 문서: 0개
+    - 보이는 버튼: 6개
+    - 숨겨진 버튼: 0개
+
+⏳ 5초 대기 후 분석...
+
+🔍 JavaScript 상태 확인:
+  - converterState: ❌ 없음
+  - converterEngine: ✅ 존재
+  - FFmpeg: ❌ 없음
+  - 업로드된 파일 수: 0개
+
+⏳ 로딩 상태 확인:
+  - 로딩 요소: 0개
+
+🔘 포맷 버튼 분석:
+  - 전체 버튼 수: 41개
+    [27] MP4 (video) - ✅ 보임, 활성
+        class="format-btn active"
+    [28] AVI (video) - ✅ 보임, 활성
+        class="format-btn"
+    [29] MOV (video) - ✅ 보임, 활성
+        class="format-btn"
+    [30] WEBM (video) - ✅ 보임, 활성
+        class="format-btn"
+    [31] FLV (video) - ✅ 보임, 활성
+        class="format-btn"
+    [32] WMV (video) - ✅ 보임, 활성
+        class="format-btn"
+
+  📊 포맷 버튼 통계 (5초):
+    - 이미지: 0개
+    - 비디오: 6개
+    - 오디오: 0개
+    - 문서: 0개
+    - 보이는 버튼: 6개
+    - 숨겨진 버튼: 0개
+
+🏗️  DOM 구조 분석:
+  - format-selection 컨테이너: 1개
+  - 컨테이너 HTML (첫 100자):
+    
+                            <h4 data-i18n-key="convertTo">변환할 형식</h4>
+                            <...
+  - 변환 시작 버튼: 2개
+
+⏳ 10초 대기 후 분석...
+
+🔍 JavaScript 상태 확인:
+  - converterState: ❌ 없음
+  - converterEngine: ✅ 존재
+  - FFmpeg: ❌ 없음
+  - 업로드된 파일 수: 0개
+
+⏳ 로딩 상태 확인:
+  - 로딩 요소: 0개
+
+🔘 포맷 버튼 분석:
+  - 전체 버튼 수: 41개
+    [27] MP4 (video) - ✅ 보임, 활성
+        class="format-btn active"
+    [28] AVI (video) - ✅ 보임, 활성
+        class="format-btn"
+    [29] MOV (video) - ✅ 보임, 활성
+        class="format-btn"
+    [30] WEBM (video) - ✅ 보임, 활성
+        class="format-btn"
+    [31] FLV (video) - ✅ 보임, 활성
+        class="format-btn"
+    [32] WMV (video) - ✅ 보임, 활성
+        class="format-btn"
+
+  📊 포맷 버튼 통계 (10초):
+    - 이미지: 0개
+    - 비디오: 6개
+    - 오디오: 0개
+    - 문서: 0개
+    - 보이는 버튼: 6개
+    - 숨겨진 버튼: 0개
+
+📸 스크린샷 저장: debug-mobbg_mp4.png
+
+============================================================
+🧪 테스트 파일: test.mp3 (audio)
+============================================================
+📋 Console: [log] %c🚀 페이지 로드 - Shoukigaigoors 광고 즉시 시작 color: #2196F3; font-weight: bold;
+📋 Console: [log] %c[Shoukigaigoors 1사이클] 광고 컨테이너 생성 및 로딩 color: #9C27B0; font-weight: bold;
+📋 Console: [log] %c[Shoukigaigoors 1사이클] 📍 광고를 푸터 위에 삽입 color: #2196F3;
+📋 Console: [log] URLRouter: No routing detected, using defaults
+📋 Console: [log] Convert All 버튼 이벤트 리스너 연결됨
+📋 Console: [log] 🔵 [Dropbox] 초기화 시작, Dropbox 객체: ✓ 로드됨
+📋 Console: [log] 🟢 [Google Drive] 초기화 시작
+📋 Console: [log] 🟢 [Google Drive] gapi 객체: ✓ 로드됨
+📋 Console: [log] 🟢 [Google Drive] google 객체: ✓ 로드됨
+📋 Console: [log] 🟢 [Google Drive] Client ID: 280998173097-ffdh6ft...
+📋 Console: [log] 🟢 [Google Drive] gapi.load 시작...
+📋 Console: [log] 🟢 [Google Drive] Google Identity Services 초기화 시작...
+📋 Console: [log] 🟢 [Google Drive] ✅ GIS 초기화 성공
+📋 Console: [log] 🟢 [Google Drive] 버튼 활성화 확인... gapiInited: false gisInited: true
+📋 Console: [log] 🟢 [Google Drive] ⏳ 아직 초기화 중... 버튼 비활성화 상태
+📋 Console: [log] 🟢 [Google Drive] gapi.client 로드 완료
+📋 Console: [log] 🟢 [Google Drive] API Key 설정됨
+📋 Console: [log] SW 등록 성공: https://hqmx.net/
+📋 Console: [log] 🟢 [Google Drive] ✅ gapi.client 초기화 성공
+📋 Console: [log] 🟢 [Google Drive] 버튼 활성화 확인... gapiInited: true gisInited: true
+📋 Console: [log] 🟢 [Google Drive] ✅ 버튼 활성화됨
+📋 Console: [log] %c[Shoukigaigoors 1사이클] ✅ 광고 스크립트 로드 완료 (1분간 표시) color: #4CAF50; font-weight: bold;
+
+📤 파일 업로드: test.mp3
+📋 Console: [log] Adsterra 배너 표시
+
+⏳ 1초 대기 후 분석...
+
+🔍 JavaScript 상태 확인:
+  - converterState: ❌ 없음
+  - converterEngine: ✅ 존재
+  - FFmpeg: ❌ 없음
+  - 업로드된 파일 수: 0개
+
+⏳ 로딩 상태 확인:
+  - 로딩 요소: 0개
+
+🔘 포맷 버튼 분석:
+  - 전체 버튼 수: 41개
+    [27] MP4 (video) - ✅ 보임, 활성
+        class="format-btn active"
+    [28] AVI (video) - ✅ 보임, 활성
+        class="format-btn"
+    [29] MOV (video) - ✅ 보임, 활성
+        class="format-btn"
+    [30] WEBM (video) - ✅ 보임, 활성
+        class="format-btn"
+    [31] FLV (video) - ✅ 보임, 활성
+        class="format-btn"
+    [32] WMV (video) - ✅ 보임, 활성
+        class="format-btn"
+
+  📊 포맷 버튼 통계 (1초):
+    - 이미지: 0개
+    - 비디오: 6개
+    - 오디오: 0개
+    - 문서: 0개
+    - 보이는 버튼: 6개
+    - 숨겨진 버튼: 0개
+
+⏳ 3초 대기 후 분석...
+
+🔍 JavaScript 상태 확인:
+  - converterState: ❌ 없음
+  - converterEngine: ✅ 존재
+  - FFmpeg: ❌ 없음
+  - 업로드된 파일 수: 0개
+
+⏳ 로딩 상태 확인:
+  - 로딩 요소: 0개
+
+🔘 포맷 버튼 분석:
+  - 전체 버튼 수: 41개
+    [27] MP4 (video) - ✅ 보임, 활성
+        class="format-btn active"
+    [28] AVI (video) - ✅ 보임, 활성
+        class="format-btn"
+    [29] MOV (video) - ✅ 보임, 활성
+        class="format-btn"
+    [30] WEBM (video) - ✅ 보임, 활성
+        class="format-btn"
+    [31] FLV (video) - ✅ 보임, 활성
+        class="format-btn"
+    [32] WMV (video) - ✅ 보임, 활성
+        class="format-btn"
+
+  📊 포맷 버튼 통계 (3초):
+    - 이미지: 0개
+    - 비디오: 6개
+    - 오디오: 0개
+    - 문서: 0개
+    - 보이는 버튼: 6개
+    - 숨겨진 버튼: 0개
+
+⏳ 5초 대기 후 분석...
+
+🔍 JavaScript 상태 확인:
+  - converterState: ❌ 없음
+  - converterEngine: ✅ 존재
+  - FFmpeg: ❌ 없음
+  - 업로드된 파일 수: 0개
+
+⏳ 로딩 상태 확인:
+  - 로딩 요소: 0개
+
+🔘 포맷 버튼 분석:
+  - 전체 버튼 수: 41개
+    [27] MP4 (video) - ✅ 보임, 활성
+        class="format-btn active"
+    [28] AVI (video) - ✅ 보임, 활성
+        class="format-btn"
+    [29] MOV (video) - ✅ 보임, 활성
+        class="format-btn"
+    [30] WEBM (video) - ✅ 보임, 활성
+        class="format-btn"
+    [31] FLV (video) - ✅ 보임, 활성
+        class="format-btn"
+    [32] WMV (video) - ✅ 보임, 활성
+        class="format-btn"
+
+  📊 포맷 버튼 통계 (5초):
+    - 이미지: 0개
+    - 비디오: 6개
+    - 오디오: 0개
+    - 문서: 0개
+    - 보이는 버튼: 6개
+    - 숨겨진 버튼: 0개
+
+🏗️  DOM 구조 분석:
+  - format-selection 컨테이너: 1개
+  - 컨테이너 HTML (첫 100자):
+    
+                            <h4 data-i18n-key="convertTo">변환할 형식</h4>
+                            <...
+  - 변환 시작 버튼: 2개
+
+⏳ 10초 대기 후 분석...
+
+🔍 JavaScript 상태 확인:
+  - converterState: ❌ 없음
+  - converterEngine: ✅ 존재
+  - FFmpeg: ❌ 없음
+  - 업로드된 파일 수: 0개
+
+⏳ 로딩 상태 확인:
+  - 로딩 요소: 0개
+
+🔘 포맷 버튼 분석:
+  - 전체 버튼 수: 41개
+    [27] MP4 (video) - ✅ 보임, 활성
+        class="format-btn active"
+    [28] AVI (video) - ✅ 보임, 활성
+        class="format-btn"
+    [29] MOV (video) - ✅ 보임, 활성
+        class="format-btn"
+    [30] WEBM (video) - ✅ 보임, 활성
+        class="format-btn"
+    [31] FLV (video) - ✅ 보임, 활성
+        class="format-btn"
+    [32] WMV (video) - ✅ 보임, 활성
+        class="format-btn"
+
+  📊 포맷 버튼 통계 (10초):
+    - 이미지: 0개
+    - 비디오: 6개
+    - 오디오: 0개
+    - 문서: 0개
+    - 보이는 버튼: 6개
+    - 숨겨진 버튼: 0개
+
+📸 스크린샷 저장: debug-test_mp3.png
+
+============================================================
+🧪 테스트 파일: test.pdf (document)
+============================================================
+📋 Console: [log] %c🚀 페이지 로드 - Shoukigaigoors 광고 즉시 시작 color: #2196F3; font-weight: bold;
+📋 Console: [log] %c[Shoukigaigoors 1사이클] 광고 컨테이너 생성 및 로딩 color: #9C27B0; font-weight: bold;
+📋 Console: [log] %c[Shoukigaigoors 1사이클] 📍 광고를 푸터 위에 삽입 color: #2196F3;
+📋 Console: [log] URLRouter: No routing detected, using defaults
+📋 Console: [log] Convert All 버튼 이벤트 리스너 연결됨
+📋 Console: [log] 🔵 [Dropbox] 초기화 시작, Dropbox 객체: ✓ 로드됨
+📋 Console: [log] 🟢 [Google Drive] 초기화 시작
+📋 Console: [log] 🟢 [Google Drive] gapi 객체: ✓ 로드됨
+📋 Console: [log] 🟢 [Google Drive] google 객체: ✓ 로드됨
+📋 Console: [log] 🟢 [Google Drive] Client ID: 280998173097-ffdh6ft...
+📋 Console: [log] 🟢 [Google Drive] gapi.load 시작...
+📋 Console: [log] 🟢 [Google Drive] Google Identity Services 초기화 시작...
+📋 Console: [log] 🟢 [Google Drive] ✅ GIS 초기화 성공
+📋 Console: [log] 🟢 [Google Drive] 버튼 활성화 확인... gapiInited: false gisInited: true
+📋 Console: [log] 🟢 [Google Drive] ⏳ 아직 초기화 중... 버튼 비활성화 상태
+📋 Console: [log] 🟢 [Google Drive] gapi.client 로드 완료
+📋 Console: [log] 🟢 [Google Drive] API Key 설정됨
+📋 Console: [log] SW 등록 성공: https://hqmx.net/
+📋 Console: [log] 🟢 [Google Drive] ✅ gapi.client 초기화 성공
+📋 Console: [log] 🟢 [Google Drive] 버튼 활성화 확인... gapiInited: true gisInited: true
+📋 Console: [log] 🟢 [Google Drive] ✅ 버튼 활성화됨
+📋 Console: [log] %c[Shoukigaigoors 1사이클] ✅ 광고 스크립트 로드 완료 (1분간 표시) color: #4CAF50; font-weight: bold;
+
+📤 파일 업로드: test.pdf
+📋 Console: [log] Adsterra 배너 표시
+
+⏳ 1초 대기 후 분석...
+
+🔍 JavaScript 상태 확인:
+  - converterState: ❌ 없음
+  - converterEngine: ✅ 존재
+  - FFmpeg: ❌ 없음
+  - 업로드된 파일 수: 0개
+
+⏳ 로딩 상태 확인:
+  - 로딩 요소: 0개
+
+🔘 포맷 버튼 분석:
+  - 전체 버튼 수: 41개
+    [27] MP4 (video) - ✅ 보임, 활성
+        class="format-btn active"
+    [28] AVI (video) - ✅ 보임, 활성
+        class="format-btn"
+    [29] MOV (video) - ✅ 보임, 활성
+        class="format-btn"
+    [30] WEBM (video) - ✅ 보임, 활성
+        class="format-btn"
+    [31] FLV (video) - ✅ 보임, 활성
+        class="format-btn"
+    [32] WMV (video) - ✅ 보임, 활성
+        class="format-btn"
+
+  📊 포맷 버튼 통계 (1초):
+    - 이미지: 0개
+    - 비디오: 6개
+    - 오디오: 0개
+    - 문서: 0개
+    - 보이는 버튼: 6개
+    - 숨겨진 버튼: 0개
+
+⏳ 3초 대기 후 분석...
+
+🔍 JavaScript 상태 확인:
+  - converterState: ❌ 없음
+  - converterEngine: ✅ 존재
+  - FFmpeg: ❌ 없음
+  - 업로드된 파일 수: 0개
+
+⏳ 로딩 상태 확인:
+  - 로딩 요소: 0개
+
+🔘 포맷 버튼 분석:
+  - 전체 버튼 수: 41개
+    [27] MP4 (video) - ✅ 보임, 활성
+        class="format-btn active"
+    [28] AVI (video) - ✅ 보임, 활성
+        class="format-btn"
+    [29] MOV (video) - ✅ 보임, 활성
+        class="format-btn"
+    [30] WEBM (video) - ✅ 보임, 활성
+        class="format-btn"
+    [31] FLV (video) - ✅ 보임, 활성
+        class="format-btn"
+    [32] WMV (video) - ✅ 보임, 활성
+        class="format-btn"
+
+  📊 포맷 버튼 통계 (3초):
+    - 이미지: 0개
+    - 비디오: 6개
+    - 오디오: 0개
+    - 문서: 0개
+    - 보이는 버튼: 6개
+    - 숨겨진 버튼: 0개
+
+⏳ 5초 대기 후 분석...
+
+🔍 JavaScript 상태 확인:
+  - converterState: ❌ 없음
+  - converterEngine: ✅ 존재
+  - FFmpeg: ❌ 없음
+  - 업로드된 파일 수: 0개
+
+⏳ 로딩 상태 확인:
+  - 로딩 요소: 0개
+
+🔘 포맷 버튼 분석:
+  - 전체 버튼 수: 41개
+    [27] MP4 (video) - ✅ 보임, 활성
+        class="format-btn active"
+    [28] AVI (video) - ✅ 보임, 활성
+        class="format-btn"
+    [29] MOV (video) - ✅ 보임, 활성
+        class="format-btn"
+    [30] WEBM (video) - ✅ 보임, 활성
+        class="format-btn"
+    [31] FLV (video) - ✅ 보임, 활성
+        class="format-btn"
+    [32] WMV (video) - ✅ 보임, 활성
+        class="format-btn"
+
+  📊 포맷 버튼 통계 (5초):
+    - 이미지: 0개
+    - 비디오: 6개
+    - 오디오: 0개
+    - 문서: 0개
+    - 보이는 버튼: 6개
+    - 숨겨진 버튼: 0개
+
+🏗️  DOM 구조 분석:
+  - format-selection 컨테이너: 1개
+  - 컨테이너 HTML (첫 100자):
+    
+                            <h4 data-i18n-key="convertTo">변환할 형식</h4>
+                            <...
+  - 변환 시작 버튼: 2개
+
+⏳ 10초 대기 후 분석...
+
+🔍 JavaScript 상태 확인:
+  - converterState: ❌ 없음
+  - converterEngine: ✅ 존재
+  - FFmpeg: ❌ 없음
+  - 업로드된 파일 수: 0개
+
+⏳ 로딩 상태 확인:
+  - 로딩 요소: 0개
+
+🔘 포맷 버튼 분석:
+  - 전체 버튼 수: 41개
+    [27] MP4 (video) - ✅ 보임, 활성
+        class="format-btn active"
+    [28] AVI (video) - ✅ 보임, 활성
+        class="format-btn"
+    [29] MOV (video) - ✅ 보임, 활성
+        class="format-btn"
+    [30] WEBM (video) - ✅ 보임, 활성
+        class="format-btn"
+    [31] FLV (video) - ✅ 보임, 활성
+        class="format-btn"
+    [32] WMV (video) - ✅ 보임, 활성
+        class="format-btn"
+
+  📊 포맷 버튼 통계 (10초):
+    - 이미지: 0개
+    - 비디오: 6개
+    - 오디오: 0개
+    - 문서: 0개
+    - 보이는 버튼: 6개
+    - 숨겨진 버튼: 0개
+
+📸 스크린샷 저장: debug-test_pdf.png
+
+
+============================================================
+📊 최종 결과 요약
+============================================================
+
+✅ 결과 저장: debug-results.json
+
+📋 파일별 포맷 버튼 출현 현황:
+  ✅ sc_04.07.18.09.08.2025.jpg:
+      전체: 6개, 보이는 버튼: 6개
+      이미지: 0개, 비디오: 6개, 오디오: 0개, 문서: 0개
+  ✅ test.png:
+      전체: 6개, 보이는 버튼: 6개
+      이미지: 0개, 비디오: 6개, 오디오: 0개, 문서: 0개
+  ✅ test.gif:
+      전체: 6개, 보이는 버튼: 6개
+      이미지: 0개, 비디오: 6개, 오디오: 0개, 문서: 0개
+  ✅ mobbg.mp4:
+      전체: 6개, 보이는 버튼: 6개
+      이미지: 0개, 비디오: 6개, 오디오: 0개, 문서: 0개
+  ✅ test.mp3:
+      전체: 6개, 보이는 버튼: 6개
+      이미지: 0개, 비디오: 6개, 오디오: 0개, 문서: 0개
+  ✅ test.pdf:
+      전체: 6개, 보이는 버튼: 6개
+      이미지: 0개, 비디오: 6개, 오디오: 0개, 문서: 0개
+
+⏸️  브라우저를 30초간 열어둡니다. 수동으로 확인해보세요...
+📋 Console: [log] %c⏰ 30초 경과 - 첫 번째 광고 로딩 시작 color: #2196F3; font-weight: bold;
+📋 Console: [log] %c[광고 1회] Adsterra Popunder 로딩 중... color: #ff6b00; font-weight: bold;
+📋 Console: [log] %c💡 팁: Popunder 광고는 페이지를 클릭하면 백그라운드 창으로 열립니다 color: #4CAF50;
+📋 Console: [log] %c[광고 1회] ✅ 로드 완료 - 클릭 시 광고 창이 열립니다 color: #4CAF50; font-weight: bold;
+
+✅ 디버깅 완료!

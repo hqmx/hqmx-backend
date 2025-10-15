@@ -15,7 +15,10 @@ const conversionsPath = path.join(__dirname, 'conversions.json');
 const outputPath = path.join(__dirname, '..', 'sitemap.xml');
 
 // 도메인 설정
-const DOMAIN = 'https://converter.hqmx.net';
+const DOMAIN = 'https://hqmx.net';
+
+// 지원 언어
+const LANGUAGES = ['kr', 'en', 'ja', 'zh-CN', 'es', 'fr', 'de'];
 
 // 변환 조합 로드
 const conversions = JSON.parse(fs.readFileSync(conversionsPath, 'utf-8'));
@@ -48,20 +51,25 @@ function generateSitemap() {
 
 `;
 
-  // 개별 변환 페이지 추가
+  // 다국어 변환 페이지 추가
   conversions.forEach(conv => {
-    const url = `${DOMAIN}/${conv.from}-to-${conv.to}.html`;
     const priority = calculatePriority(conv.priority);
 
-    xml += `  <!-- ${conv.from.toUpperCase()} to ${conv.to.toUpperCase()} Converter -->
+    // 각 언어별로 URL 추가
+    LANGUAGES.forEach(lang => {
+      const url = `${DOMAIN}/${lang}/convert/${conv.from}-to-${conv.to}.html`;
+
+      xml += `  <!-- ${conv.from.toUpperCase()} to ${conv.to.toUpperCase()} (${lang}) -->
   <url>
     <loc>${url}</loc>
     <lastmod>${lastmod}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>${priority}</priority>
+    <xhtml:link rel="alternate" hreflang="${lang}" href="${url}" />
   </url>
 
 `;
+    });
   });
 
   xml += `</urlset>`;
@@ -76,8 +84,10 @@ try {
   const sitemap = generateSitemap();
   fs.writeFileSync(outputPath, sitemap, 'utf-8');
 
+  const totalUrls = conversions.length * LANGUAGES.length + 1;
   console.log(`✅ Sitemap 생성 완료: ${outputPath}`);
-  console.log(`📊 총 ${conversions.length + 1}개 URL 등록 (메인 페이지 + ${conversions.length}개 변환 페이지)`);
+  console.log(`📊 총 ${totalUrls}개 URL 등록 (메인 페이지 + ${conversions.length}개 변환 × ${LANGUAGES.length}개 언어)`);
+  console.log(`🌐 지원 언어: ${LANGUAGES.join(', ')}`);
   console.log(`\n🔗 Google Search Console에 제출: ${DOMAIN}/sitemap.xml`);
 
 } catch (err) {

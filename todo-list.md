@@ -1,74 +1,113 @@
-# 파일 변환 웹사이트 구축 TO-DO LIST
+# 파일 변환 웹사이트 TO-DO LIST
 
-## 🎯 프로젝트 목표
-- **도메인**: converter.hqmx.net
-- **타겟**: 100개 이상 파일 형식 변환 지원
-- **전략**: SEO 최적화된 하이브리드 아키텍처
-- **수익 목표**: 3개월 내 월 $3,000-5,000
-
----
-
-## Phase 1: 기초 설정 (1-2주차)
-
-### 1.1 도메인 및 DNS 설정
-- [ ] **Cloudflare DNS 설정**
-  - [ ] A 레코드: converter.hqmx.net → EC2 IP
-  - [ ] A 레코드: api.converter.hqmx.net → EC2 IP (DNS Only)
-  - [ ] CNAME: cdn.converter.hqmx.net → converter.hqmx.net (Proxied)
-  - [ ] SSL 인증서 자동 발급 확인
-
-- [ ] **리다이렉트 규칙 설정**
-  - [ ] /jpg-png → /jpg-to-png (301 리다이렉트)
-  - [ ] /jpeg-to-png → /jpg-to-png
-  - [ ] /jpg2png → /jpg-to-png
-  - [ ] 한글 URL 처리: /jpg-png-변환 → /jpg-to-png
-
-### 1.2 EC2 서버 환경 구성
-- [ ] **기본 패키지 설치**
-  ```bash
-  sudo apt update && sudo apt upgrade -y
-  sudo apt install -y nginx nodejs npm python3-pip ffmpeg imagemagick libreoffice
-  ```
-- [ ] **Node.js 20 LTS 설치**
-  ```bash
-  curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
-  sudo apt-get install -y nodejs
-  ```
-- [ ] **PM2 설치 및 설정**
-  ```bash
-  sudo npm install -g pm2
-  pm2 startup
-  ```
-- [ ] **변환 라이브러리 설치**
-  - [ ] Python: pypdf, python-docx, pillow, moviepy
-  - [ ] Node.js: sharp-cli, svgo, typescript
-  - [ ] 시스템: calibre (전자책 변환)
-
-### 1.3 Next.js 프로젝트 초기화
-- [ ] **프로젝트 생성**
-  ```bash
-  npx create-next-app@latest converter-site --typescript --tailwind --app
-  cd converter-site
-  ```
-- [ ] **필수 패키지 설치**
-  ```bash
-  npm install @ffmpeg/ffmpeg pdf-lib sharp mammoth xlsx archiver multer bull redis @sentry/nextjs
-  ```
-- [ ] **프로젝트 구조 생성**
-  - [ ] `app/[conversion]/page.tsx` (동적 라우팅)
-  - [ ] `components/Converter/UniversalConverter.tsx`
-  - [ ] `lib/converters/` (변환 엔진들)
-  - [ ] `scripts/` (자동화 스크립트)
+## 🎯 프로젝트 현재 상태 (2025-10-14 기준)
+- **도메인**: https://hqmx.net (정상 운영 중)
+- **아키텍처**: 하이브리드 (클라이언트 95% + EC2 서버 5%)
+- **지원 형식**: 300+ 파일 형식
+- **월간 방문자**: ~10,000명 (예상)
+- **수익**: Adsterra 광고 활성화 완료
 
 ---
 
-## Phase 2: 핵심 기능 개발 (3-4주차)
+## ✅ 완료된 작업
 
-### 2.1 상위 20개 변환 페이지 생성
-- [ ] **우선순위 변환 리스트 확정**
+### 인프라 및 서버 설정 ✅
+- [x] **hqmx.net 도메인 설정 완료**
+  - [x] Cloudflare DNS 설정 (CDN + SSL)
+  - [x] EC2 서버 연결 (54.242.63.16)
+  - [x] nginx 설정 및 정적 파일 서빙
+  - [x] SSL/TLS 인증서 (Let's Encrypt)
+
+- [x] **EC2 서버 환경 구성 완료**
+  - [x] nginx, Node.js 20, FFmpeg 설치
+  - [x] PM2 프로세스 관리
+  - [x] 백엔드 API 서버 (대용량 파일용)
+
+### 프론트엔드 개발 ✅
+- [x] **100% 클라이언트 사이드 변환 구현**
+  - [x] FFmpeg.wasm (비디오/오디오)
+  - [x] Canvas API (이미지)
+  - [x] 실시간 진행률 추적
+  - [x] 배치 변환 지원
+
+- [x] **UI/UX 구현**
+  - [x] 드래그&드롭 업로드
+  - [x] 다크/라이트 테마
+  - [x] 반응형 디자인
+  - [x] 파일 관리 시스템
+
+- [x] **다국어 시스템**
+  - [x] 21개 언어 지원 (i18n.js)
+  - [x] nginx URL rewrite (/es/, /ko/)
+  - [x] 동적 번역 로딩
+  - [x] SEO 완벽 지원
+
+### SEO 최적화 ✅
+- [x] **개별 변환 페이지 생성**
+  - [x] generate-pages.js 스크립트
+  - [x] 10개 우선 변환 페이지 생성
+  - [x] Open Graph, Twitter Card 메타 태그
+  - [x] 관련 변환 추천 시스템
+
+- [x] **sitemap.xml 자동 생성**
+  - [x] generate-sitemap.js 스크립트
+  - [x] 우선순위 설정 (검색량 기반)
+  - [x] 다국어 URL 포함
+
+### 수익화 ✅
+- [x] **Adsterra 광고 활성화**
+  - [x] Banner 광고 (728x90) - 파일 업로드 시 표시
+  - [x] Interstitials 광고 - "Start Conversion" 클릭 시
+  - [x] Anti-Adblock Popunder
+  - [x] 광고 표시 조건 최적화
+
+- [x] **Google AdSense 준비**
+  - [x] 계정 ID 추가 (ca-pub-1478922009946363)
+  - [x] 소유권 확인 메타 태그
+
+- [x] **Propeller Ads 소유권 확인**
+  - [x] sw.js 파일 배포 (절대 삭제 금지)
+
+---
+
+## 🔄 진행 중인 작업
+
+### SEO 확장
+- [ ] **개별 변환 페이지 확대**
+  - [ ] 10개 → 100개로 확장
+  - [ ] 검색량 높은 변환 우선 (conversions.json 업데이트)
+  - [ ] 각 페이지 콘텐츠 최적화
+
+### 성능 최적화
+- [ ] **대용량 파일 처리 개선**
+  - [ ] EC2 서버 변환 안정화 (100-2500MB)
+  - [ ] 스트리밍 방식 다운로드
+  - [ ] 임시 파일 자동 정리 (1시간)
+
+- [ ] **클라이언트 변환 비율 향상**
+  - [ ] 현재 85% → 목표 95%
+  - [ ] FFmpeg.wasm 성능 최적화
+  - [ ] 사용자 유도 메시지 개선
+
+### 광고 최적화
+- [ ] **A/B 테스트**
+  - [ ] 광고 배치 최적화
+  - [ ] 표시 조건 테스트
+  - [ ] 수익률 분석
+
+- [ ] **Google AdSense 활성화**
+  - [ ] 승인 대기 중
+  - [ ] 광고 배치 계획
+
+---
+
+## 📋 다음 단계 (우선순위 순)
+
+### 1. SEO 강화 (높은 우선순위)
+- [ ] **상위 20개 변환 페이지 생성**
   1. [ ] jpg-to-pdf (월 500만 검색)
   2. [ ] pdf-to-word (월 800만 검색)
-  3. [ ] youtube-to-mp3 (월 600만 검색)
+  3. [ ] youtube-to-mp3 (월 600만 검색) - 외부 API 필요
   4. [ ] webp-to-png (월 400만 검색)
   5. [ ] excel-to-pdf (월 300만 검색)
   6. [ ] png-to-jpg (월 250만 검색)
@@ -87,299 +126,127 @@
   19. [ ] rtf-to-docx (월 60만 검색)
   20. [ ] bmp-to-jpg (월 55만 검색)
 
-- [ ] **개별 페이지 생성 스크립트**
-  ```javascript
-  // scripts/generate-priority-pages.js
-  - [ ] 각 변환별 고유 콘텐츠 2000+ 단어
-  - [ ] SEO 메타데이터 최적화
-  - [ ] 구조화된 데이터 (Schema.org) 추가
-  ```
-
-### 2.2 유니버설 변환 엔진 개발
-- [ ] **파일 형식 감지 시스템**
-  ```typescript
-  // lib/utils/format-detector.ts
-  - [ ] MIME 타입 검사
-  - [ ] 파일 확장자 검증
-  - [ ] 파일 헤더 분석
-  ```
-
-- [ ] **이미지 변환 엔진**
-  ```typescript
-  // lib/converters/image.ts
-  - [ ] Sharp.js 활용 (JPG, PNG, WEBP, GIF, BMP, TIFF)
-  - [ ] Canvas API 폴백
-  - [ ] 진행률 추적
-  ```
-
-- [ ] **문서 변환 엔진**
-  ```typescript
-  // lib/converters/document.ts
-  - [ ] PDF.js (PDF 처리)
-  - [ ] Mammoth (DOCX 처리)
-  - [ ] XLSX.js (Excel 처리)
-  ```
-
-- [ ] **미디어 변환 엔진**
-  ```typescript
-  // lib/converters/media.ts
-  - [ ] FFmpeg.wasm (비디오/오디오)
-  - [ ] WebAssembly 로딩
-  - [ ] 진행률 콜백
-  ```
-
-### 2.3 동적 라우팅 시스템
-- [ ] **미들웨어 설정**
-  ```typescript
-  // middleware.ts
-  - [ ] 상위 20개 → 개별 페이지 라우팅
-  - [ ] 나머지 → 동적 처리
-  - [ ] URL 정규화
-  ```
-
-- [ ] **동적 페이지 컴포넌트**
-  ```typescript
-  // app/[conversion]/page.tsx
-  - [ ] 메타데이터 동적 생성
-  - [ ] from/to 파라미터 파싱
-  - [ ] 유니버설 변환기 렌더링
-  ```
-
----
-
-## Phase 3: SEO 최적화 (5주차)
-
-### 3.1 사이트맵 자동 생성
-- [ ] **사이트맵 생성 스크립트**
-  ```javascript
-  // scripts/generate-sitemap.js
-  - [ ] 100개 변환 URL 포함
-  - [ ] 우선순위 설정 (검색량 기반)
-  - [ ] lastmod 자동 업데이트
-  ```
-
-- [ ] **robots.txt 설정**
-  ```
-  User-agent: *
-  Allow: /
-  Sitemap: https://converter.hqmx.net/sitemap.xml
-  ```
-
-### 3.2 구조화된 데이터
-- [ ] **Schema.org 마크업**
-  ```json
-  {
-    "@type": "WebApplication",
-    "name": "{변환} 변환기",
-    "applicationCategory": "UtilityApplication",
-    "offers": {"price": "0"}
-  }
-  ```
-
-### 3.3 성능 최적화
-- [ ] **Core Web Vitals 최적화**
-  - [ ] LCP < 2.5초
-  - [ ] FID < 100ms
-  - [ ] CLS < 0.1
-
-- [ ] **이미지 최적화**
-  - [ ] Next.js Image 컴포넌트 활용
-  - [ ] WebP 자동 변환
-  - [ ] 지연 로딩
-
-- [ ] **코드 분할**
-  - [ ] 변환 엔진 동적 임포트
-  - [ ] 컴포넌트 레벨 분할
-
----
-
-## Phase 4: 배포 및 CI/CD (6주차)
-
-### 4.1 Cloudflare Pages 설정
-- [ ] **프론트엔드 배포**
-  ```bash
-  npm run build
-  npx wrangler pages deploy .next/dist --project-name=converter-hqmx
-  ```
-
-- [ ] **커스텀 도메인 연결**
-  - [ ] Cloudflare Dashboard에서 도메인 연결
-  - [ ] SSL 인증서 확인
-  - [ ] CDN 설정 최적화
-
-### 4.2 GitHub Actions 설정
-- [ ] **자동 배포 파이프라인**
-  ```yaml
-  # .github/workflows/deploy.yml
-  - [ ] 코드 품질 검사
-  - [ ] 빌드 테스트
-  - [ ] EC2 배포 (API)
-  - [ ] Cloudflare 배포 (프론트엔드)
-  ```
-
-### 4.3 PM2 프로세스 관리
-- [ ] **프로덕션 설정**
-  ```javascript
-  // ecosystem.config.js
-  - [ ] 클러스터 모드 (2개 인스턴스)
-  - [ ] 자동 재시작
-  - [ ] 로그 관리
-  ```
-
----
-
-## Phase 5: 모니터링 및 분석 (7주차)
-
-### 5.1 분석 도구 설정
-- [ ] **Google Analytics 4**
-  - [ ] 변환별 이벤트 추적
-  - [ ] 파일 크기별 분석
-  - [ ] 사용자 플로우 분석
-
 - [ ] **Google Search Console**
   - [ ] 사이트맵 제출
   - [ ] 크롤링 오류 모니터링
   - [ ] 검색 순위 추적
 
-- [ ] **Hotjar/클라리티**
-  - [ ] 사용자 행동 분석
-  - [ ] 히트맵 설정
-  - [ ] 세션 리플레이
+### 2. 백엔드 강화 (중간 우선순위)
+- [ ] **문서 변환 엔진 구현**
+  - [ ] PDF ↔ Word (pdf-lib + mammoth)
+  - [ ] PDF ↔ Excel (xlsx.js)
+  - [ ] 외부 API 연동 (CloudConvert)
 
-### 5.2 에러 모니터링
-- [ ] **Sentry 설정**
-  - [ ] JavaScript 에러 추적
-  - [ ] 서버 에러 모니터링
+- [ ] **이미지 변환 엔진 확장**
+  - [ ] HEIC, AVIF 지원 (@squoosh/lib)
+  - [ ] PSD, AI, EPS 지원 (외부 API)
+
+### 3. 분석 및 모니터링 (중간 우선순위)
+- [ ] **Google Analytics 4**
+  - [ ] 변환별 이벤트 추적
+  - [ ] 사용자 플로우 분석
+  - [ ] 수익 전환 추적
+
+- [ ] **에러 모니터링**
+  - [ ] Sentry 설정
+  - [ ] 변환 실패율 추적
   - [ ] 알림 설정
 
-- [ ] **로그 시스템**
-  ```typescript
-  // lib/logger.ts
-  - [ ] Winston 로거
-  - [ ] 일별 로그 로테이션
-  - [ ] 에러 레벨별 분류
-  ```
-
-### 5.3 성능 모니터링
-- [ ] **New Relic/DataDog**
-  - [ ] 서버 리소스 모니터링
-  - [ ] API 응답 시간 추적
-  - [ ] 변환 성공률 측정
-
----
-
-## Phase 6: 광고 수익화 (8-9주차)
-
-### 6.1 Google AdSense 설정
-- [ ] **AdSense 계정 생성 및 승인**
-- [ ] **광고 배치 최적화**
-  - [ ] 헤더 배너 (728x90)
-  - [ ] 사이드바 (300x600)
-  - [ ] 콘텐츠 내 (336x280)
-  - [ ] 모바일 앵커 광고
-
-### 6.2 프리미엄 광고 네트워크
-- [ ] **Media.net 계정 설정**
-- [ ] **Ezoic 통합** (AI 기반 광고 최적화)
-- [ ] **헤더 비딩 구현** (20-40% 수익 증대)
-
-### 6.3 A/B 테스트
-- [ ] **광고 배치 테스트**
-  - [ ] 버전 A: 기본 배치
-  - [ ] 버전 B: 변환 버튼 근처
-  - [ ] 버전 C: 다운로드 페이지
-
----
-
-## Phase 7: 확장 및 최적화 (10-12주차)
-
-### 7.1 고급 기능 개발
-- [ ] **배치 변환 기능**
-  - [ ] 여러 파일 동시 처리
+### 4. 고급 기능 (낮은 우선순위)
+- [ ] **배치 변환 개선**
   - [ ] ZIP 파일 일괄 다운로드
-  - [ ] 진행률 표시
+  - [ ] 진행률 표시 개선
+  - [ ] 에러 핸들링
 
 - [ ] **API 서비스**
   - [ ] RESTful API 설계
   - [ ] API 키 시스템
   - [ ] 사용량 제한 (Rate Limiting)
 
-### 7.2 다국어 지원
-- [ ] **i18n 설정**
-  - [ ] 한국어, 영어 기본 지원
-  - [ ] URL 다국어화 (/ko/, /en/)
-  - [ ] 브라우저 언어 자동 감지
-
-### 7.3 모바일 앱 개발 (선택사항)
-- [ ] **React Native 앱**
-  - [ ] 웹뷰 기반 하이브리드
-  - [ ] 푸시 알림
-  - [ ] 앱스토어 배포
-
 ---
 
-## 지속적 유지보수
+## 🚨 주의사항 및 제약조건
 
-### 보안 관리
-- [ ] **정기 보안 업데이트**
-  - [ ] 의존성 패키지 업데이트
-  - [ ] 보안 패치 적용
-  - [ ] 취약점 스캔
+### 절대 변경 금지 사항
+1. **클라이언트 사이드 우선** - 서버 비용 최소화 구조
+2. **프론트엔드 디자인** - 백엔드만 수정 가능
+3. **WASM 기반 변환 엔진** - FFmpeg.wasm 유지
+4. **다운로드 비용 구조** - 서버비용 발생하지 않는 구조
+5. **Propeller Ads sw.js** - 소유권 확인 파일 삭제 금지
 
-### 백업 시스템
-- [ ] **자동 백업 설정**
-  ```bash
-  # crontab 설정
-  0 3 * * * /home/ubuntu/scripts/backup.sh  # 매일 새벽 3시
-  ```
+### 파일 크기 제한
+- **클라이언트**: 0-100MB (95% 트래픽)
+- **서버**: 100-2500MB (5% 트래픽)
+- **제한**: 2.5GB 하드 제한 (nginx)
 
-### 성능 최적화
-- [ ] **월별 성능 리뷰**
-  - [ ] 로딩 속도 측정
-  - [ ] 변환 성공률 분석
-  - [ ] 사용자 피드백 수집
+### 월간 운영 비용 (10,000회 변환 기준)
+- **EC2 Spot**: $4.55/월
+- **EBS 스토리지**: $1.60/월
+- **데이터 전송**: $6.75/월
+- **총 비용**: $12.90/월
+
+### 예상 광고 수익 (10,000명 방문 기준)
+- **Banner**: $16/월
+- **Interstitials**: $15/월
+- **Popunder**: $15/월
+- **총 수익**: $46/월
 
 ---
 
 ## 📊 성공 지표 (KPI)
 
-### 트래픽 목표
-- **1개월**: 일일 1,000명
-- **3개월**: 일일 5,000명
-- **6개월**: 일일 10,000명
-- **1년**: 일일 30,000명
+### 현재 상태
+- **일일 방문자**: ~300-500명 (예상)
+- **월간 변환**: ~10,000회
+- **수익**: $46/월 (광고 기준)
+- **비용**: $12.90/월
+- **순이익**: $33.10/월
 
-### 수익 목표
-- **1개월**: $500-800/월
-- **3개월**: $3,000-5,000/월
-- **6개월**: $8,000-12,000/월
-- **1년**: $25,000-40,000/월
+### 목표 (3개월 후)
+- **일일 방문자**: 5,000명
+- **월간 변환**: 150,000회
+- **수익**: $690/월 (15배 증가)
+- **비용**: $50/월 (EC2 확장)
+- **순이익**: $640/월
 
-### SEO 목표
-- **키워드 순위**: 상위 20개 변환에서 1-3위
-- **자연 트래픽**: 전체 트래픽의 80% 이상
-- **페이지 속도**: Core Web Vitals 90점 이상
+### 목표 (6개월 후)
+- **일일 방문자**: 10,000명
+- **월간 변환**: 300,000회
+- **수익**: $1,380/월 (30배 증가)
+- **비용**: $100/월 (Auto Scaling)
+- **순이익**: $1,280/월
 
 ---
 
-## 🚨 중요 마일스톤 체크포인트
+## 🔗 관련 문서
 
-### Week 2 체크포인트
-- [ ] 기본 인프라 설정 완료
-- [ ] 상위 5개 변환 페이지 작동
-- [ ] 유니버설 변환 엔진 프로토타입
+- **CLAUDE.md**: 프로젝트 가이드 및 아키텍처
+- **DEPLOYMENT.md**: 배포 절차 (backend/)
+- **BACKEND-STATUS.md**: 백엔드 변환 엔진 구현 상태
+- **deploy-to-ec2.sh**: EC2 배포 스크립트
 
-### Week 6 체크포인트
-- [ ] 상위 20개 페이지 모두 배포
-- [ ] SEO 최적화 완료
-- [ ] Google Search Console 인덱싱 확인
+---
 
-### Week 9 체크포인트
-- [ ] 광고 수익 첫 $100 달성
-- [ ] 일일 5,000명 트래픽 달성
-- [ ] 전환율 최적화 완료
+## 📝 작업 로그
 
-### Week 12 체크포인트
-- [ ] 월 $3,000 수익 달성
-- [ ] 100개 변환 지원 완료
-- [ ] 스케일링 계획 수립
+### 2025-10-14
+- [x] Adsterra 광고 활성화 완료
+- [x] Banner, Interstitials, Popunder 구현
+- [x] 광고 표시 조건 최적화
+- [x] todo-list.md 현재 상태 반영
+
+### 2025-10-13
+- [x] Trust Proxy 설정 완료 (Cloudflare + nginx)
+- [x] hqmx.net 서버 정상 작동 확인
+- [x] 백엔드 API 상태 체크
+
+### 2025-10-09
+- [x] DocumentConverter 구현 (이미지 ↔ PDF)
+- [x] pdf-lib, pdfjs-dist 의존성 추가
+- [x] ConverterFactory 크로스 카테고리 변환 통합
+
+### 초기 개발 (2024-12-2025-01)
+- [x] 프론트엔드 100% 클라이언트 사이드 변환 구현
+- [x] 다국어 시스템 (21개 언어)
+- [x] SEO 페이지 생성 시스템
+- [x] EC2 서버 설정

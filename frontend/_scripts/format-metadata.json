@@ -23,6 +23,46 @@
     "mimeType": "image/webp",
     "description": "Modern image format with superior compression"
   },
+  "gif": {
+    "name": "GIF",
+    "fullName": "Graphics Interchange Format",
+    "category": "image",
+    "extensions": [".gif"],
+    "mimeType": "image/gif",
+    "description": "Animated image format with transparency support"
+  },
+  "svg": {
+    "name": "SVG",
+    "fullName": "Scalable Vector Graphics",
+    "category": "image",
+    "extensions": [".svg"],
+    "mimeType": "image/svg+xml",
+    "description": "Vector graphics format that scales without quality loss"
+  },
+  "bmp": {
+    "name": "BMP",
+    "fullName": "Bitmap Image",
+    "category": "image",
+    "extensions": [".bmp"],
+    "mimeType": "image/bmp",
+    "description": "Uncompressed bitmap image format"
+  },
+  "tiff": {
+    "name": "TIFF",
+    "fullName": "Tagged Image File Format",
+    "category": "image",
+    "extensions": [".tiff", ".tif"],
+    "mimeType": "image/tiff",
+    "description": "High-quality image format used in professional photography"
+  },
+  "ico": {
+    "name": "ICO",
+    "fullName": "Icon File",
+    "category": "image",
+    "extensions": [".ico"],
+    "mimeType": "image/x-icon",
+    "description": "Windows icon format for favicons and desktop icons"
+  },
   "heic": {
     "name": "HEIC",
     "fullName": "High Efficiency Image Container",
@@ -31,6 +71,14 @@
     "mimeType": "image/heic",
     "description": "Apple's high-efficiency image format"
   },
+  "avif": {
+    "name": "AVIF",
+    "fullName": "AV1 Image File Format",
+    "category": "image",
+    "extensions": [".avif"],
+    "mimeType": "image/avif",
+    "description": "Next-generation image format with excellent compression"
+  },
   "pdf": {
     "name": "PDF",
     "fullName": "Portable Document Format",
@@ -38,6 +86,62 @@
     "extensions": [".pdf"],
     "mimeType": "application/pdf",
     "description": "Universal document format for sharing and printing"
+  },
+  "docx": {
+    "name": "DOCX",
+    "fullName": "Microsoft Word Document",
+    "category": "document",
+    "extensions": [".docx"],
+    "mimeType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    "description": "Microsoft Word document format"
+  },
+  "doc": {
+    "name": "DOC",
+    "fullName": "Microsoft Word Document (Legacy)",
+    "category": "document",
+    "extensions": [".doc"],
+    "mimeType": "application/msword",
+    "description": "Legacy Microsoft Word document format"
+  },
+  "xlsx": {
+    "name": "XLSX",
+    "fullName": "Microsoft Excel Spreadsheet",
+    "category": "document",
+    "extensions": [".xlsx"],
+    "mimeType": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    "description": "Microsoft Excel spreadsheet format"
+  },
+  "xls": {
+    "name": "XLS",
+    "fullName": "Microsoft Excel Spreadsheet (Legacy)",
+    "category": "document",
+    "extensions": [".xls"],
+    "mimeType": "application/vnd.ms-excel",
+    "description": "Legacy Microsoft Excel spreadsheet format"
+  },
+  "pptx": {
+    "name": "PPTX",
+    "fullName": "Microsoft PowerPoint Presentation",
+    "category": "document",
+    "extensions": [".pptx"],
+    "mimeType": "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+    "description": "Microsoft PowerPoint presentation format"
+  },
+  "ppt": {
+    "name": "PPT",
+    "fullName": "Microsoft PowerPoint Presentation (Legacy)",
+    "category": "document",
+    "extensions": [".ppt"],
+    "mimeType": "application/vnd.ms-powerpoint",
+    "description": "Legacy Microsoft PowerPoint presentation format"
+  },
+  "txt": {
+    "name": "TXT",
+    "fullName": "Plain Text File",
+    "category": "document",
+    "extensions": [".txt"],
+    "mimeType": "text/plain",
+    "description": "Simple plain text format"
   },
   "mp4": {
     "name": "MP4",
@@ -55,6 +159,54 @@
     "mimeType": "video/x-msvideo",
     "description": "Classic video format developed by Microsoft"
   },
+  "mov": {
+    "name": "MOV",
+    "fullName": "QuickTime Movie",
+    "category": "video",
+    "extensions": [".mov"],
+    "mimeType": "video/quicktime",
+    "description": "Apple QuickTime video format commonly used on iPhone"
+  },
+  "mkv": {
+    "name": "MKV",
+    "fullName": "Matroska Video",
+    "category": "video",
+    "extensions": [".mkv"],
+    "mimeType": "video/x-matroska",
+    "description": "Open-source container format supporting multiple audio and subtitle tracks"
+  },
+  "webm": {
+    "name": "WebM",
+    "fullName": "Web Media File",
+    "category": "video",
+    "extensions": [".webm"],
+    "mimeType": "video/webm",
+    "description": "Open video format designed for the web"
+  },
+  "flv": {
+    "name": "FLV",
+    "fullName": "Flash Video",
+    "category": "video",
+    "extensions": [".flv"],
+    "mimeType": "video/x-flv",
+    "description": "Flash video format formerly used for web streaming"
+  },
+  "wmv": {
+    "name": "WMV",
+    "fullName": "Windows Media Video",
+    "category": "video",
+    "extensions": [".wmv"],
+    "mimeType": "video/x-ms-wmv",
+    "description": "Microsoft Windows Media video format"
+  },
+  "m4v": {
+    "name": "M4V",
+    "fullName": "iTunes Video",
+    "category": "video",
+    "extensions": [".m4v"],
+    "mimeType": "video/x-m4v",
+    "description": "Apple iTunes video format similar to MP4"
+  },
   "mp3": {
     "name": "MP3",
     "fullName": "MPEG Audio Layer 3",
@@ -70,5 +222,53 @@
     "extensions": [".wav"],
     "mimeType": "audio/wav",
     "description": "Uncompressed audio format with high quality"
+  },
+  "m4a": {
+    "name": "M4A",
+    "fullName": "MPEG-4 Audio",
+    "category": "audio",
+    "extensions": [".m4a"],
+    "mimeType": "audio/mp4",
+    "description": "Apple's AAC audio format used in iTunes"
+  },
+  "flac": {
+    "name": "FLAC",
+    "fullName": "Free Lossless Audio Codec",
+    "category": "audio",
+    "extensions": [".flac"],
+    "mimeType": "audio/flac",
+    "description": "Lossless audio compression maintaining original quality"
+  },
+  "ogg": {
+    "name": "OGG",
+    "fullName": "Ogg Vorbis Audio",
+    "category": "audio",
+    "extensions": [".ogg"],
+    "mimeType": "audio/ogg",
+    "description": "Open-source compressed audio format"
+  },
+  "aac": {
+    "name": "AAC",
+    "fullName": "Advanced Audio Coding",
+    "category": "audio",
+    "extensions": [".aac"],
+    "mimeType": "audio/aac",
+    "description": "High-quality audio codec with better compression than MP3"
+  },
+  "wma": {
+    "name": "WMA",
+    "fullName": "Windows Media Audio",
+    "category": "audio",
+    "extensions": [".wma"],
+    "mimeType": "audio/x-ms-wma",
+    "description": "Microsoft Windows Media audio format"
+  },
+  "opus": {
+    "name": "OPUS",
+    "fullName": "Opus Audio",
+    "category": "audio",
+    "extensions": [".opus"],
+    "mimeType": "audio/opus",
+    "description": "Modern low-latency audio codec for internet streaming"
   }
 }

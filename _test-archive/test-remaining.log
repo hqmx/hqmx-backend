@@ -1,0 +1,261 @@
+🚀 HQMX Converter - 남은 변환 테스트 시작
+📦 총 45개 변환 테스트 (이미 완료: 12개)
+
+🌐 https://hqmx.net 접속 중...
+✅ 사이트 로드 완료
+
+[13/57] 테스트: gif → mp4
+  📤 파일 업로드: test.gif
+  📁 카테고리 전환: 동영상
+  🔧 출력 형식 선택: MP4
+  ❌ 실패: locator.click: Target page, context or browser has been closed
+Call log:
+[2m  - waiting for locator('.format-badge[data-format="mp4"]').first()[22m
+[2m    - locator resolved to <div data-format="mp4" class="format-badge video disabled" title="This conversion is not supported">MP4</div>[22m
+[2m  - attempting click action[22m
+[2m    2 × waiting for element to be visible, enabled and stable[22m
+[2m      - element is visible, enabled and stable[22m
+[2m      - scrolling into view if needed[22m
+[2m      - done scrolling[22m
+[2m      - <div class="format-grid">…</div> intercepts pointer events[22m
+[2m    - retrying click action[22m
+[2m    - waiting 20ms[22m
+[2m    2 × waiting for element to be visible, enabled and stable[22m
+[2m      - element is visible, enabled and stable[22m
+[2m      - scrolling into view if needed[22m
+[2m      - done scrolling[22m
+[2m      - <div class="format-grid">…</div> intercepts pointer events[22m
+[2m    - retrying click action[22m
+[2m      - waiting 100ms[22m
+[2m    277 × waiting for element to be visible, enabled and stable[22m
+[2m        - element is visible, enabled and stable[22m
+[2m        - scrolling into view if needed[22m
+[2m        - done scrolling[22m
+[2m        - <div class="format-grid">…</div> intercepts pointer events[22m
+[2m      - retrying click action[22m
+[2m        - waiting 500ms[22m
+[2m    - waiting for element to be visible, enabled and stable[22m
+
+
+  ⚠️  페이지 새로고침 실패, 계속 진행...
+[14/57] 테스트: gif → png
+  📤 파일 업로드: test.gif
+  ❌ 실패: page.setInputFiles: Target page, context or browser has been closed
+
+  ⚠️  페이지 새로고침 실패, 계속 진행...
+[15/57] 테스트: gif → jpg
+  📤 파일 업로드: test.gif
+  ❌ 실패: page.setInputFiles: Target page, context or browser has been closed
+
+  ⚠️  페이지 새로고침 실패, 계속 진행...
+[16/57] 테스트: svg → png
+  📤 파일 업로드: test.svg
+  ❌ 실패: page.setInputFiles: Target page, context or browser has been closed
+
+  ⚠️  페이지 새로고침 실패, 계속 진행...
+[17/57] 테스트: svg → jpg
+  📤 파일 업로드: test.svg
+  ❌ 실패: page.setInputFiles: Target page, context or browser has been closed
+
+  ⚠️  페이지 새로고침 실패, 계속 진행...
+[18/57] 테스트: bmp → jpg
+  📤 파일 업로드: test.bmp
+  ❌ 실패: page.setInputFiles: Target page, context or browser has been closed
+
+  ⚠️  페이지 새로고침 실패, 계속 진행...
+[19/57] 테스트: bmp → png
+  📤 파일 업로드: test.bmp
+  ❌ 실패: page.setInputFiles: Target page, context or browser has been closed
+
+  ⚠️  페이지 새로고침 실패, 계속 진행...
+[20/57] 테스트: ico → png
+  📤 파일 업로드: test.ico
+  ❌ 실패: page.setInputFiles: Target page, context or browser has been closed
+
+  ⚠️  페이지 새로고침 실패, 계속 진행...
+[21/57] 테스트: png → ico
+  📤 파일 업로드: test.png
+  ❌ 실패: page.setInputFiles: Target page, context or browser has been closed
+
+  ⚠️  페이지 새로고침 실패, 계속 진행...
+[22/57] 테스트: avif → jpg
+  ⏭️  스킵: avif 소스 파일 없음
+
+[23/57] 테스트: avif → png
+  ⏭️  스킵: avif 소스 파일 없음
+
+[24/57] 테스트: jpg → avif
+  📤 파일 업로드: sc_04.07.18.09.08.2025.jpg
+  ❌ 실패: page.setInputFiles: Target page, context or browser has been closed
+
+  ⚠️  페이지 새로고침 실패, 계속 진행...
+[25/57] 테스트: png → avif
+  📤 파일 업로드: test.png
+  ❌ 실패: page.setInputFiles: Target page, context or browser has been closed
+
+  ⚠️  페이지 새로고침 실패, 계속 진행...
+[26/57] 테스트: docx → pdf
+  ⏭️  스킵: docx 소스 파일 없음
+
+[27/57] 테스트: doc → pdf
+  ⏭️  스킵: doc 소스 파일 없음
+
+[28/57] 테스트: xls → pdf
+  ⏭️  스킵: xls 소스 파일 없음
+
+[29/57] 테스트: pptx → pdf
+  ⏭️  스킵: pptx 소스 파일 없음
+
+[30/57] 테스트: ppt → pdf
+  ⏭️  스킵: ppt 소스 파일 없음
+
+[31/57] 테스트: txt → pdf
+  📤 파일 업로드: altube_email_guide.txt
+  ❌ 실패: page.setInputFiles: Target page, context or browser has been closed
+
+  ⚠️  페이지 새로고침 실패, 계속 진행...
+[32/57] 테스트: mov → mp4
+  📤 파일 업로드: test.mov
+  ❌ 실패: page.setInputFiles: Target page, context or browser has been closed
+
+  ⚠️  페이지 새로고침 실패, 계속 진행...
+[33/57] 테스트: mkv → mp4
+  📤 파일 업로드: test.mkv
+  ❌ 실패: page.setInputFiles: Target page, context or browser has been closed
+
+  ⚠️  페이지 새로고침 실패, 계속 진행...
+[34/57] 테스트: flv → mp4
+  📤 파일 업로드: test.flv
+  ❌ 실패: page.setInputFiles: Target page, context or browser has been closed
+
+  ⚠️  페이지 새로고침 실패, 계속 진행...
+[35/57] 테스트: wmv → mp4
+  📤 파일 업로드: test.wmv
+  ❌ 실패: page.setInputFiles: Target page, context or browser has been closed
+
+  ⚠️  페이지 새로고침 실패, 계속 진행...
+[36/57] 테스트: webm → mp4
+  📤 파일 업로드: heromob.webm
+  ❌ 실패: page.setInputFiles: Target page, context or browser has been closed
+
+  ⚠️  페이지 새로고침 실패, 계속 진행...
+[37/57] 테스트: mp4 → webm
+  📤 파일 업로드: mobbg.mp4
+  ❌ 실패: page.setInputFiles: Target page, context or browser has been closed
+
+  ⚠️  페이지 새로고침 실패, 계속 진행...
+[38/57] 테스트: mp4 → gif
+  📤 파일 업로드: mobbg.mp4
+  ❌ 실패: page.setInputFiles: Target page, context or browser has been closed
+
+  ⚠️  페이지 새로고침 실패, 계속 진행...
+[39/57] 테스트: mp4 → mov
+  📤 파일 업로드: mobbg.mp4
+  ❌ 실패: page.setInputFiles: Target page, context or browser has been closed
+
+  ⚠️  페이지 새로고침 실패, 계속 진행...
+[40/57] 테스트: mp4 → avi
+  📤 파일 업로드: mobbg.mp4
+  ❌ 실패: page.setInputFiles: Target page, context or browser has been closed
+
+  ⚠️  페이지 새로고침 실패, 계속 진행...
+[41/57] 테스트: avi → mp4
+  📤 파일 업로드: test.avi
+  ❌ 실패: page.setInputFiles: Target page, context or browser has been closed
+
+  ⚠️  페이지 새로고침 실패, 계속 진행...
+[42/57] 테스트: mp4 → mkv
+  📤 파일 업로드: mobbg.mp4
+  ❌ 실패: page.setInputFiles: Target page, context or browser has been closed
+
+  ⚠️  페이지 새로고침 실패, 계속 진행...
+[43/57] 테스트: m4v → mp4
+  📤 파일 업로드: test.m4v
+  ❌ 실패: page.setInputFiles: Target page, context or browser has been closed
+
+  ⚠️  페이지 새로고침 실패, 계속 진행...
+[44/57] 테스트: mp4 → m4v
+  📤 파일 업로드: mobbg.mp4
+  ❌ 실패: page.setInputFiles: Target page, context or browser has been closed
+
+  ⚠️  페이지 새로고침 실패, 계속 진행...
+[45/57] 테스트: m4a → mp3
+  📤 파일 업로드: test.m4a
+  ❌ 실패: page.setInputFiles: Target page, context or browser has been closed
+
+  ⚠️  페이지 새로고침 실패, 계속 진행...
+[46/57] 테스트: flac → mp3
+  📤 파일 업로드: test.flac
+  ❌ 실패: page.setInputFiles: Target page, context or browser has been closed
+
+  ⚠️  페이지 새로고침 실패, 계속 진행...
+[47/57] 테스트: ogg → mp3
+  📤 파일 업로드: test.ogg
+  ❌ 실패: page.setInputFiles: Target page, context or browser has been closed
+
+  ⚠️  페이지 새로고침 실패, 계속 진행...
+[48/57] 테스트: aac → mp3
+  📤 파일 업로드: test.aac
+  ❌ 실패: page.setInputFiles: Target page, context or browser has been closed
+
+  ⚠️  페이지 새로고침 실패, 계속 진행...
+[49/57] 테스트: wma → mp3
+  📤 파일 업로드: test.wma
+  ❌ 실패: page.setInputFiles: Target page, context or browser has been closed
+
+  ⚠️  페이지 새로고침 실패, 계속 진행...
+[50/57] 테스트: wav → mp3
+  📤 파일 업로드: test.wav
+  ❌ 실패: page.setInputFiles: Target page, context or browser has been closed
+
+  ⚠️  페이지 새로고침 실패, 계속 진행...
+[51/57] 테스트: mp3 → wav
+  📤 파일 업로드: test.mp3
+  ❌ 실패: page.setInputFiles: Target page, context or browser has been closed
+
+  ⚠️  페이지 새로고침 실패, 계속 진행...
+[52/57] 테스트: mp3 → m4a
+  📤 파일 업로드: test.mp3
+  ❌ 실패: page.setInputFiles: Target page, context or browser has been closed
+
+  ⚠️  페이지 새로고침 실패, 계속 진행...
+[53/57] 테스트: mp3 → flac
+  📤 파일 업로드: test.mp3
+  ❌ 실패: page.setInputFiles: Target page, context or browser has been closed
+
+  ⚠️  페이지 새로고침 실패, 계속 진행...
+[54/57] 테스트: mp3 → ogg
+  📤 파일 업로드: test.mp3
+  ❌ 실패: page.setInputFiles: Target page, context or browser has been closed
+
+  ⚠️  페이지 새로고침 실패, 계속 진행...
+[55/57] 테스트: mp3 → aac
+  📤 파일 업로드: test.mp3
+  ❌ 실패: page.setInputFiles: Target page, context or browser has been closed
+
+  ⚠️  페이지 새로고침 실패, 계속 진행...
+[56/57] 테스트: opus → mp3
+  📤 파일 업로드: test.opus
+  ❌ 실패: page.setInputFiles: Target page, context or browser has been closed
+
+  ⚠️  페이지 새로고침 실패, 계속 진행...
+[57/57] 테스트: mp3 → opus
+  📤 파일 업로드: test.mp3
+  ❌ 실패: page.setInputFiles: Target page, context or browser has been closed
+
+  ⚠️  페이지 새로고침 실패, 계속 진행...
+
+============================================================
+📊 남은 테스트 결과 요약
+============================================================
+총 테스트:   45개
+✅ 성공:     0개
+❌ 실패:     38개
+⏭️  스킵:     7개
+성공률:      0.0%
+============================================================
+
+📄 상세 결과: test-remaining-results.json
+📄 리포트: test-remaining-report.md
+📂 다운로드: ./test-downloads/
+

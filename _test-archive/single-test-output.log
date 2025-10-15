@@ -1,0 +1,35 @@
+🌐 https://hqmx.net 접속 중...
+✅ 사이트 로드 완료
+
+📤 JPG 파일 업로드 중...
+✅ 파일 업로드 완료: 1개 파일
+
+🔘 Convert 버튼 클릭 중...
+✅ 모달 열림: true
+
+🔧 PNG 형식 선택 중...
+  - PNG 뱃지 찾음: 1개
+✅ PNG 형식 선택 완료
+
+⚙️  변환 시작 버튼 찾는 중...
+  - #startConversionBtn: 1개
+  - button:has-text("Start Conversion"): 0개
+  - button:has-text("변환 시작"): 1개
+  - .modal-footer button.primary: 0개
+  - .modal button.primary: 0개
+🚀 변환 시작 버튼 클릭...
+
+⏳ 변환 완료 대기 중 (최대 60초)...
+✅ 변환 완료!
+
+⬇️  다운로드 시작...
+✅ 다운로드 완료: ./test-downloads/sc_04.07.18.09.08.2025.png
+
+🎉 테스트 성공!
+   - 파일 업로드: ✅
+   - 모달 열기: ✅
+   - 형식 선택: ✅
+   - 변환 실행: ✅
+   - 다운로드: ✅
+
+⏸️  5초 후 브라우저 종료...

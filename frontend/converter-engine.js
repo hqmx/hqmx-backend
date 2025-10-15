@@ -970,27 +970,47 @@ class ConverterEngine {
      */
     async convertDocument(file, outputFormat, options = {}, onProgress) {
         const inputExt = this.getFileExtension(file.name);
-        
+
         // PDF → 이미지 변환
         if (inputExt === 'pdf' && this.getFileType(outputFormat) === 'image') {
             return await this.pdfToImage(file, outputFormat, options, onProgress);
         }
-        
+
         // 이미지 → PDF 변환
         if (this.getFileType(inputExt) === 'image' && outputFormat === 'pdf') {
             return await this.imageToPdf(file, options, onProgress);
         }
-        
+
+        // DOCX → PDF 변환
+        if (inputExt === 'docx' && outputFormat === 'pdf') {
+            return await this.docxToPdf(file, options, onProgress);
+        }
+
+        // DOC → PDF 변환 (구 형식, 제한적 지원)
+        if (inputExt === 'doc' && outputFormat === 'pdf') {
+            return await this.docToPdf(file, options, onProgress);
+        }
+
+        // XLSX/XLS → PDF 변환
+        if ((inputExt === 'xlsx' || inputExt === 'xls') && outputFormat === 'pdf') {
+            return await this.excelToPdf(file, options, onProgress);
+        }
+
+        // PPTX/PPT → PDF 변환
+        if ((inputExt === 'pptx' || inputExt === 'ppt') && outputFormat === 'pdf') {
+            return await this.powerPointToPdf(file, options, onProgress);
+        }
+
         // 텍스트 → PDF 변환
         if ((inputExt === 'txt' || inputExt === 'rtf') && outputFormat === 'pdf') {
             return await this.textToPdf(file, options, onProgress);
         }
-        
+
         // PDF → 텍스트 변환
         if (inputExt === 'pdf' && outputFormat === 'txt') {
             return await this.pdfToText(file, onProgress);
         }
-        
+
         // 기본 텍스트 변환
         if (outputFormat === 'txt') {
             onProgress?.(50, '텍스트 추출 중...');
@@ -999,7 +1019,7 @@ class ConverterEngine {
             onProgress?.(100, '변환 완료!');
             return blob;
         }
-        
+
         throw new Error(`지원하지 않는 문서 변환입니다: ${inputExt} → ${outputFormat}`);
     }
 
@@ -1352,7 +1372,7 @@ class ConverterEngine {
      */
     async loadJsPdf() {
         if (window.jspdf) return;
-        
+
         return new Promise((resolve, reject) => {
             const script = document.createElement('script');
             script.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
@@ -1366,6 +1386,273 @@ class ConverterEngine {
             script.onerror = reject;
             document.head.appendChild(script);
         });
+    }
+
+    /**
+     * Mammoth.js 라이브러리 로드 (DOCX 처리용)
+     */
+    async loadMammoth() {
+        if (window.mammoth) return;
+
+        return new Promise((resolve, reject) => {
+            const script = document.createElement('script');
+            script.src = 'https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js';
+            script.onload = () => {
+                if (window.mammoth) {
+                    resolve();
+                } else {
+                    reject(new Error('Mammoth.js 로드 실패'));
+                }
+            };
+            script.onerror = reject;
+            document.head.appendChild(script);
+        });
+    }
+
+    /**
+     * SheetJS 라이브러리 로드 (엑셀 처리용)
+     */
+    async loadSheetJS() {
+        if (window.XLSX) return;
+
+        return new Promise((resolve, reject) => {
+            const script = document.createElement('script');
+            script.src = 'https://cdn.sheetjs.com/xlsx-0.20.0/package/dist/xlsx.full.min.js';
+            script.onload = () => {
+                if (window.XLSX) {
+                    resolve();
+                } else {
+                    reject(new Error('SheetJS 로드 실패'));
+                }
+            };
+            script.onerror = reject;
+            document.head.appendChild(script);
+        });
+    }
+
+    /**
+     * DOCX를 PDF로 변환
+     */
+    async docxToPdf(docxFile, options = {}, onProgress) {
+        try {
+            onProgress?.(10, 'DOCX 처리 중...');
+
+            // Mammoth.js 및 jsPDF 로드
+            await Promise.all([this.loadMammoth(), this.loadJsPdf()]);
+
+            onProgress?.(20, 'DOCX 파싱 중...');
+
+            // DOCX → HTML 변환
+            const arrayBuffer = await docxFile.arrayBuffer();
+            const result = await mammoth.convertToHtml({ arrayBuffer });
+            const html = result.value;
+
+            if (result.messages.length > 0) {
+                console.warn('DOCX 변환 경고:', result.messages);
+            }
+
+            onProgress?.(50, 'PDF 생성 중...');
+
+            // HTML → PDF 변환
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF({
+                orientation: 'portrait',
+                unit: 'mm',
+                format: 'a4'
+            });
+
+            // HTML을 임시 div에 렌더링
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = html;
+            tempDiv.style.cssText = `
+                width: 170mm;
+                padding: 10mm;
+                font-family: Arial, sans-serif;
+                font-size: 12pt;
+                line-height: 1.5;
+                color: #000;
+            `;
+            document.body.appendChild(tempDiv);
+
+            onProgress?.(70, 'HTML 렌더링 중...');
+
+            // HTML → PDF (html2canvas 없이 텍스트만)
+            const pageHeight = pdf.internal.pageSize.getHeight();
+            const pageWidth = pdf.internal.pageSize.getWidth();
+            const margin = 10;
+
+            // 텍스트 추출 및 PDF에 추가
+            const textContent = tempDiv.textContent || tempDiv.innerText;
+            const lines = pdf.splitTextToSize(textContent, pageWidth - 2 * margin);
+
+            let y = margin;
+            const lineHeight = 7;
+
+            pdf.setFontSize(12);
+
+            for (let i = 0; i < lines.length; i++) {
+                if (y + lineHeight > pageHeight - margin) {
+                    pdf.addPage();
+                    y = margin;
+                }
+                pdf.text(lines[i], margin, y);
+                y += lineHeight;
+            }
+
+            // 임시 요소 제거
+            document.body.removeChild(tempDiv);
+
+            onProgress?.(90, 'PDF 저장 중...');
+
+            const pdfBlob = pdf.output('blob');
+
+            onProgress?.(100, '변환 완료!');
+            return pdfBlob;
+
+        } catch (error) {
+            console.error('DOCX → PDF 변환 실패:', error);
+            throw new Error('DOCX → PDF 변환 실패: ' + error.message);
+        }
+    }
+
+    /**
+     * DOC를 PDF로 변환 (서버 사이드)
+     */
+    async docToPdf(docFile, options = {}, onProgress) {
+        onProgress?.(10, 'DOC 파일 서버로 전송 중...');
+        return await this.convertOnServer(docFile, 'pdf', onProgress);
+    }
+
+    /**
+     * Excel을 PDF로 변환
+     */
+    async excelToPdf(excelFile, options = {}, onProgress) {
+        try {
+            onProgress?.(10, 'Excel 처리 중...');
+
+            // SheetJS 및 jsPDF 로드
+            await Promise.all([this.loadSheetJS(), this.loadJsPdf()]);
+
+            onProgress?.(20, 'Excel 파싱 중...');
+
+            // Excel 파일 읽기
+            const arrayBuffer = await excelFile.arrayBuffer();
+            const workbook = XLSX.read(arrayBuffer, { type: 'array' });
+
+            // 첫 번째 시트 선택
+            const firstSheetName = workbook.SheetNames[0];
+            const worksheet = workbook.Sheets[firstSheetName];
+
+            onProgress?.(40, 'HTML 변환 중...');
+
+            // HTML 테이블로 변환
+            const html = XLSX.utils.sheet_to_html(worksheet);
+
+            onProgress?.(60, 'PDF 생성 중...');
+
+            // HTML → PDF 변환
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF({
+                orientation: 'landscape',
+                unit: 'mm',
+                format: 'a4'
+            });
+
+            // HTML을 임시 div에 렌더링
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = html;
+            tempDiv.style.cssText = `
+                width: 270mm;
+                font-family: Arial, sans-serif;
+                font-size: 10pt;
+            `;
+            document.body.appendChild(tempDiv);
+
+            // 테이블 데이터를 텍스트로 추출
+            const textContent = tempDiv.textContent || tempDiv.innerText;
+            const lines = pdf.splitTextToSize(textContent, 277 - 20); // landscape width - margin
+
+            let y = 10;
+            const lineHeight = 6;
+            const pageHeight = pdf.internal.pageSize.getHeight();
+
+            pdf.setFontSize(10);
+
+            for (let i = 0; i < lines.length; i++) {
+                if (y + lineHeight > pageHeight - 10) {
+                    pdf.addPage();
+                    y = 10;
+                }
+                pdf.text(lines[i], 10, y);
+                y += lineHeight;
+            }
+
+            // 임시 요소 제거
+            document.body.removeChild(tempDiv);
+
+            onProgress?.(90, 'PDF 저장 중...');
+
+            const pdfBlob = pdf.output('blob');
+
+            onProgress?.(100, '변환 완료!');
+            return pdfBlob;
+
+        } catch (error) {
+            console.error('Excel → PDF 변환 실패:', error);
+            throw new Error('Excel → PDF 변환 실패: ' + error.message);
+        }
+    }
+
+    /**
+     * PowerPoint를 PDF로 변환 (서버 사이드)
+     */
+    async powerPointToPdf(pptFile, options = {}, onProgress) {
+        onProgress?.(10, 'PowerPoint 파일 서버로 전송 중...');
+        return await this.convertOnServer(pptFile, 'pdf', onProgress);
+    }
+
+    /**
+     * 서버 사이드 변환 (DOC, PPTX, PPT)
+     */
+    async convertOnServer(file, outputFormat, onProgress) {
+        const API_URL = window.location.hostname === 'localhost'
+            ? 'http://localhost:3001'
+            : 'https://hqmx.net';
+
+        try {
+            onProgress?.(20, '서버 변환 준비 중...');
+
+            // FormData 생성
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('outputFormat', outputFormat);
+
+            onProgress?.(30, '서버로 업로드 중...');
+
+            // 서버로 요청
+            const response = await fetch(`${API_URL}/api/convert`, {
+                method: 'POST',
+                body: formData
+            });
+
+            if (!response.ok) {
+                const error = await response.json();
+                throw new Error(error.error || '서버 변환 실패');
+            }
+
+            onProgress?.(80, '변환된 파일 다운로드 중...');
+
+            // Blob으로 변환
+            const blob = await response.blob();
+
+            onProgress?.(100, '변환 완료!');
+
+            return blob;
+
+        } catch (error) {
+            console.error('서버 변환 오류:', error);
+            throw new Error(`서버 변환 실패: ${error.message}`);
+        }
     }
 
     /**
