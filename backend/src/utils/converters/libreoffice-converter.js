@@ -13,6 +13,8 @@ export class LibreOfficeConverter extends BaseConverter {
     super(inputFormat, outputFormat, settings);
     this.supportedFormats = ['doc', 'docx', 'xlsx', 'xls', 'pptx', 'ppt', 'pdf'];
     this.tempDir = process.env.UPLOAD_DIR || '/tmp/converter/uploads';
+    this.inputPath = settings.inputPath;
+    this.outputPath = settings.outputPath;
   }
 
   isSupported() {
@@ -21,41 +23,37 @@ export class LibreOfficeConverter extends BaseConverter {
     return inputFormats.includes(this.inputFormat) && this.outputFormat === 'pdf';
   }
 
-  async convert(inputData) {
+  async convert() {
     if (!this.isSupported()) {
       throw new Error(`지원되지 않는 변환: ${this.inputFormat} → ${this.outputFormat}`);
     }
 
-    const jobId = uuidv4();
-    const inputPath = path.join(this.tempDir, `${jobId}.${this.inputFormat}`);
-    const outputPath = path.join(this.tempDir, `${jobId}.pdf`);
+    if (!this.inputPath || !this.outputPath) {
+      throw new Error('inputPath와 outputPath가 필요합니다');
+    }
 
     try {
-      await this.updateProgress(10, '입력 파일 저장 중...');
+      await this.updateProgress(10, 'LibreOffice 변환 준비 중...');
 
-      // 입력 파일 저장
-      await fs.writeFile(inputPath, Buffer.from(inputData));
+      // LibreOffice로 변환 (출력 디렉토리는 입력 파일과 같은 곳)
+      const outputDir = path.dirname(this.inputPath);
+      await this.convertWithLibreOffice(this.inputPath, outputDir);
 
-      await this.updateProgress(30, 'LibreOffice로 변환 중...');
+      await this.updateProgress(80, '파일 이동 중...');
 
-      // LibreOffice로 변환
-      await this.convertWithLibreOffice(inputPath, this.tempDir);
+      // LibreOffice가 생성한 파일명 (입력 파일명 기반)
+      const inputBasename = path.basename(this.inputPath, path.extname(this.inputPath));
+      const libreofficeOutput = path.join(outputDir, `${inputBasename}.pdf`);
 
-      await this.updateProgress(80, '변환 완료, 파일 읽는 중...');
+      // 원하는 출력 경로로 파일 이동
+      if (libreofficeOutput !== this.outputPath) {
+        await fs.rename(libreofficeOutput, this.outputPath);
+      }
 
-      // 출력 파일 읽기
-      const outputData = await fs.readFile(outputPath);
-
-      await this.updateProgress(100, '변환 완료');
-
-      // 임시 파일 정리
-      await this.cleanup(inputPath, outputPath);
-
-      return outputData.buffer;
+      await this.updateProgress(100, 'LibreOffice 변환 완료');
 
     } catch (error) {
-      // 에러 발생 시 임시 파일 정리
-      await this.cleanup(inputPath, outputPath).catch(() => {});
+      console.error('[LibreOffice] 변환 실패:', error);
       throw error;
     }
   }

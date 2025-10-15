@@ -8,7 +8,7 @@
 import path from 'path';
 import { upload, handleUploadError } from '../middleware/upload.js';
 import conversionQueue from '../queue/conversion-queue.js';
-import { FFmpegConverter } from '../converters/ffmpeg-converter.js';
+import { ConverterFactory } from '../utils/converter-factory.js';
 
 const OUTPUT_DIR = process.env.OUTPUT_DIR || '/tmp/converter/outputs';
 
@@ -74,11 +74,17 @@ async function convertHandler(req, res, next) {
         inputFormat: inputExt,
         outputFormat: outputExt,
         execute: async () => {
-          // FFmpeg 변환 실행
-          const converter = new FFmpegConverter(inputPath, outputPath, {
-            outputFormat: outputExt,
-            quality: qualitySettings
-          });
+          // ConverterFactory로 적절한 변환기 생성
+          const settings = {
+            ...qualitySettings,
+            inputPath,
+            outputPath
+          };
+          const converter = ConverterFactory.createConverter(inputExt, outputExt, settings);
+
+          if (!converter) {
+            throw new Error(`Unsupported conversion: ${inputExt} → ${outputExt}`);
+          }
 
           // 진행률 콜백 설정
           converter.setProgressCallback((progress, message) => {
