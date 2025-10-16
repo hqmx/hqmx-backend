@@ -1619,7 +1619,7 @@ function initializeApp() {
 
             // 변환 중이거나 업로드 중일 때 로더로 교체
             console.log('[updateFileItem] 로더 교체 체크, status:', fileObj.status, 'fileId:', fileObj.id);
-            if (fileObj.status === 'converting' || fileObj.status === 'uploading') {
+            if (fileObj.status === 'converting' || fileObj.status === 'uploading' || fileObj.status === 'pending' || fileObj.status === 'processing') {
                 console.log('[updateFileItem] 로더로 교체 시작');
                 replaceConvertButtonWithLoader(convertBtn, fileObj.id);
                 console.log('[updateFileItem] 로더 교체 완료');
