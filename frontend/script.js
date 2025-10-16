@@ -2740,6 +2740,29 @@ function initializeShowMoreButtons() {
     });
 }
 
+// 페이지 떠날 때 진행 중인 서버 변환 작업 취소
+window.addEventListener('beforeunload', (e) => {
+    // 진행 중인 서버 변환 작업 찾기
+    const activeServerJobs = [];
+
+    for (const [fileId, jobId] of state.conversions.entries()) {
+        const fileObj = state.files.find(f => f.id === fileId);
+
+        if (fileObj &&
+            fileObj.conversionMode === 'server' &&
+            ['uploading', 'pending', 'processing', 'converting'].includes(fileObj.status)) {
+            activeServerJobs.push(jobId);
+        }
+    }
+
+    // 각 작업에 취소 요청 전송 (navigator.sendBeacon 사용)
+    for (const jobId of activeServerJobs) {
+        const url = `${API_BASE_URL}/cancel/${jobId}`;
+        // sendBeacon은 POST 요청을 보내지만 body는 무시될 수 있음
+        navigator.sendBeacon(url);
+        console.log(`[Cleanup] Sent cancel request for job ${jobId}`);
+    }
+});
 
 // DOM이 완전히 로드된 후 한 번만 초기화 실행
 if (document.readyState === 'loading') {

@@ -1,46 +1,155 @@
 import { BaseConverter } from './base-converter.js';
+import ffmpeg from 'fluent-ffmpeg';
+import fs from 'fs/promises';
+import path from 'path';
+import { v4 as uuidv4 } from 'uuid';
 
 /**
- * 비디오 변환기 (기본 구현)
- * 실제 환경에서는 FFmpeg.wasm 사용
+ * 비디오 변환기 (fluent-ffmpeg 기반)
+ * 서버 사이드 FFmpeg를 사용한 고성능 비디오 변환
  */
 export class VideoConverter extends BaseConverter {
+  // FFmpeg 포맷 이름 매핑 (파일 확장자 → FFmpeg 포맷 이름)
+  static FORMAT_MAP = {
+    'mkv': 'matroska',  // MKV는 matroska 컨테이너 사용
+    'mp4': 'mp4',
+    'avi': 'avi',
+    'mov': 'mov',
+    'webm': 'webm',
+    'flv': 'flv',
+    'wmv': 'asf',       // WMV는 ASF (Advanced Systems Format) 사용
+    'm4v': 'mp4'        // M4V는 MP4와 동일
+  };
+
   constructor(inputFormat, outputFormat, settings = {}) {
     super(inputFormat, outputFormat, settings);
-    this.supportedFormats = ['mp4', 'avi', 'mov', 'mkv', 'webm', 'flv', 'wmv', '3gp'];
+    this.supportedFormats = ['mp4', 'avi', 'mov', 'mkv', 'webm', 'flv', 'wmv', 'm4v'];
   }
 
   isSupported() {
-    return this.supportedFormats.includes(this.inputFormat) && 
+    return this.supportedFormats.includes(this.inputFormat) &&
            this.supportedFormats.includes(this.outputFormat);
   }
 
-  async convert(inputData) {
-    await this.updateProgress(5, 'FFmpeg 초기화 중...');
-    
-    // 실제 구현에서는 FFmpeg.wasm 사용
-    // const ffmpeg = await this.initFFmpeg();
-    
-    await this.updateProgress(15, '비디오 분석 중...');
-    
-    // 비디오 메타데이터 분석
-    // const metadata = await this.analyzeVideo(inputData);
-    
-    await this.updateProgress(25, '변환 설정 적용 중...');
-    
-    // 변환 명령어 생성
-    const command = this.buildFFmpegCommand();
-    
-    await this.updateProgress(40, '비디오 변환 중...');
-    
-    // 실제 변환 수행
-    const result = await this.simulateVideoConversion(inputData);
-    
-    await this.updateProgress(90, '출력 파일 생성 중...');
-    
-    await this.updateProgress(100, '비디오 변환 완료');
-    
-    return result;
+  async convert() {
+    // settings에서 경로 가져오기 (convert.js에서 설정됨)
+    const inputPath = this.settings.inputPath;
+    const outputPath = this.settings.outputPath;
+
+    if (!inputPath || !outputPath) {
+      throw new Error('inputPath와 outputPath가 설정되지 않았습니다');
+    }
+
+    try {
+      await this.updateProgress(5, 'FFmpeg 초기화 중...');
+      await this.updateProgress(15, '비디오 분석 중...');
+
+      // 출력 디렉토리 생성
+      await fs.mkdir(path.dirname(outputPath), { recursive: true });
+
+      // 변환 실행
+      await this.convertWithFFmpeg(inputPath, outputPath);
+
+      await this.updateProgress(100, '비디오 변환 완료');
+
+      console.log(`[VideoConverter] 변환 완료: ${inputPath} → ${outputPath}`);
+    } catch (err) {
+      console.error('[VideoConverter] 변환 실패:', err);
+      throw err;
+    } finally {
+      // 입력 파일 정리 (multer가 업로드한 임시 파일)
+      try {
+        await fs.unlink(inputPath).catch(() => {});
+      } catch (err) {
+        console.error('[VideoConverter] 임시 파일 정리 실패:', err);
+      }
+    }
+  }
+
+  /**
+   * FFmpeg로 실제 변환 수행
+   * @param {String} inputPath
+   * @param {String} outputPath
+   * @returns {Promise<void>}
+   */
+  async convertWithFFmpeg(inputPath, outputPath) {
+    return new Promise((resolve, reject) => {
+      let command = ffmpeg(inputPath);
+
+      // FFmpeg 프로세스를 큐에 등록 (취소 가능하도록)
+      if (this.settings.jobId && this.settings.conversionQueue) {
+        this.settings.conversionQueue.setFFmpegProcess(this.settings.jobId, command);
+        console.log(`[VideoConverter] FFmpeg process registered for job ${this.settings.jobId}`);
+      }
+
+      // 출력 형식 설정 (FORMAT_MAP을 통해 FFmpeg 포맷 이름으로 변환)
+      const ffmpegFormat = VideoConverter.FORMAT_MAP[this.outputFormat] || this.outputFormat;
+      console.log(`[VideoConverter] 출력 형식: ${this.outputFormat} → FFmpeg 포맷: ${ffmpegFormat}`);
+      command = command.toFormat(ffmpegFormat);
+
+      // 🎯 품질 우선 설정 + 멀티스레딩
+      const preset = this.settings.preset || 'medium'; // medium: 품질과 속도의 균형 (기본값)
+      command = command.videoCodec('libx264').outputOptions([
+        `-preset ${preset}`,
+        '-threads 0',  // 모든 CPU 코어 사용
+        '-movflags +faststart'  // 웹 스트리밍 최적화
+      ]);
+
+      // 품질 설정 (CRF) - 기본값: high quality
+      if (this.settings.quality) {
+        const crfMap = { high: 18, medium: 23, low: 28 };
+        const crf = crfMap[this.settings.quality] || 18;
+        command = command.outputOptions([`-crf ${crf}`]);
+      } else {
+        // 기본 CRF 18 (high quality - 원본 화질 최대한 유지)
+        command = command.outputOptions(['-crf 18']);
+      }
+
+      // 해상도 설정
+      if (this.settings.resolution && this.settings.resolution !== 'original') {
+        const resolutionMap = {
+          '1080p': '1920x1080',
+          '720p': '1280x720',
+          '480p': '854x480',
+          '360p': '640x360'
+        };
+        command = command.size(resolutionMap[this.settings.resolution]);
+      }
+
+      // 비트레이트 설정
+      if (this.settings.bitrate) {
+        command = command.videoBitrate(this.settings.bitrate);
+      }
+
+      // 진행률 콜백
+      command.on('progress', (progress) => {
+        if (progress.percent) {
+          const percent = Math.min(95, Math.max(40, Math.round(progress.percent)));
+          this.updateProgress(percent, `변환 진행 중... ${percent}%`).catch(() => {});
+        }
+      });
+
+      // 에러 핸들링
+      command.on('error', (err) => {
+        console.error('[VideoConverter] FFmpeg 에러:', err.message);
+        reject(new Error(`비디오 변환 실패: ${err.message}`));
+      });
+
+      // 완료 핸들링
+      command.on('end', async () => {
+        try {
+          // 출력 파일 존재 확인
+          const stats = await fs.stat(outputPath);
+          console.log(`[VideoConverter] 변환 완료: ${stats.size} bytes → ${outputPath}`);
+          resolve();
+        } catch (err) {
+          reject(new Error(`출력 파일 확인 실패: ${err.message}`));
+        }
+      });
+
+      // 변환 시작
+      command.save(outputPath);
+    });
   }
 
   /**

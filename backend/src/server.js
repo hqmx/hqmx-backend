@@ -16,9 +16,10 @@ import { fileURLToPath } from 'url';
 import { convertLimiter, generalLimiter } from './middleware/rate-limit.js';
 
 // Handlers
-import convertHandler from './handlers/convert.js';
-import progressHandler from './handlers/progress.js';
-import downloadHandler from './handlers/download.js';
+import { convertHandler } from './handlers/convert.js';
+import { progressHandler } from './handlers/progress.js';
+import { downloadHandler } from './handlers/download.js';
+import { cancelHandler } from './handlers/cancel.js';
 
 // Utils
 import { startCleanupCron } from './utils/file-cleanup.js';
@@ -121,6 +122,7 @@ app.get('/api/health', (req, res) => {
 app.post('/api/convert', convertHandler);
 app.get('/api/progress/:jobId', progressHandler);
 app.get('/api/download/:jobId', downloadHandler);
+app.post('/api/cancel/:jobId', cancelHandler);
 
 // 404 핸들러
 app.use((req, res) => {

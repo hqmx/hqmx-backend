@@ -78,7 +78,9 @@ async function convertHandler(req, res, next) {
           const settings = {
             ...qualitySettings,
             inputPath,
-            outputPath
+            outputPath,
+            jobId,  // FFmpeg 프로세스 취소를 위해 필요
+            conversionQueue  // FFmpeg 프로세스 등록을 위해 필요
           };
           const converter = ConverterFactory.createConverter(inputExt, outputExt, settings);
 
@@ -132,4 +134,4 @@ async function convertHandler(req, res, next) {
   });
 }
 
-export default convertHandler;
+export { convertHandler };
