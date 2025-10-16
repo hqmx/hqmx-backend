@@ -1290,47 +1290,107 @@ function initializeApp() {
         }
     }
 
-    // 서버 사이드 변환 함수 (기존 코드)
+    // 서버 사이드 변환 함수 (XMLHttpRequest 기반 - 업로드 진행률 지원)
     async function serverSideConversion(fileObj) {
-        try {
-            // Create FormData
+        return new Promise((resolve, reject) => {
+            // FormData 생성
             const formData = new FormData();
             formData.append('file', fileObj.file);
             formData.append('outputFormat', fileObj.outputFormat);
             formData.append('settings', JSON.stringify(fileObj.settings));
 
-            // AbortController for timeout (5분)
-            const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), 5 * 60 * 1000);
+            const xhr = new XMLHttpRequest();
 
-            try {
-                // Start conversion
-                const response = await fetch(`${API_BASE_URL}/convert`, {
-                    method: 'POST',
-                    body: formData,
-                    signal: controller.signal
-                });
-                clearTimeout(timeoutId);
+            // 타이머 시작
+            fileObj.conversionStartTime = Date.now();
+            startConversionTimer(fileObj.id);
 
-                const data = await response.json();
-                if (!response.ok) {
-                    throw new Error(data.error || 'Conversion failed');
+            // 업로드 진행률 추적 (0-20%)
+            let uploadStartTime = Date.now();
+            let lastLoadedBytes = 0;
+            let lastUpdateTime = Date.now();
+
+            xhr.upload.onprogress = (event) => {
+                if (event.lengthComputable) {
+                    const uploadProgress = (event.loaded / event.total) * 100;
+                    fileObj.progress = Math.min(20, Math.round(uploadProgress * 0.2)); // 0-20% 범위
+
+                    // 업로드 속도 계산
+                    const currentTime = Date.now();
+                    const elapsedTime = (currentTime - lastUpdateTime) / 1000; // 초
+
+                    if (elapsedTime > 0.5) { // 0.5초마다 업데이트
+                        const bytesThisInterval = event.loaded - lastLoadedBytes;
+                        const speed = bytesThisInterval / elapsedTime; // bytes/sec
+                        const speedMB = (speed / (1024 * 1024)).toFixed(1); // MB/s
+
+                        const remainingBytes = event.total - event.loaded;
+                        const remainingTime = Math.round(remainingBytes / speed); // 초
+                        const minutes = Math.floor(remainingTime / 60);
+                        const seconds = remainingTime % 60;
+
+                        fileObj.statusDetail = `업로드 중... ${speedMB} MB/s (남은 시간: ${minutes}분 ${seconds}초)`;
+                        updateFileItem(fileObj);
+
+                        lastLoadedBytes = event.loaded;
+                        lastUpdateTime = currentTime;
+                    }
                 }
+            };
 
-                // Start progress monitoring
-                startProgressMonitor(fileObj.id, data.jobId);
+            // 업로드 완료 → 서버에서 변환 시작
+            xhr.onload = () => {
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    try {
+                        const data = JSON.parse(xhr.responseText);
 
-            } catch (fetchError) {
-                clearTimeout(timeoutId);
-                if (fetchError.name === 'AbortError') {
-                    throw new Error('Upload timeout: 파일 업로드가 5분을 초과했습니다. 파일 크기를 줄여주세요.');
+                        // 변환 단계로 전환
+                        fileObj.status = 'converting';
+                        fileObj.progress = 20;
+                        fileObj.statusDetail = '서버에서 변환 중...';
+                        updateFileItem(fileObj);
+
+                        // 진행률 모니터링 시작
+                        startProgressMonitor(fileObj.id, data.jobId);
+                        resolve();
+                    } catch (parseError) {
+                        stopConversionTimer(fileObj.id);
+                        reject(new Error('서버 응답 파싱 실패: ' + parseError.message));
+                    }
+                } else {
+                    stopConversionTimer(fileObj.id);
+                    try {
+                        const errorData = JSON.parse(xhr.responseText);
+                        reject(new Error(errorData.error || `서버 오류 (${xhr.status})`));
+                    } catch {
+                        reject(new Error(`서버 오류 (${xhr.status}): ${xhr.statusText}`));
+                    }
                 }
-                throw fetchError;
-            }
+            };
 
-        } catch (error) {
-            throw error;
-        }
+            // 네트워크 오류
+            xhr.onerror = () => {
+                stopConversionTimer(fileObj.id);
+                reject(new Error('네트워크 오류: 서버에 연결할 수 없습니다.'));
+            };
+
+            // 타임아웃 (20분)
+            xhr.timeout = 20 * 60 * 1000; // 20분
+            xhr.ontimeout = () => {
+                stopConversionTimer(fileObj.id);
+                reject(new Error('타임아웃: 파일 업로드가 20분을 초과했습니다. 파일 크기를 줄이거나 네트워크 연결을 확인하세요.'));
+            };
+
+            // 업로드 중단
+            xhr.onabort = () => {
+                stopConversionTimer(fileObj.id);
+                reject(new Error('업로드가 취소되었습니다.'));
+            };
+
+            // 요청 시작
+            xhr.open('POST', `${API_BASE_URL}/convert`, true);
+            xhr.send(formData);
+        });
     }
 
     // 변환된 파일 다운로드
@@ -1375,16 +1435,19 @@ function initializeApp() {
                 if (data.status === 'completed') {
                     clearInterval(pollInterval);
                     state.eventSources.delete(fileId);
+                    stopConversionTimer(fileId); // 타이머 정지
                     handleConversionComplete(fileId, taskId);
                 } else if (data.status === 'failed' || data.error) {
                     clearInterval(pollInterval);
                     state.eventSources.delete(fileId);
+                    stopConversionTimer(fileId); // 타이머 정지
                     throw new Error(data.error || data.message || 'Conversion failed');
                 }
             } catch (error) {
                 console.error('Progress Monitor Error:', error);
                 clearInterval(pollInterval);
                 state.eventSources.delete(fileId);
+                stopConversionTimer(fileId); // 타이머 정지
                 fileObj.status = 'error';
                 updateFileItem(fileObj);
                 showToast(`Error processing "${fileObj.name}": ${error.message}`, 'error');
@@ -1421,6 +1484,7 @@ function initializeApp() {
             clearInterval(state.eventSources.get(fileId)); // 폴링 interval 정지
             state.eventSources.delete(fileId);
         }
+        stopConversionTimer(fileId); // 타이머 정지
         state.conversions.delete(fileId);
     }
 
