@@ -1492,7 +1492,13 @@ function initializeApp() {
                 // 서버 진행률(0-100%)을 20-95% 범위로 매핑
                 const serverProgress = data.progress || 0;
                 fileObj.progress = 20 + Math.round(serverProgress * 0.75);
-                fileObj.status = data.status || 'processing';
+
+                // ⭐️ 상태 매핑: 'processing' → 'converting' (로더 표시를 위해)
+                if (data.status === 'processing' || data.status === 'converting') {
+                    fileObj.status = 'converting';
+                } else {
+                    fileObj.status = data.status || 'converting';
+                }
 
                 // 서버 변환 상태 메시지 업데이트
                 if (data.message) {
