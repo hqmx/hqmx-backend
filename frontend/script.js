@@ -15,7 +15,8 @@ function initializeApp() {
         currentFileIndex: -1,
         conversions: new Map(),
         eventSources: new Map(),
-        batchFiles: null
+        batchFiles: null,
+        timerIntervals: new Map() // 타이머 interval 관리
     };
 
     // --- CONFIGURATION ---
@@ -36,8 +37,8 @@ function initializeApp() {
     // Supported file formats by category
     const FORMATS = {
         video: ['mp4', 'avi', 'mov', 'mkv', 'webm', 'flv', 'wmv', '3gp', 'm4v', 'mpg', 'mpeg', 'ogv'],
-        audio: ['mp3', 'wav', 'flac', 'aac', 'ogg', 'm4a', 'wma', 'aiff', 'au', 'ra', 'amr', 'ac3'],
-        image: ['jpg', 'jpeg', 'png', 'gif', 'webp', 'avif', 'svg', 'bmp', 'tiff', 'tga', 'ico', 'psd', 'raw'],
+        audio: ['mp3', 'wav', 'flac', 'aac', 'ogg', 'm4a', 'wma', 'opus', 'aiff', 'au', 'ra', 'amr', 'ac3'],
+        image: ['jpg', 'jpeg', 'png', 'gif', 'webp', 'heic', 'avif', 'svg', 'bmp', 'tiff', 'tga', 'ico', 'psd', 'raw'],
         document: ['pdf', 'doc', 'docx', 'ppt', 'pptx', 'xls', 'xlsx', 'txt', 'rtf', 'odt', 'ods', 'odp'],
         archive: ['zip', 'rar', '7z', 'tar', 'gz', 'bz2', 'xz', 'tar.gz', 'tar.bz2', 'tar.xz'],
         social: ['youtube', 'facebook', 'instagram', 'tiktok', 'twitter', 'vimeo', 'twitch', 'dailymotion', 'reddit', 'soundcloud', 'spotify', 'linkedin']
@@ -52,11 +53,17 @@ function initializeApp() {
     // 크로스 카테고리 변환 호환성 매트릭스
     const CROSS_CATEGORY_COMPATIBILITY = {
         // IMAGE ↔ DOCUMENT (12.3M+ 월간 검색량)
+        // IMAGE → VIDEO (GIF → video 지원)
         image: {
-            allowedCategories: ['image', 'document'], // 이미지는 문서 카테고리로도 변환 가능
+            allowedCategories: ['image', 'document', 'video'], // 이미지는 문서 및 비디오로도 변환 가능
             formatRestrictions: {
                 // 이미지 → PDF만 가능 (다른 문서 형식은 불가)
-                document: ['pdf']
+                document: ['pdf'],
+                // GIF → 모든 비디오 형식 가능
+                video: {
+                    sourceFormats: ['gif'], // GIF만 비디오로 변환 가능
+                    targetFormats: null // 모든 비디오 형식 허용
+                }
             }
         },
         document: {
@@ -65,7 +72,7 @@ function initializeApp() {
                 // PDF → 이미지만 가능 (다른 문서는 이미지로 변환 불가)
                 image: {
                     sourceFormats: ['pdf'], // PDF만 이미지로 변환 가능
-                    targetFormats: ['jpg', 'jpeg', 'png'] // JPG, PNG만 지원
+                    targetFormats: ['jpg', 'jpeg', 'png', 'webp', 'heic', 'gif', 'svg', 'bmp', 'ico', 'avif'] // 모든 이미지 형식 지원 (2-step 변환)
                 }
             }
         },
@@ -587,7 +594,10 @@ function initializeApp() {
                 <div class="file-progress" style="${fileObj.status === 'ready' ? 'display: none' : ''}">
                     <div class="progress-fill" style="width: ${fileObj.progress}%"></div>
                 </div>
-                <div class="file-status" style="${fileObj.status === 'ready' ? 'display: none' : ''}">${getStatusText(fileObj.status)}</div>
+                <div class="file-status-container" style="${fileObj.status === 'ready' ? 'display: none' : ''}">
+                    <div class="file-status">${getStatusText(fileObj.status)}</div>
+                    <div class="file-timer" style="${(fileObj.status === 'converting' || fileObj.status === 'uploading') ? '' : 'display: none'}">00:00:00</div>
+                </div>
             </div>
             <div class="file-actions">
                 ${fileObj.status === 'completed' ? `
@@ -777,8 +787,8 @@ function initializeApp() {
         state.currentFileIndex = -1;
         state.batchFiles = null;
 
-        // 모달 닫은 후 페이지 최상단으로 스크롤
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        // 스크롤 제거 - 사용자가 보고 있던 위치 유지
+        // 변환 시작 시 파일 진행상황을 바로 볼 수 있도록 스크롤하지 않음
     }
 
     // 파일 카테고리에 따라 허용되는 변환 카테고리 필터링
@@ -1161,6 +1171,8 @@ function initializeApp() {
             fileObj.status = 'uploading';
             fileObj.progress = 0;
             fileObj.statusDetail = 'Loading file...';
+            fileObj.conversionStartTime = Date.now(); // 타이머 시작
+            startConversionTimer(fileObj.id);
             updateFileItem(fileObj);
 
             // Read file and track progress
@@ -1259,6 +1271,7 @@ function initializeApp() {
             fileObj.status = 'completed';
             fileObj.progress = 100;
             fileObj.statusDetail = 'Conversion complete!';
+            stopConversionTimer(fileObj.id); // 타이머 정지
             updateFileItem(fileObj);
 
             // 단일 파일 변환 완료
@@ -1272,6 +1285,7 @@ function initializeApp() {
             }
 
         } catch (error) {
+            stopConversionTimer(fileObj.id); // 에러 시 타이머 정지
             throw error;
         }
     }
@@ -1285,19 +1299,34 @@ function initializeApp() {
             formData.append('outputFormat', fileObj.outputFormat);
             formData.append('settings', JSON.stringify(fileObj.settings));
 
-            // Start conversion
-            const response = await fetch(`${API_BASE_URL}/convert`, {
-                method: 'POST',
-                body: formData
-            });
+            // AbortController for timeout (5분)
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 5 * 60 * 1000);
 
-            const data = await response.json();
-            if (!response.ok) {
-                throw new Error(data.error || 'Conversion failed');
+            try {
+                // Start conversion
+                const response = await fetch(`${API_BASE_URL}/convert`, {
+                    method: 'POST',
+                    body: formData,
+                    signal: controller.signal
+                });
+                clearTimeout(timeoutId);
+
+                const data = await response.json();
+                if (!response.ok) {
+                    throw new Error(data.error || 'Conversion failed');
+                }
+
+                // Start progress monitoring
+                startProgressMonitor(fileObj.id, data.jobId);
+
+            } catch (fetchError) {
+                clearTimeout(timeoutId);
+                if (fetchError.name === 'AbortError') {
+                    throw new Error('Upload timeout: 파일 업로드가 5분을 초과했습니다. 파일 크기를 줄여주세요.');
+                }
+                throw fetchError;
             }
-
-            // Start progress monitoring
-            startProgressMonitor(fileObj.id, data.jobId);
 
         } catch (error) {
             throw error;
@@ -1317,47 +1346,53 @@ function initializeApp() {
     }
 
     function startProgressMonitor(fileId, taskId) {
+        // 기존 폴링 중지
         if (state.eventSources.has(fileId)) {
-            state.eventSources.get(fileId).close();
+            clearInterval(state.eventSources.get(fileId));
         }
 
-        const eventSource = new EventSource(`${API_BASE_URL}/progress/${taskId}`);
-        state.eventSources.set(fileId, eventSource);
         state.conversions.set(fileId, taskId);
 
         const fileObj = state.files.find(f => f.id === fileId);
         if (!fileObj) return;
 
-        eventSource.onmessage = (event) => {
+        // 폴링 방식으로 진행률 확인 (1초마다)
+        const pollInterval = setInterval(async () => {
             try {
-                const data = JSON.parse(event.data);
-                
-                fileObj.progress = data.percentage || 0;
+                const response = await fetch(`${API_BASE_URL}/progress/${taskId}`);
+
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+
+                const data = await response.json();
+
+                fileObj.progress = data.progress || 0;
                 fileObj.status = data.status || 'processing';
-                
+
                 updateFileItem(fileObj);
 
                 if (data.status === 'completed') {
+                    clearInterval(pollInterval);
+                    state.eventSources.delete(fileId);
                     handleConversionComplete(fileId, taskId);
-                } else if (data.status === 'error') {
-                    throw new Error(data.message || 'Conversion failed');
+                } else if (data.status === 'failed' || data.error) {
+                    clearInterval(pollInterval);
+                    state.eventSources.delete(fileId);
+                    throw new Error(data.error || data.message || 'Conversion failed');
                 }
             } catch (error) {
                 console.error('Progress Monitor Error:', error);
+                clearInterval(pollInterval);
+                state.eventSources.delete(fileId);
                 fileObj.status = 'error';
                 updateFileItem(fileObj);
                 showToast(`Error processing "${fileObj.name}": ${error.message}`, 'error');
                 cleanupConversion(fileId);
             }
-        };
+        }, 1000); // 1초마다 폴링
 
-        eventSource.onerror = (error) => {
-            console.error('SSE Error:', error);
-            fileObj.status = 'error';
-            updateFileItem(fileObj);
-            showToast(`Connection lost for "${fileObj.name}"`, 'error');
-            cleanupConversion(fileId);
-        };
+        state.eventSources.set(fileId, pollInterval);
     }
 
     function handleConversionComplete(fileId, taskId) {
@@ -1383,7 +1418,7 @@ function initializeApp() {
 
     function cleanupConversion(fileId) {
         if (state.eventSources.has(fileId)) {
-            state.eventSources.get(fileId).close();
+            clearInterval(state.eventSources.get(fileId)); // 폴링 interval 정지
             state.eventSources.delete(fileId);
         }
         state.conversions.delete(fileId);
@@ -1394,23 +1429,37 @@ function initializeApp() {
         if (!fileItem) return;
 
         const progressElement = fileItem.querySelector('.file-progress');
+        const statusContainer = fileItem.querySelector('.file-status-container');
         const statusElement = fileItem.querySelector('.file-status');
+        const timerElement = fileItem.querySelector('.file-timer');
         const progressFill = fileItem.querySelector('.progress-fill');
         const convertBtn = fileItem.querySelector('.convert-btn');
 
         if (fileObj.status === 'ready') {
             progressElement.style.display = 'none';
-            statusElement.style.display = 'none';
+            statusContainer.style.display = 'none';
             convertBtn.disabled = false;
         } else {
             progressElement.style.display = 'block';
-            statusElement.style.display = 'block';
+            statusContainer.style.display = 'block';
 
             // Use detailed status if available, otherwise fallback to basic status
             if (fileObj.statusDetail) {
                 statusElement.textContent = fileObj.statusDetail;
             } else {
                 statusElement.textContent = getStatusText(fileObj.status);
+            }
+
+            // 타이머 업데이트
+            if ((fileObj.status === 'converting' || fileObj.status === 'uploading') && fileObj.conversionStartTime) {
+                const elapsed = Math.floor((Date.now() - fileObj.conversionStartTime) / 1000);
+                const hours = Math.floor(elapsed / 3600).toString().padStart(2, '0');
+                const minutes = Math.floor((elapsed % 3600) / 60).toString().padStart(2, '0');
+                const seconds = (elapsed % 60).toString().padStart(2, '0');
+                timerElement.textContent = `${hours}:${minutes}:${seconds}`;
+                timerElement.style.display = '';
+            } else {
+                timerElement.style.display = 'none';
             }
 
             progressFill.style.width = `${fileObj.progress}%`;
@@ -1427,6 +1476,33 @@ function initializeApp() {
             } else {
                 convertBtn.classList.remove('reconvert');
             }
+        }
+    }
+
+    // 타이머 시작
+    function startConversionTimer(fileId) {
+        // 기존 타이머가 있으면 정지
+        stopConversionTimer(fileId);
+
+        // 1초마다 타이머 업데이트
+        const intervalId = setInterval(() => {
+            const fileObj = findFileById(fileId);
+            if (fileObj && (fileObj.status === 'converting' || fileObj.status === 'uploading')) {
+                updateFileItem(fileObj);
+            } else {
+                stopConversionTimer(fileId);
+            }
+        }, 1000);
+
+        state.timerIntervals.set(fileId, intervalId);
+    }
+
+    // 타이머 정지
+    function stopConversionTimer(fileId) {
+        const intervalId = state.timerIntervals.get(fileId);
+        if (intervalId) {
+            clearInterval(intervalId);
+            state.timerIntervals.delete(fileId);
         }
     }
 
@@ -1479,9 +1555,9 @@ function initializeApp() {
     function detectFileCategory(extension) {
         const categories = {
             image: ['jpg', 'jpeg', 'png', 'gif', 'webp', 'avif', 'svg', 'bmp', 'tiff', 'ico', 'heic', 'raw', 'psd'],
-            video: ['mp4', 'avi', 'mov', 'mkv', 'webm', 'flv', 'wmv', '3gp', 'ogv'],
+            video: ['mp4', 'avi', 'mov', 'mkv', 'webm', 'flv', 'wmv', '3gp', 'm4v', 'ogv', 'mpg', 'mpeg'],
             audio: ['mp3', 'wav', 'flac', 'aac', 'ogg', 'm4a', 'wma', 'opus'],
-            document: ['pdf', 'doc', 'docx', 'txt', 'rtf', 'odt', 'pages', 'tex'],
+            document: ['pdf', 'doc', 'docx', 'txt', 'rtf', 'odt', 'pages', 'tex', 'pptx', 'ppt', 'xlsx', 'xls'],
             archive: ['zip', 'rar', '7z', 'tar', 'gz', 'bz2', 'xz']
         };
 

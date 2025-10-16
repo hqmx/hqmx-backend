@@ -1567,12 +1567,6 @@ body[data-theme="dark"] .format-option {
     width: 0%;
 }
 
-.file-status {
-    font-size: 0.8rem;
-    color: var(--light-text-color);
-    margin-top: 0.25rem;
-}
-
 /* Feature Section */
 .feature-section {
     display: grid;
@@ -3986,4 +3980,78 @@ body[data-theme="dark"] .conversion-category[data-category="archive"] .conversio
     .category-icon-btn {
         margin: 0;
     }
+}
+/* ==================== 반응형 광고 배너 (Adsterra) ==================== */
+
+/* 기본: 모든 배너 숨김 */
+#banner-728x90,
+#banner-468x60,
+#banner-320x50 {
+    display: none;
+}
+
+/* Desktop (728px 이상): 728x90만 표시 */
+@media (min-width: 728px) {
+    #banner-728x90 {
+        display: block;
+    }
+}
+
+/* Tablet (468px ~ 727px): 468x60만 표시 */
+@media (min-width: 468px) and (max-width: 727px) {
+    #banner-468x60 {
+        display: block;
+    }
+}
+
+/* Mobile (320px ~ 467px): 320x50만 표시 */
+@media (min-width: 320px) and (max-width: 467px) {
+    #banner-320x50 {
+        display: block;
+    }
+}
+
+/* 320px 미만: 모든 배너 숨김 (기본값 유지) */
+
+/* 광고 컨테이너 중앙 정렬 */
+#adsterra-banners {
+    overflow: hidden;
+}
+
+.ad-banner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 상태 표시 및 타이머 컨테이너 */
+.file-status-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.file-status {
+    flex: 1;
+    font-size: 13px;
+    color: #6b7280;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.file-timer {
+    font-family: 'SF Mono', 'Monaco', 'Consolas', monospace;
+    font-size: 13px;
+    font-weight: 500;
+    color: #4a9eff;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+/* 다크모드 타이머 스타일 */
+[data-theme="dark"] .file-timer {
+    color: #60a5fa;
 }
