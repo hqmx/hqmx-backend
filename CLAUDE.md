@@ -28,8 +28,8 @@ HQMX Converter는 100% 클라이언트 사이드에서 작동하는 파일 변�
 - **Trust Proxy**: Cloudflare + nginx 설정 완료 (2025-10-13)
 - **PM2 프로세스**: `pm2 start src/server.js --name hqmx-backend`
   - ⚠️ `src/index.js`가 아닌 `src/server.js` 사용 (Express 기반)
-- **인스턴스 타입**: t3.medium (4GB RAM, 2 vCPU) ⚠️ 업그레이드됨 (2025-10-17)
-- **동시 처리**: MAX_CONCURRENCY=2 (2개 작업 동시 변환 가능)
+- **인스턴스 타입**: t3.medium (4GB RAM, 2 vCPU, 무제한 모드) ⚠️ 업그레이드됨 (2025-10-17)
+- **동시 처리**: MAX_CONCURRENCY=4 (4개 작업 동시 변환 가능)
 - **자동 취소 시스템**: 클라이언트 연결 끊김 시 서버 작업 자동 취소 (2025-10-17)
   - Heartbeat 모니터링 (30초 타임아웃)
   - FFmpeg 프로세스 자동 종료
