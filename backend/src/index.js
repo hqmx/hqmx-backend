@@ -68,7 +68,7 @@ app.use('*', cors({
 
 // API 라우트
 app.post('/convert', convertHandler);
-app.get('/stream-progress/:taskId', progressHandler);
+app.get('/progress/:taskId', progressHandler);
 app.get('/download/:taskId', downloadHandler);
 app.get('/downloads', listDownloadsHandler);
 app.get('/info/:taskId', getFileInfoHandler);

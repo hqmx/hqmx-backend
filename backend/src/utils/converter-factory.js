@@ -1,8 +1,9 @@
 import { ImageConverter } from './converters/image-converter.js';
 import { VideoConverter } from './converters/video-converter.js';
 import { AudioConverter } from './converters/audio-converter.js';
-import { DocumentConverter } from './converters/document-converter.js';
+// import { DocumentConverter } from './converters/document-converter.js'; // Workers only (OffscreenCanvas)
 import { LibreOfficeConverter } from './converters/libreoffice-converter.js';
+import { ImageMagickConverter } from './converters/imagemagick-converter.js';
 import { getFormatInfo } from './formats.js';
 
 /**
@@ -34,7 +35,12 @@ export class ConverterFactory {
         case 'audio':
           return new AudioConverter(inputFormat, outputFormat, settings);
         case 'document':
-          // TODO: DocumentConverter 구현
+          // 오피스 문서 → PDF 변환 (LibreOffice 사용)
+          const officeFormats = ['doc', 'docx', 'xlsx', 'xls', 'pptx', 'ppt', 'txt', 'rtf', 'odt', 'ods', 'odp'];
+          if (officeFormats.includes(inputFormat) && outputFormat === 'pdf') {
+            return new LibreOfficeConverter(inputFormat, outputFormat, settings);
+          }
+          // PDF끼리 변환은 없으므로 null
           return null;
         case 'archive':
           // TODO: ArchiveConverter 구현
@@ -61,20 +67,14 @@ export class ConverterFactory {
       return new VideoToAudioConverter(inputInfo.extension, outputInfo.extension, settings);
     }
 
-    // 문서 → PDF (DOC, DOCX, XLSX, XLS, PPTX, PPT)
-    const officeFormats = ['doc', 'docx', 'xlsx', 'xls', 'pptx', 'ppt'];
-    if (officeFormats.includes(inputInfo.extension) && outputInfo.extension === 'pdf') {
-      return new LibreOfficeConverter(inputInfo.extension, outputInfo.extension, settings);
-    }
-
-    // 이미지를 PDF로 변환
+    // 이미지를 PDF로 변환 (ImageMagick)
     if (inputInfo.category === 'image' && outputInfo.category === 'document') {
-      return new DocumentConverter(inputInfo.extension, outputInfo.extension, settings);
+      return new ImageMagickConverter(inputInfo.extension, outputInfo.extension, settings);
     }
 
-    // PDF를 이미지로 변환
+    // PDF를 이미지로 변환 (ImageMagick)
     if (inputInfo.category === 'document' && outputInfo.category === 'image') {
-      return new DocumentConverter(inputInfo.extension, outputInfo.extension, settings);
+      return new ImageMagickConverter(inputInfo.extension, outputInfo.extension, settings);
     }
 
     return null;

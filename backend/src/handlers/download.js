@@ -89,4 +89,4 @@ async function downloadHandler(req, res) {
   }
 }
 
-export default downloadHandler;
+export { downloadHandler };

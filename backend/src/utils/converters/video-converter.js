@@ -123,9 +123,15 @@ export class VideoConverter extends BaseConverter {
 
       // 진행률 콜백
       command.on('progress', (progress) => {
+        console.log('[VideoConverter] FFmpeg progress event:', JSON.stringify(progress));
         if (progress.percent) {
           const percent = Math.min(95, Math.max(40, Math.round(progress.percent)));
+          console.log(`[VideoConverter] Updating progress: ${percent}%`);
           this.updateProgress(percent, `변환 진행 중... ${percent}%`).catch(() => {});
+        } else if (progress.timemark) {
+          // percent가 없으면 timemark로 진행률 표시
+          console.log(`[VideoConverter] FFmpeg timemark: ${progress.timemark}`);
+          this.updateProgress(50, `변환 진행 중... ${progress.timemark}`).catch(() => {});
         }
       });
 

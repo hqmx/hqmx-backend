@@ -1618,13 +1618,9 @@ function initializeApp() {
             progressFill.style.width = `${fileObj.progress}%`;
 
             // 변환 중이거나 업로드 중일 때 로더로 교체
-            console.log('[updateFileItem] 로더 교체 체크, status:', fileObj.status, 'fileId:', fileObj.id);
             if (fileObj.status === 'converting' || fileObj.status === 'uploading' || fileObj.status === 'pending' || fileObj.status === 'processing') {
-                console.log('[updateFileItem] 로더로 교체 시작');
                 replaceConvertButtonWithLoader(convertBtn, fileObj.id);
-                console.log('[updateFileItem] 로더 교체 완료');
             } else {
-                console.log('[updateFileItem] 원래 버튼으로 복원');
                 // 완료/에러 상태에서는 원래 버튼으로 복원
                 restoreConvertButton(convertBtn);
                 convertBtn.disabled = false;
@@ -1645,11 +1641,8 @@ function initializeApp() {
 
     // Convert 버튼을 로더로 교체
     function replaceConvertButtonWithLoader(convertBtn, fileId) {
-        console.log('[replaceConvertButton] 호출됨, fileId:', fileId, 'classList:', convertBtn.classList.toString());
-
         // 이미 로더로 교체되어 있으면 skip
         if (convertBtn.classList.contains('loader-active')) {
-            console.log('[replaceConvertButton] 이미 로더 활성화됨, skip');
             return;
         }
 
@@ -1661,8 +1654,6 @@ function initializeApp() {
         convertBtn.innerHTML = '<span class="conversion-loader" title="변환 중단하려면 클릭"></span>';
         convertBtn.disabled = false; // 클릭 가능하도록
         convertBtn.style.cursor = 'pointer';
-
-        console.log('[replaceConvertButton] 로더 교체 완료, innerHTML:', convertBtn.innerHTML);
 
         // 로더 클릭 이벤트
         const loader = convertBtn.querySelector('.conversion-loader');

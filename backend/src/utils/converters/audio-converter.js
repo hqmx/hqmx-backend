@@ -108,9 +108,15 @@ export class AudioConverter extends BaseConverter {
 
       // 진행률 콜백
       command.on('progress', (progress) => {
+        console.log('[AudioConverter] FFmpeg progress event:', JSON.stringify(progress));
         if (progress.percent) {
           const percent = Math.min(90, Math.max(50, Math.round(progress.percent)));
+          console.log(`[AudioConverter] Updating progress: ${percent}%`);
           this.updateProgress(percent, `오디오 처리 중... ${percent}%`).catch(() => {});
+        } else if (progress.timemark) {
+          // percent가 없으면 timemark로 진행률 표시
+          console.log(`[AudioConverter] FFmpeg timemark: ${progress.timemark}`);
+          this.updateProgress(50, `오디오 처리 중... ${progress.timemark}`).catch(() => {});
         }
       });
 

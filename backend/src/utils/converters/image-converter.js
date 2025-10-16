@@ -1,55 +1,141 @@
 import { BaseConverter } from './base-converter.js';
+import sharp from 'sharp';
 
 /**
- * 이미지 변환기 (기본 구현)
- * 실제 환경에서는 WebAssembly 기반의 이미지 변환 라이브러리 사용
+ * 이미지 변환기 (Sharp 기반)
+ * Sharp는 libvips를 사용한 고성능 이미지 처리 라이브러리
  */
 export class ImageConverter extends BaseConverter {
   constructor(inputFormat, outputFormat, settings = {}) {
     super(inputFormat, outputFormat, settings);
-    this.supportedFormats = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'bmp'];
+    this.supportedFormats = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'bmp', 'avif', 'heic', 'svg'];
   }
 
   isSupported() {
-    return this.supportedFormats.includes(this.inputFormat) && 
+    return this.supportedFormats.includes(this.inputFormat) &&
            this.supportedFormats.includes(this.outputFormat);
   }
 
-  async convert(inputData) {
-    await this.updateProgress(10, '이미지 분석 중...');
-    
-    // 실제 구현에서는 WebAssembly 기반의 이미지 변환 라이브러리 사용
-    // 예: wasm-imagemagick, sharp-wasm 등
-    
-    await this.updateProgress(30, '이미지 디코딩 중...');
-    
-    // 모의 변환 과정
-    const result = await this.simulateImageConversion(inputData);
-    
-    await this.updateProgress(80, '이미지 인코딩 중...');
-    
-    await this.updateProgress(100, '이미지 변환 완료');
-    
-    return result;
+  async convert() {
+    console.log('[ImageConverter] ========== 변환 시작 ==========');
+    console.log('[ImageConverter] inputFormat:', this.inputFormat);
+    console.log('[ImageConverter] outputFormat:', this.outputFormat);
+    console.log('[ImageConverter] settings:', JSON.stringify(this.settings, null, 2));
+
+    const inputPath = this.settings.inputPath;
+    const outputPath = this.settings.outputPath;
+
+    console.log('[ImageConverter] inputPath:', inputPath);
+    console.log('[ImageConverter] outputPath:', outputPath);
+
+    if (!inputPath || !outputPath) {
+      throw new Error(`경로가 설정되지 않음: inputPath=${inputPath}, outputPath=${outputPath}`);
+    }
+
+    try {
+      await this.updateProgress(10, '이미지 분석 중...');
+      console.log('[ImageConverter] Sharp 인스턴스 생성 중...');
+
+      // Sharp 인스턴스 생성 (파일 경로 기반)
+      let image = sharp(inputPath);
+      console.log('[ImageConverter] Sharp 인스턴스 생성 완료');
+
+      await this.updateProgress(30, '이미지 디코딩 중...');
+
+      // 메타데이터 확인
+      console.log('[ImageConverter] 메타데이터 읽기 중...');
+      const metadata = await image.metadata();
+      console.log(`[ImageConverter] 원본 이미지: ${metadata.width}x${metadata.height}, format: ${metadata.format}`);
+
+      await this.updateProgress(50, '이미지 변환 중...');
+
+      // 리사이즈 처리
+      if (this.settings.resize && this.settings.resize !== 'none') {
+        console.log('[ImageConverter] 리사이즈 적용 중...');
+        image = this.applyResize(image, metadata, this.settings.resize);
+      }
+
+      await this.updateProgress(70, '이미지 인코딩 중...');
+
+      // 형식별 변환 및 품질 설정
+      console.log('[ImageConverter] 출력 형식 적용 중:', this.outputFormat);
+      image = this.applyOutputFormat(image);
+      console.log('[ImageConverter] 출력 형식 적용 완료');
+
+      await this.updateProgress(90, '이미지 최적화 중...');
+
+      // 파일로 저장
+      console.log('[ImageConverter] 파일 저장 시작:', outputPath);
+      const outputInfo = await image.toFile(outputPath);
+      console.log('[ImageConverter] 파일 저장 완료:', outputInfo);
+
+      await this.updateProgress(100, '이미지 변환 완료');
+
+      console.log(`[ImageConverter] ========== 변환 완료: ${outputPath} ==========`);
+    } catch (error) {
+      console.error('[ImageConverter] ========== 변환 실패 ==========');
+      console.error('[ImageConverter] 에러:', error);
+      console.error('[ImageConverter] 스택:', error.stack);
+      throw error;
+    }
   }
 
   /**
-   * 모의 이미지 변환 (실제 구현으로 교체 필요)
-   * @param {ArrayBuffer} inputData 
-   * @returns {Promise<ArrayBuffer>}
+   * 리사이즈 적용
+   * @param {sharp.Sharp} image
+   * @param {Object} metadata
+   * @param {String} resizeOption
    */
-  async simulateImageConversion(inputData) {
-    // 실제로는 WebAssembly를 통한 이미지 변환을 수행
-    // 현재는 입력 데이터를 그대로 반환 (데모용)
-    
-    await new Promise(resolve => setTimeout(resolve, 2000)); // 2초 대기
-    
-    // 실제 구현 예시:
-    // const wasmModule = await import('wasm-imagemagick');
-    // const result = wasmModule.convert(inputData, this.outputFormat, this.settings);
-    // return result;
-    
-    return inputData; // 임시로 원본 데이터 반환
+  applyResize(image, metadata, resizeOption) {
+    const percentMatch = resizeOption.match(/^(\d+)%$/);
+    if (percentMatch) {
+      const percent = parseInt(percentMatch[1]);
+      const newWidth = Math.round(metadata.width * (percent / 100));
+      const newHeight = Math.round(metadata.height * (percent / 100));
+      console.log(`[ImageConverter] 리사이즈: ${metadata.width}x${metadata.height} → ${newWidth}x${newHeight} (${percent}%)`);
+      return image.resize(newWidth, newHeight);
+    }
+    return image;
+  }
+
+  /**
+   * 출력 형식 및 품질 적용
+   * @param {sharp.Sharp} image
+   */
+  applyOutputFormat(image) {
+    const quality = this.settings.quality || 85; // 기본 품질: 85
+
+    switch (this.outputFormat) {
+      case 'jpg':
+      case 'jpeg':
+        return image.jpeg({ quality, mozjpeg: true });
+
+      case 'png':
+        const compressionLevel = Math.round((100 - quality) / 10); // quality 85 → compression 1
+        return image.png({
+          compressionLevel: Math.max(0, Math.min(9, compressionLevel)),
+          quality
+        });
+
+      case 'webp':
+        return image.webp({ quality });
+
+      case 'avif':
+        return image.avif({ quality });
+
+      case 'gif':
+        return image.gif();
+
+      case 'bmp':
+        return image.bmp();
+
+      case 'heic':
+        return image.heif({ quality });
+
+      default:
+        // 형식 지정 없으면 Sharp가 자동 결정
+        return image;
+    }
   }
 
   validateSettings() {
