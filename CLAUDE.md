@@ -23,10 +23,10 @@ HQMX Converter는 클라이언트 사이드에서 작동하는 파일 변환 웹
 **웹사이트**: https://hqmx.net
 
 **핵심 원칙**:
-- **스마트 라우팅**: 파일 크기/형식 기반 자동 최적 경로 선택
-- **서버 우선**: 빠른 변환 속도를 위해 서버 적극 활용 (t3.medium 무제한 모드)
-- **성능 최적화**: 사용자 대기 시간 최소화가 최우선
-- **동적 밸런싱**: 서버 부하에 따라 클라이언트로 자동 분산
+- **하이브리드 최적화**: 서버/클라이언트 장점을 모두 활용
+- **스마트 라우팅**: 파일 크기, 형식, 업로드 시간 종합 고려
+- **총 시간 최소화**: 업로드 + 변환 + 다운로드 시간 전체 최적화
+- **동적 밸런싱**: 서버 부하, 네트워크 상태에 따라 자동 최적 경로 선택
 
 ---
 
@@ -284,10 +284,97 @@ ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@23.21.183.
 
 ---
 
+---
+
+## 🧪 서버 사이드 변환 테스트
+
+### 테스트 시스템 개요
+서버에서 처리 가능한 모든 변환을 검증하는 자동화 테스트 시스템입니다.
+
+**파일**: `test-server-conversions.js`
+
+### 지원 변환 (289개)
+- **이미지 → 이미지** (72개): Sharp 기반 (JPG, PNG, WebP, HEIC, GIF, SVG, BMP, ICO, AVIF)
+- **비디오 → 비디오** (56개): FFmpeg 기반 (MP4, AVI, MOV, MKV, WebM, FLV, WMV, M4V)
+- **오디오 → 오디오** (56개): FFmpeg 기반 (MP3, WAV, FLAC, AAC, OGG, M4A, WMA, Opus)
+- **비디오 → 오디오** (64개): FFmpeg 오디오 추출
+- **문서 → PDF** (7개): LibreOffice 기반 (DOCX, DOC, XLSX, XLS, PPTX, PPT, TXT)
+- **이미지 → PDF** (9개): ImageMagick 기반
+- **PDF → 이미지** (9개): ImageMagick 기반
+- **비디오 → GIF** (8개): FFmpeg 기반
+- **GIF → 비디오** (8개): FFmpeg 기반
+
+### 테스트 방법
+
+**전체 테스트 (약 50분 소요):**
+```bash
+node test-server-conversions.js
+```
+
+**카테고리별 테스트:**
+```bash
+node test-server-conversions.js --category=image   # 이미지만 (6분)
+node test-server-conversions.js --category=video   # 비디오만 (14분)
+node test-server-conversions.js --category=audio   # 오디오만 (9분)
+```
+
+**특정 변환 테스트:**
+```bash
+node test-server-conversions.js --from=jpg --to=png
+node test-server-conversions.js --from=mp4 --to=avi
+```
+
+**재시도 옵션:**
+```bash
+node test-server-conversions.js --skip-completed   # 완료된 것 제외
+node test-server-conversions.js --retry-failed     # 실패만 재실행
+node test-server-conversions.js --verbose          # 상세 로그
+```
+
+### 테스트 결과
+- **결과 파일**: `test-server-results.json`
+- **다운로드 디렉토리**: `test-downloads-server/`
+- **실시간 진행률**: 1초마다 폴링하여 표시
+- **자동 저장**: 각 테스트 후 결과 저장 (중단 후 재개 가능)
+
+### 예상 시간 (카테고리별)
+| 카테고리 | 개수 | 평균 시간 | 총 시간 |
+|----------|------|-----------|---------|
+| 이미지 | 72개 | 5초 | 6분 |
+| 비디오 | 56개 | 15초 | 14분 |
+| 오디오 | 56개 | 10초 | 9.3분 |
+| 문서 | 24개 | 8초 | 3.2분 |
+| 크로스 | 81개 | 12초 | 16.2분 |
+| **전체** | **289개** | **10초** | **48.7분** |
+
+### 테스트 파일 (더미 파일)
+테스트는 `conv-test/` 디렉토리의 더미 파일을 사용합니다:
+- `test.jpg`, `test.png`, `test.webp` (이미지)
+- `test.mp4`, `test.avi`, `test.mov` (비디오)
+- `test.mp3`, `test.wav`, `test.flac` (오디오)
+- `test.pdf`, `test.docx`, `test.xlsx` (문서)
+
+### 테스트 프로세스
+1. **업로드**: API `/api/convert`로 파일 전송
+2. **폴링**: `/api/progress/{jobId}`로 1초마다 진행률 체크
+3. **다운로드**: 완료 시 `/api/download/{jobId}`로 파일 다운로드
+4. **검증**: 파일 크기 확인 (0 바이트 방지)
+5. **결과 저장**: `test-server-results.json`에 자동 저장
+
+### 서버 요구사항
+- **메모리**: 4GB RAM (t3.medium)
+- **동시 처리**: MAX_CONCURRENCY=4
+- **제한**: 파일당 2.5GB (nginx body size)
+- **타임아웃**: 5분/변환
+
+---
+
 ## 🔜 다음 단계
 
-- [ ] 비디오 변환 FFmpeg 진행률 정확도 개선
-- [ ] DocumentConverter 구현 (PDF ↔ 이미지)
-- [ ] LibreOfficeConverter 구현 (DOC/XLSX → PDF)
-- [ ] 크로스 카테고리 변환 (비디오 → GIF)
+- [x] 비디오 변환 FFmpeg 진행률 정확도 개선 ✅ (2025-10-17: Timemark 기반 진행률 구현)
+- [x] 서버 사이드 변환 테스트 시스템 구축 ✅ (2025-10-17: test-server-conversions.js)
+- [ ] DocumentConverter 구현 (PDF ↔ 이미지) - ⚠️ 현재 ImageMagick 사용
+- [ ] LibreOfficeConverter 안정성 테스트 (DOC/XLSX → PDF)
+- [ ] 크로스 카테고리 변환 검증 (비디오 → GIF, GIF → 비디오)
 - [ ] 대용량 파일 테스트 (100MB+, 동시 변환)
+- [ ] 전체 289개 변환 품질 검증

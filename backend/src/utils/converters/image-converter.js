@@ -20,7 +20,10 @@ export class ImageConverter extends BaseConverter {
     console.log('[ImageConverter] ========== 변환 시작 ==========');
     console.log('[ImageConverter] inputFormat:', this.inputFormat);
     console.log('[ImageConverter] outputFormat:', this.outputFormat);
-    console.log('[ImageConverter] settings:', JSON.stringify(this.settings, null, 2));
+
+    // settings 로깅 시 순환 참조 방지 (conversionQueue 제외)
+    const { conversionQueue, ...safeSettings } = this.settings;
+    console.log('[ImageConverter] settings:', JSON.stringify(safeSettings, null, 2));
 
     const inputPath = this.settings.inputPath;
     const outputPath = this.settings.outputPath;

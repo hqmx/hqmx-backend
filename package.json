@@ -37,7 +37,9 @@
     "node": ">=14.0.0"
   },
   "devDependencies": {
+    "axios": "^1.12.2",
     "eslint": "^8.0.0",
+    "form-data": "^4.0.4",
     "prettier": "^2.5.0"
   },
   "browserslist": [
@@ -55,7 +57,6 @@
     "file_retention_hours": 24
   },
   "dependencies": {
-    "form-data": "^4.0.4",
     "node-fetch": "^3.3.2",
     "playwright": "^1.55.1"
   }

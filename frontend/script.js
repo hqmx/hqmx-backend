@@ -1477,9 +1477,9 @@ function initializeApp() {
         const pollInterval = setInterval(async () => {
             try {
                 const url = `${API_BASE_URL}/progress/${taskId}`;
-                console.log('[Progress Monitor] 폴링 요청:', url);
+                // console.log('[Progress Monitor] 폴링 요청:', url); // 반복 로그 제거
                 const response = await fetch(url);
-                console.log('[Progress Monitor] 폴링 응답, status:', response.status);
+                // console.log('[Progress Monitor] 폴링 응답, status:', response.status); // 반복 로그 제거
 
                 if (!response.ok) {
                     console.error('[Progress Monitor] HTTP 에러, status:', response.status);
@@ -1487,7 +1487,7 @@ function initializeApp() {
                 }
 
                 const data = await response.json();
-                console.log('[Progress Monitor] 응답 데이터:', data);
+                // console.log('[Progress Monitor] 응답 데이터:', data); // 반복 로그 제거 (에러시에만 표시)
 
                 // 서버 진행률(0-100%)을 20-95% 범위로 매핑
                 const serverProgress = data.progress || 0;
@@ -1509,7 +1509,7 @@ function initializeApp() {
                     fileObj.statusDetail = 'Converting on server...';
                 }
 
-                console.log('[Progress Monitor] fileObj 업데이트, progress:', fileObj.progress, 'status:', fileObj.status);
+                // console.log('[Progress Monitor] fileObj 업데이트, progress:', fileObj.progress, 'status:', fileObj.status); // 반복 로그 제거
                 updateFileItem(fileObj);
 
                 if (data.status === 'completed') {
@@ -1538,6 +1538,7 @@ function initializeApp() {
         }, 1000); // 1초마다 폴링
 
         state.eventSources.set(fileId, pollInterval);
+        fileObj.pollingInterval = pollInterval; // 중단 시 사용
     }
 
     function handleConversionComplete(fileId, taskId) {
@@ -1720,11 +1721,17 @@ function initializeApp() {
                 }
             }
 
-            // EventSource 정리
+            // EventSource 정리 (클라이언트 변환에서만 사용)
             const eventSource = state.eventSources.get(fileObj.id);
-            if (eventSource) {
+            if (eventSource && typeof eventSource.close === 'function') {
                 eventSource.close();
                 state.eventSources.delete(fileObj.id);
+            }
+
+            // 폴링 중지 (서버 변환)
+            if (fileObj.pollingInterval) {
+                clearInterval(fileObj.pollingInterval);
+                fileObj.pollingInterval = null;
             }
 
             // 상태 업데이트

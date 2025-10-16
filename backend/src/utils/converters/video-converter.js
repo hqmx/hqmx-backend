@@ -67,13 +67,57 @@ export class VideoConverter extends BaseConverter {
   }
 
   /**
+   * 비디오 duration을 초 단위로 파싱
+   * @param {String} inputPath
+   * @returns {Promise<number>}
+   */
+  async getVideoDuration(inputPath) {
+    return new Promise((resolve, reject) => {
+      ffmpeg.ffprobe(inputPath, (err, metadata) => {
+        if (err) {
+          console.error('[VideoConverter] ffprobe 에러:', err.message);
+          resolve(null); // 에러 시 null 반환 (진행률 계산 불가하지만 변환은 계속)
+        } else {
+          const duration = metadata.format.duration;
+          console.log(`[VideoConverter] 비디오 duration: ${duration}초`);
+          resolve(duration);
+        }
+      });
+    });
+  }
+
+  /**
+   * timemark를 초 단위로 변환 (00:01:23.45 → 83.45초)
+   * @param {String} timemark
+   * @returns {number}
+   */
+  parseTimemark(timemark) {
+    const parts = timemark.split(':');
+    if (parts.length === 3) {
+      const hours = parseInt(parts[0], 10);
+      const minutes = parseInt(parts[1], 10);
+      const seconds = parseFloat(parts[2]);
+      return hours * 3600 + minutes * 60 + seconds;
+    }
+    return 0;
+  }
+
+  /**
    * FFmpeg로 실제 변환 수행
    * @param {String} inputPath
    * @param {String} outputPath
    * @returns {Promise<void>}
    */
   async convertWithFFmpeg(inputPath, outputPath) {
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
+      // 파일 크기 확인 (메모리 최적화용)
+      const inputStats = await fs.stat(inputPath);
+      const fileSizeMB = inputStats.size / (1024 * 1024);
+      console.log(`[VideoConverter] 입력 파일 크기: ${fileSizeMB.toFixed(2)} MB`);
+
+      // 비디오 duration 파싱 (진행률 계산용)
+      const videoDuration = await this.getVideoDuration(inputPath);
+
       let command = ffmpeg(inputPath);
 
       // FFmpeg 프로세스를 큐에 등록 (취소 가능하도록)
@@ -87,22 +131,52 @@ export class VideoConverter extends BaseConverter {
       console.log(`[VideoConverter] 출력 형식: ${this.outputFormat} → FFmpeg 포맷: ${ffmpegFormat}`);
       command = command.toFormat(ffmpegFormat);
 
-      // 🎯 품질 우선 설정 + 멀티스레딩
-      const preset = this.settings.preset || 'medium'; // medium: 품질과 속도의 균형 (기본값)
-      command = command.videoCodec('libx264').outputOptions([
-        `-preset ${preset}`,
-        '-threads 0',  // 모든 CPU 코어 사용
-        '-movflags +faststart'  // 웹 스트리밍 최적화
-      ]);
+      // 🎯 파일 크기 기반 자동 최적화
+      let preset, crf;
 
-      // 품질 설정 (CRF) - 기본값: high quality
-      if (this.settings.quality) {
-        const crfMap = { high: 18, medium: 23, low: 28 };
-        const crf = crfMap[this.settings.quality] || 18;
-        command = command.outputOptions([`-crf ${crf}`]);
+      if (fileSizeMB > 300) {
+        // 대용량 파일 (>300MB): 메모리 절약 우선
+        preset = 'veryfast';  // faster → veryfast (더 빠르고 메모리 효율적)
+        crf = 32;  // 28 → 32 (더 낮은 품질, 더 작은 메모리)
+        console.log(`[VideoConverter] 대용량 파일 모드: preset=${preset}, crf=${crf}`);
+
+        // 메모리 제한 옵션 + 해상도 다운스케일
+        command = command.videoCodec('libx264')
+          .size('1280x720')  // 강제 720p (메모리 절약)
+          .outputOptions([
+            `-preset ${preset}`,
+            `-crf ${crf}`,
+            '-threads 2',  // CPU 코어 제한
+            '-max_muxing_queue_size 512',  // 큐 크기 더 줄임
+            '-bufsize 1M',  // 버퍼 크기 더 줄임
+            '-movflags +faststart',
+            '-g 60'  // GOP 크기 제한 (메모리 절약)
+          ]);
+      } else if (fileSizeMB > 100) {
+        // 중간 파일 (100-300MB): 균형 모드
+        preset = 'medium';
+        crf = 23;
+        console.log(`[VideoConverter] 중간 파일 모드: preset=${preset}, crf=${crf}`);
+
+        command = command.videoCodec('libx264').outputOptions([
+          `-preset ${preset}`,
+          `-crf ${crf}`,
+          '-threads 0',
+          '-movflags +faststart'
+        ]);
       } else {
-        // 기본 CRF 18 (high quality - 원본 화질 최대한 유지)
-        command = command.outputOptions(['-crf 18']);
+        // 작은 파일 (<100MB): 품질 우선
+        preset = this.settings.preset || 'medium';
+        crf = this.settings.quality ?
+          { high: 18, medium: 23, low: 28 }[this.settings.quality] : 18;
+        console.log(`[VideoConverter] 작은 파일 모드: preset=${preset}, crf=${crf}`);
+
+        command = command.videoCodec('libx264').outputOptions([
+          `-preset ${preset}`,
+          `-crf ${crf}`,
+          '-threads 0',
+          '-movflags +faststart'
+        ]);
       }
 
       // 해상도 설정
@@ -124,15 +198,34 @@ export class VideoConverter extends BaseConverter {
       // 진행률 콜백
       command.on('progress', (progress) => {
         console.log('[VideoConverter] FFmpeg progress event:', JSON.stringify(progress));
-        if (progress.percent) {
-          const percent = Math.min(95, Math.max(40, Math.round(progress.percent)));
-          console.log(`[VideoConverter] Updating progress: ${percent}%`);
-          this.updateProgress(percent, `변환 진행 중... ${percent}%`).catch(() => {});
-        } else if (progress.timemark) {
-          // percent가 없으면 timemark로 진행률 표시
-          console.log(`[VideoConverter] FFmpeg timemark: ${progress.timemark}`);
-          this.updateProgress(50, `변환 진행 중... ${progress.timemark}`).catch(() => {});
+
+        let percent = 50; // 기본값
+        let message = `변환 진행 중... ${percent}%`;
+
+        // timemark 기반 진행률 계산 (가장 정확)
+        if (progress.timemark && videoDuration) {
+          const currentTime = this.parseTimemark(progress.timemark);
+          percent = Math.round((currentTime / videoDuration) * 100);
+          percent = Math.min(95, Math.max(40, percent)); // 40-95% 범위로 제한
+
+          // ⭐️ 사용자에게 보이는 메시지 생성 (시간 포함)
+          message = `변환 진행 중... ${currentTime.toFixed(1)}s / ${videoDuration.toFixed(1)}s (${percent}%)`;
+
+          console.log(`[VideoConverter] Timemark 기반 진행률: ${currentTime.toFixed(1)}s / ${videoDuration.toFixed(1)}s = ${percent}%`);
         }
+        // FFmpeg percent 사용 (보조)
+        else if (progress.percent) {
+          percent = Math.min(95, Math.max(40, Math.round(progress.percent)));
+          message = `변환 진행 중... ${percent}%`;
+          console.log(`[VideoConverter] FFmpeg percent: ${percent}%`);
+        }
+        // 둘 다 없으면 timemark 텍스트만 표시
+        else if (progress.timemark) {
+          message = `변환 진행 중... ${progress.timemark}`;
+          console.log(`[VideoConverter] FFmpeg timemark: ${progress.timemark}`);
+        }
+
+        this.updateProgress(percent, message).catch(() => {});
       });
 
       // 에러 핸들링
