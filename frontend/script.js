@@ -661,7 +661,7 @@ function initializeApp() {
         console.log('변환 가능한 파일:', availableFiles.length, availableFiles.map(f => f.name));
 
         if (availableFiles.length === 0) {
-            showToast('변환할 수 있는 파일이 없습니다', 'warning');
+            showToast('No files available for conversion', 'warning');
             return;
         }
 
@@ -679,18 +679,53 @@ function initializeApp() {
         return state.files.find(f => f.id === fileId);
     }
 
-    function removeFile(fileId) {
+    async function removeFile(fileId) {
         const index = state.files.findIndex(f => f.id === fileId);
         if (index === -1) return;
 
         const fileObj = state.files[index];
-        
+
+        // 변환 중이면 확인 모달 표시
+        if (fileObj.status === 'converting' || fileObj.status === 'uploading') {
+            const confirmed = await showDeleteConfirmModal(fileObj);
+            if (!confirmed) {
+                console.log('[Delete] 사용자가 삭제 취소함');
+                return;
+            }
+
+            // 변환 중단 처리
+            console.log('[Delete] 변환 중단 및 파일 삭제');
+
+            // 클라이언트 변환 중단
+            if (window.converterEngine && fileObj.conversionMode === 'client') {
+                try {
+                    await window.converterEngine.abort();
+                } catch (err) {
+                    console.error('[Delete] 클라이언트 변환 중단 실패:', err);
+                }
+            }
+
+            // 서버 변환 중단
+            if (fileObj.jobId) {
+                try {
+                    await fetch(`/api/cancel/${fileObj.jobId}`, {
+                        method: 'POST'
+                    });
+                } catch (err) {
+                    console.error('[Delete] 서버 변환 중단 실패:', err);
+                }
+            }
+
+            // 타이머 정지
+            stopConversionTimer(fileId);
+        }
+
         // Cancel conversion if in progress
         if (state.eventSources.has(fileId)) {
             state.eventSources.get(fileId).close();
             state.eventSources.delete(fileId);
         }
-        
+
         // Remove from state
         state.files.splice(index, 1);
         updateFileList();
@@ -708,7 +743,7 @@ function initializeApp() {
             }
         }
 
-        showToast(`Removed "${fileObj.name}"`, 'success');
+        showToast(`Removed "${fileObj.file.name}"`, 'success');
     }
 
     function openConversionModal(fileId) {
@@ -752,7 +787,7 @@ function initializeApp() {
 
         // 파일이 없으면 모달을 열지 않음
         if (!files || files.length === 0) {
-            showToast('변환할 파일을 선택해주세요', 'warning');
+            showToast('Please select files to convert', 'warning');
             return;
         }
 
@@ -1082,7 +1117,7 @@ function initializeApp() {
         const convertedFiles = files.filter(file => file.status === 'completed');
 
         if (convertedFiles.length > 0) {
-            showToast(`배치 변환 완료! ${completedCount}개 파일 다운로드 시작... (실패: ${failedCount}개)`, 'success');
+            showToast(`Batch conversion complete! ${completedCount} files downloading... (${failedCount} failed)`, 'success');
 
             // 모든 완료된 파일을 순차적으로 다운로드
             for (let i = 0; i < convertedFiles.length; i++) {
@@ -1092,7 +1127,7 @@ function initializeApp() {
                 }, i * 800); // 800ms 간격으로 다운로드
             }
         } else {
-            showToast(`배치 변환 실패: ${failedCount}개 파일 모두 실패`, 'error');
+            showToast(`Batch conversion failed: All ${failedCount} files failed`, 'error');
         }
     }
 
@@ -1218,7 +1253,7 @@ function initializeApp() {
 
             // 변환 엔진 확인
             if (!window.converterEngine) {
-                throw new Error('변환 엔진을 로드할 수 없습니다');
+                throw new Error('Could not load conversion engine');
             }
 
             // 진행률 콜백 설정 (with FFmpeg log parsing)
@@ -1264,8 +1299,8 @@ function initializeApp() {
 
             // 다운로드 링크 생성
             const url = URL.createObjectURL(blob);
-            const fileName = fileObj.file.name.replace(/\.[^/.]+$/, '') + '.' + fileObj.outputFormat;
-            
+            const fileName = getOutputFilename(fileObj.file.name, fileObj.outputFormat, fileObj.settings);
+
             fileObj.downloadUrl = url;
             fileObj.outputFileName = fileName;
             fileObj.status = 'completed';
@@ -1277,10 +1312,10 @@ function initializeApp() {
             // 단일 파일 변환 완료
             if (state.batchFiles && state.batchFiles.length > 1) {
                 // 배치 모드에서는 개별 다운로드 안함
-                showToast(`변환 완료! "${fileName}"`, 'success');
+                showToast(`Conversion complete! "${fileName}"`, 'success');
             } else {
                 // 단일 파일 모드에서는 자동 다운로드
-                showToast(`변환 완료! "${fileName}" 자동 다운로드 시작...`, 'success');
+                showToast(`Conversion complete! "${fileName}" - Auto download starting...`, 'success');
                 setTimeout(() => downloadConvertedFile(fileObj), 500);
             }
 
@@ -1329,7 +1364,7 @@ function initializeApp() {
                         const minutes = Math.floor(remainingTime / 60);
                         const seconds = remainingTime % 60;
 
-                        fileObj.statusDetail = `업로드 중... ${speedMB} MB/s (남은 시간: ${minutes}분 ${seconds}초)`;
+                        fileObj.statusDetail = `Uploading... ${speedMB} MB/s (remaining: ${minutes}m ${seconds}s)`;
                         updateFileItem(fileObj);
 
                         lastLoadedBytes = event.loaded;
@@ -1340,30 +1375,44 @@ function initializeApp() {
 
             // 업로드 완료 → 서버에서 변환 시작
             xhr.onload = () => {
+                console.log('[Server Upload] xhr.onload 호출됨, status:', xhr.status);
+
                 if (xhr.status >= 200 && xhr.status < 300) {
                     try {
+                        console.log('[Server Upload] 응답 파싱 시작:', xhr.responseText.substring(0, 200));
                         const data = JSON.parse(xhr.responseText);
+                        console.log('[Server Upload] 파싱 성공, jobId:', data.jobId);
 
                         // 변환 단계로 전환
                         fileObj.status = 'converting';
                         fileObj.progress = 20;
-                        fileObj.statusDetail = '서버에서 변환 중...';
+                        fileObj.statusDetail = 'Converting on server...';
+
+                        // ⭐️ conversionStartTime 명시적 유지 (이미 설정되어 있음)
+                        // 타이머가 계속 실행되도록 보장
+                        if (!fileObj.conversionStartTime) {
+                            fileObj.conversionStartTime = Date.now();
+                        }
+
+                        console.log('[Server Upload] updateFileItem 호출 전, status:', fileObj.status);
                         updateFileItem(fileObj);
+                        console.log('[Server Upload] updateFileItem 완료');
 
                         // 진행률 모니터링 시작
+                        console.log('[Server Upload] startProgressMonitor 호출, fileId:', fileObj.id, 'jobId:', data.jobId);
                         startProgressMonitor(fileObj.id, data.jobId);
                         resolve();
                     } catch (parseError) {
                         stopConversionTimer(fileObj.id);
-                        reject(new Error('서버 응답 파싱 실패: ' + parseError.message));
+                        reject(new Error('Failed to parse server response: ' + parseError.message));
                     }
                 } else {
                     stopConversionTimer(fileObj.id);
                     try {
                         const errorData = JSON.parse(xhr.responseText);
-                        reject(new Error(errorData.error || `서버 오류 (${xhr.status})`));
+                        reject(new Error(errorData.error || `Server error (${xhr.status})`));
                     } catch {
-                        reject(new Error(`서버 오류 (${xhr.status}): ${xhr.statusText}`));
+                        reject(new Error(`Server error (${xhr.status}): ${xhr.statusText}`));
                     }
                 }
             };
@@ -1371,20 +1420,20 @@ function initializeApp() {
             // 네트워크 오류
             xhr.onerror = () => {
                 stopConversionTimer(fileObj.id);
-                reject(new Error('네트워크 오류: 서버에 연결할 수 없습니다.'));
+                reject(new Error('Network error: Could not connect to server.'));
             };
 
             // 타임아웃 (20분)
             xhr.timeout = 20 * 60 * 1000; // 20분
             xhr.ontimeout = () => {
                 stopConversionTimer(fileObj.id);
-                reject(new Error('타임아웃: 파일 업로드가 20분을 초과했습니다. 파일 크기를 줄이거나 네트워크 연결을 확인하세요.'));
+                reject(new Error('Timeout: File upload exceeded 20 minutes. Please reduce file size or check network connection.'));
             };
 
             // 업로드 중단
             xhr.onabort = () => {
                 stopConversionTimer(fileObj.id);
-                reject(new Error('업로드가 취소되었습니다.'));
+                reject(new Error('Upload was cancelled.'));
             };
 
             // 요청 시작
@@ -1406,45 +1455,72 @@ function initializeApp() {
     }
 
     function startProgressMonitor(fileId, taskId) {
+        console.log('[Progress Monitor] 시작, fileId:', fileId, 'taskId:', taskId);
+
         // 기존 폴링 중지
         if (state.eventSources.has(fileId)) {
             clearInterval(state.eventSources.get(fileId));
+            console.log('[Progress Monitor] 기존 폴링 중지');
         }
 
         state.conversions.set(fileId, taskId);
 
         const fileObj = state.files.find(f => f.id === fileId);
-        if (!fileObj) return;
+        if (!fileObj) {
+            console.error('[Progress Monitor] fileObj를 찾을 수 없음, fileId:', fileId);
+            return;
+        }
+
+        console.log('[Progress Monitor] fileObj 찾음, name:', fileObj.name);
 
         // 폴링 방식으로 진행률 확인 (1초마다)
         const pollInterval = setInterval(async () => {
             try {
-                const response = await fetch(`${API_BASE_URL}/progress/${taskId}`);
+                const url = `${API_BASE_URL}/progress/${taskId}`;
+                console.log('[Progress Monitor] 폴링 요청:', url);
+                const response = await fetch(url);
+                console.log('[Progress Monitor] 폴링 응답, status:', response.status);
 
                 if (!response.ok) {
+                    console.error('[Progress Monitor] HTTP 에러, status:', response.status);
                     throw new Error(`HTTP ${response.status}: ${response.statusText}`);
                 }
 
                 const data = await response.json();
+                console.log('[Progress Monitor] 응답 데이터:', data);
 
-                fileObj.progress = data.progress || 0;
+                // 서버 진행률(0-100%)을 20-95% 범위로 매핑
+                const serverProgress = data.progress || 0;
+                fileObj.progress = 20 + Math.round(serverProgress * 0.75);
                 fileObj.status = data.status || 'processing';
 
+                // 서버 변환 상태 메시지 업데이트
+                if (data.message) {
+                    fileObj.statusDetail = data.message;
+                } else if (serverProgress > 0) {
+                    fileObj.statusDetail = `Converting on server... ${Math.round(serverProgress)}%`;
+                } else {
+                    fileObj.statusDetail = 'Converting on server...';
+                }
+
+                console.log('[Progress Monitor] fileObj 업데이트, progress:', fileObj.progress, 'status:', fileObj.status);
                 updateFileItem(fileObj);
 
                 if (data.status === 'completed') {
+                    console.log('[Progress Monitor] 변환 완료!');
                     clearInterval(pollInterval);
                     state.eventSources.delete(fileId);
                     stopConversionTimer(fileId); // 타이머 정지
                     handleConversionComplete(fileId, taskId);
                 } else if (data.status === 'failed' || data.error) {
+                    console.error('[Progress Monitor] 변환 실패:', data.error || data.message);
                     clearInterval(pollInterval);
                     state.eventSources.delete(fileId);
                     stopConversionTimer(fileId); // 타이머 정지
                     throw new Error(data.error || data.message || 'Conversion failed');
                 }
             } catch (error) {
-                console.error('Progress Monitor Error:', error);
+                console.error('[Progress Monitor] 에러:', error);
                 clearInterval(pollInterval);
                 state.eventSources.delete(fileId);
                 stopConversionTimer(fileId); // 타이머 정지
@@ -1470,7 +1546,7 @@ function initializeApp() {
         const downloadUrl = `${API_BASE_URL}/download/${taskId}`;
         const link = document.createElement('a');
         link.href = downloadUrl;
-        link.download = getOutputFilename(fileObj.name, fileObj.outputFormat);
+        link.download = getOutputFilename(fileObj.name, fileObj.outputFormat, fileObj.settings);
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
@@ -1503,6 +1579,8 @@ function initializeApp() {
             progressElement.style.display = 'none';
             statusContainer.style.display = 'none';
             convertBtn.disabled = false;
+            // 로더가 있다면 원래 버튼으로 복원
+            restoreConvertButton(convertBtn);
         } else {
             progressElement.style.display = 'block';
             statusContainer.style.display = 'block';
@@ -1514,8 +1592,10 @@ function initializeApp() {
                 statusElement.textContent = getStatusText(fileObj.status);
             }
 
-            // 타이머 업데이트
-            if ((fileObj.status === 'converting' || fileObj.status === 'uploading') && fileObj.conversionStartTime) {
+            // 타이머 업데이트 (완료되기 전까지 계속 표시)
+            const shouldShowTimer = (fileObj.status === 'converting' || fileObj.status === 'uploading') && fileObj.conversionStartTime;
+
+            if (shouldShowTimer) {
                 const elapsed = Math.floor((Date.now() - fileObj.conversionStartTime) / 1000);
                 const hours = Math.floor(elapsed / 3600).toString().padStart(2, '0');
                 const minutes = Math.floor((elapsed % 3600) / 60).toString().padStart(2, '0');
@@ -1523,24 +1603,295 @@ function initializeApp() {
                 timerElement.textContent = `${hours}:${minutes}:${seconds}`;
                 timerElement.style.display = '';
             } else {
-                timerElement.style.display = 'none';
+                // 타이머는 completed, error, ready 상태에서만 숨김
+                if (fileObj.status === 'completed' || fileObj.status === 'error' || fileObj.status === 'ready') {
+                    timerElement.style.display = 'none';
+                }
             }
 
             progressFill.style.width = `${fileObj.progress}%`;
 
-            // 변환 중이거나 업로드 중일 때만 버튼 비활성화
-            // 완료된 파일은 재변환 가능하도록 활성화 상태 유지
-            convertBtn.disabled = (fileObj.status === 'converting' || fileObj.status === 'uploading');
-
-            // 버튼 텍스트 동적 변경
-            const buttonText = convertBtn.querySelector('span');
-            buttonText.textContent = 'Convert';
-            if (fileObj.status === 'completed') {
-                convertBtn.classList.add('reconvert');
+            // 변환 중이거나 업로드 중일 때 로더로 교체
+            console.log('[updateFileItem] 로더 교체 체크, status:', fileObj.status, 'fileId:', fileObj.id);
+            if (fileObj.status === 'converting' || fileObj.status === 'uploading') {
+                console.log('[updateFileItem] 로더로 교체 시작');
+                replaceConvertButtonWithLoader(convertBtn, fileObj.id);
+                console.log('[updateFileItem] 로더 교체 완료');
             } else {
-                convertBtn.classList.remove('reconvert');
+                console.log('[updateFileItem] 원래 버튼으로 복원');
+                // 완료/에러 상태에서는 원래 버튼으로 복원
+                restoreConvertButton(convertBtn);
+                convertBtn.disabled = false;
+
+                // 버튼 텍스트 동적 변경
+                const buttonText = convertBtn.querySelector('span');
+                if (buttonText) {
+                    buttonText.textContent = 'Convert';
+                }
+                if (fileObj.status === 'completed') {
+                    convertBtn.classList.add('reconvert');
+                } else {
+                    convertBtn.classList.remove('reconvert');
+                }
             }
         }
+    }
+
+    // Convert 버튼을 로더로 교체
+    function replaceConvertButtonWithLoader(convertBtn, fileId) {
+        console.log('[replaceConvertButton] 호출됨, fileId:', fileId, 'classList:', convertBtn.classList.toString());
+
+        // 이미 로더로 교체되어 있으면 skip
+        if (convertBtn.classList.contains('loader-active')) {
+            console.log('[replaceConvertButton] 이미 로더 활성화됨, skip');
+            return;
+        }
+
+        // 원래 내용 저장
+        convertBtn.dataset.originalContent = convertBtn.innerHTML;
+        convertBtn.classList.add('loader-active');
+
+        // 로더로 교체
+        convertBtn.innerHTML = '<span class="conversion-loader" title="변환 중단하려면 클릭"></span>';
+        convertBtn.disabled = false; // 클릭 가능하도록
+        convertBtn.style.cursor = 'pointer';
+
+        console.log('[replaceConvertButton] 로더 교체 완료, innerHTML:', convertBtn.innerHTML);
+
+        // 로더 클릭 이벤트
+        const loader = convertBtn.querySelector('.conversion-loader');
+        if (loader) {
+            loader.addEventListener('click', (e) => {
+                e.stopPropagation();
+                cancelConversion(fileId);
+            });
+        }
+    }
+
+    // 원래 Convert 버튼으로 복원
+    function restoreConvertButton(convertBtn) {
+        if (!convertBtn.classList.contains('loader-active')) return;
+
+        const originalContent = convertBtn.dataset.originalContent;
+        if (originalContent) {
+            convertBtn.innerHTML = originalContent;
+        }
+        convertBtn.classList.remove('loader-active');
+        convertBtn.style.cursor = '';
+        delete convertBtn.dataset.originalContent;
+    }
+
+    // 변환 중단
+    async function cancelConversion(fileId) {
+        const fileObj = findFileById(fileId);
+        if (!fileObj) return;
+
+        console.log(`[Cancel] 변환 중단 요청: ${fileObj.file.name}`);
+
+        // 상태 확인
+        if (fileObj.status !== 'converting' && fileObj.status !== 'uploading') {
+            console.log('[Cancel] 변환 중이 아님');
+            return;
+        }
+
+        // 확인 모달
+        const confirmed = await showCancelConfirmModal(fileObj.file.name);
+        if (!confirmed) {
+            console.log('[Cancel] 사용자가 취소함');
+            return;
+        }
+
+        try {
+            // 클라이언트 사이드 변환 중단
+            if (window.converterEngine && fileObj.conversionMode === 'client') {
+                console.log('[Cancel] 클라이언트 변환 중단');
+                await window.converterEngine.abort();
+            }
+
+            // 서버 사이드 변환 중단
+            if (fileObj.jobId) {
+                console.log('[Cancel] 서버 변환 중단:', fileObj.jobId);
+                try {
+                    const response = await fetch(`/api/cancel/${fileObj.jobId}`, {
+                        method: 'POST'
+                    });
+                    if (response.ok) {
+                        console.log('[Cancel] 서버 변환 중단 성공');
+                    }
+                } catch (err) {
+                    console.error('[Cancel] 서버 변환 중단 실패:', err);
+                }
+            }
+
+            // EventSource 정리
+            const eventSource = state.eventSources.get(fileObj.id);
+            if (eventSource) {
+                eventSource.close();
+                state.eventSources.delete(fileObj.id);
+            }
+
+            // 상태 업데이트
+            fileObj.status = 'ready';
+            fileObj.progress = 0;
+            fileObj.statusDetail = '변환이 취소되었습니다';
+            fileObj.conversionStartTime = null;
+
+            // 타이머 정지
+            stopConversionTimer(fileId);
+
+            // UI 업데이트
+            updateFileItem(fileObj);
+
+            // 2초 후 상태 메시지 초기화
+            setTimeout(() => {
+                fileObj.statusDetail = null;
+                updateFileItem(fileObj);
+            }, 2000);
+
+        } catch (error) {
+            console.error('[Cancel] 변환 중단 오류:', error);
+            fileObj.status = 'error';
+            fileObj.statusDetail = '중단 중 오류 발생';
+            updateFileItem(fileObj);
+        }
+    }
+
+    // 변환 일시정지
+    function pauseConversion(fileObj) {
+        if (!fileObj || !fileObj.pausable) return;
+
+        console.log(`[Pause] 변환 일시정지: ${fileObj.file.name}`);
+
+        fileObj.paused = true;
+        fileObj.pausedProgress = fileObj.progress;
+        fileObj.statusDetail = '일시정지됨';
+
+        // 클라이언트 변환은 일시정지 불가 (FFmpeg.wasm 제약)
+        // 서버 변환도 현재 일시정지 API 없음
+        // 따라서 이 함수는 UI 상태만 변경
+
+        updateFileItem(fileObj);
+    }
+
+    // 변환 재개
+    function resumeConversion(fileObj) {
+        if (!fileObj || !fileObj.paused) return;
+
+        console.log(`[Resume] 변환 재개: ${fileObj.file.name}`);
+
+        fileObj.paused = false;
+        fileObj.statusDetail = '변환 재개...';
+
+        updateFileItem(fileObj);
+
+        // 실제로는 새로 변환 시작
+        // (FFmpeg는 중단된 지점부터 재개 불가)
+        setTimeout(() => {
+            fileObj.statusDetail = '변환 중...';
+            updateFileItem(fileObj);
+        }, 500);
+    }
+
+    // 취소 확인 모달
+    function showCancelConfirmModal(filename) {
+        return new Promise((resolve) => {
+            const modal = document.createElement('div');
+            modal.className = 'delete-confirm-modal';
+            modal.innerHTML = `
+                <div class="delete-confirm-content">
+                    <div class="delete-confirm-title">변환 중단</div>
+                    <div class="delete-confirm-message">
+                        <strong>${filename}</strong>의 변환을 중단하시겠습니까?<br>
+                        변환 진행 상황이 모두 삭제됩니다.
+                    </div>
+                    <div class="delete-confirm-buttons">
+                        <button class="delete-confirm-btn cancel">취소</button>
+                        <button class="delete-confirm-btn confirm">중단</button>
+                    </div>
+                </div>
+            `;
+
+            document.body.appendChild(modal);
+
+            const cancelBtn = modal.querySelector('.cancel');
+            const confirmBtn = modal.querySelector('.confirm');
+
+            const cleanup = () => {
+                modal.remove();
+            };
+
+            cancelBtn.addEventListener('click', () => {
+                cleanup();
+                resolve(false);
+            });
+
+            confirmBtn.addEventListener('click', () => {
+                cleanup();
+                resolve(true);
+            });
+
+            // 모달 외부 클릭 시 취소
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    cleanup();
+                    resolve(false);
+                }
+            });
+        });
+    }
+
+    // 삭제 확인 모달 (변환 중)
+    function showDeleteConfirmModal(fileObj) {
+        return new Promise((resolve) => {
+            const modal = document.createElement('div');
+            modal.className = 'delete-confirm-modal';
+            modal.innerHTML = `
+                <div class="delete-confirm-content">
+                    <div class="delete-confirm-title">파일 삭제</div>
+                    <div class="delete-confirm-message">
+                        <strong>${fileObj.file.name}</strong>이(가) 변환 중입니다.<br>
+                        변환을 중단하고 파일을 삭제하시겠습니까?
+                    </div>
+                    <div class="delete-confirm-buttons">
+                        <button class="delete-confirm-btn cancel">계속 변환</button>
+                        <button class="delete-confirm-btn confirm">삭제</button>
+                    </div>
+                </div>
+            `;
+
+            document.body.appendChild(modal);
+
+            const cancelBtn = modal.querySelector('.cancel');
+            const confirmBtn = modal.querySelector('.confirm');
+
+            const cleanup = () => {
+                modal.remove();
+            };
+
+            // 일시정지
+            pauseConversion(fileObj);
+
+            cancelBtn.addEventListener('click', () => {
+                // 변환 재개
+                resumeConversion(fileObj);
+                cleanup();
+                resolve(false);
+            });
+
+            confirmBtn.addEventListener('click', () => {
+                cleanup();
+                resolve(true);
+            });
+
+            // 모달 외부 클릭 시 재개
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    resumeConversion(fileObj);
+                    cleanup();
+                    resolve(false);
+                }
+            });
+        });
     }
 
     // 타이머 시작
@@ -1725,22 +2076,120 @@ function initializeApp() {
         return statusMap[status] || status;
     }
 
-    function getOutputFilename(originalName, outputFormat) {
+    function getOutputFilename(originalName, outputFormat, settings = {}) {
         const baseName = originalName.replace(/\.[^/.]+$/, '');
-        return `${baseName}.${outputFormat}`;
+
+        // Build suffix from non-default settings
+        const suffixParts = [];
+
+        // Add quality if not original/default
+        if (settings.quality && settings.quality !== 'original' && settings.quality !== 100) {
+            suffixParts.push(settings.quality);
+        }
+
+        // Add resolution if not original
+        if (settings.resolution && settings.resolution !== 'original') {
+            suffixParts.push(settings.resolution);
+        }
+
+        // Add codec if not original
+        if (settings.codec && settings.codec !== 'original') {
+            suffixParts.push(settings.codec);
+        }
+
+        // Add bitrate if not 100%
+        if (settings.bitrate && settings.bitrate !== 100 && settings.bitrate !== '100') {
+            suffixParts.push(`${settings.bitrate}pct`);
+        }
+
+        // Add resize if not original
+        if (settings.resize && settings.resize !== 'original' && settings.resize !== 'none') {
+            suffixParts.push(settings.resize.replace('%', 'pct'));
+        }
+
+        // Add compression if not none
+        if (settings.compression && settings.compression !== 'none' && settings.compression !== 'original') {
+            suffixParts.push(`${settings.compression}comp`);
+        }
+
+        // Add sampleRate if not original
+        if (settings.sampleRate && settings.sampleRate !== 'original') {
+            suffixParts.push(`${settings.sampleRate}hz`);
+        }
+
+        // Add channels if not original
+        if (settings.channels && settings.channels !== 'original') {
+            suffixParts.push(settings.channels);
+        }
+
+        // Build final filename
+        const suffix = suffixParts.length > 0 ? `_${suffixParts.join('_')}` : '';
+        return `${baseName}${suffix}.${outputFormat}`;
     }
 
     function showToast(message, type = 'info') {
         const toast = document.createElement('div');
         toast.className = `toast ${type}`;
         toast.textContent = message;
-        
+
         document.body.appendChild(toast);
-        
+
         setTimeout(() => {
             toast.style.animation = 'slideOutRight 0.3s ease forwards';
             setTimeout(() => document.body.removeChild(toast), 300);
         }, 3000);
+    }
+
+    function showCloudStorageError(serviceName, message) {
+        // Create modal overlay
+        const modal = document.createElement('div');
+        modal.className = 'modal-overlay';
+        modal.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;z-index:10000;';
+
+        // Create modal content
+        const modalContent = document.createElement('div');
+        modalContent.className = 'modal-content';
+        modalContent.style.cssText = 'background:white;border-radius:12px;padding:24px;max-width:500px;width:90%;box-shadow:0 4px 20px rgba(0,0,0,0.2);';
+
+        modalContent.innerHTML = `
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+                <h3 style="margin:0;font-size:18px;font-weight:600;color:#111;">${serviceName} Connection Error</h3>
+                <button class="modal-close-btn" style="background:none;border:none;font-size:24px;cursor:pointer;color:#666;padding:0;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:6px;transition:background 0.2s;">×</button>
+            </div>
+            <div style="color:#666;line-height:1.6;white-space:pre-wrap;margin-bottom:20px;">${message}</div>
+            <div style="display:flex;gap:8px;justify-content:flex-end;">
+                <button class="modal-retry-btn" style="padding:10px 20px;background:#4a9eff;color:white;border:none;border-radius:8px;cursor:pointer;font-weight:500;transition:background 0.2s;">Reload Page</button>
+                <button class="modal-cancel-btn" style="padding:10px 20px;background:#e5e7eb;color:#374151;border:none;border-radius:8px;cursor:pointer;font-weight:500;transition:background 0.2s;">Close</button>
+            </div>
+        `;
+
+        modal.appendChild(modalContent);
+        document.body.appendChild(modal);
+
+        // Event listeners
+        const closeBtn = modalContent.querySelector('.modal-close-btn');
+        const retryBtn = modalContent.querySelector('.modal-retry-btn');
+        const cancelBtn = modalContent.querySelector('.modal-cancel-btn');
+
+        const closeModal = () => {
+            modal.style.animation = 'fadeOut 0.2s ease forwards';
+            setTimeout(() => document.body.removeChild(modal), 200);
+        };
+
+        closeBtn.addEventListener('click', closeModal);
+        cancelBtn.addEventListener('click', closeModal);
+        retryBtn.addEventListener('click', () => window.location.reload());
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+
+        // Hover effects
+        closeBtn.addEventListener('mouseenter', () => closeBtn.style.background = '#f3f4f6');
+        closeBtn.addEventListener('mouseleave', () => closeBtn.style.background = 'none');
+        retryBtn.addEventListener('mouseenter', () => retryBtn.style.background = '#3b82f6');
+        retryBtn.addEventListener('mouseleave', () => retryBtn.style.background = '#4a9eff');
+        cancelBtn.addEventListener('mouseenter', () => cancelBtn.style.background = '#d1d5db');
+        cancelBtn.addEventListener('mouseleave', () => cancelBtn.style.background = '#e5e7eb');
     }
 
     function updatePageLanguage(lang) {
@@ -1969,12 +2418,69 @@ function initializeApp() {
             gdriveBtn.addEventListener('click', handleGoogleDriveAuth);
         }
 
-        // Load Google APIs
+        // Load Google APIs with timeout
+        let gapiTimeout;
+        let gisTimeout;
+
         if (typeof gapi !== 'undefined') {
             gapiLoaded();
+        } else {
+            console.warn('🟢 [Google Drive] gapi not loaded yet, waiting...');
+            // Wait for gapi to load (10 second timeout)
+            const gapiInterval = setInterval(() => {
+                if (typeof gapi !== 'undefined') {
+                    clearInterval(gapiInterval);
+                    clearTimeout(gapiTimeout);
+                    gapiLoaded();
+                }
+            }, 100);
+
+            gapiTimeout = setTimeout(() => {
+                clearInterval(gapiInterval);
+                console.error('🟢 [Google Drive] ❌ gapi loading timeout (10s)');
+                showCloudStorageError('Google Drive', 'gapi script failed to load. Please check your network connection or try again later.');
+            }, 10000);
         }
-        if (typeof google !== 'undefined') {
+
+        if (typeof google !== 'undefined' && google.accounts) {
             gisLoaded();
+        } else {
+            console.warn('🟢 [Google Drive] Google Identity Services not loaded yet, waiting...');
+            // Wait for google.accounts to load (10 second timeout)
+            const gisInterval = setInterval(() => {
+                if (typeof google !== 'undefined' && google.accounts) {
+                    clearInterval(gisInterval);
+                    clearTimeout(gisTimeout);
+                    gisLoaded();
+                }
+            }, 100);
+
+            gisTimeout = setTimeout(() => {
+                clearInterval(gisInterval);
+                console.error('🟢 [Google Drive] ❌ Google Identity Services loading timeout (10s)');
+                // Enable button with fallback error message
+                if (gdriveBtn) {
+                    // Remove old event listener by cloning and replacing the button
+                    const newBtn = gdriveBtn.cloneNode(true);
+                    gdriveBtn.parentNode.replaceChild(newBtn, gdriveBtn);
+
+                    // Add new error handler
+                    newBtn.disabled = false;
+                    newBtn.title = 'Google Drive (Setup Required)';
+                    newBtn.addEventListener('click', () => {
+                        showCloudStorageError('Google Drive',
+                            'Google Identity Services failed to load. This might be due to:\n' +
+                            '• Browser privacy settings blocking Google scripts\n' +
+                            '• Ad blocker or security extension\n' +
+                            '• Network connectivity issues\n\n' +
+                            'Please try:\n' +
+                            '1. Refresh the page\n' +
+                            '2. Disable ad blockers temporarily\n' +
+                            '3. Check browser console for errors'
+                        );
+                    });
+                }
+            }, 10000);
         }
     }
 
