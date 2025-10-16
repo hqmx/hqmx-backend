@@ -1,24 +1,27 @@
 /**
  * ConversionQueue - 변환 작업 큐 관리 시스템
  *
- * t3.small (2GB RAM) 환경에서 동시 변환 1개만 처리
+ * maxConcurrency 설정에 따라 동시 변환 처리 가능
+ * - t3.small (2GB RAM): maxConcurrency = 1 (안전)
+ * - t3.medium (4GB RAM): maxConcurrency = 2 (권장)
  * FIFO (First In First Out) 방식으로 순차 처리
  */
 
 import { promises as fs } from 'fs';
 
 export class ConversionQueue {
-  constructor(maxQueueSize = 10) {
+  constructor(maxQueueSize = 10, maxConcurrency = 1) {
     this.maxQueueSize = maxQueueSize;
+    this.maxConcurrency = maxConcurrency;
     this.queue = [];
-    this.processing = null;
+    this.processingJobs = new Set(); // 현재 처리 중인 작업 ID 집합
     this.jobs = new Map(); // jobId → job state
     this.lastAccessTime = new Map(); // jobId → timestamp (heartbeat)
     this.ffmpegProcesses = new Map(); // jobId → FFmpeg process reference
 
     // Heartbeat 체크 타이머 (10초마다)
     this.heartbeatInterval = setInterval(() => this.checkHeartbeat(), 10000);
-    console.log('[Queue] Heartbeat monitoring started (10s interval)');
+    console.log(`[Queue] Initialized - maxConcurrency: ${this.maxConcurrency}, heartbeat monitoring started (10s interval)`);
   }
 
   /**
@@ -131,9 +134,9 @@ export class ConversionQueue {
     this.jobs.delete(jobId);
     this.lastAccessTime.delete(jobId);
 
-    // 현재 처리 중인 작업이 취소된 경우 다음 작업 진행
-    if (this.processing && this.processing.id === jobId) {
-      this.processing = null;
+    // 현재 처리 중인 작업이 취소된 경우 Set에서 제거 후 다음 작업 진행
+    if (this.processingJobs.has(jobId)) {
+      this.processingJobs.delete(jobId);
       this.processNext();
     }
 
@@ -162,19 +165,19 @@ export class ConversionQueue {
    * 큐의 다음 작업 처리
    */
   async processNext() {
-    // 이미 처리 중이거나 큐가 비어있으면 중단
-    if (this.processing || this.queue.length === 0) {
+    // 동시 처리 한도에 도달했거나 큐가 비어있으면 중단
+    if (this.processingJobs.size >= this.maxConcurrency || this.queue.length === 0) {
       return;
     }
 
     // 큐에서 다음 작업 가져오기
     const job = this.queue.shift();
-    this.processing = job;
+    this.processingJobs.add(job.id);
 
     const jobState = this.jobs.get(job.id);
     if (!jobState) {
       console.error(`[Queue] Job state not found for ${job.id}`);
-      this.processing = null;
+      this.processingJobs.delete(job.id);
       this.processNext();
       return;
     }
@@ -183,7 +186,7 @@ export class ConversionQueue {
     jobState.progress = 5;
     jobState.message = 'Starting conversion...';
 
-    console.log(`[Queue] Processing job ${job.id}. Remaining in queue: ${this.queue.length}`);
+    console.log(`[Queue] Processing job ${job.id}. Active: ${this.processingJobs.size}/${this.maxConcurrency}, Remaining in queue: ${this.queue.length}`);
 
     try {
       // 변환 실행 (FFmpeg 변환)
@@ -205,7 +208,7 @@ export class ConversionQueue {
 
     } finally {
       // 처리 완료, 다음 작업 진행
-      this.processing = null;
+      this.processingJobs.delete(job.id);
       this.ffmpegProcesses.delete(job.id);
       this.processNext();
     }
@@ -275,7 +278,8 @@ export class ConversionQueue {
   getQueueStats() {
     const stats = {
       queueLength: this.queue.length,
-      processing: this.processing !== null,
+      processingCount: this.processingJobs.size,
+      maxConcurrency: this.maxConcurrency,
       totalJobs: this.jobs.size,
       statusBreakdown: {
         pending: 0,
@@ -308,7 +312,8 @@ export class ConversionQueue {
 
 // 싱글톤 인스턴스 (전체 서버에서 공유)
 const conversionQueue = new ConversionQueue(
-  parseInt(process.env.MAX_QUEUE_SIZE || '10')
+  parseInt(process.env.MAX_QUEUE_SIZE || '10'),
+  parseInt(process.env.MAX_CONCURRENCY || '1')
 );
 
 // 1시간마다 오래된 작업 정리

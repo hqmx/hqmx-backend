@@ -28,6 +28,12 @@ HQMX Converter는 100% 클라이언트 사이드에서 작동하는 파일 변�
 - **Trust Proxy**: Cloudflare + nginx 설정 완료 (2025-10-13)
 - **PM2 프로세스**: `pm2 start src/server.js --name hqmx-backend`
   - ⚠️ `src/index.js`가 아닌 `src/server.js` 사용 (Express 기반)
+- **인스턴스 타입**: t3.medium (4GB RAM, 2 vCPU) ⚠️ 업그레이드됨 (2025-10-17)
+- **동시 처리**: MAX_CONCURRENCY=2 (2개 작업 동시 변환 가능)
+- **자동 취소 시스템**: 클라이언트 연결 끊김 시 서버 작업 자동 취소 (2025-10-17)
+  - Heartbeat 모니터링 (30초 타임아웃)
+  - FFmpeg 프로세스 자동 종료
+  - 임시 파일 자동 삭제
 - **중요 참고사항**:
   - `document-converter.js` 파일 삭제됨 (2025-10-16)
   - EC2에서는 LibreOffice + ImageMagick 사용
@@ -1622,4 +1628,4 @@ pm2 logs hqmx-backend --lines 50
 #### 최적화 필요
 - [ ] Sharp 프로세스 풀 (메모리 효율)
 - [ ] FFmpeg 프리셋 최적화 (속도 vs 품질)
-- [ ] 진행률 정확도 개선 (FFmpeg 로그 파싱)
+- [ ] 진행률 정확도 개선 (FFmpeg 로그, 및 기타 컨버터의 로그 파싱)
