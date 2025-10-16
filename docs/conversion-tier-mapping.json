@@ -1,0 +1,256 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "lastUpdated": "2025-10-16",
+    "totalConversions": 289,
+    "tierDistribution": {
+      "ALWAYS_CLIENT": 105,
+      "CLIENT_FIRST": 110,
+      "DYNAMIC": 50,
+      "ALWAYS_SERVER": 24
+    }
+  },
+  "tiers": {
+    "ALWAYS_CLIENT": {
+      "description": "항상 클라이언트에서 변환. 빠르고 가벼움.",
+      "conditions": ["conversionTime < 30s", "fileSize < 10MB", "browserSupported"],
+      "conversions": {
+        "image": [
+          "jpg-to-png", "png-to-jpg", "jpg-to-webp", "webp-to-jpg",
+          "png-to-webp", "webp-to-png", "jpg-to-bmp", "bmp-to-jpg",
+          "png-to-bmp", "bmp-to-png", "jpg-to-gif", "gif-to-jpg",
+          "png-to-gif", "gif-to-png", "webp-to-gif", "gif-to-webp",
+          "jpg-to-ico", "ico-to-jpg", "png-to-ico", "ico-to-png",
+          "jpg-to-tiff", "tiff-to-jpg", "png-to-tiff", "tiff-to-png",
+          "svg-to-png", "svg-to-jpg", "bmp-to-webp", "webp-to-bmp",
+          "bmp-to-gif", "gif-to-bmp", "ico-to-webp", "webp-to-ico",
+          "ico-to-gif", "gif-to-ico", "ico-to-bmp", "bmp-to-ico",
+          "tiff-to-webp", "webp-to-tiff", "tiff-to-gif", "gif-to-tiff",
+          "tiff-to-bmp", "bmp-to-tiff", "tiff-to-ico", "ico-to-tiff"
+        ],
+        "audio": [
+          "mp3-to-wav", "wav-to-mp3", "mp3-to-aac", "aac-to-mp3",
+          "mp3-to-ogg", "ogg-to-mp3", "wav-to-aac", "aac-to-wav",
+          "wav-to-ogg", "ogg-to-wav", "aac-to-ogg", "ogg-to-aac",
+          "mp3-to-m4a", "m4a-to-mp3", "wav-to-m4a", "m4a-to-wav",
+          "aac-to-m4a", "m4a-to-aac", "ogg-to-m4a", "m4a-to-ogg",
+          "mp3-to-opus", "opus-to-mp3", "wav-to-opus", "opus-to-wav",
+          "aac-to-opus", "opus-to-aac", "ogg-to-opus", "opus-to-ogg",
+          "m4a-to-opus", "opus-to-m4a"
+        ],
+        "image-to-pdf": [
+          "jpg-to-pdf", "png-to-pdf", "webp-to-pdf", "gif-to-pdf", "bmp-to-pdf"
+        ]
+      },
+      "reason": "업로드 시간이 변환 시간보다 김. 프라이버시 및 비용 절감.",
+      "estimatedSavings": {
+        "time": "40-60%",
+        "serverCost": "100%",
+        "bandwidth": "100%"
+      }
+    },
+    "CLIENT_FIRST": {
+      "description": "클라이언트 우선, 느린 네트워크에서 서버 옵션 제공",
+      "conditions": ["conversionTime 30s-3min", "fileSize 10-100MB", "uploadTime > conversionTime * 0.3"],
+      "conversions": {
+        "video-simple": [
+          "mp4-to-webm", "webm-to-mp4", "mp4-to-avi", "avi-to-mp4",
+          "mp4-to-mov", "mov-to-mp4", "mp4-to-mkv", "mkv-to-mp4",
+          "webm-to-avi", "avi-to-webm", "webm-to-mov", "mov-to-webm",
+          "webm-to-mkv", "mkv-to-webm", "avi-to-mov", "mov-to-avi",
+          "avi-to-mkv", "mkv-to-avi", "mov-to-mkv", "mkv-to-mov"
+        ],
+        "audio-medium": [
+          "flac-to-mp3", "mp3-to-flac", "flac-to-wav", "wav-to-flac",
+          "flac-to-aac", "aac-to-flac", "flac-to-ogg", "ogg-to-flac",
+          "flac-to-m4a", "m4a-to-flac", "flac-to-opus", "opus-to-flac",
+          "wma-to-mp3", "mp3-to-wma", "wma-to-wav", "wav-to-wma"
+        ],
+        "image-complex": [
+          "heic-to-jpg", "jpg-to-heic", "heic-to-png", "png-to-heic",
+          "avif-to-jpg", "jpg-to-avif", "avif-to-png", "png-to-avif",
+          "avif-to-webp", "webp-to-avif", "heic-to-webp", "webp-to-heic"
+        ],
+        "video-to-audio": [
+          "mp4-to-mp3", "mp4-to-wav", "mp4-to-aac", "mp4-to-ogg",
+          "mp4-to-m4a", "mp4-to-flac", "mp4-to-opus", "mp4-to-wma",
+          "webm-to-mp3", "webm-to-wav", "webm-to-aac", "webm-to-ogg",
+          "webm-to-m4a", "webm-to-flac", "webm-to-opus",
+          "avi-to-mp3", "avi-to-wav", "avi-to-aac", "avi-to-ogg",
+          "avi-to-m4a", "avi-to-flac", "avi-to-opus",
+          "mov-to-mp3", "mov-to-wav", "mov-to-aac", "mov-to-ogg",
+          "mov-to-m4a", "mov-to-flac", "mov-to-opus",
+          "mkv-to-mp3", "mkv-to-wav", "mkv-to-aac", "mkv-to-ogg",
+          "mkv-to-m4a", "mkv-to-flac", "mkv-to-opus",
+          "flv-to-mp3", "flv-to-wav", "flv-to-aac", "flv-to-ogg",
+          "m4v-to-mp3", "m4v-to-wav", "m4v-to-aac", "m4v-to-ogg",
+          "wmv-to-mp3", "wmv-to-wav", "wmv-to-aac", "wmv-to-ogg"
+        ]
+      },
+      "logic": "if (uploadTime > conversionTime * 0.3) { useClient(); } else { offerServerOption(); }",
+      "reason": "업로드 시간이 상당함. 클라이언트가 대체로 효율적.",
+      "estimatedSavings": {
+        "time": "20-40%",
+        "serverCost": "80%",
+        "bandwidth": "80%"
+      }
+    },
+    "DYNAMIC": {
+      "description": "동적 판단. 파일 크기, 네트워크 속도, 디바이스 성능 고려",
+      "conditions": ["conversionTime > 3min", "fileSize > 100MB", "significantSpeedDifference"],
+      "conversions": {
+        "video-large": [
+          "mp4-to-webm-1080p", "webm-to-mp4-1080p", "mp4-to-avi-1080p",
+          "mov-to-mp4-1080p", "mkv-to-mp4-1080p", "mp4-to-mov-1080p",
+          "mp4-to-hevc", "hevc-to-mp4", "mp4-to-vp9", "vp9-to-mp4",
+          "avi-to-webm-1080p", "webm-to-avi-1080p", "mov-to-webm-1080p",
+          "mkv-to-webm-1080p", "avi-to-mov-1080p", "mov-to-avi-1080p",
+          "avi-to-mkv-1080p", "mkv-to-avi-1080p", "mov-to-mkv-1080p",
+          "mkv-to-mov-1080p", "flv-to-mp4-1080p", "mp4-to-flv-1080p",
+          "m4v-to-mp4-1080p", "mp4-to-m4v-1080p", "wmv-to-mp4-1080p",
+          "mp4-to-wmv-1080p", "3gp-to-mp4", "mp4-to-3gp"
+        ],
+        "gif-creation": [
+          "mp4-to-gif", "webm-to-gif", "avi-to-gif", "mov-to-gif",
+          "mkv-to-gif", "flv-to-gif", "m4v-to-gif", "wmv-to-gif",
+          "gif-to-mp4", "gif-to-webm", "gif-to-avi", "gif-to-mov",
+          "gif-to-mkv", "gif-to-flv", "gif-to-m4v", "gif-to-wmv",
+          "gif-to-3gp", "3gp-to-gif"
+        ]
+      },
+      "logic": "const totalClientTime = clientTime; const totalServerTime = uploadTime + serverTime + downloadTime; if (totalServerTime * 1.3 < totalClientTime) { recommendServer(); } else { useClient(); }",
+      "reason": "파일 크기가 커서 업로드 시간도 상당하지만, 서버가 훨씬 빠를 수 있음.",
+      "estimatedSavings": {
+        "time": "varies (0-50%)",
+        "serverCost": "30-50%",
+        "bandwidth": "varies"
+      }
+    },
+    "ALWAYS_SERVER": {
+      "description": "항상 서버. 클라이언트에서 불가능하거나 서버가 압도적으로 빠름",
+      "conditions": ["clientNotSupported || serverSpeed > clientSpeed * 3"],
+      "conversions": {
+        "document": [
+          "doc-to-pdf", "docx-to-pdf", "xls-to-pdf", "xlsx-to-pdf",
+          "ppt-to-pdf", "pptx-to-pdf", "odt-to-pdf", "ods-to-pdf",
+          "odp-to-pdf", "rtf-to-pdf", "txt-to-pdf",
+          "pdf-to-docx", "pdf-to-doc", "pdf-to-xlsx", "pdf-to-xls",
+          "pdf-to-pptx", "pdf-to-ppt", "pdf-to-txt"
+        ],
+        "video-4k": [
+          "mp4-to-webm-4k", "webm-to-mp4-4k", "mov-to-mp4-4k", "mkv-to-mp4-4k"
+        ],
+        "pdf-to-image": [
+          "pdf-to-jpg", "pdf-to-png", "pdf-to-webp"
+        ]
+      },
+      "reason": "LibreOffice 또는 전문 소프트웨어 필요. 클라이언트 메모리 제한 초과.",
+      "estimatedSavings": {
+        "time": "60-80% vs client attempt",
+        "serverCost": "unavoidable",
+        "bandwidth": "small relative to conversion benefit"
+      }
+    }
+  },
+  "specialCases": {
+    "mobile": {
+      "description": "모바일 디바이스에서 Tier 조정",
+      "adjustments": [
+        {
+          "from": "CLIENT_FIRST",
+          "to": "DYNAMIC",
+          "condition": "fileSize > 50MB && batteryLevel < 50%",
+          "reason": "배터리 소모 최소화"
+        },
+        {
+          "from": "DYNAMIC",
+          "to": "ALWAYS_SERVER",
+          "condition": "fileSize > 200MB",
+          "reason": "모바일 성능 제약"
+        }
+      ]
+    },
+    "slowNetwork": {
+      "description": "느린 네트워크 (< 5 Mbps)에서 조정",
+      "adjustments": [
+        {
+          "from": "DYNAMIC",
+          "to": "CLIENT_FIRST",
+          "condition": "uploadTime > conversionTime * 0.5",
+          "reason": "업로드 시간이 너무 김"
+        },
+        {
+          "from": "ALWAYS_SERVER",
+          "to": "offer client if possible",
+          "condition": "uploadTime > 5min && clientSupported",
+          "reason": "업로드 시간 절약"
+        }
+      ]
+    },
+    "highServerLoad": {
+      "description": "서버 부하 높음 (대기열 > 10개)",
+      "adjustments": [
+        {
+          "from": "DYNAMIC",
+          "to": "CLIENT_FIRST",
+          "condition": "queueWaitTime > 2min",
+          "reason": "서버 대기 시간 회피"
+        },
+        {
+          "from": "CLIENT_FIRST",
+          "to": "ALWAYS_CLIENT",
+          "condition": "queueWaitTime > 5min",
+          "reason": "서버 혼잡"
+        }
+      ]
+    }
+  },
+  "benchmarkData": {
+    "image": {
+      "jpg-to-png": {
+        "client": { "timePerMB": 1.0, "method": "Canvas API" },
+        "server": { "timePerMB": 0.4, "method": "Sharp" }
+      },
+      "heic-to-jpg": {
+        "client": { "timePerMB": 3.0, "method": "HEIC decode + Canvas" },
+        "server": { "timePerMB": 1.6, "method": "Sharp + libheif" }
+      }
+    },
+    "video": {
+      "mp4-to-webm-720p": {
+        "client": { "timePerMB": 1.2, "method": "FFmpeg.wasm" },
+        "server": { "timePerMB": 0.6, "method": "FFmpeg native" }
+      },
+      "mp4-to-webm-1080p": {
+        "client": { "timePerMB": 2.4, "method": "FFmpeg.wasm" },
+        "server": { "timePerMB": 0.9, "method": "FFmpeg native" }
+      },
+      "mp4-to-gif": {
+        "client": { "timePerMB": 4.0, "method": "FFmpeg.wasm + GIF encoder" },
+        "server": { "timePerMB": 1.5, "method": "FFmpeg native" }
+      }
+    },
+    "audio": {
+      "mp3-to-wav": {
+        "client": { "timePerMB": 2.0, "method": "Web Audio API" },
+        "server": { "timePerMB": 1.0, "method": "FFmpeg" }
+      },
+      "flac-to-mp3": {
+        "client": { "timePerMB": 3.0, "method": "FFmpeg.wasm" },
+        "server": { "timePerMB": 1.8, "method": "FFmpeg native + LAME" }
+      }
+    },
+    "document": {
+      "docx-to-pdf": {
+        "client": null,
+        "server": { "fixedTime": 5, "method": "LibreOffice" }
+      }
+    }
+  },
+  "networkAssumptions": {
+    "default": "10 Mbps",
+    "fast": "50+ Mbps",
+    "slow": "< 5 Mbps",
+    "mobile": "2-10 Mbps variable"
+  }
+}

@@ -7,6 +7,11 @@ class ConverterEngine {
         this.ffmpegLoaded = false;
         this.ffmpegLoading = false;
         this.currentProgressCallback = null;
+
+        // 4-Tier 라우팅 시스템
+        this.tierMapping = null;
+        this.networkSpeed = null; // Mbps
+        this.loadTierMapping(); // 비동기 로드
     }
 
     /**
@@ -122,6 +127,222 @@ class ConverterEngine {
     }
 
     /**
+     * 4-Tier 라우팅: Tier 매핑 데이터 로드
+     */
+    async loadTierMapping() {
+        if (this.tierMapping) return;
+
+        try {
+            const response = await fetch('/docs/conversion-tier-mapping.json');
+            if (!response.ok) {
+                console.warn('Tier mapping 로드 실패, 기본 로직 사용');
+                return;
+            }
+            this.tierMapping = await response.json();
+            console.log('[Routing] Tier mapping 로드 완료:', this.tierMapping.metadata);
+        } catch (error) {
+            console.warn('[Routing] Tier mapping 로드 실패:', error);
+        }
+    }
+
+    /**
+     * 4-Tier 라우팅: 네트워크 속도 측정 (Mbps)
+     */
+    async estimateNetworkSpeed() {
+        // 캐시된 속도 사용 (5분 유효)
+        if (this.networkSpeed && this.networkSpeedTimestamp &&
+            (Date.now() - this.networkSpeedTimestamp < 5 * 60 * 1000)) {
+            return this.networkSpeed;
+        }
+
+        try {
+            // 1MB 테스트 파일로 속도 측정
+            const testSize = 1 * 1024 * 1024; // 1MB
+            const startTime = Date.now();
+
+            // 실제 서버에 작은 요청으로 속도 추정 (헬스 체크 엔드포인트)
+            await fetch('/api/health', { method: 'HEAD' });
+
+            const elapsed = (Date.now() - startTime) / 1000; // 초
+
+            // 보수적 추정 (헤더만 받았으므로 10배로 계산)
+            const estimatedSpeed = (testSize * 8) / (elapsed * 10 * 1000000);
+
+            // 10 Mbps를 최소값으로 설정 (너무 낮으면 신뢰도 떨어짐)
+            this.networkSpeed = Math.max(estimatedSpeed, 10);
+            this.networkSpeedTimestamp = Date.now();
+
+            console.log(`[Routing] 네트워크 속도 측정: ${this.networkSpeed.toFixed(1)} Mbps`);
+            return this.networkSpeed;
+
+        } catch (error) {
+            // 측정 실패 시 보수적 기본값
+            console.warn('[Routing] 네트워크 속도 측정 실패, 기본값 10 Mbps 사용');
+            this.networkSpeed = 10;
+            this.networkSpeedTimestamp = Date.now();
+            return 10;
+        }
+    }
+
+    /**
+     * 4-Tier 라우팅: 변환 경로 결정
+     */
+    async decideConversionRoute(file, fromFormat, toFormat) {
+        // Tier 매핑이 없으면 기존 로직 사용
+        if (!this.tierMapping) {
+            await this.loadTierMapping();
+            if (!this.tierMapping) {
+                return this.decideLegacyRoute(file, fromFormat, toFormat);
+            }
+        }
+
+        const conversionKey = `${fromFormat}-to-${toFormat}`;
+        const tier = this.getConversionTier(conversionKey);
+
+        console.log(`[Routing] ${conversionKey} → Tier: ${tier}`);
+
+        // Tier 1: 항상 클라이언트
+        if (tier === 'ALWAYS_CLIENT') {
+            return {
+                method: 'client',
+                reason: '빠르고 가벼운 변환 (프라이버시 보호)',
+                confidence: 'high',
+                tier: 'ALWAYS_CLIENT'
+            };
+        }
+
+        // Tier 4: 항상 서버
+        if (tier === 'ALWAYS_SERVER') {
+            return {
+                method: 'server',
+                reason: '전문 소프트웨어 필요 또는 대용량 파일',
+                confidence: 'high',
+                tier: 'ALWAYS_SERVER'
+            };
+        }
+
+        // Tier 2 & 3: 동적 판단
+        const networkSpeed = await this.estimateNetworkSpeed();
+        const fileSize = file.size;
+        const fileSizeMB = fileSize / 1024 / 1024;
+
+        // 벤치마크 데이터 로드
+        const benchmark = this.tierMapping.benchmarkData?.[this.getFileType(fromFormat)]?.[conversionKey];
+
+        if (!benchmark || !benchmark.client) {
+            // 벤치마크 데이터 없으면 클라이언트 우선
+            return {
+                method: 'client',
+                reason: '벤치마크 데이터 없음, 클라이언트 우선',
+                confidence: 'medium',
+                tier: tier || 'CLIENT_FIRST'
+            };
+        }
+
+        // 변환 시간 추정 (초)
+        const clientTime = benchmark.client.timePerMB * fileSizeMB;
+        const serverTime = benchmark.server.timePerMB * fileSizeMB;
+
+        // 네트워크 시간 추정 (초)
+        const uploadTime = (fileSize * 8) / (networkSpeed * 1000000);
+        const downloadTime = (fileSize * 0.5 * 8) / (networkSpeed * 1000000); // 압축 가정
+
+        const totalClientTime = clientTime;
+        const totalServerTime = uploadTime + serverTime + downloadTime;
+
+        console.log(`[Routing] 시간 추정 - 클라이언트: ${totalClientTime.toFixed(1)}s, 서버: ${totalServerTime.toFixed(1)}s (업로드: ${uploadTime.toFixed(1)}s + 변환: ${serverTime.toFixed(1)}s + 다운로드: ${downloadTime.toFixed(1)}s)`);
+
+        // Tier 2: 클라이언트 우선 + 동적 폴백
+        if (tier === 'CLIENT_FIRST') {
+            if (totalClientTime <= totalServerTime * 1.3) {
+                return {
+                    method: 'client',
+                    reason: `클라이언트가 효율적 (${Math.round(totalClientTime)}초 vs ${Math.round(totalServerTime)}초)`,
+                    confidence: totalClientTime < totalServerTime ? 'high' : 'medium',
+                    tier: 'CLIENT_FIRST',
+                    estimatedTime: totalClientTime
+                };
+            } else {
+                return {
+                    method: 'server',
+                    reason: `서버가 빠름 (${Math.round(totalServerTime)}초 vs ${Math.round(totalClientTime)}초)`,
+                    confidence: 'high',
+                    tier: 'CLIENT_FIRST',
+                    estimatedTime: totalServerTime
+                };
+            }
+        }
+
+        // Tier 3: 동적 판단
+        if (tier === 'DYNAMIC') {
+            if (totalServerTime * 1.3 < totalClientTime) {
+                return {
+                    method: 'server',
+                    reason: `서버가 30% 이상 빠름 (${Math.round(totalServerTime)}초 vs ${Math.round(totalClientTime)}초)`,
+                    confidence: 'high',
+                    tier: 'DYNAMIC',
+                    estimatedTime: totalServerTime
+                };
+            } else {
+                return {
+                    method: 'client',
+                    reason: `클라이언트 선택 (${Math.round(totalClientTime)}초 vs ${Math.round(totalServerTime)}초, 프라이버시 우선)`,
+                    confidence: 'medium',
+                    tier: 'DYNAMIC',
+                    estimatedTime: totalClientTime
+                };
+            }
+        }
+
+        // 기본: 클라이언트
+        return {
+            method: 'client',
+            reason: '알 수 없는 Tier, 클라이언트 기본값',
+            confidence: 'low',
+            tier: 'UNKNOWN'
+        };
+    }
+
+    /**
+     * 4-Tier 라우팅: 변환 키로 Tier 찾기
+     */
+    getConversionTier(conversionKey) {
+        if (!this.tierMapping || !this.tierMapping.tiers) {
+            return null;
+        }
+
+        for (const [tierName, tierData] of Object.entries(this.tierMapping.tiers)) {
+            if (tierData.conversions) {
+                for (const conversionList of Object.values(tierData.conversions)) {
+                    if (Array.isArray(conversionList) && conversionList.includes(conversionKey)) {
+                        return tierName;
+                    }
+                }
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * 4-Tier 라우팅: 레거시 로직 (Tier 매핑 없을 때 폴백)
+     */
+    decideLegacyRoute(file, fromFormat, toFormat) {
+        const estimatedTime = this.estimateConversionTime(file, fromFormat, toFormat);
+        const useServerSide = estimatedTime > 30;
+
+        return {
+            method: useServerSide ? 'server' : 'client',
+            reason: useServerSide
+                ? `예상 시간 ${Math.round(estimatedTime)}초 (30초 초과)`
+                : `예상 시간 ${Math.round(estimatedTime)}초 (30초 이하)`,
+            confidence: 'medium',
+            tier: 'LEGACY',
+            estimatedTime
+        };
+    }
+
+    /**
      * 파일 변환 메인 함수
      */
     async convert(file, outputFormat, options = {}, onProgress) {
@@ -129,23 +350,221 @@ class ConverterEngine {
         const inputType = this.getFileType(inputExt);
         const outputType = this.getFileType(outputFormat);
 
-        // 이미지 변환
+        // 4-Tier 라우팅: 최적 변환 경로 결정
+        const routingDecision = await this.decideConversionRoute(file, inputExt, outputFormat);
+
+        console.log(`[Conversion] 파일 크기: ${(file.size / 1024 / 1024).toFixed(2)}MB`);
+        console.log(`[Routing] 방식: ${routingDecision.method} (${routingDecision.reason})`);
+        console.log(`[Routing] Tier: ${routingDecision.tier}, 신뢰도: ${routingDecision.confidence}`);
+
+        // 서버사이드 변환
+        if (routingDecision.method === 'server') {
+            const estimatedTime = routingDecision.estimatedTime
+                ? Math.round(routingDecision.estimatedTime)
+                : '알 수 없음';
+            onProgress?.(5, `서버에서 변환합니다 (${routingDecision.reason})`);
+            return await this.convertWithServer(file, outputFormat, options, onProgress);
+        }
+
+        // 이미지 변환 (클라이언트사이드)
         if (inputType === 'image' && outputType === 'image') {
             return await this.convertImage(file, outputFormat, options, onProgress);
         }
-        
-        // 비디오/오디오 변환 (FFmpeg 사용)
+
+        // GIF → 비디오 변환 (특별 처리 - FFmpeg.wasm 사용)
+        if (inputExt === 'gif' && outputType === 'video') {
+            return await this.convertGifToVideo(file, outputFormat, options, onProgress);
+        }
+
+        // 비디오/오디오 변환 (FFmpeg.wasm - 클라이언트사이드)
         if ((inputType === 'video' || inputType === 'audio') ||
             (outputType === 'video' || outputType === 'audio')) {
             return await this.convertWithFFmpeg(file, outputFormat, options, onProgress);
         }
 
-        // 문서 변환 (제한적 지원)
+        // 문서 변환 (제한적 지원 - 클라이언트사이드)
         if (inputType === 'document' || outputType === 'document') {
             return await this.convertDocument(file, outputFormat, options, onProgress);
         }
 
         throw new Error(`지원하지 않는 변환입니다: ${inputExt} → ${outputFormat}`);
+    }
+
+    /**
+     * 변환 시간 예측 (초 단위)
+     *
+     * 기준:
+     * - 이미지: 즉각적 (항상 클라이언트)
+     * - 비디오/오디오: 파일 크기와 형식 복잡도 기반
+     * - 문서: 즉각적 (항상 클라이언트)
+     *
+     * @param {File} file - 입력 파일
+     * @param {string} inputFormat - 입력 형식
+     * @param {string} outputFormat - 출력 형식
+     * @returns {number} 예상 시간 (초)
+     */
+    estimateConversionTime(file, inputFormat, outputFormat) {
+        const fileSizeMB = file.size / 1024 / 1024;
+        const inputType = this.getFileType(inputFormat);
+        const outputType = this.getFileType(outputFormat);
+
+        // 이미지 변환: 거의 즉각적 (Canvas API)
+        if (inputType === 'image' && outputType === 'image') {
+            return 0.5; // 0.5초
+        }
+
+        // 문서 변환: 빠름
+        if (inputType === 'document' || outputType === 'document') {
+            return fileSizeMB * 0.5; // 1MB당 0.5초
+        }
+
+        // 비디오/오디오 변환: FFmpeg.wasm은 느림
+        if (inputType === 'video' || outputType === 'video') {
+            // GIF 변환: 매우 느림 (픽셀 처리 많음)
+            if (inputFormat === 'gif' || outputFormat === 'gif') {
+                return fileSizeMB * 8; // 1MB당 8초
+            }
+
+            // WebM 변환: 느림 (VP8/VP9 코덱)
+            if (outputFormat === 'webm') {
+                return fileSizeMB * 4; // 1MB당 4초
+            }
+
+            // 기타 비디오 변환
+            return fileSizeMB * 3; // 1MB당 3초
+        }
+
+        // 오디오 변환: 비교적 빠름
+        if (inputType === 'audio' && outputType === 'audio') {
+            return fileSizeMB * 2; // 1MB당 2초
+        }
+
+        // 크로스 카테고리 변환 (비디오→오디오 등)
+        return fileSizeMB * 2.5; // 1MB당 2.5초
+    }
+
+    /**
+     * 서버사이드 변환 (EC2 + native FFmpeg)
+     *
+     * 30초 이상 걸릴 것으로 예상되는 큰 파일을 서버에서 변환
+     *
+     * @param {File} file - 입력 파일
+     * @param {string} outputFormat - 출력 형식
+     * @param {object} options - 변환 옵션
+     * @param {function} onProgress - 진행률 콜백
+     * @returns {Promise<Blob>} 변환된 파일
+     */
+    async convertWithServer(file, outputFormat, options = {}, onProgress) {
+        try {
+            onProgress?.(10, '서버로 파일 업로드 중...');
+
+            // FormData 생성
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('outputFormat', outputFormat);
+            formData.append('settings', JSON.stringify(options));
+
+            // 서버 API 호출
+            const response = await fetch('/api/convert', {
+                method: 'POST',
+                body: formData
+            });
+
+            // 응답 처리 (HTML 에러 페이지 대응)
+            if (!response.ok) {
+                let errorMessage = `서버 변환 실패 (${response.status})`;
+                try {
+                    const errorData = await response.json();
+                    errorMessage = errorData.error || errorMessage;
+                } catch (parseError) {
+                    // JSON 파싱 실패 시 텍스트로 읽기 (HTML 에러 페이지 등)
+                    const errorText = await response.text();
+                    if (errorText.includes('502 Bad Gateway')) {
+                        errorMessage = '서버가 일시적으로 응답하지 않습니다. 잠시 후 다시 시도해주세요.';
+                    } else if (errorText.includes('504 Gateway Timeout')) {
+                        errorMessage = '서버 응답 시간이 초과되었습니다. 파일이 너무 크거나 서버가 바쁩니다.';
+                    } else {
+                        errorMessage = `서버 오류: ${response.statusText}`;
+                    }
+                }
+                throw new Error(errorMessage);
+            }
+
+            onProgress?.(20, '변환 작업 대기 중...');
+
+            // 응답 JSON 파싱 (202 Accepted - 비동기 처리)
+            const result = await response.json();
+
+            // jobId와 downloadUrl 확인
+            if (!result.jobId || !result.downloadUrl) {
+                throw new Error('서버 응답이 올바르지 않습니다');
+            }
+
+            // 진행률 폴링 (최대 5분)
+            const maxAttempts = 150; // 5분 (2초마다 체크)
+            let attempts = 0;
+            let jobStatus = result.status;
+
+            while (jobStatus !== 'completed' && attempts < maxAttempts) {
+                await new Promise(resolve => setTimeout(resolve, 2000)); // 2초 대기
+                attempts++;
+
+                // 진행률 확인
+                const progressResponse = await fetch(result.progressUrl || `/api/progress/${result.jobId}`);
+                if (progressResponse.ok) {
+                    const progressData = await progressResponse.json();
+                    jobStatus = progressData.status;
+
+                    // 진행률 업데이트
+                    if (progressData.progress) {
+                        const serverProgress = Math.min(progressData.progress, 90);
+                        onProgress?.(20 + (serverProgress * 0.6), progressData.message || '서버에서 변환 중...');
+                    }
+
+                    // 실패 상태
+                    if (jobStatus === 'failed') {
+                        throw new Error(progressData.error || '서버 변환 실패');
+                    }
+                } else {
+                    console.warn('[Server] 진행률 확인 실패, 계속 시도 중...');
+                }
+            }
+
+            // 타임아웃 체크
+            if (jobStatus !== 'completed') {
+                throw new Error('서버 변환 시간이 초과되었습니다 (5분)');
+            }
+
+            onProgress?.(85, '변환된 파일 다운로드 중...');
+
+            // 변환된 파일 다운로드
+            const downloadResponse = await fetch(result.downloadUrl);
+
+            if (!downloadResponse.ok) {
+                throw new Error(`파일 다운로드 실패: ${downloadResponse.status}`);
+            }
+
+            const blob = await downloadResponse.blob();
+
+            // 파일 크기 검증
+            if (blob.size === 0) {
+                throw new Error('변환된 파일이 비어있습니다');
+            }
+
+            onProgress?.(100, '서버 변환 완료!');
+            return blob;
+
+        } catch (error) {
+            console.error('[Server Conversion Error]', error);
+
+            // 에러 메시지 정제 (HTML 태그 제거)
+            let errorMessage = error.message;
+            if (errorMessage.includes('<html>') || errorMessage.includes('<!DOCTYPE')) {
+                errorMessage = '서버 오류가 발생했습니다. 관리자에게 문의하세요.';
+            }
+
+            throw new Error(`서버 변환 실패: ${errorMessage}`);
+        }
     }
 
     /**
@@ -1028,41 +1447,71 @@ class ConverterEngine {
      */
     async pdfToImage(pdfFile, imageFormat, options = {}, onProgress) {
         onProgress?.(10, 'PDF 처리 중...');
-        
+
         // PDF.js 로드
         await this.loadPdfJs();
-        
+
         const arrayBuffer = await pdfFile.arrayBuffer();
         const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
-        
+
         onProgress?.(30, 'PDF 페이지 렌더링 중...');
-        
+
         // 첫 페이지만 변환 (나중에 옵션으로 여러 페이지 지원 가능)
         const page = await pdf.getPage(1);
         const viewport = page.getViewport({ scale: 2.0 });
-        
+
         const canvas = document.createElement('canvas');
         const context = canvas.getContext('2d');
         canvas.height = viewport.height;
         canvas.width = viewport.width;
-        
+
         await page.render({
             canvasContext: context,
             viewport: viewport
         }).promise;
-        
+
         onProgress?.(70, '이미지 변환 중...');
-        
-        return new Promise((resolve, reject) => {
-            canvas.toBlob(blob => {
-                if (blob) {
-                    onProgress?.(100, '변환 완료!');
-                    resolve(blob);
-                } else {
-                    reject(new Error('PDF 이미지 변환 실패'));
-                }
-            }, this.getImageMimeType(imageFormat), 0.95);
-        });
+
+        // Canvas toBlob()이 지원하는 형식 확인
+        const supportedFormats = ['jpg', 'jpeg', 'png', 'webp'];
+        const normalizedFormat = imageFormat.toLowerCase();
+
+        if (supportedFormats.includes(normalizedFormat)) {
+            // Canvas toBlob() 직접 사용
+            return new Promise((resolve, reject) => {
+                canvas.toBlob(blob => {
+                    if (blob) {
+                        onProgress?.(100, '변환 완료!');
+                        resolve(blob);
+                    } else {
+                        reject(new Error('PDF 이미지 변환 실패'));
+                    }
+                }, this.getImageMimeType(imageFormat), 0.95);
+            });
+        } else {
+            // 지원 안 되는 형식: PDF → PNG → 타겟 형식 (2단계 변환)
+            onProgress?.(75, `PDF → PNG 변환 중...`);
+
+            const pngBlob = await new Promise((resolve, reject) => {
+                canvas.toBlob(blob => {
+                    if (blob) {
+                        resolve(blob);
+                    } else {
+                        reject(new Error('PDF → PNG 변환 실패'));
+                    }
+                }, 'image/png');
+            });
+
+            onProgress?.(85, `PNG → ${imageFormat.toUpperCase()} 변환 중...`);
+
+            // PNG Blob을 File 객체로 변환
+            const pngFile = new File([pngBlob], 'temp.png', { type: 'image/png' });
+
+            // convertImage() 사용하여 PNG → 타겟 형식 변환
+            return await this.convertImage(pngFile, imageFormat, options, (progress, message) => {
+                onProgress?.(85 + progress * 0.15, message);
+            });
+        }
     }
 
     /**
