@@ -12,7 +12,7 @@ YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
 PEM_FILE="/Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem"
-SERVER="ubuntu@54.242.63.16"
+SERVER="ubuntu@23.21.183.81"  # Elastic IP (2025-10-16 변경)
 NGINX_ROOT="/var/www/html"
 
 echo -e "${YELLOW}========================================${NC}"

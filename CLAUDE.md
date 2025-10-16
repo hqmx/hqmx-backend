@@ -23,12 +23,18 @@ HQMX Converter는 100% 클라이언트 사이드에서 작동하는 파일 변�
 
 ## 서버 정보
 ### hqmx.net (메인 서버)
-- **IP**: 54.242.63.16
+- **IP (Elastic IP)**: 23.21.183.81 ⚠️ 변경됨 (이전: 54.242.63.16)
 - **Git**: https://github.com/hqmx/hqmx-backend
 - **PEM 파일**: `/Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem`
-- **서버 상태**: ✅ 정상 작동 (2025-10-13 확인)
+- **서버 상태**: ✅ 정상 작동 (2025-10-16 확인)
 - **백엔드 API**: https://hqmx.net/api/health
 - **Trust Proxy**: Cloudflare + nginx 설정 완료 (2025-10-13)
+- **PM2 프로세스**: `pm2 start src/server.js --name hqmx-backend`
+  - ⚠️ `src/index.js`가 아닌 `src/server.js` 사용 (Express 기반)
+- **중요 참고사항**:
+  - `document-converter.js` 파일 삭제됨 (2025-10-16)
+  - EC2에서는 LibreOffice + ImageMagick 사용
+  - Cloudflare Workers 전용 파일은 EC2에 배포 금지
 
 ## 광고 수익화 (Monetization)
 
@@ -826,8 +832,8 @@ git config --global core.quotepath false
 
 #### SSH 연결
 ```bash
-# SSH 연결
-ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@54.242.63.16
+# SSH 연결 (Elastic IP)
+ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@23.21.183.81
 
 # PEM 파일 권한 설정 (필요시)
 chmod 400 /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem
@@ -836,22 +842,22 @@ chmod 400 /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem
 #### SCP 파일 전송
 ```bash
 # 로컬 -> 서버 파일 전송
-scp -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem -r frontend/ ubuntu@54.242.63.16:~/
+scp -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem -r frontend/ ubuntu@23.21.183.81:~/
 
 # 서버 -> 로컬 파일 다운로드
-scp -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@54.242.63.16:~/backup.tar.gz ./
+scp -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@23.21.183.81:~/backup.tar.gz ./
 ```
 
 #### 서버에서 Git 동기화
 ```bash
 # 서버에서 최신 코드 받기 (GitHub에서)
-ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@54.242.63.16 'cd ~/converter.hqmx && git pull origin main'
+ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@23.21.183.81 'cd ~/hqmx && git pull origin main'
 
 # 서버에서 Git 상태 확인
-ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@54.242.63.16 'cd ~/converter.hqmx && git status'
+ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@23.21.183.81 'cd ~/hqmx && git status'
 
 # 서버에서 원격 저장소 확인
-ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@54.242.63.16 'cd ~/converter.hqmx && git remote -v'
+ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@23.21.183.81 'cd ~/hqmx && git remote -v'
 ```
 
 #### 서버 상태 확인
@@ -860,10 +866,10 @@ ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@54.242.63.
 curl -I https://hqmx.net
 
 # 서버 포트 확인
-ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@54.242.63.16 'sudo netstat -tlnp'
+ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@23.21.183.81 'sudo netstat -tlnp'
 
 # 디스크 사용량 확인
-ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@54.242.63.16 'df -h'
+ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@23.21.183.81 'df -h'
 ```
 
 ## 배포
@@ -888,16 +894,16 @@ ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@54.242.63.
 ```bash
 # 1. 로컬에서 /tmp로 복사
 scp -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem \
-  frontend/style.css frontend/index.html ubuntu@54.242.63.16:/tmp/
+  frontend/style.css frontend/index.html ubuntu@23.21.183.81:/tmp/
 
 # 2. 서버에서 nginx root로 이동 및 권한 설정
-ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@54.242.63.16 \
+ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@23.21.183.81 \
   'sudo cp /tmp/style.css /tmp/index.html /var/www/html/ && \
    sudo chown www-data:www-data /var/www/html/style.css /var/www/html/index.html && \
    sudo chmod 755 /var/www/html/style.css /var/www/html/index.html'
 
 # 3. nginx reload
-ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@54.242.63.16 \
+ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@23.21.183.81 \
   'sudo nginx -t && sudo systemctl reload nginx'
 ```
 
@@ -908,23 +914,27 @@ ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@54.242.63.
 
 **nginx 설정 확인:**
 ```bash
-ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@54.242.63.16 \
+ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@23.21.183.81 \
   'sudo nginx -T 2>/dev/null | grep "root\|server_name"'
 ```
 
 ### 백엔드 API 배포 (100-200MB 대용량 파일용)
 ```bash
-# 백엔드 API 서버 시작/재시작
-ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@54.242.63.16 \
-  'cd ~/converter.hqmx/backend && npm install && pm2 restart converter-api'
+# 백엔드 API 서버 재시작 (권장)
+ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@23.21.183.81 \
+  'cd ~/hqmx/backend && pm2 restart hqmx-backend'
 
-# 또는 처음 시작
-ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@54.242.63.16 \
-  'cd ~/converter.hqmx/backend && npm install && pm2 start src/index.js --name converter-api'
+# 또는 처음 시작 (⚠️ src/server.js 사용, src/index.js 아님!)
+ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@23.21.183.81 \
+  'cd ~/hqmx/backend && npm install && pm2 start src/server.js --name hqmx-backend'
 
 # 백엔드 로그 확인
-ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@54.242.63.16 \
-  'pm2 logs converter-api'
+ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@23.21.183.81 \
+  'pm2 logs hqmx-backend'
+
+# PM2 프로세스 상태 확인
+ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@23.21.183.81 \
+  'pm2 list'
 ```
 
 ## 개발 가이드
@@ -1543,3 +1553,273 @@ npm run deploy  # Cloudflare Workers 배포
 - ⚠️ `pdfjs-dist`는 Cloudflare Workers에서 호환성 문제 가능 → 테스트 필수
 - ⚠️ `@squoosh/lib`는 Node 버전 경고 있음 → 런타임 테스트 필요
 - ✅ `pdf-lib`는 Pure JS로 Workers 완전 호환
+
+## 백엔드 실제 변환 엔진 구현 완료 (2025-10-15)
+
+### 개요
+Sharp와 fluent-ffmpeg 기반의 실제 서버 사이드 변환 엔진 구현 완료.
+시뮬레이션 코드를 실제 작동하는 변환 로직으로 교체하였으며, EC2 서버에서 정상 작동 확인.
+
+### 플랫폼 변경사항
+- **기존**: Cloudflare Workers (제약 많음)
+- **현재**: AWS EC2 (t3.small, 2GB RAM)
+- **이유**: Sharp와 FFmpeg는 Node.js native 모듈이므로 EC2 환경 필수
+
+### 구현된 변환기
+
+#### 1. ImageConverter (Sharp 기반) ✅ 완료
+**파일**: `backend/src/utils/converters/image-converter.js`
+
+**기술 스택**:
+- **Sharp v0.33.0**: libvips 기반 고성능 이미지 처리
+- **지원 형식**: JPG, PNG, GIF, WebP, BMP, AVIF, HEIC, SVG
+
+**구현 방식**:
+- 파일 경로 기반 처리 (ArrayBuffer 방식에서 변경)
+- `inputPath`와 `outputPath`를 settings에서 받아 처리
+- 실시간 진행률 업데이트 (10% → 30% → 50% → 70% → 90% → 100%)
+
+**주요 기능**:
+```javascript
+async convert() {
+  const inputPath = this.settings.inputPath;
+  const outputPath = this.settings.outputPath;
+
+  // Sharp 인스턴스 생성
+  let image = sharp(inputPath);
+
+  // 메타데이터 확인
+  const metadata = await image.metadata();
+
+  // 리사이즈 처리 (optional)
+  if (this.settings.resize && this.settings.resize !== 'none') {
+    image = this.applyResize(image, metadata, this.settings.resize);
+  }
+
+  // 형식별 변환 및 품질 설정
+  image = this.applyOutputFormat(image);
+
+  // 파일 저장
+  await image.toFile(outputPath);
+}
+```
+
+**품질 설정**:
+- JPG: mozjpeg 압축, quality 1-100
+- PNG: compressionLevel 0-9 자동 계산
+- WebP: quality 1-100
+- AVIF: quality 1-100
+
+#### 2. VideoConverter (fluent-ffmpeg 기반) ✅ 완료
+**파일**: `backend/src/utils/converters/video-converter.js`
+
+**기술 스택**:
+- **fluent-ffmpeg v2.1.3**: FFmpeg 래퍼
+- **시스템 FFmpeg v6.1.1**: EC2에 설치됨
+
+**지원 형식**: MP4, AVI, MOV, MKV, WebM, FLV, WMV, M4V
+
+**구현 방식**:
+```javascript
+async convertWithFFmpeg(inputPath, outputPath) {
+  return new Promise((resolve, reject) => {
+    let command = ffmpeg(inputPath);
+
+    // 출력 형식 설정
+    command = command.toFormat(this.outputFormat);
+
+    // 품질 설정 (CRF)
+    if (this.settings.quality) {
+      const crfMap = { high: 18, medium: 23, low: 28 };
+      const crf = crfMap[this.settings.quality] || 23;
+      command = command.videoCodec('libx264').outputOptions([`-crf ${crf}`]);
+    }
+
+    // 진행률 콜백
+    command.on('progress', (progress) => {
+      if (progress.percent) {
+        const percent = Math.min(95, Math.max(40, Math.round(progress.percent)));
+        this.updateProgress(percent, `변환 진행 중... ${percent}%`);
+      }
+    });
+
+    command.save(outputPath);
+  });
+}
+```
+
+**품질 옵션**:
+- high: CRF 18 (최고 품질, 큰 파일)
+- medium: CRF 23 (기본값, 균형)
+- low: CRF 28 (낮은 품질, 작은 파일)
+
+#### 3. AudioConverter (fluent-ffmpeg 기반) ✅ 완료
+**파일**: `backend/src/utils/converters/audio-converter.js`
+
+**지원 형식**: MP3, WAV, FLAC, AAC, OGG, M4A, WMA, Opus
+
+**구현 방식**:
+- VideoConverter와 동일한 구조
+- 오디오 전용 옵션: audioQuality(), audioBitrate(), audioFrequency(), audioChannels()
+
+**설정 옵션**:
+- quality: high (q=0), medium (q=2), low (q=4)
+- bitrate: 32-320 kbps
+- sampleRate: 44100, 48000, 96000
+- channels: mono, stereo
+
+### 의존성 및 환경
+
+#### package.json 업데이트
+```json
+{
+  "dependencies": {
+    "express": "^4.18.2",
+    "multer": "^1.4.5-lts.1",
+    "fluent-ffmpeg": "^2.1.2",
+    "sharp": "^0.33.0",           // NEW: 이미지 변환
+    "uuid": "^9.0.0",
+    "express-rate-limit": "^7.1.5"
+  }
+}
+```
+
+#### EC2 서버 환경
+- **OS**: Ubuntu 24.04 LTS
+- **Node.js**: v20.19.5
+- **FFmpeg**: 6.1.1-3ubuntu5
+- **RAM**: 2GB (t3.small)
+- **디스크**: 20GB EBS gp3
+
+### 테스트 결과 (2025-10-15)
+
+#### PNG → JPG 변환 테스트 ✅ 성공
+**테스트 파일**: frontend/assets/apple-touch-icon.png (18.4 KB)
+
+**결과**:
+```
+원본: 18,433 bytes (180x180 PNG)
+변환: 4,358 bytes (180x180 JPG, quality 85)
+압축률: 76.3% (18KB → 4KB)
+변환 시간: ~1초
+```
+
+**서버 로그 (상세)**:
+```
+[ImageConverter] ========== 변환 시작 ==========
+[ImageConverter] inputFormat: png
+[ImageConverter] outputFormat: jpg
+[ImageConverter] inputPath: /tmp/converter/uploads/9b9b7537-ca05-4592-883f-0970f76760df-apple-touch-icon.png
+[ImageConverter] outputPath: /tmp/converter/outputs/9b9b7537-ca05-4592-883f-0970f76760df.jpg
+[ImageConverter] Sharp 인스턴스 생성 중...
+[ImageConverter] Sharp 인스턴스 생성 완료
+[ImageConverter] 메타데이터 읽기 중...
+[ImageConverter] 원본 이미지: 180x180, format: png
+[ImageConverter] 출력 형식 적용 중: jpg
+[ImageConverter] 출력 형식 적용 완료
+[ImageConverter] 파일 저장 시작: /tmp/converter/outputs/9b9b7537-ca05-4592-883f-0970f76760df.jpg
+[ImageConverter] 파일 저장 완료: {
+  format: 'jpeg',
+  width: 180,
+  height: 180,
+  channels: 3,
+  premultiplied: false,
+  size: 4358
+}
+[ImageConverter] ========== 변환 완료 ==========
+[Queue] Job 9b9b7537-ca05-4592-883f-0970f76760df completed successfully
+[Download] File downloaded: 9b9b7537-ca05-4592-883f-0970f76760df
+```
+
+### ConverterFactory 수정사항
+
+#### 문제점 해결
+1. **DocumentConverter 미구현 문제**:
+   - 원인: import 구문은 있으나 파일이 존재하지 않음
+   - 해결: 주석 처리
+   ```javascript
+   // import { DocumentConverter } from './converters/document-converter.js'; // TODO: 구현 필요
+   // import { LibreOfficeConverter } from './converters/libreoffice-converter.js'; // TODO: 구현 필요
+   ```
+
+2. **출력 파일 자동 삭제 문제**:
+   - 원인: finally 블록에서 outputPath 삭제
+   - 해결: 입력 파일만 삭제, 출력 파일은 Cron job이 1시간 후 삭제
+   ```javascript
+   finally {
+     // 입력 파일만 정리 (출력 파일은 다운로드 후 Cron job이 삭제)
+     try {
+       await fs.unlink(inputPath).catch(() => {});
+     } catch (err) {
+       console.error('[VideoConverter] 임시 파일 정리 실패:', err);
+     }
+   }
+   ```
+
+### 배포 절차
+
+#### 1. 로컬에서 백엔드 압축
+```bash
+cd backend
+tar -czf ../backend-v{version}.tar.gz --exclude=node_modules .
+```
+
+#### 2. EC2 업로드
+```bash
+scp -i hqmx-ec2.pem backend-v{version}.tar.gz ubuntu@54.242.63.16:/tmp/
+```
+
+#### 3. EC2에서 추출 및 의존성 설치
+```bash
+ssh -i hqmx-ec2.pem ubuntu@54.242.63.16
+cd ~/hqmx/backend
+tar -xzf /tmp/backend-v{version}.tar.gz
+npm install  # Sharp 설치 포함
+```
+
+#### 4. pm2 재시작
+```bash
+pm2 restart hqmx-backend
+pm2 logs hqmx-backend --lines 50
+```
+
+### 트러블슈팅 가이드
+
+#### 문제 1: Sharp 패키지 없음
+**증상**: `Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'sharp'`
+**원인**: npm install 누락
+**해결**: `cd ~/hqmx/backend && npm install`
+
+#### 문제 2: 출력 파일 404 에러
+**증상**: Job completed successfully 로그는 있지만 다운로드 시 404
+**원인**:
+- outputPath가 잘못 설정됨
+- finally 블록에서 파일이 삭제됨
+- Sharp.toFile()이 실제로 실행되지 않음
+**해결**:
+- inputPath/outputPath를 settings에서 정확히 전달
+- finally 블록 수정 (outputPath 삭제 제거)
+- 상세 로그로 실행 흐름 추적
+
+#### 문제 3: Module Not Found (DocumentConverter)
+**증상**: 모듈 로딩 실패
+**원인**: 존재하지 않는 파일 import
+**해결**: converter-factory.js에서 미구현 converter import 주석 처리
+
+### 다음 단계
+
+#### 추가 테스트 필요
+- [ ] 비디오 변환 테스트 (MP4 → AVI)
+- [ ] 오디오 변환 테스트 (MP3 → WAV)
+- [ ] 대용량 파일 테스트 (100MB+)
+- [ ] 동시 변환 테스트 (큐 시스템)
+
+#### 추가 구현 필요
+- [ ] DocumentConverter (PDF ↔ 이미지)
+- [ ] LibreOfficeConverter (DOC/XLSX → PDF)
+- [ ] 크로스 카테고리 변환 (비디오 → GIF)
+
+#### 최적화 필요
+- [ ] Sharp 프로세스 풀 (메모리 효율)
+- [ ] FFmpeg 프리셋 최적화 (속도 vs 품질)
+- [ ] 진행률 정확도 개선 (FFmpeg 로그 파싱)
