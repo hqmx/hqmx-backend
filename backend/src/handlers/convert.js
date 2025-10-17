@@ -49,11 +49,15 @@ async function convertHandler(req, res, next) {
       // jobId는 multer middleware에서 생성됨
       const jobId = req.jobId;
       const inputPath = req.file.path;
-      const inputExt = path.extname(req.file.originalname).toLowerCase().substring(1);
+      const originalFilename = req.file.originalname;
+      const inputExt = path.extname(originalFilename).toLowerCase().substring(1);
       const outputExt = outputFormat.toLowerCase();
 
-      // 출력 파일 경로
-      const outputFilename = `${jobId}.${outputExt}`;
+      // 출력 파일명: 원본 파일명(확장자 제외) + 타임스탬프 + 새 확장자
+      // 예: "video.mp4" → "video_1234567890.avi"
+      const baseFilename = path.basename(originalFilename, path.extname(originalFilename));
+      const sanitizedBase = baseFilename.replace(/[^a-zA-Z0-9가-힣_-]/g, '_'); // 특수문자 제거
+      const outputFilename = `${sanitizedBase}_${Date.now()}.${outputExt}`;
       const outputPath = path.join(OUTPUT_DIR, outputFilename);
 
       // 품질 설정 파싱 (옵션)
@@ -71,6 +75,8 @@ async function convertHandler(req, res, next) {
         id: jobId,
         inputPath,
         outputPath,
+        outputFilename,  // 다운로드 시 사용할 파일명
+        originalFilename, // 원본 파일명
         inputFormat: inputExt,
         outputFormat: outputExt,
         execute: async () => {
@@ -89,7 +95,7 @@ async function convertHandler(req, res, next) {
           }
 
           // 진행률 콜백 설정
-          converter.setProgressCallback((progress, message) => {
+          converter.setProgressCallback(({ progress, message }) => {
             conversionQueue.updateProgress(jobId, progress, message);
           });
 

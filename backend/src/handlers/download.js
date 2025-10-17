@@ -55,11 +55,13 @@ async function downloadHandler(req, res) {
 
     // 파일 정보
     const stats = await fs.stat(outputPath);
-    const filename = path.basename(outputPath);
+
+    // 다운로드 파일명: job에 저장된 outputFilename 사용 (원본 파일명 기반)
+    const filename = job.outputFilename || path.basename(outputPath);
 
     // 다운로드 응답
     res.setHeader('Content-Type', 'application/octet-stream');
-    res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
+    res.setHeader('Content-Disposition', `attachment; filename="${encodeURIComponent(filename)}"`);
     res.setHeader('Content-Length', stats.size);
 
     // 파일 스트리밍
