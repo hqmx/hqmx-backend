@@ -518,7 +518,7 @@ class ConverterEngine {
                     // 진행률 업데이트
                     if (progressData.progress) {
                         const serverProgress = Math.min(progressData.progress, 90);
-                        onProgress?.(20 + (serverProgress * 0.6), progressData.message || '서버에서 변환 중...');
+                        onProgress?.(20 + (serverProgress * 0.6), progressData.message || 'Converting on server...');
                     }
 
                     // 실패 상태
@@ -640,7 +640,7 @@ class ConverterEngine {
                     // 이미지 그리기
                     ctx.drawImage(img, 0, 0, width, height);
                     
-                    onProgress?.(60, '이미지 변환 중...');
+                    onProgress?.(60, 'Converting image...');
                     
                     // 품질 설정 - 형식별로 최적화
                     let quality;
@@ -854,7 +854,7 @@ class ConverterEngine {
         return new Promise((resolve, reject) => {
             videoElement.onseeked = () => {
                 try {
-                    onProgress?.(70, '이미지 변환 중...');
+                    onProgress?.(70, 'Converting image...');
 
                     ctx.drawImage(videoElement, 0, 0);
 
@@ -964,7 +964,7 @@ class ConverterEngine {
             onProgress?.(30, '오디오 디코딩 중...');
 
             const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
-            onProgress?.(60, '오디오 변환 중...');
+            onProgress?.(60, 'Converting audio...');
 
             // 출력 형식에 따른 변환
             let resultBlob;
@@ -1470,7 +1470,7 @@ class ConverterEngine {
             viewport: viewport
         }).promise;
 
-        onProgress?.(70, '이미지 변환 중...');
+        onProgress?.(70, 'Converting image...');
 
         // Canvas toBlob()이 지원하는 형식 확인
         const supportedFormats = ['jpg', 'jpeg', 'png', 'webp'];
@@ -1490,7 +1490,7 @@ class ConverterEngine {
             });
         } else {
             // 지원 안 되는 형식: PDF → PNG → 타겟 형식 (2단계 변환)
-            onProgress?.(75, `PDF → PNG 변환 중...`);
+            onProgress?.(75, `Converting PDF to PNG...`);
 
             const pngBlob = await new Promise((resolve, reject) => {
                 canvas.toBlob(blob => {
@@ -1502,7 +1502,7 @@ class ConverterEngine {
                 }, 'image/png');
             });
 
-            onProgress?.(85, `PNG → ${imageFormat.toUpperCase()} 변환 중...`);
+            onProgress?.(85, `Converting PNG to ${imageFormat.toUpperCase()}...`);
 
             // PNG Blob을 File 객체로 변환
             const pngFile = new File([pngBlob], 'temp.png', { type: 'image/png' });
@@ -1992,7 +1992,7 @@ class ConverterEngine {
             const firstSheetName = workbook.SheetNames[0];
             const worksheet = workbook.Sheets[firstSheetName];
 
-            onProgress?.(40, 'HTML 변환 중...');
+            onProgress?.(40, 'Converting HTML...');
 
             // HTML 테이블로 변환
             const html = XLSX.utils.sheet_to_html(worksheet);

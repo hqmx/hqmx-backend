@@ -1794,7 +1794,7 @@ function initializeApp() {
         // 실제로는 새로 변환 시작
         // (FFmpeg는 중단된 지점부터 재개 불가)
         setTimeout(() => {
-            fileObj.statusDetail = '변환 중...';
+            fileObj.statusDetail = 'Converting...';
             updateFileItem(fileObj);
         }, 500);
     }

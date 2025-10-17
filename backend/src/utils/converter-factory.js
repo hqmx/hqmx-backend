@@ -172,8 +172,8 @@ class VideoToAudioConverter extends VideoConverter {
     }
 
     try {
-      await this.updateProgress(5, 'FFmpeg 초기화 중...');
-      await this.updateProgress(15, '비디오 분석 중...');
+      await this.updateProgress(5, 'Initializing FFmpeg...');
+      await this.updateProgress(15, 'Analyzing video...');
 
       // Create output directory
       await fs.mkdir(path.dirname(outputPath), { recursive: true });
@@ -181,7 +181,7 @@ class VideoToAudioConverter extends VideoConverter {
       // Extract audio using FFmpeg
       await this.extractAudioWithFFmpeg(inputPath, outputPath);
 
-      await this.updateProgress(100, '오디오 추출 완료');
+      await this.updateProgress(100, 'Audio extraction complete');
 
       console.log(`[VideoToAudioConverter] 변환 완료: ${inputPath} → ${outputPath}`);
     } catch (err) {
@@ -244,17 +244,17 @@ class VideoToAudioConverter extends VideoConverter {
         if (progress.percent) {
           const percent = Math.min(90, Math.max(30, Math.round(progress.percent)));
           console.log(`[VideoToAudioConverter] Updating progress: ${percent}%`);
-          this.updateProgress(percent, `오디오 추출 중... ${percent}%`).catch(() => {});
+          this.updateProgress(percent, `Extracting audio... ${percent}%`).catch(() => {});
         } else if (progress.timemark) {
           console.log(`[VideoToAudioConverter] FFmpeg timemark: ${progress.timemark}`);
-          this.updateProgress(50, `오디오 추출 중... ${progress.timemark}`).catch(() => {});
+          this.updateProgress(50, `Extracting audio... ${progress.timemark}`).catch(() => {});
         }
       });
 
       // Error handling
       command.on('error', (err) => {
         console.error('[VideoToAudioConverter] FFmpeg 에러:', err.message);
-        reject(new Error(`오디오 추출 실패: ${err.message}`));
+        reject(new Error(`Audio extraction failed: ${err.message}`));
       });
 
       // Completion handling
@@ -297,12 +297,12 @@ class VideoToGifConverter extends VideoConverter {
     }
 
     try {
-      await this.updateProgress(5, 'FFmpeg 초기화 중...');
-      await this.updateProgress(15, '비디오 분석 중...');
+      await this.updateProgress(5, 'Initializing FFmpeg...');
+      await this.updateProgress(15, 'Analyzing video...');
 
       await fs.mkdir(path.dirname(outputPath), { recursive: true });
       await this.convertToGifWithFFmpeg(inputPath, outputPath);
-      await this.updateProgress(100, 'GIF 변환 완료');
+      await this.updateProgress(100, 'GIF conversion complete');
 
       console.log(`[VideoToGifConverter] 변환 완료: ${inputPath} → ${outputPath}`);
     } catch (err) {
@@ -341,13 +341,13 @@ class VideoToGifConverter extends VideoConverter {
       command.on('progress', (progress) => {
         if (progress.percent) {
           const percent = Math.min(90, Math.max(30, Math.round(progress.percent)));
-          this.updateProgress(percent, `GIF 변환 중... ${percent}%`).catch(() => {});
+          this.updateProgress(percent, `Converting to GIF... ${percent}%`).catch(() => {});
         }
       });
 
       command.on('error', (err) => {
         console.error('[VideoToGifConverter] FFmpeg 에러:', err.message);
-        reject(new Error(`GIF 변환 실패: ${err.message}`));
+        reject(new Error(`GIF conversion failed: ${err.message}`));
       });
 
       command.on('end', async () => {
@@ -388,12 +388,12 @@ class GifToVideoConverter extends VideoConverter {
     }
 
     try {
-      await this.updateProgress(5, 'FFmpeg 초기화 중...');
-      await this.updateProgress(15, 'GIF 분석 중...');
+      await this.updateProgress(5, 'Initializing FFmpeg...');
+      await this.updateProgress(15, 'Analyzing GIF...');
 
       await fs.mkdir(path.dirname(outputPath), { recursive: true });
       await this.convertGifToVideoWithFFmpeg(inputPath, outputPath);
-      await this.updateProgress(100, '비디오 변환 완료');
+      await this.updateProgress(100, 'Video conversion complete');
 
       console.log(`[GifToVideoConverter] 변환 완료: ${inputPath} → ${outputPath}`);
     } catch (err) {
@@ -439,13 +439,13 @@ class GifToVideoConverter extends VideoConverter {
       command.on('progress', (progress) => {
         if (progress.percent) {
           const percent = Math.min(90, Math.max(30, Math.round(progress.percent)));
-          this.updateProgress(percent, `비디오 변환 중... ${percent}%`).catch(() => {});
+          this.updateProgress(percent, `Converting to video... ${percent}%`).catch(() => {});
         }
       });
 
       command.on('error', (err) => {
         console.error('[GifToVideoConverter] FFmpeg 에러:', err.message);
-        reject(new Error(`비디오 변환 실패: ${err.message}`));
+        reject(new Error(`Video conversion failed: ${err.message}`));
       });
 
       command.on('end', async () => {

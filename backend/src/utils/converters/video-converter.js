@@ -41,8 +41,8 @@ export class VideoConverter extends BaseConverter {
     }
 
     try {
-      await this.updateProgress(5, 'FFmpeg 초기화 중...');
-      await this.updateProgress(15, '비디오 분석 중...');
+      await this.updateProgress(5, 'Initializing FFmpeg...');
+      await this.updateProgress(15, 'Analyzing video...');
 
       // 출력 디렉토리 생성
       await fs.mkdir(path.dirname(outputPath), { recursive: true });
@@ -50,7 +50,7 @@ export class VideoConverter extends BaseConverter {
       // 변환 실행
       await this.convertWithFFmpeg(inputPath, outputPath);
 
-      await this.updateProgress(100, '비디오 변환 완료');
+      await this.updateProgress(100, 'Video conversion complete');
 
       console.log(`[VideoConverter] 변환 완료: ${inputPath} → ${outputPath}`);
     } catch (err) {
@@ -200,7 +200,7 @@ export class VideoConverter extends BaseConverter {
         console.log('[VideoConverter] FFmpeg progress event:', JSON.stringify(progress));
 
         let percent = 50; // 기본값
-        let message = `변환 진행 중... ${percent}%`;
+        let message = `Converting... ${percent}%`;
 
         // timemark 기반 진행률 계산 (가장 정확)
         if (progress.timemark && videoDuration) {
@@ -209,19 +209,19 @@ export class VideoConverter extends BaseConverter {
           percent = Math.min(95, Math.max(40, percent)); // 40-95% 범위로 제한
 
           // ⭐️ 사용자에게 보이는 메시지 생성 (시간 포함)
-          message = `변환 진행 중... ${currentTime.toFixed(1)}s / ${videoDuration.toFixed(1)}s (${percent}%)`;
+          message = `Converting... ${currentTime.toFixed(1)}s / ${videoDuration.toFixed(1)}s (${percent}%)`;
 
           console.log(`[VideoConverter] Timemark 기반 진행률: ${currentTime.toFixed(1)}s / ${videoDuration.toFixed(1)}s = ${percent}%`);
         }
         // FFmpeg percent 사용 (보조)
         else if (progress.percent) {
           percent = Math.min(95, Math.max(40, Math.round(progress.percent)));
-          message = `변환 진행 중... ${percent}%`;
+          message = `Converting... ${percent}%`;
           console.log(`[VideoConverter] FFmpeg percent: ${percent}%`);
         }
         // 둘 다 없으면 timemark 텍스트만 표시
         else if (progress.timemark) {
-          message = `변환 진행 중... ${progress.timemark}`;
+          message = `Converting... ${progress.timemark}`;
           console.log(`[VideoConverter] FFmpeg timemark: ${progress.timemark}`);
         }
 
@@ -311,7 +311,7 @@ export class VideoConverter extends BaseConverter {
     const steps = [45, 50, 60, 70, 80, 85];
     for (const progress of steps) {
       await new Promise(resolve => setTimeout(resolve, 1000));
-      await this.updateProgress(progress, `변환 진행 중... ${progress}%`);
+      await this.updateProgress(progress, `Converting... ${progress}%`);
     }
     
     // 실제 구현 예시:
