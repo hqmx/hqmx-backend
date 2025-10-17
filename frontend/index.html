@@ -22,38 +22,22 @@
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1478922009946363"
      crossorigin="anonymous"></script>
 
-    <!-- ExoClick Interstitial (Start Conversion 클릭 시) -->
+    <!-- ExoClick Interstitial (Start Conversion 클릭 시 - Direct Link 방식) -->
     <script type='text/javascript'>
         window.triggerInterstitialAd = function() {
-            console.log('[Ads] ExoClick Interstitial 광고 실행');
+            console.log('[Ads] ExoClick Interstitial 광고 실행 (Direct Link 방식)');
 
-            // AdProvider 스크립트가 이미 로드되어 있는지 확인
-            if (typeof window.AdProvider === 'undefined') {
-                // 스크립트 로드
-                const script = document.createElement('script');
-                script.type = 'text/javascript';
-                script.src = 'https://a.magsrv.com/ad-provider.js';
-                document.head.appendChild(script);
+            // ExoClick Direct Link를 사용하여 Interstitial 광고 트리거
+            // Zone 5751944: Desktop Fullpage Interstitial (1600x900)
+            const adUrl = 'https://main.exoclick.com/tag.php?goal=0&tag=5751944&type=3';
 
-                script.onload = function() {
-                    // 광고 영역 생성
-                    const insElement = document.createElement('ins');
-                    insElement.className = 'eas6a97888e35';
-                    insElement.setAttribute('data-zoneid', '5751944');
-                    document.body.appendChild(insElement);
+            // 새 창으로 광고 열기 (팝업 차단 방지를 위해 즉시 실행)
+            const adWindow = window.open(adUrl, '_blank', 'width=1,height=1,left=0,top=0');
 
-                    // 광고 서빙
-                    (window.AdProvider = window.AdProvider || []).push({"serve": {}});
-                };
+            if (adWindow) {
+                console.log('[Ads] Interstitial 광고 창 열림');
             } else {
-                // 이미 로드되어 있으면 바로 광고 영역 생성
-                const insElement = document.createElement('ins');
-                insElement.className = 'eas6a97888e35';
-                insElement.setAttribute('data-zoneid', '5751944');
-                document.body.appendChild(insElement);
-
-                // 광고 서빙
-                (window.AdProvider = window.AdProvider || []).push({"serve": {}});
+                console.warn('[Ads] 팝업 차단으로 광고를 표시할 수 없습니다');
             }
         };
     </script>
@@ -68,28 +52,40 @@
         (window.AdProvider = window.AdProvider || []).push({"serve": {}});
     </script>
 
-    <!-- Adsterra Popunder (5초 후 첫 실행, 이후 5분마다 반복) -->
+    <!-- Adsterra Popunder (8클릭마다 재로드) -->
     <script type='text/javascript'>
-        // Popunder 광고 로드 함수
-        function loadPopunderAd() {
-            console.log('[Ads] Popunder 광고 실행');
-            const script = document.createElement('script');
-            script.type = 'text/javascript';
-            script.src = '//outskirtsgrey.com/a5/b0/d3/a5b0d31831c41ea6968b77517c884ff0.js';
-            document.head.appendChild(script);
-        }
+        (function() {
+            let clickCount = 0;
+            let popunderLoaded = false;
 
-        // 5초 후 첫 실행
-        setTimeout(function() {
-            console.log('[Ads] Popunder 광고 첫 실행 (5초 경과)');
-            loadPopunderAd();
+            // Popunder 스크립트 로드 함수
+            function loadPopunder() {
+                console.log('[Ads] Popunder 광고 스크립트 로드');
+                const script = document.createElement('script');
+                script.type = 'text/javascript';
+                script.src = '//outskirtsgrey.com/a5/b0/d3/a5b0d31831c41ea6968b77517c884ff0.js?' + Date.now(); // 캐시 방지
+                document.head.appendChild(script);
+                popunderLoaded = true;
+            }
 
-            // 이후 5분(300,000ms)마다 반복 실행
-            setInterval(function() {
-                console.log('[Ads] Popunder 광고 반복 실행 (5분 주기)');
-                loadPopunderAd();
-            }, 300000); // 5분 = 300,000ms
-        }, 5000); // 5초 = 5,000ms
+            // 5초 후 첫 로드
+            setTimeout(function() {
+                console.log('[Ads] Popunder 초기 로드 (5초 경과)');
+                loadPopunder();
+            }, 5000);
+
+            // 클릭 카운터
+            document.addEventListener('click', function() {
+                clickCount++;
+                console.log('[Ads] 클릭 횟수:', clickCount);
+
+                // 8번째 클릭마다 Popunder 재로드
+                if (clickCount % 8 === 0) {
+                    console.log('[Ads] 8번째 클릭 감지 - Popunder 재로드');
+                    loadPopunder();
+                }
+            });
+        })();
     </script>
 </head>
 <body>
