@@ -25,80 +25,34 @@
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1478922009946363"
      crossorigin="anonymous"></script>
 
-    <!-- Clickadu Interstitial (30초 후 로드) -->
+    <!-- Clickadu Interstitial (페이지 로드 시 즉시) -->
+    <script type='text/javascript' src='https://a.pemsrv.com/ad-provider.js'></script>
+    <ins class='eas6a97888e35' data-zoneid='5751944'></ins>
     <script type='text/javascript'>
-        setTimeout(function() {
-            console.log('[Ads] Clickadu Interstitial 광고 로딩 시작 (30초 경과)');
-
-            // Clickadu 광고 스크립트 로드
-            const script = document.createElement('script');
-            script.async = true;
-            script.type = 'application/javascript';
-            script.src = 'https://a.pemsrv.com/ad-provider.js';
-            document.head.appendChild(script);
-
-            // 광고 요소 생성
-            script.onload = function() {
-                const ins = document.createElement('ins');
-                ins.className = 'eas6a97888e35';
-                ins.setAttribute('data-zoneid', '5751944');
-                document.body.insertBefore(ins, document.body.firstChild);
-
-                (window.AdProvider = window.AdProvider || []).push({"serve": {}});
-            };
-        }, 30000); // 30초
+        (window.AdProvider = window.AdProvider || []).push({"serve": {}});
     </script>
 
     <!-- ExoClick Client Hints (광고 타겟팅 최적화) -->
     <meta http-equiv="Delegate-CH" content="Sec-CH-UA https://s.magsrv.com; Sec-CH-UA-Mobile https://s.magsrv.com; Sec-CH-UA-Arch https://s.magsrv.com; Sec-CH-UA-Bitness https://s.magsrv.com; Sec-CH-UA-Platform https://s.magsrv.com; Sec-CH-UA-Platform-Version https://s.magsrv.com; Sec-CH-UA-Model https://s.magsrv.com; Sec-CH-UA-Full-Version-List https://s.magsrv.com; Sec-CH-UA-Full-Version https://s.magsrv.com;">
 
-    <!-- ExoClick Instant Message (1분 후 로드) -->
+    <!-- ExoClick Instant Message (페이지 로드 시 즉시) -->
+    <script type='text/javascript' src='https://a.magsrv.com/ad-provider.js'></script>
+    <ins class='eas6a97888e6' data-zoneid='5751960'></ins>
     <script type='text/javascript'>
-        setTimeout(function() {
-            console.log('[Ads] ExoClick Instant Message 광고 로딩 시작 (1분 경과)');
-
-            // ExoClick 광고 스크립트 로드
-            const script = document.createElement('script');
-            script.async = true;
-            script.type = 'application/javascript';
-            script.src = 'https://a.magsrv.com/ad-provider.js';
-            document.head.appendChild(script);
-
-            // 광고 요소 생성
-            script.onload = function() {
-                const ins = document.createElement('ins');
-                ins.className = 'eas6a97888e6';
-                ins.setAttribute('data-zoneid', '5751960');
-                document.body.insertBefore(ins, document.body.firstChild);
-
-                (window.AdProvider = window.AdProvider || []).push({"serve": {}});
-            };
-        }, 60000); // 60초 = 1분
+        (window.AdProvider = window.AdProvider || []).push({"serve": {}});
     </script>
 
-    <!-- Adsterra Popunder (Start Conversion 클릭 시) -->
+    <!-- Adsterra Popunder (페이지 로드 시 즉시) -->
     <script type='text/javascript'>
-        // Adsterra Popunder 함수를 전역으로 등록
-        window.triggerAdsterraPopunder = function() {
-            console.log('[Ads] Adsterra Popunder 광고 실행');
-
-            // atOptions를 먼저 설정 (invoke.js가 이를 읽어야 함)
-            window.atOptions = {
-                'key' : 'daa4db009302bf9e60c7056cebe49e2d',
-                'format' : 'iframe',
-                'height' : 90,
-                'width' : 728,
-                'params' : {}
-            };
-
-            // 그 다음 Popunder 스크립트 로드
-            const script = document.createElement('script');
-            script.async = true;
-            script.type = 'text/javascript';
-            script.src = '//www.topcreativeformat.com/daa4db009302bf9e60c7056cebe49e2d/invoke.js';
-            document.head.appendChild(script);
+        atOptions = {
+            'key' : 'daa4db009302bf9e60c7056cebe49e2d',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
         };
     </script>
+    <script type='text/javascript' src='//www.topcreativeformat.com/daa4db009302bf9e60c7056cebe49e2d/invoke.js'></script>
 </head>
 <body>
     <div class="container">

@@ -1012,15 +1012,6 @@ function initializeApp() {
         console.log('state.currentFileIndex:', state.currentFileIndex);
         console.log('state.batchFiles:', state.batchFiles);
 
-        // Adsterra Popunder 광고 트리거
-        if (typeof window.triggerAdsterraPopunder === 'function') {
-            try {
-                window.triggerAdsterraPopunder();
-            } catch (e) {
-                console.error('[Ads] Adsterra Popunder 실행 오류:', e);
-            }
-        }
-
         // Check if this is batch mode
         if (state.currentFileIndex < 0 && state.batchFiles) {
             console.log('배치 모드로 변환 시작');
