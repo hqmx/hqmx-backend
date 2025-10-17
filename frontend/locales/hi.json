@@ -5,39 +5,33 @@
   "uploadSubText": "• 300+ फ़ाइल फॉर्मेट सपोर्ट •",
   "selectFiles": "फ़ाइल चुनें",
   "termsNotice": "By using our service you accept our Terms of Service and Privacy Policy.",
-
   "yourFiles": "आपकी फ़ाइलें",
   "clearAll": "सभी हटाएं",
   "convertAll": "सभी कन्वर्ट करें",
-
   "conversionSettings": "कन्वर्जन सेटिंग्स",
   "filesToConvert": "कन्वर्ट करने वाली फ़ाइलें",
   "convertTo": "इसमें बदलें",
   "advancedSettings": "एडवांस सेटिंग्स",
   "advancedOptions": "एडवांस ऑप्शन",
   "startConversion": "कन्वर्जन शुरू करें",
-
   "popular": "पॉपुलर",
   "video": "वीडियो",
   "audio": "ऑडियो",
   "image": "इमेज",
   "document": "डॉक्युमेंट",
   "archive": "आर्काइव",
-
   "featureUniversalTitle": "यूनिवर्सल कन्वर्टर",
   "featureUniversalDesc": "वीडियो, ऑडियो, इमेज, डॉक्युमेंट और आर्काइव समेत 300+ फ़ाइल फॉर्मेट के बीच कन्वर्ट करें।",
   "featureSpeedTitle": "बेहद तेज़",
   "featureSpeedDesc": "क्लाउड प्रोसेसिंग से तेज़ कन्वर्जन, आपके डिवाइस की रिसोर्स का इस्तेमाल नहीं।",
   "featureSecurityTitle": "सुरक्षित और प्राइवेट",
   "featureSecurityDesc": "24 घंटे बाद फ़ाइलें ऑटोमैटिक डिलीट। आपकी प्राइवेसी गारंटीड।",
-
   "supportedFormatsTitle": "सपोर्टेड फ़ाइल फॉर्मेट",
   "supportedFormatsSubtitle": "Supported File Formats +300 more",
   "videoFormats": "वीडियो",
   "audioFormats": "ऑडियो",
   "imageFormats": "इमेज",
   "documentFormats": "डॉक्युमेंट",
-
   "usageGuideTitle": "कैसे इस्तेमाल करें",
   "usageGuideDesc": "अपनी फ़ाइलों को तेज़ी से कन्वर्ट करने के लिए ये आसान स्टेप्स फॉलो करें।",
   "step1Title": "फ़ाइल अपलोड करें",
@@ -46,13 +40,10 @@
   "step2Desc": "हमारे सपोर्टेड फॉर्मेट की लिस्ट से अपना आउटपुट फॉर्मेट चुनें।",
   "step3Title": "डाउनलोड करें",
   "step3Desc": "कन्वर्जन पूरा होने का इंतज़ार करें और अपनी कन्वर्टेड फ़ाइलें डाउनलोड करें।",
-
   "illustrationUploadText": "फ़ाइलें यहाँ ड्रैग करें",
   "illustrationFormatText": "फॉर्मेट चुनें",
   "illustrationDownloadText": "डाउनलोड रेडी!",
-
   "footer": "© 2024 HQMX Converter. All Rights Reserved.",
-
   "fileSize": {
     "zero": "0 बाइट",
     "bytes": "बाइट",
@@ -61,7 +52,6 @@
     "gb": "GB",
     "tb": "TB"
   },
-
   "status": {
     "ready": "तैयार",
     "uploading": "अपलोड हो रहा है...",
@@ -70,7 +60,6 @@
     "completed": "पूरा हुआ",
     "error": "एरर"
   },
-
   "messages": {
     "confirmClearAll": "क्या आप सभी फ़ाइलें हटाना चाहते हैं?",
     "fileTooLarge": "फ़ाइल \"{fileName}\" 100MB की लिमिट से ज़्यादा है",
@@ -83,7 +72,6 @@
     "connectionLost": "\"{fileName}\" के लिए कनेक्शन खो गया",
     "processingError": "\"{fileName}\" प्रोसेस करने में एरर: {error}"
   },
-
   "formats": {
     "video": {
       "mp4": "MP4 - सबसे कॉम्पैटिबल वीडियो फॉर्मेट",
@@ -118,7 +106,6 @@
       "rtf": "RTF - रिच टेक्स्ट फॉर्मेट"
     }
   },
-
   "settings": {
     "quality": "क्वालिटी",
     "resolution": "रेज़ोल्यूशन",
@@ -129,7 +116,6 @@
     "dpi": "DPI",
     "pageRange": "पेज रेंज",
     "resize": "रीसाइज़",
-
     "values": {
       "high": "हाई",
       "medium": "मीडियम",
@@ -138,6 +124,20 @@
       "mono": "मोनो",
       "stereo": "स्टीरियो",
       "none": "कोई नहीं"
+    }
+  },
+  "modal": {
+    "cancelConversion": {
+      "title": "रूपांतरण रोकें",
+      "message": "क्या आप <strong>{fileName}</strong> का रूपांतरण रोकना चाहते हैं?<br>सभी रूपांतरण प्रगति हटा दी जाएगी।",
+      "buttonCancel": "रद्द करें",
+      "buttonConfirm": "रोकें"
+    },
+    "deleteFile": {
+      "title": "फ़ाइल हटाएं",
+      "message": "<strong>{fileName}</strong> वर्तमान में रूपांतरित हो रही है।<br>क्या आप रूपांतरण रोकना और फ़ाइल हटाना चाहते हैं?",
+      "buttonCancel": "रूपांतरण जारी रखें",
+      "buttonConfirm": "हटाएं"
     }
   }
 }

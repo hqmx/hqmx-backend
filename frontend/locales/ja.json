@@ -5,39 +5,33 @@
   "uploadSubText": "• 300以上のファイル形式対応 •",
   "selectFiles": "ファイルを選択",
   "termsNotice": "By using our service you accept our Terms of Service and Privacy Policy.",
-
   "yourFiles": "ファイル一覧",
   "clearAll": "すべてクリア",
   "convertAll": "すべて変換",
-
   "conversionSettings": "変換設定",
   "filesToConvert": "変換するファイル",
   "convertTo": "変換先",
   "advancedSettings": "詳細設定",
   "advancedOptions": "詳細オプション",
   "startConversion": "変換開始",
-
   "popular": "人気",
   "video": "動画",
   "audio": "音声",
   "image": "画像",
   "document": "ドキュメント",
   "archive": "アーカイブ",
-
   "featureUniversalTitle": "ユニバーサルコンバーター",
   "featureUniversalDesc": "動画、音声、画像、ドキュメント、アーカイブなど300以上のファイル形式間で変換可能。",
   "featureSpeedTitle": "高速変換",
   "featureSpeedDesc": "クラウドベースの処理により、デバイスのリソースを使わず高速変換を実現。",
   "featureSecurityTitle": "安全・プライベート",
   "featureSecurityDesc": "ファイルは24時間後に自動削除されます。プライバシーは完全保護。",
-
   "supportedFormatsTitle": "対応ファイル形式",
   "supportedFormatsSubtitle": "Supported File Formats +300 more",
   "videoFormats": "動画",
   "audioFormats": "音声",
   "imageFormats": "画像",
   "documentFormats": "ドキュメント",
-
   "usageGuideTitle": "使い方",
   "usageGuideDesc": "以下の簡単なステップでファイルを素早く変換できます。",
   "step1Title": "ファイルアップロード",
@@ -46,13 +40,10 @@
   "step2Desc": "豊富な対応形式リストから希望の出力形式を選択してください。",
   "step3Title": "ダウンロード",
   "step3Desc": "変換が完了するまで待機し、変換されたファイルをダウンロードしてください。",
-
   "illustrationUploadText": "ファイルをドロップ",
   "illustrationFormatText": "形式を選択",
   "illustrationDownloadText": "ダウンロード準備完了！",
-
   "footer": "© 2024 HQMX Converter. All Rights Reserved.",
-
   "fileSize": {
     "zero": "0バイト",
     "bytes": "バイト",
@@ -61,7 +52,6 @@
     "gb": "GB",
     "tb": "TB"
   },
-
   "status": {
     "ready": "準備完了",
     "uploading": "アップロード中...",
@@ -70,7 +60,6 @@
     "completed": "完了",
     "error": "エラー"
   },
-
   "messages": {
     "confirmClearAll": "すべてのファイルを削除しますか？",
     "fileTooLarge": "ファイル \"{fileName}\" は100MBの制限を超えています",
@@ -83,7 +72,6 @@
     "connectionLost": "\"{fileName}\" の接続が切れました",
     "processingError": "\"{fileName}\" の処理エラー: {error}"
   },
-
   "formats": {
     "video": {
       "mp4": "MP4 - 最も互換性の高い動画形式",
@@ -118,7 +106,6 @@
       "rtf": "RTF - リッチテキスト形式"
     }
   },
-
   "settings": {
     "quality": "品質",
     "resolution": "解像度",
@@ -129,7 +116,6 @@
     "dpi": "DPI",
     "pageRange": "ページ範囲",
     "resize": "リサイズ",
-
     "values": {
       "high": "高",
       "medium": "中",
@@ -138,6 +124,20 @@
       "mono": "モノラル",
       "stereo": "ステレオ",
       "none": "なし"
+    }
+  },
+  "modal": {
+    "cancelConversion": {
+      "title": "変換の停止",
+      "message": "<strong>{fileName}</strong>の変換を停止しますか？<br>すべての変換進行状況が削除されます。",
+      "buttonCancel": "キャンセル",
+      "buttonConfirm": "停止"
+    },
+    "deleteFile": {
+      "title": "ファイルの削除",
+      "message": "<strong>{fileName}</strong>は現在変換中です。<br>変換を停止してファイルを削除しますか？",
+      "buttonCancel": "変換を続ける",
+      "buttonConfirm": "削除"
     }
   }
 }

@@ -5,39 +5,33 @@
   "uploadSubText": "• Mendukung 300+ format file •",
   "selectFiles": "Pilih File",
   "termsNotice": "By using our service you accept our Terms of Service and Privacy Policy.",
-
   "yourFiles": "File Anda",
   "clearAll": "Hapus Semua",
   "convertAll": "Konversi Semua",
-
   "conversionSettings": "Pengaturan Konversi",
   "filesToConvert": "File untuk Dikonversi",
   "convertTo": "Konversi ke",
   "advancedSettings": "Pengaturan Lanjutan",
   "advancedOptions": "Opsi Lanjutan",
   "startConversion": "Mulai Konversi",
-
   "popular": "Populer",
   "video": "Video",
   "audio": "Audio",
   "image": "Gambar",
   "document": "Dokumen",
   "archive": "Arsip",
-
   "featureUniversalTitle": "Konverter Universal",
   "featureUniversalDesc": "Konversi antara 300+ format file termasuk video, audio, gambar, dokumen, dan arsip.",
   "featureSpeedTitle": "Super Cepat",
   "featureSpeedDesc": "Pemrosesan berbasis cloud memastikan konversi cepat tanpa menggunakan resource perangkat Anda.",
   "featureSecurityTitle": "Aman & Privat",
   "featureSecurityDesc": "File otomatis dihapus setelah 24 jam. Privasi Anda terjamin.",
-
   "supportedFormatsTitle": "Format File yang Didukung",
   "supportedFormatsSubtitle": "Supported File Formats +300 more",
   "videoFormats": "Video",
   "audioFormats": "Audio",
   "imageFormats": "Gambar",
   "documentFormats": "Dokumen",
-
   "usageGuideTitle": "Cara Menggunakan",
   "usageGuideDesc": "Ikuti langkah-langkah sederhana ini untuk mengkonversi file dengan cepat dan mudah.",
   "step1Title": "Upload File",
@@ -46,13 +40,10 @@
   "step2Desc": "Pilih format output yang diinginkan dari daftar lengkap format yang kami dukung.",
   "step3Title": "Download",
   "step3Desc": "Tunggu hingga konversi selesai dan download file hasil konversi Anda.",
-
   "illustrationUploadText": "Seret file ke sini",
   "illustrationFormatText": "Pilih format",
   "illustrationDownloadText": "Siap didownload!",
-
   "footer": "© 2024 HQMX Converter. All Rights Reserved.",
-
   "fileSize": {
     "zero": "0 Byte",
     "bytes": "Byte",
@@ -61,7 +52,6 @@
     "gb": "GB",
     "tb": "TB"
   },
-
   "status": {
     "ready": "Siap",
     "uploading": "Mengupload...",
@@ -70,7 +60,6 @@
     "completed": "Selesai",
     "error": "Error"
   },
-
   "messages": {
     "confirmClearAll": "Yakin ingin menghapus semua file?",
     "fileTooLarge": "File \"{fileName}\" melebihi batas 100MB",
@@ -83,7 +72,6 @@
     "connectionLost": "Koneksi terputus untuk \"{fileName}\"",
     "processingError": "Error saat memproses \"{fileName}\": {error}"
   },
-
   "formats": {
     "video": {
       "mp4": "MP4 - Format video paling kompatibel",
@@ -118,7 +106,6 @@
       "rtf": "RTF - Format teks kaya"
     }
   },
-
   "settings": {
     "quality": "Kualitas",
     "resolution": "Resolusi",
@@ -129,7 +116,6 @@
     "dpi": "DPI",
     "pageRange": "Rentang Halaman",
     "resize": "Ubah Ukuran",
-
     "values": {
       "high": "Tinggi",
       "medium": "Sedang",
@@ -138,6 +124,20 @@
       "mono": "Mono",
       "stereo": "Stereo",
       "none": "Tidak Ada"
+    }
+  },
+  "modal": {
+    "cancelConversion": {
+      "title": "Hentikan Konversi",
+      "message": "Apakah Anda ingin menghentikan konversi <strong>{fileName}</strong>?<br>Semua kemajuan konversi akan dihapus.",
+      "buttonCancel": "Batal",
+      "buttonConfirm": "Hentikan"
+    },
+    "deleteFile": {
+      "title": "Hapus File",
+      "message": "<strong>{fileName}</strong> sedang dikonversi.<br>Apakah Anda ingin menghentikan konversi dan menghapus file?",
+      "buttonCancel": "Lanjutkan Konversi",
+      "buttonConfirm": "Hapus"
     }
   }
 }

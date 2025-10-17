@@ -5,39 +5,33 @@
   "uploadSubText": "• Support de plus de 300 formats •",
   "selectFiles": "Sélectionner des fichiers",
   "termsNotice": "By using our service you accept our Terms of Service and Privacy Policy.",
-
   "yourFiles": "Vos fichiers",
   "clearAll": "Tout effacer",
   "convertAll": "Tout convertir",
-
   "conversionSettings": "Paramètres de conversion",
   "filesToConvert": "Fichiers à convertir",
   "convertTo": "Convertir en",
   "advancedSettings": "Paramètres avancés",
   "advancedOptions": "Options avancées",
   "startConversion": "Démarrer la conversion",
-
   "popular": "Populaire",
   "video": "Vidéo",
   "audio": "Audio",
   "image": "Image",
   "document": "Document",
   "archive": "Archive",
-
   "featureUniversalTitle": "Convertisseur universel",
   "featureUniversalDesc": "Convertissez entre plus de 300 formats de fichiers incluant vidéo, audio, images, documents et archives.",
   "featureSpeedTitle": "Ultra-rapide",
   "featureSpeedDesc": "Le traitement dans le cloud assure des conversions rapides sans utiliser les ressources de votre appareil.",
   "featureSecurityTitle": "Sécurisé et privé",
   "featureSecurityDesc": "Les fichiers sont automatiquement supprimés après 24 heures. Votre vie privée est garantie.",
-
   "supportedFormatsTitle": "Formats supportés",
   "supportedFormatsSubtitle": "Supported File Formats +300 more",
   "videoFormats": "Vidéo",
   "audioFormats": "Audio",
   "imageFormats": "Image",
   "documentFormats": "Document",
-
   "usageGuideTitle": "Mode d'emploi",
   "usageGuideDesc": "Suivez ces étapes simples pour convertir vos fichiers rapidement et facilement.",
   "step1Title": "Télécharger des fichiers",
@@ -46,13 +40,10 @@
   "step2Desc": "Sélectionnez le format de sortie souhaité parmi notre vaste liste de formats supportés.",
   "step3Title": "Télécharger",
   "step3Desc": "Attendez que la conversion soit terminée et téléchargez vos fichiers convertis.",
-
   "illustrationUploadText": "Déposez vos fichiers ici",
   "illustrationFormatText": "Choisir le format",
   "illustrationDownloadText": "Prêt à télécharger !",
-
   "footer": "© 2024 HQMX Converter. All Rights Reserved.",
-
   "fileSize": {
     "zero": "0 octets",
     "bytes": "octets",
@@ -61,7 +52,6 @@
     "gb": "Go",
     "tb": "To"
   },
-
   "status": {
     "ready": "Prêt",
     "uploading": "Téléchargement...",
@@ -70,7 +60,6 @@
     "completed": "Terminé",
     "error": "Erreur"
   },
-
   "messages": {
     "confirmClearAll": "Êtes-vous sûr de vouloir supprimer tous les fichiers ?",
     "fileTooLarge": "Le fichier \"{fileName}\" dépasse la limite de 100MB",
@@ -83,7 +72,6 @@
     "connectionLost": "Connexion perdue pour \"{fileName}\"",
     "processingError": "Erreur lors du traitement de \"{fileName}\" : {error}"
   },
-
   "formats": {
     "video": {
       "mp4": "MP4 - Format vidéo le plus compatible",
@@ -118,7 +106,6 @@
       "rtf": "RTF - Format texte enrichi"
     }
   },
-
   "settings": {
     "quality": "Qualité",
     "resolution": "Résolution",
@@ -129,7 +116,6 @@
     "dpi": "PPP",
     "pageRange": "Plage de pages",
     "resize": "Redimensionner",
-
     "values": {
       "high": "Élevée",
       "medium": "Moyenne",
@@ -138,6 +124,20 @@
       "mono": "Mono",
       "stereo": "Stéréo",
       "none": "Aucun"
+    }
+  },
+  "modal": {
+    "cancelConversion": {
+      "title": "Arrêter la Conversion",
+      "message": "Voulez-vous arrêter la conversion de <strong>{fileName}</strong>?<br>Toute la progression de la conversion sera supprimée.",
+      "buttonCancel": "Annuler",
+      "buttonConfirm": "Arrêter"
+    },
+    "deleteFile": {
+      "title": "Supprimer le Fichier",
+      "message": "<strong>{fileName}</strong> est en cours de conversion.<br>Voulez-vous arrêter la conversion et supprimer le fichier?",
+      "buttonCancel": "Continuer la Conversion",
+      "buttonConfirm": "Supprimer"
     }
   }
 }

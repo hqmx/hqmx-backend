@@ -5,39 +5,33 @@
   "uploadSubText": "• Поддержка 300+ форматов •",
   "selectFiles": "Выбрать файлы",
   "termsNotice": "By using our service you accept our Terms of Service and Privacy Policy.",
-
   "yourFiles": "Ваши файлы",
   "clearAll": "Очистить всё",
   "convertAll": "Конвертировать всё",
-
   "conversionSettings": "Настройки конвертации",
   "filesToConvert": "Файлы для конвертации",
   "convertTo": "Конвертировать в",
   "advancedSettings": "Расширенные настройки",
   "advancedOptions": "Доп. опции",
   "startConversion": "Начать конвертацию",
-
   "popular": "Популярное",
   "video": "Видео",
   "audio": "Аудио",
   "image": "Изображение",
   "document": "Документ",
   "archive": "Архив",
-
   "featureUniversalTitle": "Универсальный конвертер",
   "featureUniversalDesc": "Конвертируйте между 300+ форматами файлов, включая видео, аудио, изображения, документы и архивы.",
   "featureSpeedTitle": "Быстро",
   "featureSpeedDesc": "Облачная обработка обеспечивает быструю конвертацию без использования ресурсов вашего устройства.",
   "featureSecurityTitle": "Безопасно и конфиденциально",
   "featureSecurityDesc": "Файлы автоматически удаляются через 24 часа. Ваша конфиденциальность гарантирована.",
-
   "supportedFormatsTitle": "Поддерживаемые форматы",
   "supportedFormatsSubtitle": "Supported File Formats +300 more",
   "videoFormats": "Видео",
   "audioFormats": "Аудио",
   "imageFormats": "Изображение",
   "documentFormats": "Документ",
-
   "usageGuideTitle": "Как использовать",
   "usageGuideDesc": "Следуйте этим простым шагам для быстрой и легкой конвертации файлов.",
   "step1Title": "Загрузите файлы",
@@ -46,13 +40,10 @@
   "step2Desc": "Выберите желаемый формат вывода из нашего обширного списка поддерживаемых форматов.",
   "step3Title": "Скачайте",
   "step3Desc": "Дождитесь завершения конвертации и скачайте ваши конвертированные файлы.",
-
   "illustrationUploadText": "Перетащите файлы",
   "illustrationFormatText": "Выберите формат",
   "illustrationDownloadText": "Готово к скачиванию!",
-
   "footer": "© 2024 HQMX Converter. All Rights Reserved.",
-
   "fileSize": {
     "zero": "0 байт",
     "bytes": "байт",
@@ -61,7 +52,6 @@
     "gb": "ГБ",
     "tb": "ТБ"
   },
-
   "status": {
     "ready": "Готово",
     "uploading": "Загрузка...",
@@ -70,7 +60,6 @@
     "completed": "Завершено",
     "error": "Ошибка"
   },
-
   "messages": {
     "confirmClearAll": "Вы уверены, что хотите удалить все файлы?",
     "fileTooLarge": "Файл \"{fileName}\" превышает лимит в 100MB",
@@ -83,7 +72,6 @@
     "connectionLost": "Соединение потеряно для \"{fileName}\"",
     "processingError": "Ошибка обработки \"{fileName}\": {error}"
   },
-
   "formats": {
     "video": {
       "mp4": "MP4 - Самый совместимый видеоформат",
@@ -118,7 +106,6 @@
       "rtf": "RTF - Форматированный текст"
     }
   },
-
   "settings": {
     "quality": "Качество",
     "resolution": "Разрешение",
@@ -129,7 +116,6 @@
     "dpi": "Точек на дюйм",
     "pageRange": "Диапазон страниц",
     "resize": "Изменить размер",
-
     "values": {
       "high": "Высокое",
       "medium": "Среднее",
@@ -138,6 +124,20 @@
       "mono": "Моно",
       "stereo": "Стерео",
       "none": "Нет"
+    }
+  },
+  "modal": {
+    "cancelConversion": {
+      "title": "Остановить Конвертацию",
+      "message": "Вы хотите остановить конвертацию <strong>{fileName}</strong>?<br>Весь прогресс конвертации будет удален.",
+      "buttonCancel": "Отмена",
+      "buttonConfirm": "Остановить"
+    },
+    "deleteFile": {
+      "title": "Удалить Файл",
+      "message": "<strong>{fileName}</strong> в данный момент конвертируется.<br>Вы хотите остановить конвертацию и удалить файл?",
+      "buttonCancel": "Продолжить Конвертацию",
+      "buttonConfirm": "Удалить"
     }
   }
 }

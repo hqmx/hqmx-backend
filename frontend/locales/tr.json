@@ -5,39 +5,33 @@
   "uploadSubText": "• 300+ dosya formatı desteği •",
   "selectFiles": "Dosya Seç",
   "termsNotice": "By using our service you accept our Terms of Service and Privacy Policy.",
-
   "yourFiles": "Dosyalarınız",
   "clearAll": "Hepsini Temizle",
   "convertAll": "Hepsini Dönüştür",
-
   "conversionSettings": "Dönüştürme Ayarları",
   "filesToConvert": "Dönüştürülecek Dosyalar",
   "convertTo": "Dönüştür",
   "advancedSettings": "Gelişmiş Ayarlar",
   "advancedOptions": "Gelişmiş Seçenekler",
   "startConversion": "Dönüştürmeyi Başlat",
-
   "popular": "Popüler",
   "video": "Video",
   "audio": "Ses",
   "image": "Görsel",
   "document": "Belge",
   "archive": "Arşiv",
-
   "featureUniversalTitle": "Evrensel Dönüştürücü",
   "featureUniversalDesc": "Video, ses, görsel, belge ve arşiv dahil 300+ dosya formatı arasında dönüştürme yapın.",
   "featureSpeedTitle": "Yıldırım Hızında",
   "featureSpeedDesc": "Bulut tabanlı işleme, cihazınızın kaynaklarını kullanmadan hızlı dönüşüm sağlar.",
   "featureSecurityTitle": "Güvenli ve Özel",
   "featureSecurityDesc": "Dosyalar 24 saat sonra otomatik olarak silinir. Gizliliğiniz garanti altında.",
-
   "supportedFormatsTitle": "Desteklenen Dosya Formatları",
   "supportedFormatsSubtitle": "Supported File Formats +300 more",
   "videoFormats": "Video",
   "audioFormats": "Ses",
   "imageFormats": "Görsel",
   "documentFormats": "Belge",
-
   "usageGuideTitle": "Nasıl Kullanılır",
   "usageGuideDesc": "Dosyalarınızı hızlı ve kolay bir şekilde dönüştürmek için bu basit adımları izleyin.",
   "step1Title": "Dosya Yükle",
@@ -46,13 +40,10 @@
   "step2Desc": "Geniş desteklenen format listemizden istediğiniz çıktı formatını seçin.",
   "step3Title": "İndir",
   "step3Desc": "Dönüştürmenin tamamlanmasını bekleyin ve dönüştürülen dosyalarınızı indirin.",
-
   "illustrationUploadText": "Dosyaları buraya sürükleyin",
   "illustrationFormatText": "Format seç",
   "illustrationDownloadText": "İndirmeye hazır!",
-
   "footer": "© 2024 HQMX Converter. All Rights Reserved.",
-
   "fileSize": {
     "zero": "0 Bayt",
     "bytes": "Bayt",
@@ -61,7 +52,6 @@
     "gb": "GB",
     "tb": "TB"
   },
-
   "status": {
     "ready": "Hazır",
     "uploading": "Yükleniyor...",
@@ -70,7 +60,6 @@
     "completed": "Tamamlandı",
     "error": "Hata"
   },
-
   "messages": {
     "confirmClearAll": "Tüm dosyaları kaldırmak istediğinizden emin misiniz?",
     "fileTooLarge": "\"{fileName}\" dosyası 100MB sınırını aşıyor",
@@ -83,7 +72,6 @@
     "connectionLost": "\"{fileName}\" için bağlantı kesildi",
     "processingError": "\"{fileName}\" işlenirken hata: {error}"
   },
-
   "formats": {
     "video": {
       "mp4": "MP4 - En uyumlu video formatı",
@@ -118,7 +106,6 @@
       "rtf": "RTF - Zengin metin formatı"
     }
   },
-
   "settings": {
     "quality": "Kalite",
     "resolution": "Çözünürlük",
@@ -129,7 +116,6 @@
     "dpi": "DPI",
     "pageRange": "Sayfa aralığı",
     "resize": "Yeniden boyutlandır",
-
     "values": {
       "high": "Yüksek",
       "medium": "Orta",
@@ -138,6 +124,20 @@
       "mono": "Mono",
       "stereo": "Stereo",
       "none": "Yok"
+    }
+  },
+  "modal": {
+    "cancelConversion": {
+      "title": "Dönüştürmeyi Durdur",
+      "message": "<strong>{fileName}</strong> dosyasının dönüştürülmesini durdurmak istiyor musunuz?<br>Tüm dönüştürme ilerlemesi silinecektir.",
+      "buttonCancel": "İptal",
+      "buttonConfirm": "Durdur"
+    },
+    "deleteFile": {
+      "title": "Dosyayı Sil",
+      "message": "<strong>{fileName}</strong> şu anda dönüştürülüyor.<br>Dönüştürmeyi durdurup dosyayı silmek istiyor musunuz?",
+      "buttonCancel": "Dönüştürmeye Devam Et",
+      "buttonConfirm": "Sil"
     }
   }
 }

@@ -83,6 +83,21 @@
     "connectionLost": "\"{fileName}\" 연결이 끊어졌습니다",
     "processingError": "\"{fileName}\" 처리 중 오류: {error}"
   },
+
+  "modal": {
+    "cancelConversion": {
+      "title": "변환 중단",
+      "message": "<strong>{fileName}</strong>의 변환을 중단하시겠습니까?<br>변환 진행 상황이 모두 삭제됩니다.",
+      "buttonCancel": "취소",
+      "buttonConfirm": "중단"
+    },
+    "deleteFile": {
+      "title": "파일 삭제",
+      "message": "<strong>{fileName}</strong>이(가) 변환 중입니다.<br>변환을 중단하고 파일을 삭제하시겠습니까?",
+      "buttonCancel": "계속 변환",
+      "buttonConfirm": "삭제"
+    }
+  },
   
   "formats": {
     "video": {

@@ -83,6 +83,21 @@
     "connectionLost": "Connection lost for \"{fileName}\"",
     "processingError": "Error processing \"{fileName}\": {error}"
   },
+
+  "modal": {
+    "cancelConversion": {
+      "title": "Stop Conversion",
+      "message": "Do you want to stop the conversion of <strong>{fileName}</strong>?<br>All conversion progress will be deleted.",
+      "buttonCancel": "Cancel",
+      "buttonConfirm": "Stop"
+    },
+    "deleteFile": {
+      "title": "Delete File",
+      "message": "<strong>{fileName}</strong> is currently being converted.<br>Do you want to stop the conversion and delete the file?",
+      "buttonCancel": "Continue Converting",
+      "buttonConfirm": "Delete"
+    }
+  },
   
   "formats": {
     "video": {

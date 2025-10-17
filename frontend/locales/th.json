@@ -5,39 +5,33 @@
   "uploadSubText": "• รองรับมากกว่า 300 รูปแบบ •",
   "selectFiles": "เลือกไฟล์",
   "termsNotice": "By using our service you accept our Terms of Service and Privacy Policy.",
-
   "yourFiles": "ไฟล์ของคุณ",
   "clearAll": "ล้างทั้งหมด",
   "convertAll": "แปลงทั้งหมด",
-
   "conversionSettings": "ตั้งค่าการแปลง",
   "filesToConvert": "ไฟล์ที่จะแปลง",
   "convertTo": "แปลงเป็น",
   "advancedSettings": "ตั้งค่าขั้นสูง",
   "advancedOptions": "ตัวเลือกขั้นสูง",
   "startConversion": "เริ่มแปลง",
-
   "popular": "ยอดนิยม",
   "video": "วิดีโอ",
   "audio": "เสียง",
   "image": "รูปภาพ",
   "document": "เอกสาร",
   "archive": "ไฟล์บีบอัด",
-
   "featureUniversalTitle": "ตัวแปลงสากล",
   "featureUniversalDesc": "แปลงระหว่างรูปแบบไฟล์กว่า 300 ประเภท รวมถึงวิดีโอ เสียง รูปภาพ เอกสาร และไฟล์บีบอัด",
   "featureSpeedTitle": "เร็วปานสายฟ้า",
   "featureSpeedDesc": "ประมวลผลบนคลาวด์เพื่อการแปลงที่รวดเร็วโดยไม่ใช้ทรัพยากรอุปกรณ์ของคุณ",
   "featureSecurityTitle": "ปลอดภัยและเป็นส่วนตัว",
   "featureSecurityDesc": "ไฟล์จะถูกลบโดยอัตโนมัติหลังจาก 24 ชั่วโมง ความเป็นส่วนตัวของคุณได้รับการรับรอง",
-
   "supportedFormatsTitle": "รูปแบบไฟล์ที่รองรับ",
   "supportedFormatsSubtitle": "Supported File Formats +300 more",
   "videoFormats": "วิดีโอ",
   "audioFormats": "เสียง",
   "imageFormats": "รูปภาพ",
   "documentFormats": "เอกสาร",
-
   "usageGuideTitle": "วิธีใช้",
   "usageGuideDesc": "ทำตามขั้นตอนง่ายๆ เหล่านี้เพื่อแปลงไฟล์ของคุณอย่างรวดเร็วและง่ายดาย",
   "step1Title": "อัปโหลดไฟล์",
@@ -46,13 +40,10 @@
   "step2Desc": "เลือกรูปแบบเอาต์พุตที่ต้องการจากรายการรูปแบบที่รองรับของเรา",
   "step3Title": "ดาวน์โหลด",
   "step3Desc": "รอให้การแปลงเสร็จสิ้นและดาวน์โหลดไฟล์ที่แปลงแล้วของคุณ",
-
   "illustrationUploadText": "ลากไฟล์มาที่นี่",
   "illustrationFormatText": "เลือกรูปแบบ",
   "illustrationDownloadText": "พร้อมดาวน์โหลด!",
-
   "footer": "© 2024 HQMX Converter. All Rights Reserved.",
-
   "fileSize": {
     "zero": "0 ไบต์",
     "bytes": "ไบต์",
@@ -61,7 +52,6 @@
     "gb": "GB",
     "tb": "TB"
   },
-
   "status": {
     "ready": "พร้อม",
     "uploading": "กำลังอัปโหลด...",
@@ -70,7 +60,6 @@
     "completed": "เสร็จสิ้น",
     "error": "ข้อผิดพลาด"
   },
-
   "messages": {
     "confirmClearAll": "คุณแน่ใจหรือไม่ว่าต้องการลบไฟล์ทั้งหมด?",
     "fileTooLarge": "ไฟล์ \"{fileName}\" เกินขีดจำกัด 100MB",
@@ -83,7 +72,6 @@
     "connectionLost": "การเชื่อมต่อสูญหายสำหรับ \"{fileName}\"",
     "processingError": "เกิดข้อผิดพลาดในการประมวลผล \"{fileName}\": {error}"
   },
-
   "formats": {
     "video": {
       "mp4": "MP4 - รูปแบบวิดีโอที่เข้ากันได้มากที่สุด",
@@ -118,7 +106,6 @@
       "rtf": "RTF - รูปแบบข้อความที่มีการจัดรูปแบบ"
     }
   },
-
   "settings": {
     "quality": "คุณภาพ",
     "resolution": "ความละเอียด",
@@ -129,7 +116,6 @@
     "dpi": "DPI",
     "pageRange": "ช่วงหน้า",
     "resize": "ปรับขนาด",
-
     "values": {
       "high": "สูง",
       "medium": "ปานกลาง",
@@ -138,6 +124,20 @@
       "mono": "โมโน",
       "stereo": "สเตอริโอ",
       "none": "ไม่มี"
+    }
+  },
+  "modal": {
+    "cancelConversion": {
+      "title": "หยุดการแปลง",
+      "message": "คุณต้องการหยุดการแปลง <strong>{fileName}</strong> หรือไม่?<br>ความคืบหน้าการแปลงทั้งหมดจะถูกลบ",
+      "buttonCancel": "ยกเลิก",
+      "buttonConfirm": "หยุด"
+    },
+    "deleteFile": {
+      "title": "ลบไฟล์",
+      "message": "<strong>{fileName}</strong> กำลังถูกแปลงอยู่<br>คุณต้องการหยุดการแปลงและลบไฟล์หรือไม่?",
+      "buttonCancel": "ดำเนินการแปลงต่อ",
+      "buttonConfirm": "ลบ"
     }
   }
 }

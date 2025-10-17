@@ -1176,6 +1176,31 @@ function initializeApp() {
         fileObj.progress = 0;
         updateFileItem(fileObj);
 
+        // 변환 시작하자마자 Interstitial 광고 표시 (즉시 로딩)
+        console.log('[Ads] Interstitial 광고 로드 (변환 시작 즉시)');
+
+        // 이미 로드된 경우 건너뛰기
+        if (!window.conversionInterstitialLoaded) {
+            window.conversionInterstitialLoaded = true;
+
+            const script = document.createElement('script');
+            script.type = 'application/javascript';
+            script.async = true;
+            script.src = 'https://a.pemsrv.com/ad-provider.js';
+            document.head.appendChild(script);
+
+            script.onload = function() {
+                const insElement = document.createElement('ins');
+                insElement.className = 'eas6a97888e35';
+                insElement.setAttribute('data-zoneid', '5751944');
+                document.body.appendChild(insElement);
+                (window.AdProvider = window.AdProvider || []).push({"serve": {}});
+                console.log('[Ads] Interstitial 광고 표시됨 (zone: 5751944)');
+            };
+        } else {
+            console.log('[Ads] Interstitial 이미 로드됨, 건너뛰기');
+        }
+
         try {
             // 하이브리드 모드: 파일 형식과 크기에 따라 클라이언트/서버 자동 결정
             if (CLIENT_SIDE_MODE && !needsServerSideConversion(fileObj)) {
@@ -1806,14 +1831,13 @@ function initializeApp() {
             modal.className = 'delete-confirm-modal';
             modal.innerHTML = `
                 <div class="delete-confirm-content">
-                    <div class="delete-confirm-title">변환 중단</div>
+                    <div class="delete-confirm-title">${i18n.t('modal.cancelConversion.title')}</div>
                     <div class="delete-confirm-message">
-                        <strong>${filename}</strong>의 변환을 중단하시겠습니까?<br>
-                        변환 진행 상황이 모두 삭제됩니다.
+                        ${i18n.t('modal.cancelConversion.message', { fileName: filename })}
                     </div>
                     <div class="delete-confirm-buttons">
-                        <button class="delete-confirm-btn cancel">취소</button>
-                        <button class="delete-confirm-btn confirm">중단</button>
+                        <button class="delete-confirm-btn cancel">${i18n.t('modal.cancelConversion.buttonCancel')}</button>
+                        <button class="delete-confirm-btn confirm">${i18n.t('modal.cancelConversion.buttonConfirm')}</button>
                     </div>
                 </div>
             `;
@@ -1854,14 +1878,13 @@ function initializeApp() {
             modal.className = 'delete-confirm-modal';
             modal.innerHTML = `
                 <div class="delete-confirm-content">
-                    <div class="delete-confirm-title">파일 삭제</div>
+                    <div class="delete-confirm-title">${i18n.t('modal.deleteFile.title')}</div>
                     <div class="delete-confirm-message">
-                        <strong>${fileObj.file.name}</strong>이(가) 변환 중입니다.<br>
-                        변환을 중단하고 파일을 삭제하시겠습니까?
+                        ${i18n.t('modal.deleteFile.message', { fileName: fileObj.file.name })}
                     </div>
                     <div class="delete-confirm-buttons">
-                        <button class="delete-confirm-btn cancel">계속 변환</button>
-                        <button class="delete-confirm-btn confirm">삭제</button>
+                        <button class="delete-confirm-btn cancel">${i18n.t('modal.deleteFile.buttonCancel')}</button>
+                        <button class="delete-confirm-btn confirm">${i18n.t('modal.deleteFile.buttonConfirm')}</button>
                     </div>
                 </div>
             `;
