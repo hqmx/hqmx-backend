@@ -1155,8 +1155,9 @@ function initializeApp() {
             return true;
         }
 
-        // 3. RAW 사진 형식
-        if (SERVER_SIDE_FORMATS.raw.includes(inputExt)) {
+        // 3. RAW 사진 형식 (입력 또는 출력)
+        if (SERVER_SIDE_FORMATS.raw.includes(inputExt) ||
+            SERVER_SIDE_FORMATS.raw.includes(outputExt)) {
             return true;
         }
 
