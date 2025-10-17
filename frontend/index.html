@@ -29,10 +29,11 @@
             if (window.interstitialAdLoaded) return;
             window.interstitialAdLoaded = true;
 
-            // ExoClick 표준 Interstitial 광고 코드
+            // ExoClick 대시보드의 정확한 Interstitial 광고 코드
             const script = document.createElement('script');
-            script.type = 'text/javascript';
-            script.src = 'https://a.magsrv.com/ad-provider.js';
+            script.async = true;
+            script.type = 'application/javascript';
+            script.src = 'https://a.pemsrv.com/ad-provider.js';
             document.head.appendChild(script);
 
             script.onload = function() {
@@ -55,41 +56,8 @@
         (window.AdProvider = window.AdProvider || []).push({"serve": {}});
     </script>
 
-    <!-- Adsterra Popunder (8클릭마다 재로드) -->
-    <script type='text/javascript'>
-        (function() {
-            let clickCount = 0;
-            let popunderLoaded = false;
-
-            // Popunder 스크립트 로드 함수
-            function loadPopunder() {
-                console.log('[Ads] Popunder 광고 스크립트 로드');
-                const script = document.createElement('script');
-                script.type = 'text/javascript';
-                script.src = '//outskirtsgrey.com/a5/b0/d3/a5b0d31831c41ea6968b77517c884ff0.js?' + Date.now(); // 캐시 방지
-                document.head.appendChild(script);
-                popunderLoaded = true;
-            }
-
-            // 5초 후 첫 로드
-            setTimeout(function() {
-                console.log('[Ads] Popunder 초기 로드 (5초 경과)');
-                loadPopunder();
-            }, 5000);
-
-            // 클릭 카운터
-            document.addEventListener('click', function() {
-                clickCount++;
-                console.log('[Ads] 클릭 횟수:', clickCount);
-
-                // 8번째 클릭마다 Popunder 재로드
-                if (clickCount % 8 === 0) {
-                    console.log('[Ads] 8번째 클릭 감지 - Popunder 재로드');
-                    loadPopunder();
-                }
-            });
-        })();
-    </script>
+    <!-- Adsterra Popunder -->
+    <script type='text/javascript' src='//outskirtsgrey.com/a5/b0/d3/a5b0d31831c41ea6968b77517c884ff0.js'></script>
 </head>
 <body>
     <div class="container">
