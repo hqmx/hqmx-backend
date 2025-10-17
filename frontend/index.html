@@ -22,23 +22,26 @@
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1478922009946363"
      crossorigin="anonymous"></script>
 
-    <!-- ExoClick Interstitial (Start Conversion 클릭 시 - Direct Link 방식) -->
+    <!-- ExoClick Interstitial (Start Conversion 클릭 시) -->
     <script type='text/javascript'>
         window.triggerInterstitialAd = function() {
-            console.log('[Ads] ExoClick Interstitial 광고 실행 (Direct Link 방식)');
+            // 중복 실행 방지
+            if (window.interstitialAdLoaded) return;
+            window.interstitialAdLoaded = true;
 
-            // ExoClick Direct Link를 사용하여 Interstitial 광고 트리거
-            // Zone 5751944: Desktop Fullpage Interstitial (1600x900)
-            const adUrl = 'https://main.exoclick.com/tag.php?goal=0&tag=5751944&type=3';
+            // ExoClick 표준 Interstitial 광고 코드
+            const script = document.createElement('script');
+            script.type = 'text/javascript';
+            script.src = 'https://a.magsrv.com/ad-provider.js';
+            document.head.appendChild(script);
 
-            // 새 창으로 광고 열기 (팝업 차단 방지를 위해 즉시 실행)
-            const adWindow = window.open(adUrl, '_blank', 'width=1,height=1,left=0,top=0');
-
-            if (adWindow) {
-                console.log('[Ads] Interstitial 광고 창 열림');
-            } else {
-                console.warn('[Ads] 팝업 차단으로 광고를 표시할 수 없습니다');
-            }
+            script.onload = function() {
+                const insElement = document.createElement('ins');
+                insElement.className = 'eas6a97888e35';
+                insElement.setAttribute('data-zoneid', '5751944');
+                document.body.appendChild(insElement);
+                (AdProvider = window.AdProvider || []).push({"serve": {}});
+            };
         };
     </script>
 
