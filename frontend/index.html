@@ -21,6 +21,10 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
     <link rel="manifest" href="/manifest.json" />
 
+    <!-- Google AdSense 자동광고 -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1478922009946363"
+     crossorigin="anonymous"></script>
+
     <!-- Clickadu Interstitial (30초 후 로드) -->
     <script type='text/javascript'>
         setTimeout(function() {
@@ -70,6 +74,32 @@
                 (window.AdProvider = window.AdProvider || []).push({"serve": {}});
             };
         }, 60000); // 60초 = 1분
+    </script>
+
+    <!-- Adsterra Popunder (Start Conversion 클릭 시) -->
+    <script type='text/javascript'>
+        // Adsterra Popunder 함수를 전역으로 등록
+        window.triggerAdsterraPopunder = function() {
+            console.log('[Ads] Adsterra Popunder 광고 실행');
+
+            // Popunder 스크립트 로드
+            const script = document.createElement('script');
+            script.async = true;
+            script.type = 'text/javascript';
+            script.src = '//www.topcreativeformat.com/daa4db009302bf9e60c7056cebe49e2d/invoke.js';
+            document.head.appendChild(script);
+
+            // atOptions 설정
+            script.onload = function() {
+                window.atOptions = {
+                    'key' : 'daa4db009302bf9e60c7056cebe49e2d',
+                    'format' : 'iframe',
+                    'height' : 90,
+                    'width' : 728,
+                    'params' : {}
+                };
+            };
+        };
     </script>
 </head>
 <body>

@@ -624,7 +624,7 @@ function initializeApp() {
         // 파일이 추가되면 업로드 패널 축소
         dom.uploadZone.classList.add('collapsed');
 
-        // 광고 배너 표시
+        // 광고 배너 표시 (업로드 시)
         const adBanners = document.getElementById('adsterra-banners');
         if (adBanners) {
             adBanners.style.display = 'block';
@@ -1012,6 +1012,15 @@ function initializeApp() {
         console.log('state.currentFileIndex:', state.currentFileIndex);
         console.log('state.batchFiles:', state.batchFiles);
 
+        // Adsterra Popunder 광고 트리거
+        if (typeof window.triggerAdsterraPopunder === 'function') {
+            try {
+                window.triggerAdsterraPopunder();
+            } catch (e) {
+                console.error('[Ads] Adsterra Popunder 실행 오류:', e);
+            }
+        }
+
         // Check if this is batch mode
         if (state.currentFileIndex < 0 && state.batchFiles) {
             console.log('배치 모드로 변환 시작');
@@ -1316,7 +1325,11 @@ function initializeApp() {
             } else {
                 // 단일 파일 모드에서는 자동 다운로드
                 showToast(`Conversion complete! "${fileName}" - Auto download starting...`, 'success');
-                setTimeout(() => downloadConvertedFile(fileObj), 500);
+                setTimeout(() => {
+                    downloadConvertedFile(fileObj);
+                    // 다운로드 완료 시 광고 표시 (화면 크기별)
+                    showAdsOnDownloadComplete();
+                }, 500);
             }
 
         } catch (error) {
@@ -1559,6 +1572,10 @@ function initializeApp() {
         document.body.removeChild(link);
 
         showToast(`"${fileObj.name}" converted successfully!`, 'success');
+
+        // 다운로드 완료 시 광고 표시 (화면 크기별)
+        showAdsOnDownloadComplete();
+
         cleanupConversion(fileId);
     }
 
@@ -2739,6 +2756,36 @@ function initializeShowMoreButtons() {
 }
 
 // 페이지 떠날 때 진행 중인 서버 변환 작업 취소
+// 다운로드 완료 시 광고 표시 함수
+function showAdsOnDownloadComplete() {
+    const screenWidth = window.innerWidth;
+
+    // 모든 광고 배너 숨기기
+    const banner728 = document.getElementById('banner-728x90');
+    const banner468 = document.getElementById('banner-468x60');
+    const banner320 = document.getElementById('banner-320x50');
+
+    if (screenWidth >= 728) {
+        // 웹 화면 (≥728px): 728x90 + 468x60 + 320x50 모두 표시
+        if (banner728) banner728.style.display = 'block';
+        if (banner468) banner468.style.display = 'block';
+        if (banner320) banner320.style.display = 'block';
+        console.log('[Ads] 웹 화면: 모든 광고 표시 (728x90 + 468x60 + 320x50)');
+    } else if (screenWidth >= 468) {
+        // 태블릿 화면 (468px ~ 727px): 468x60 + 320x50 표시
+        if (banner728) banner728.style.display = 'none';
+        if (banner468) banner468.style.display = 'block';
+        if (banner320) banner320.style.display = 'block';
+        console.log('[Ads] 태블릿 화면: 468x60 + 320x50 광고 표시');
+    } else {
+        // 모바일 화면 (<468px): 320x50만 표시
+        if (banner728) banner728.style.display = 'none';
+        if (banner468) banner468.style.display = 'none';
+        if (banner320) banner320.style.display = 'block';
+        console.log('[Ads] 모바일 화면: 320x50 광고만 표시');
+    }
+}
+
 window.addEventListener('beforeunload', (e) => {
     // 진행 중인 서버 변환 작업 찾기
     const activeServerJobs = [];
