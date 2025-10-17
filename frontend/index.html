@@ -23,14 +23,32 @@
 
     <!-- ExoClick Client Hints (광고 타겟팅 최적화) -->
     <meta http-equiv="Delegate-CH" content="Sec-CH-UA https://s.magsrv.com; Sec-CH-UA-Mobile https://s.magsrv.com; Sec-CH-UA-Arch https://s.magsrv.com; Sec-CH-UA-Bitness https://s.magsrv.com; Sec-CH-UA-Platform https://s.magsrv.com; Sec-CH-UA-Platform-Version https://s.magsrv.com; Sec-CH-UA-Model https://s.magsrv.com; Sec-CH-UA-Full-Version-List https://s.magsrv.com; Sec-CH-UA-Full-Version https://s.magsrv.com;">
+
+    <!-- ExoClick Instant Message (1분 후 로드) -->
+    <script type='text/javascript'>
+        setTimeout(function() {
+            console.log('[Ads] ExoClick Instant Message 광고 로딩 시작 (1분 경과)');
+
+            // ExoClick 광고 스크립트 로드
+            const script = document.createElement('script');
+            script.async = true;
+            script.type = 'application/javascript';
+            script.src = 'https://a.magsrv.com/ad-provider.js';
+            document.head.appendChild(script);
+
+            // 광고 요소 생성
+            script.onload = function() {
+                const ins = document.createElement('ins');
+                ins.className = 'eas6a97888e6';
+                ins.setAttribute('data-zoneid', '5751960');
+                document.body.insertBefore(ins, document.body.firstChild);
+
+                (window.AdProvider = window.AdProvider || []).push({"serve": {}});
+            };
+        }, 60000); // 60초 = 1분
+    </script>
 </head>
 <body>
-    <!-- ExoClick Instant Message -->
-    <script async type="application/javascript" src="https://a.magsrv.com/ad-provider.js"></script>
-    <ins class="eas6a97888e6" data-zoneid="5751960"></ins>
-    <script>(AdProvider = window.AdProvider || []).push({"serve": {}});</script>
-
-
     <div class="container">
         <!-- Navigation Header -->
         <nav class="top-nav">
