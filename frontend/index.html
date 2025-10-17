@@ -12,14 +12,6 @@
     <!-- Clickadu 소유자 확인 -->
     <meta name="clckd" content="092e7c5785a48ac493ecaea553a55b6b" />
 
-    <!-- Clickadu Client Hints (광고 타겟팅 최적화) -->
-    <meta http-equiv="Delegate-CH" content="Sec-CH-UA https://s.pemsrv.com; Sec-CH-UA-Mobile https://s.pemsrv.com; Sec-CH-UA-Platform https://s.pemsrv.com; Sec-CH-UA-Platform-Version https://s.pemsrv.com; Sec-CH-UA-Model https://s.pemsrv.com">
-
-    <!-- Google AdSense 자동 광고 -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1478922009946363" crossorigin="anonymous"></script>
-    <!-- AMP 자동 광고 스크립트 (AMP 페이지용) -->
-    <script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js"></script>
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="/style.css?v=20251016loader">
 
@@ -28,54 +20,8 @@
     <link rel="shortcut icon" href="/assets/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
     <link rel="manifest" href="/manifest.json" />
-
-    <!-- Adsterra Popunder (8분마다 실행) -->
-    <script type='text/javascript'>
-        (function() {
-            let popunderCount = 0;
-            const maxPopunders = 100; // 최대 실행 횟수 (800분 = 13.3시간)
-
-            function loadPopunder() {
-                if (popunderCount >= maxPopunders) {
-                    console.log('[Ads] Popunder 최대 실행 횟수 도달');
-                    return;
-                }
-
-                popunderCount++;
-                console.log('[Ads] Popunder 광고 로딩 (' + popunderCount + '/' + maxPopunders + ')');
-
-                const script = document.createElement('script');
-                script.type = 'text/javascript';
-                script.src = '//outskirtsgrey.com/a5/b0/d3/a5b0d31831c41ea6968b77517c884ff0.js';
-                document.head.appendChild(script);
-            }
-
-            // 첫 실행: 페이지 로드 후 즉시
-            if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', loadPopunder);
-            } else {
-                loadPopunder();
-            }
-
-            // 이후 실행: 8분(480,000ms)마다
-            setInterval(loadPopunder, 480000);
-        })();
-    </script>
 </head>
 <body>
-    <!-- Clickadu Interstitial (Desktop Fullpage) -->
-    <script async type="application/javascript" src="https://a.pemsrv.com/ad-provider.js"></script>
-    <ins class="eas6a97888e35" data-zoneid="5751944"></ins>
-    <script>(AdProvider = window.AdProvider || []).push({"serve": {}});</script>
-
-    <!-- ExoClick Instant Message -->
-    <script async type="application/javascript" src="https://a.magsrv.com/ad-provider.js"></script>
-    <ins class="eas6a97888e6" data-zoneid="5751960"></ins>
-    <script>(AdProvider = window.AdProvider || []).push({"serve": {}});</script>
-
-    <!-- Google AdSense AMP 자동 광고 -->
-    <amp-auto-ads type="adsense" data-ad-client="ca-pub-1478922009946363"></amp-auto-ads>
-
     <div class="container">
         <!-- Navigation Header -->
         <nav class="top-nav">
