@@ -600,12 +600,6 @@ function initializeApp() {
                 </div>
             </div>
             <div class="file-actions">
-                ${fileObj.status === 'completed' ? `
-                    <button class="download-btn" onclick="downloadConvertedFile(findFileById('${fileObj.id}'))">
-                        <i class="fas fa-download"></i>
-                        <span>Download</span>
-                    </button>
-                ` : ''}
                 <button class="convert-btn ${fileObj.status === 'completed' ? 'reconvert' : ''}" onclick="openConversionModal('${fileObj.id}')" ${fileObj.status === 'converting' || fileObj.status === 'uploading' ? 'disabled' : ''}>
                     <i class="fas fa-magic"></i>
                     <span>Convert</span>
