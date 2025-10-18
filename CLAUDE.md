@@ -11,9 +11,8 @@
 2. **프론트엔드 디자인 변경 금지** - 백엔드만 수정 가능
 3. **기존 파일 구조 유지** - 임의로 파일 삭제/이동 금지
 4. **다운로드 서버비용 최적화 설정** - 이 설정은 절대 변경 불가
-5. **모든 응답과 커밋 메시지는 한글로 작성**
-
----
+5. **에이전트-개발자의 모든 응답과 커밋 메시지는 한글로 작성**
+6. **웹사이트는 영문을 기반하고, 한글은 한글변역페이지에서만 사용**
 
 ## 📌 프로젝트 개요
 
@@ -263,6 +262,25 @@ ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@23.21.183.
    ssh -i hqmx-ec2.pem ubuntu@23.21.183.81 'ls -la /var/www/html/'
    ```
 
+### Dropbox/Google Drive 연동 문제 (2025-01-18 해결)
+
+**문제**: Dropbox 버튼 클릭 시 "앱이 잘못 구성되었습니다" 오류, Google Drive 버튼 비활성화
+
+**원인**:
+1. **Dropbox**: App Key 오타 (`xfuwomiskerr8by` → `xfuwomiskcrr8by`)
+2. **Google Drive**: CSP 헤더에 Google Identity Services 도메인 누락
+
+**해결**:
+1. `frontend/index.html`의 Dropbox App Key 수정
+2. Cache busting 적용 (`dropins.js?v=20251018`)
+3. nginx CSP 헤더에 다음 도메인 추가:
+   ```nginx
+   script-src 'self' 'unsafe-inline' https://accounts.google.com/gsi/client;
+   frame-src 'self' https://accounts.google.com/gsi/;
+   ```
+
+**참고 문서**: `DROPBOX_GOOGLE_DRIVE_FIX.md`
+
 ---
 
 ## 📚 추가 문서
@@ -279,10 +297,49 @@ ssh -i /Users/wonjunjang/Documents/converter.hqmx/hqmx-ec2.pem ubuntu@23.21.183.
 - ✅ **FFmpeg.wasm**: 0.12.x 자체 호스팅, 10MB+ 파일 변환 성공
 - ✅ **SEO**: 289개 개별 변환 페이지 생성 완료
 - ✅ **다국어**: 21개 언어 지원, nginx + 동적 로딩
-- ✅ **광고**: Adsterra 3종 (Banner, Interstitials, Popunder) 활성화
+- ✅ **광고**: Adsterra 3종 (Banner, Interstitials, Popunder) + ExoClick 3종 활성화
 - ✅ **동시 처리**: MAX_CONCURRENCY=4 (t3.medium 무제한 모드)
 
 ---
+
+## 📢 광고 설정 (Advertisement Configuration)
+
+### Adsterra (기존)
+- **Banner**: 페이지 상단
+- **Interstitials**: 페이지 로드 시
+- **Popunder**: 사용자 클릭 시
+
+### ExoClick (신규)
+**⚠️ 중요 규칙**: 모든 ExoClick 광고는 `<body>` 태그 안에 배치해야 함
+
+| Zone ID | 광고 타입 | 표시 타이밍 | 위치 | 도메인 |
+|---------|----------|------------|------|--------|
+| 5752060 | Outstream Video | 페이지 로드 시 | 파일 업로드 영역 위 | s.magsrv.com |
+| 5751944 | Desktop Fullpage Interstitial | 페이지 로드 시 | 전체 화면 | s.pemsrv.com |
+| 5751960 | Instant Message | 5분 후 지연 로드 | 우측 하단 | s.magsrv.com |
+
+**Client Hints Meta Tag** (index.html `<head>` 내):
+```html
+<meta http-equiv="Delegate-CH" content="Sec-CH-UA https://s.pemsrv.com; ...">
+```
+
+**코드 위치**:
+- `frontend/index.html` 라인 40-63: ExoClick 광고 코드 (모두 `<body>` 내)
+- Zone 5752060 (Video): 라인 179-186, 파일 업로드 영역 바로 위
+- Zone 5751944 (Interstitial): 라인 40-43, `<body>` 시작 직후
+- Zone 5751960 (Instant Message): 라인 45-63, `setTimeout(300000)` 5분 지연
+
+**Outstream Video 광고 최적화 설정**:
+- 최대 너비: 1080px (ExoClick 권장 범위: 200-1080px)
+- 반응형: `width: 100%`, `max-width: 1080px`
+- 중앙 정렬: `margin: 0 auto`
+- 하단 여백: 20px (컨텐츠와 간격 확보)
+
+**광고 미표시 원인 (참조: ExoClick Docs)**:
+1. **지리적 타겟팅**: 사용자 지역에 광고 재고 없음
+2. **필터링 과다**: ExoClick 대시보드에서 너무 많은 카테고리 차단
+3. **코드 오류**: 스크립트 로딩 실패 또는 잘못된 Zone ID
+4. **사이트 거부**: ExoClick 승인 대기 또는 정책 위반
 
 ---
 
@@ -373,6 +430,7 @@ node test-server-conversions.js --verbose          # 상세 로그
 
 - [x] 비디오 변환 FFmpeg 진행률 정확도 개선 ✅ (2025-10-17: Timemark 기반 진행률 구현)
 - [x] 서버 사이드 변환 테스트 시스템 구축 ✅ (2025-10-17: test-server-conversions.js)
+- [x] Dropbox/Google Drive 로그인 문제 해결 ✅ (2025-01-18: App Key 수정, CSP 헤더 설정)
 - [ ] DocumentConverter 구현 (PDF ↔ 이미지) - ⚠️ 현재 ImageMagick 사용
 - [ ] LibreOfficeConverter 안정성 테스트 (DOC/XLSX → PDF)
 - [ ] 크로스 카테고리 변환 검증 (비디오 → GIF, GIF → 비디오)
